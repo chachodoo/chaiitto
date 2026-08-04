@@ -451,18 +451,18 @@
     </footer>
 
     <script>
-        // Database of WOW products from image 9
-        const wowProducts = [
-            { num: '41', name: 'ALEMANIA', ingredients: 'Manzana, Jamaica, Escaramujo, Naranja, Flor de aciano.', taza: 95, frasco: 295 },
-            { num: '49', name: 'FRUTOS MÁGICOS', ingredients: 'Grosella, Flor de Granada, Fresa, Frambuesa, Coco, Betabel, Manzana, Espino Amarillo.', taza: 95, frasco: 295 },
-            { num: '53', name: 'CARAMELO PALOMITA', ingredients: 'Palomita de maíz, Manzana, Betabel, Piña, Canela, Papaya, Grosella, Coco, Almendra.', taza: 95, frasco: 295 },
-            { num: '76', name: 'AMOR TURCO', ingredients: 'Manzana, Granada, Canela, Escaramujo, Bayas.', taza: 95, frasco: 295 },
-            { num: '77', name: 'CARIBEÑO', ingredients: 'Mango, Naranja, Baya de saúco, Jamaica, Escaramujo.', taza: 95, frasco: 295 },
-            { num: '78', name: 'YAEL', ingredients: 'Pasas, Jamaica, Escaramujo, Betabel, Manzana, Fresa, Zarzamora, Frambuesa.', taza: 95, frasco: 295 },
-            { num: '79', name: 'CHERRY CACAO', ingredients: 'Cereza, Piña, Frambuesa, Naranja, Limón, Fresa.', taza: 95, frasco: 295 },
-            { num: '83', name: 'SUSPIRO', ingredients: 'Manzana, Jamaica, Mango, Naranja, Escaramujo, Botones de Rosa, Pétalos de Girasol.', taza: 95, frasco: 295 },
-            { num: '87', name: 'BESOS DE FRESA', ingredients: 'Fresa, Escaramujo, Manzana, Jamaica.', taza: 95, frasco: 295 }
-        ];
+        let allProducts = {};
+
+        // Fetch products instantly from JSON file
+        async function fetchProducts() {
+            try {
+                const response = await fetch('products.json?v=' + new Date().getTime());
+                allProducts = await response.json();
+                loadCollection('WOW'); // Default collection
+            } catch (error) {
+                console.error("Error loading products:", error);
+            }
+        }
 
         function switchPage(pageName) {
             document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
@@ -474,7 +474,11 @@
             } else {
                 document.getElementById('productos-page').classList.add('active');
                 event.target.classList.add('active');
-                loadCollection('WOW'); // Default load WOW
+                if (!Object.keys(allProducts).length) {
+                    fetchProducts();
+                } else {
+                    loadCollection('WOW');
+                }
             }
         }
 
@@ -491,8 +495,10 @@
             const container = document.getElementById('products-container');
             container.innerHTML = '';
 
-            if (colName === 'WOW') {
-                wowProducts.forEach(prod => {
+            const list = allProducts[colName] || [];
+
+            if (list.length > 0) {
+                list.forEach(prod => {
                     const card = document.createElement('div');
                     card.className = 'product-card';
                     card.innerHTML = `
@@ -524,8 +530,8 @@
             }
         }
 
-        // Initialize WOW collection grid
-        loadCollection('WOW');
+        // Load initially
+        fetchProducts();
     </script>
 </body>
 </html>
