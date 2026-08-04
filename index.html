@@ -1050,15 +1050,23 @@
 
     <script>
         let allProducts = {};
+        
+        // Official WhatsApp Business Number
+        const whatsappPhoneNumber = "12482708884"; 
 
-        // Fetch products instantly from JSON file
         async function fetchProducts() {
+            const container = document.getElementById('products-container');
             try {
-                const response = await fetch('products.json?v=' + new Date().getTime());
+                const response = await fetch('products.json?v=' + Date.now());
+                if (!response.ok) throw new Error('HTTP status ' + response.status);
+                
                 allProducts = await response.json();
-                loadCollection('WOW'); // Default collection
+                loadCollection('WOW');
             } catch (error) {
                 console.error("Error loading products:", error);
+                if(container) {
+                    container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #E5C158;">Cargando menú... Si no aparece, por favor refresca la página.</div>`;
+                }
             }
         }
 
@@ -1072,11 +1080,7 @@
             } else {
                 document.getElementById('productos-page').classList.add('active');
                 event.target.classList.add('active');
-                if (!Object.keys(allProducts).length) {
-                    fetchProducts();
-                } else {
-                    loadCollection('WOW');
-                }
+                loadCollection('WOW');
             }
         }
 
@@ -1091,16 +1095,26 @@
 
         function loadCollection(colName) {
             const container = document.getElementById('products-container');
+            if (!container) return;
             container.innerHTML = '';
 
             const list = allProducts[colName] || [];
 
             if (list.length > 0) {
                 list.forEach(prod => {
+                    const imageSrc = prod.image || 'logo.png';
+                    
+                    // Direct WhatsApp order link with pre-filled message sent to +12482708884
+                    const waMessage = encodeURIComponent(`Hola Chai-itto, quisiera ordenar el Frasco de ${prod.num}. ${prod.name}`);
+                    const waLink = `https://wa.me/${whatsappPhoneNumber}?text=${waMessage}`;
+
                     const card = document.createElement('div');
                     card.className = 'product-card';
                     card.innerHTML = `
                         <div>
+                            <div class="product-img-box">
+                                <img src="${imageSrc}" alt="${prod.name}">
+                            </div>
                             <h3 class="product-name"><span class="product-number">${prod.num}.</span> ${prod.name}</h3>
                             <p class="product-ingredients">${prod.ingredients}</p>
                         </div>
@@ -1116,7 +1130,7 @@
                                     <span class="badge-frasco">Para Envío</span>
                                 </div>
                             </div>
-                            <a href="https://wa.me/?text=Hola%20Chai-itto,%20quisiera%20ordenar%20el%20Frasco%20de%20${prod.num}.%20${encodeURIComponent(prod.name)}" target="_blank" class="buy-button">
+                            <a href="${waLink}" target="_blank" class="buy-button">
                                 <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar Frasco
                             </a>
                         </div>
@@ -1124,12 +1138,11 @@
                     container.appendChild(card);
                 });
             } else {
-                container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px; color: #A3C4AF; font-size: 1.2em;">Próximamente agregando la colección <strong>${colName}</strong>...</div>`;
+                container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px; color: #A3C4AF; font-size: 1.1em;">Próximamente agregando la colección <strong>${colName}</strong>...</div>`;
             }
         }
 
-        // Load initially
-        fetchProducts();
+        document.addEventListener('DOMContentLoaded', fetchProducts);
     </script>
 </body>
 </html>
