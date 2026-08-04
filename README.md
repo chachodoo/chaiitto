@@ -1,2 +1,2 @@
-# chai-itto
+# Chai-itto
 Cas de Te
