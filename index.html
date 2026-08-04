@@ -43,30 +43,38 @@
             border-bottom: 1px solid rgba(229, 193, 88, 0.25);
         }
         
-       /* --- ANIMATED LOGO ON PAGE LOAD --- */
+               /* --- ANIMATED LOGO ON PAGE LOAD & HOVER --- */        
         .logo-main {
             max-width: 380px;
-            width: 90%;
+            width: 90%;        
             height: auto;
             margin-top: 0;
             filter: drop-shadow(0 12px 20px rgba(0,0,0,0.7));
     
-            /* Triggers a smooth 1-spin rotation when the page loads, then stays put */
+            /* 1. Spin once when the page loads */
             animation: spinOnce 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    
+            /* 2. Enable smooth transition for the hover scaling */
+            transition: transform 0.4s ease-in-out, filter 0.4s ease-in-out;
         }
 
-        /* Keyframe definition for the single rotation */
+        /* Page load spin keyframes */
         @keyframes spinOnce {
-            0% {
-                transform: rotate(0deg) scale(0.8);
-                opacity: 0;
-            }
-            100% {
-                transform: rotate(360deg) scale(1);
-                opacity: 1;
-            }
+        0% {
+            transform: rotate(0deg) scale(0.8);
+            opacity: 0;
+        }
+        100% {
+            transform: rotate(360deg) scale(1);
+            opacity: 1;
+        }
         }
 
+        /* Hover effect: Smooth "in and out" scale sensation */
+        .logo-main:hover {
+            transform: scale(1.08); /* Scales up smoothly */
+            filter: drop-shadow(0 18px 30px rgba(229, 193, 88, 0.35)); /* Golden glow effect */
+        }
        
 
        .slogan-hero {
