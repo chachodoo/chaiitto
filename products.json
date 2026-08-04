@@ -8,7 +8,16 @@
     {"num": "78", "name": "YAEL", "ingredients": "Pasas, Jamaica, Escaramujo, Betabel, Manzana, Fresa, Zarzamora, Frambuesa.", "taza": 95, "frasco": 295},
     {"num": "79", "name": "CHERRY CACAO", "ingredients": "Cereza, Piña, Frambuesa, Naranja, Limón, Fresa.", "taza": 95, "frasco": 295},
     {"num": "83", "name": "SUSPIRO", "ingredients": "Manzana, Jamaica, Mango, Naranja, Escaramujo, Botones de Rosa, Pétalos de Girasol.", "taza": 95, "frasco": 295},
-    {"num": "87", "name": "BESOS DE FRESA", "ingredients": "Fresa, Escaramujo, Manzana, Jamaica.", "taza": 95, "frasco": 295}
+    {"num": "87", "name": "BESOS DE FRESA", "ingredients": "Fresa, Escaramujo, Manzana, Jamaica.", "taza": 95, "frasco": 295},
+    {"num": "91", "name": "MAYRA", "ingredients": "Rooibos, Almendra, Vainilla, Manzana, Canela, Escaramujo, Jamaica.", "taza": 99, "frasco": 295},
+    {"num": "92", "name": "PASIÓN", "ingredients": "Maracuyá, Mango, Escaramujo, Papaya, Manzana, Jamaica.", "taza": 99, "frasco": 295},
+    {"num": "93", "name": "NOSTALGIA", "ingredients": "Coco, Manzana, Arándano, Piña, Chabacano, Cereza, Limón.", "taza": 99, "frasco": 295},
+    {"num": "94", "name": "EXPLOSIÓN", "ingredients": "Cereza, Piña, Frambuesa, Naranja, Limón, Fresa, Aciano.", "taza": 99, "frasco": 295},
+    {"num": "95", "name": "FRIKI", "ingredients": "Fresa, Kiwi, Grosella, Naranja, Jamaica.", "taza": 99, "frasco": 295},
+    {"num": "96", "name": "ISTANBUL", "ingredients": "Botones de rosa, Manzana, Menta, Papaya.", "taza": 99, "frasco": 295},
+    {"num": "97", "name": "WARAKO", "ingredients": "Pitahaya roja, Goji, Aronia, Espino Amarillo, Kiwi, Arándano, Papaya.", "taza": 99, "frasco": 295},
+    {"num": "98", "name": "NAVIDAD", "ingredients": "Moras, Grosellas, Zarzamora, Fresa, Ruibarbo, Baya de saúco, Jamaica, Manzana.", "taza": 99, "frasco": 295},
+    {"num": "99", "name": "BANANA SPLIT", "ingredients": "Plátano, Cereza negra, Piña, Uvas, Jamaica.", "taza": 99, "frasco": 295}
   ],
   "BIENESTAR": [],
   "CHAI LOVER": [],
