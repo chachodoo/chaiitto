@@ -1,2 +1,2 @@
-# myteashop
+# chai-itto
 Cas de Te
