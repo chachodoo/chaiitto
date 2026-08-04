@@ -4,156 +4,190 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chai-itto - Salud con Té</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@1,600;1,800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* --- CORE DESIGN SYSTEM --- */
-        /* Inspired by your menu image 1.png */
         :root {
-            --bg-color: #fdfaf6; /* Very light cream, like your original but cleaner */
-            --header-dark: #123321; /* Rich dark forest green from the logo/menu bg */
-            --yellow-gold: #e2b31e; /* Bright gold for accents/slogan */
-            --light-green-bg: #E8F0E8; /* Lightest green for product boxes */
-            --border-color: #A9BFB1; /* Medium green-gray for subtle lines */
-            --text-dark: #1A3E26;
-            --text-light: #5A7F66;
-            --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --emerald-dark: #0A1E13;
+            --emerald-menu: #122B1C;
+            --gold-accent: #E5C158;
+            --gold-glow: #FFF0A5;
+            --text-gold: #F3E08F;
+            --text-light: #E0EAE3;
+            --font-title: 'Playfair Display', Georgia, serif;
+            --font-heading: 'Cinzel', serif;
+            --font-body: 'Montserrat', sans-serif;
         }
 
         body {
-            font-family: var(--font-family);
-            background-color: var(--bg-color);
-            color: var(--text-dark);
+            font-family: var(--font-body);
+            background-color: var(--emerald-dark);
+            color: var(--text-light);
             margin: 0;
             padding: 0;
-            -webkit-font-smoothing: antialiased;
+            background-image: radial-gradient(circle at 50% 20%, #173B27 0%, var(--emerald-dark) 70%);
+            min-height: 100vh;
         }
 
-        /* --- HEADER & NAVIGATION (Your 'Tabs' request) --- */
+        /* --- HERO & LOGO --- */
         header {
-            background-color: var(--header-dark);
-            color: white;
-            padding: 20px 0;
-            border-bottom: 3px solid var(--yellow-gold);
             text-align: center;
+            padding: 40px 20px 20px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(10,30,19,0) 100%);
+            border-bottom: 1px solid rgba(229, 193, 88, 0.2);
         }
         
         .logo-main {
-            max-width: 150px;
+            max-width: 280px; /* Big & prominent */
+            width: 100%;
             height: auto;
-            display: block;
-            margin: 0 auto 15px;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+            transition: transform 0.3s ease;
         }
 
+        .logo-main:hover {
+            transform: scale(1.03);
+        }
+
+        /* --- NAVIGATION TABS --- */
         nav {
-            margin-top: 10px;
+            margin-top: 25px;
             display: flex;
             justify-content: center;
-            gap: 25px;
+            gap: 35px;
         }
 
         nav a {
-            color: white;
+            font-family: var(--font-heading);
+            color: var(--text-light);
             text-decoration: none;
             font-size: 1.1em;
-            text-transform: uppercase;
-            font-weight: bold;
-            letter-spacing: 1px;
-            padding-bottom: 5px;
-            transition: color 0.3s;
+            font-weight: 700;
+            letter-spacing: 2px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
         nav a:hover, nav a.active {
-            color: var(--yellow-gold);
-            border-bottom: 2px solid var(--yellow-gold);
+            color: var(--gold-accent);
+            text-shadow: 0 0 10px rgba(229, 193, 88, 0.5);
         }
 
-        /* --- PRODUCT GRID SYSTEM (Transforming your Menu) --- */
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 2px;
+            background: var(--gold-accent);
+            box-shadow: 0 0 8px var(--gold-accent);
+        }
+
+        /* --- MAIN CONTENT & COLLECTION --- */
         .main-container {
             max-width: 1200px;
-            margin: 40px auto;
+            margin: 30px auto 60px;
             padding: 0 20px;
         }
 
-        .collection-section {
+        .collection-header {
+            text-align: center;
             margin-bottom: 50px;
         }
 
-        /* The Collection Title: "WOW" from image_1.png */
         .collection-title {
-            text-align: center;
-            color: var(--yellow-gold); /* Gold title, like the menu */
-            font-size: 3em;
-            font-style: italic; /* Match script font style if possible */
-            margin-bottom: 15px;
-            font-weight: 300;
+            font-family: var(--font-title);
+            color: var(--gold-accent);
+            font-size: 4em;
+            font-style: italic;
+            margin: 0;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
         }
         
-        .collection-subtitle {
-            text-align: center;
-            color: var(--text-light);
-            font-size: 1.2em;
-            margin-bottom: 40px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .collection-divider {
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold-accent), transparent);
+            margin: 15px auto;
         }
 
-        /* Grid layout for products */
+        /* --- PRODUCT GRID --- */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 35px;
         }
 
-        /* The Intelligent Product Box (This handles your Taza/Frasco request) */
+        /* --- LUXURY MENU CARD --- */
         .product-card {
-            background-color: white;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
+            background-color: var(--emerald-menu);
+            border: 2px solid #8A6D27;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6), inset 0 0 25px rgba(0,0,0,0.4);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border: 1px solid rgba(229, 193, 88, 0.25);
+            margin: 6px;
+            border-radius: 10px;
+            pointer-events: none;
         }
 
         .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transform: translateY(-7px);
+            border-color: var(--gold-accent);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.8), 0 0 20px rgba(229, 193, 88, 0.2);
         }
 
-        .product-code {
-            color: var(--yellow-gold);
-            font-weight: bold;
-            font-size: 1em;
-            margin-bottom: 5px;
+        .product-header {
+            margin-bottom: 15px;
         }
 
         .product-name {
-            font-size: 1.6em;
+            font-family: var(--font-heading);
+            font-size: 1.5em;
             font-weight: 700;
-            color: var(--header-dark);
+            color: #FFFFFF;
             margin: 0 0 10px 0;
-            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.3;
+        }
+
+        .product-number {
+            color: var(--gold-accent);
+            margin-right: 8px;
         }
 
         .product-ingredients {
-            color: var(--text-light);
-            font-size: 1em;
-            line-height: 1.5;
+            color: #B5C9BC;
+            font-size: 0.95em;
+            line-height: 1.6;
             margin-bottom: 25px;
             font-weight: 300;
         }
 
-        /* Pricing Table within the box */
+        /* --- PRICE COMPARISON TABLE --- */
         .price-section {
             display: flex;
-            justify-content: space-between;
-            background-color: var(--light-green-bg);
-            border-radius: 8px;
-            padding: 15px;
+            background: rgba(0, 0, 0, 0.35);
+            border-radius: 10px;
+            padding: 12px;
             margin-bottom: 20px;
-            border: 1px solid var(--border-color);
+            border: 1px solid rgba(229, 193, 88, 0.3);
         }
 
         .price-option {
@@ -161,81 +195,86 @@
             flex: 1;
         }
 
+        .price-option:first-child {
+            border-right: 1px solid rgba(229, 193, 88, 0.2);
+        }
+
         .price-label {
-            font-size: 0.9em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-dark);
-            margin-bottom: 5px;
+            font-family: var(--font-heading);
+            font-size: 0.8em;
+            letter-spacing: 1.5px;
+            color: #94B39E;
+            margin-bottom: 4px;
         }
 
         .price-value {
-            font-size: 1.5em;
+            font-family: var(--font-heading);
+            font-size: 1.6em;
             font-weight: 700;
-            color: var(--header-dark);
+            color: #FFFFFF;
         }
 
         .price-value.frasco {
-            color: var(--yellow-gold); /* Gold highlight on the buyable option */
+            color: var(--gold-accent);
         }
 
-        /* --- THE PURCHASE BUTTON (WhatsApp Solution) --- */
-        /* This button only refers to purchasing the Frasco/Jar */
+        .badge-frasco {
+            font-size: 0.65em;
+            display: block;
+            color: var(--gold-accent);
+            font-weight: 400;
+            margin-top: 2px;
+        }
+
+        /* --- WHATSAPP ORDER BUTTON --- */
         .buy-button {
-            background-color: #25D366; /* WhatsApp green */
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
             color: white;
             text-decoration: none;
             text-align: center;
-            padding: 15px 20px;
+            padding: 14px;
             border-radius: 30px;
-            font-weight: bold;
-            font-size: 1.1em;
-            display: block;
-            margin-top: auto;
-            transition: background-color 0.3s;
-            cursor: pointer;
-        }
-        
-        .buy-button i {
-            margin-right: 8px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.95em;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s ease;
         }
 
         .buy-button:hover {
-            background-color: #1EB859;
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
         }
 
-        /* Footer and Shipping Policy */
+        /* --- FOOTER --- */
         footer {
-            background-color: var(--header-dark);
-            color: var(--light-green-bg);
+            background-color: #05100A;
             text-align: center;
-            padding: 40px;
-            margin-top: 60px;
-            border-top: 3px solid var(--yellow-gold);
+            padding: 50px 20px;
+            border-top: 2px solid var(--gold-accent);
         }
-        
-        .shipping-policy {
-            max-width: 600px;
-            margin: 0 auto 20px;
+
+        .shipping-box {
+            max-width: 650px;
+            margin: 0 auto 25px;
+            background: rgba(229, 193, 88, 0.05);
+            border: 1px solid rgba(229, 193, 88, 0.3);
+            padding: 20px;
+            border-radius: 12px;
             font-size: 0.9em;
             line-height: 1.6;
-            color: #d1e2d7;
+            color: var(--text-light);
         }
 
-        /* RESPONSIVE DESIGN FOR MOBILE */
         @media (max-width: 768px) {
-            .collection-title {
-                font-size: 2.2em;
-            }
-            
-            nav {
-                flex-wrap: wrap;
-                gap: 15px;
-            }
-            
-            .product-grid {
-                grid-template-columns: 1fr;
-            }
+            .logo-main { max-width: 200px; }
+            .collection-title { font-size: 3em; }
+            nav { gap: 15px; flex-wrap: wrap; }
         }
     </style>
 </head>
@@ -244,37 +283,59 @@
     <header>
         <img src="chaiittologo.png" alt="Logo Chai-itto" class="logo-main">
         <nav>
-            <a href="index.html" class="active">Inicio</a>
-            <a href="#">Productos</a> <!-- We will update this tab functionality later -->
-            <a href="#">Sobre Nosotros</a>
-            <a href="#">Contacto</a>
+            <a href="#" class="active">Inicio</a>
+            <a href="#wow">Productos</a>
+            <a href="#contacto">Contacto</a>
         </nav>
     </header>
 
     <div class="main-container">
-        <!-- THE "WOW" COLLECTION -->
-        <section id="wow" class="collection-section">
-            <h2 class="collection-title">Wow</h2>
-            <p class="collection-subtitle">Infusiones Frutales que te Sorprenden</p>
+        <section id="wow">
+            <div class="collection-header">
+                <h2 class="collection-title">Wow</h2>
+                <div class="collection-divider"></div>
+            </div>
 
             <div class="product-grid">
-                <!-- 
-                  Step 6 will go here.
-                  This is where we insert individual 
-                  Product Codes from image_1.png 
-                -->
+                
+                <!-- PRODUCTO 41: ALEMANIA -->
+                <div class="product-card">
+                    <div class="product-info">
+                        <div class="product-header">
+                            <h3 class="product-name"><span class="product-number">41.</span> ALEMANIA</h3>
+                        </div>
+                        <p class="product-ingredients">Manzana, Jamaica, Escaramujo, Naranja, Flor de aciano.</p>
+                    </div>
+
+                    <div class="action-area">
+                        <div class="price-section">
+                            <div class="price-option">
+                                <span class="price-label">Taza</span>
+                                <div class="price-value">$95</div>
+                            </div>
+                            <div class="price-option">
+                                <span class="price-label">Frasco</span>
+                                <div class="price-value frasco">$295</div>
+                                <span class="badge-frasco">Para Envío</span>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/?text=Hola%20Chai-itto,%20me%20gustaría%20ordenar%20el%20Frasco%20de%2041.%20ALEMANIA" target="_blank" class="buy-button">
+                            <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar Frasco
+                        </a>
+                    </div>
+                </div>
+
             </div>
         </section>
     </div>
 
-    <footer>
-        <h3>Chai-itto</h3>
-        <p class="slogan">Salud con Té</p>
-        <div class="shipping-policy">
-            <!-- This handles your shipping statement request -->
-            <p><strong>Política de Envío:</strong> Solo vendemos y enviamos nuestros <span style="color:var(--yellow-gold)">frascos</span> a través de nuestra web. El envío se realiza una vez confirmado el pago y llega en un periodo de 3 a 5 días hábiles a cualquier parte de México.</p>
+    <footer id="contacto">
+        <div class="shipping-box">
+            <i class="fa-solid fa-truck-fast fa-2x" style="color: var(--gold-accent); margin-bottom: 10px;"></i>
+            <p><strong>Envíos a todo México:</strong> Las tazas de té son para consumo local en nuestra sucursal. Los <strong>frascos</strong> son los únicos disponibles para compra en línea y envío a domicilio. Confirmado tu pago, enviamos tu paquete de 3 a 5 días hábiles.</p>
         </div>
-        <p>&copy; 2023 Chai-itto. Todos los derechos reservados.</p>
+        <p style="color: var(--gold-accent); font-family: var(--font-heading); font-size: 1.1em;">Chai-itto &bull; Salud con Té</p>
+        <p style="font-size: 0.85em; opacity: 0.6;">&copy; 2026 Chai-itto. Todos los derechos reservados.</p>
     </footer>
 
 </body>
