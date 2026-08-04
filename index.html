@@ -533,34 +533,53 @@
         }
 
         function switchPage(pageName) {
+            // Hide all main page sections
             document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+            // Remove active class from header buttons
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
 
             // Highlight the clicked main nav button
-            if(event && event.target) {
-                event.target.classList.add('active');
+            if (event && event.target) {
+                // Handles clicks on icon inside button as well
+                const targetBtn = event.target.closest('.nav-btn');
+                if (targetBtn) targetBtn.classList.add('active');
             }
+
+            const collectionsBar = document.querySelector('.collections-bar');
 
             if (pageName === 'inicio') {
                 document.getElementById('inicio-page').classList.add('active');
             } else if (pageName === 'productos') {
                 document.getElementById('productos-page').classList.add('active');
-                selectCollection('WOW'); // Default tea collection
+                if (collectionsBar) collectionsBar.style.display = 'flex'; // Show tea tabs
+                selectCollection('WOW'); // Default tea collection view
             } else if (pageName === 'novedades') {
                 document.getElementById('productos-page').classList.add('active');
+                if (collectionsBar) collectionsBar.style.display = 'none'; // HIDE tea tabs
                 selectCollection('NOVEDADES');
             } else if (pageName === 'ultimas') {
                 document.getElementById('productos-page').classList.add('active');
+                if (collectionsBar) collectionsBar.style.display = 'none'; // HIDE tea tabs
                 selectCollection('ÚLTIMAS PIEZAS');
             }
         }
 
         function selectCollection(colName) {
+            // Highlight matching tab button inside collections bar if visible
             document.querySelectorAll('.tab-btn').forEach(btn => {
-                if(btn.innerText.trim().includes(colName)) btn.classList.add('active');
-                else btn.classList.remove('active');
+                if (btn.innerText.trim() === colName) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
             });
-            document.getElementById('current-collection-title').innerText = colName;
+
+            // Update page banner title
+            const bannerTitle = document.getElementById('current-collection-title');
+            if (bannerTitle) {
+                bannerTitle.innerText = colName;
+            }
+
             loadCollection(colName);
         }
 
