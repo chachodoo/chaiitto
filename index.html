@@ -438,6 +438,8 @@
         <nav class="main-nav">
             <button class="nav-btn active" onclick="switchPage('inicio')">Inicio</button>
             <button class="nav-btn" onclick="switchPage('productos')">Productos</button>
+            <button class="nav-btn highlight-new" onclick="switchPage('novedades')"><i class="fa-solid fa-sparkles"></i> Novedades</button>
+            <button class="nav-btn highlight-clearance" onclick="switchPage('ultimas')"><i class="fa-solid fa-fire"></i> Últimas Piezas</button>
         </nav>
     </header>
 
@@ -480,30 +482,15 @@
     <div id="productos-page" class="page-section">
         
         <!-- COLLECTIONS BAR WITH SEPARATE FEATURED TOP ROW -->
-        <div class="collections-bar" style="flex-direction: column; align-items: center; gap: 14px;">
-            
-            <!-- ROW 1: SPECIAL FEATURED TABS -->
-            <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
-                <button class="tab-btn highlight-new" onclick="selectCollection('NOVEDADES')">
-                    <i class="fa-solid fa-sparkles"></i> NOVEDADES
-                </button>
-                <button class="tab-btn highlight-clearance" onclick="selectCollection('ÚLTIMAS PIEZAS')">
-                    <i class="fa-solid fa-fire"></i> ÚLTIMAS PIEZAS
-                </button>
-            </div>
-
-            <!-- ROW 2: STANDARD MENU CATEGORIES -->
-            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                <button class="tab-btn" onclick="selectCollection('BIENESTAR')">BIENESTAR</button>
-                <button class="tab-btn" onclick="selectCollection('CHAI LOVER')">CHAI LOVER</button>
-                <button class="tab-btn" onclick="selectCollection('BLUE MAGIC')">BLUE MAGIC</button>
-                <button class="tab-btn" onclick="selectCollection('VIAJES CON TE')">VIAJES CON TÉ</button>
-                <button class="tab-btn" onclick="selectCollection('NOCTURNA')">NOCTURNA</button>
-                <button class="tab-btn" onclick="selectCollection('ESPECIAL')">ESPECIAL</button>
-                <button class="tab-btn active" onclick="selectCollection('WOW')">WOW</button>
-                <button class="tab-btn" onclick="selectCollection('QUIERO MATCHA')">QUIERO MATCHA</button>
-            </div>
-
+        <div class="collections-bar">
+            <button class="tab-btn" onclick="selectCollection('BIENESTAR')">BIENESTAR</button>
+            <button class="tab-btn" onclick="selectCollection('CHAI LOVER')">CHAI LOVER</button>
+            <button class="tab-btn" onclick="selectCollection('BLUE MAGIC')">BLUE MAGIC</button>
+            <button class="tab-btn" onclick="selectCollection('VIAJES CON TE')">VIAJES CON TÉ</button>
+            <button class="tab-btn" onclick="selectCollection('NOCTURNA')">NOCTURNA</button>
+            <button class="tab-btn" onclick="selectCollection('ESPECIAL')">ESPECIAL</button>
+            <button class="tab-btn active" onclick="selectCollection('WOW')">WOW</button>
+            <button class="tab-btn" onclick="selectCollection('QUIERO MATCHA')">QUIERO MATCHA</button>
         </div>
 
         <div class="collection-banner">
