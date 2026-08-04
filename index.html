@@ -43,39 +43,44 @@
             border-bottom: 1px solid rgba(229, 193, 88, 0.25);
         }
         
-               /* --- ANIMATED LOGO ON PAGE LOAD & HOVER --- */        
-        .logo-main {
-            max-width: 380px;
-            width: 90%;        
-            height: auto;
-            margin-top: 0;
-            filter: drop-shadow(0 12px 20px rgba(0,0,0,0.7));
-    
-            /* 1. Spin once when the page loads */
-            animation: spinOnce 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-    
-            /* 2. Enable smooth transition for the hover scaling */
-            transition: transform 0.4s ease-in-out, filter 0.4s ease-in-out;
-        }
+/* Container handles the entrance spin animation */
+.logo-wrapper {
+    display: inline-block;
+    animation: spinOnce 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
 
-        /* Page load spin keyframes */
-        @keyframes spinOnce {
-        0% {
-            transform: rotate(0deg) scale(0.8);
-            opacity: 0;
-        }
-        100% {
-            transform: rotate(360deg) scale(1);
-            opacity: 1;
-        }
-        }
+/* Image handles the hover scale and prominent glow */
+.logo-main {
+    max-width: 380px;
+    width: 90%;
+    height: auto;
+    margin-top: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    filter: drop-shadow(0 12px 20px rgba(0,0,0,0.7));
+    transition: transform 0.4s ease-in-out, filter 0.4s ease-in-out;
+    cursor: pointer;
+}
 
-        /* Hover effect: Stronger enlargement & prominent golden glow */
-        .logo-main:hover {
-            transform: scale(1.15); /* Significantly larger hover pop */
-            filter: drop-shadow(0 0 25px rgba(229, 193, 88, 0.8)) 
-                    drop-shadow(0 0 45px rgba(229, 193, 88, 0.4)); /* Deep multi-layer glow */
-        }
+/* Hover effect: Smooth enlargement and intense golden glow */
+.logo-main:hover {
+    transform: scale(1.18); /* Noticeably bigger! */
+    filter: drop-shadow(0 0 25px rgba(229, 193, 88, 0.95)) 
+            drop-shadow(0 0 50px rgba(229, 193, 88, 0.6));
+}
+
+/* Page load spin keyframes */
+@keyframes spinOnce {
+    0% {
+        transform: rotate(0deg) scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+        opacity: 1;
+    }
+}
        
 
        .slogan-hero {
@@ -390,9 +395,10 @@
     </style>
 </head>
 <body>
-
     <header>
-        <img src="chaiittologo.png" alt="Logo Chai-itto" class="logo-main">
+        <div class="logo-wrapper">
+            <img src="chaiittologo.png" alt="Logo Chai-itto" class="logo-main">
+        </div>
         <!-- Slogan in bold gold right under logo -->
         <div class="slogan-hero">Salud con Té</div>
         <div class="location-badge">San Pedro Cholula, Puebla &bull; Desde 2021</div>
