@@ -35,35 +35,49 @@
             min-height: 100vh;
         }
 
-        /* --- HEADER & HERO BRANDING --- */
+       /* --- HEADER & HERO BRANDING --- */
         header {
             text-align: center;
-            padding: 40px 20px 25px;
+            padding: 15px 20px 20px; /* Reduced top padding to move logo higher */
             background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(7,21,12,0) 100%);
             border-bottom: 1px solid rgba(229, 193, 88, 0.25);
         }
         
+       /* --- ANIMATED LOGO ON PAGE LOAD --- */
         .logo-main {
-            max-width: 360px; /* Bigger logo */
+            max-width: 380px;
             width: 90%;
             height: auto;
+            margin-top: 0;
             filter: drop-shadow(0 12px 20px rgba(0,0,0,0.7));
-            transition: transform 0.4s ease;
+    
+            /* Triggers a smooth 1-spin rotation when the page loads, then stays put */
+            animation: spinOnce 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
-        .logo-main:hover {
-            transform: scale(1.03);
+        /* Keyframe definition for the single rotation */
+        @keyframes spinOnce {
+            0% {
+                transform: rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: rotate(360deg) scale(1);
+                opacity: 1;
+            }
         }
 
-        .slogan-hero {
+       
+
+       .slogan-hero {
             font-family: var(--font-title);
             color: var(--gold-accent);
-            font-size: 2.2em;
+            font-size: 3.2em; /* Made significantly larger */
             font-weight: 900;
             font-style: italic;
             letter-spacing: 2px;
-            margin: 15px 0 5px;
-            text-shadow: 0 0 15px rgba(229, 193, 88, 0.4);
+            margin: 5px 0 5px; /* Sits tightly right under the logo */
+            text-shadow: 0 0 20px rgba(229, 193, 88, 0.5);
         }
 
         .location-badge {
