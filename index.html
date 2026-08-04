@@ -35,6 +35,575 @@
             min-height: 100vh;
         }
 
+        /* --- HEADER & HERO BRANDING --- */
+        header {
+            text-align: center;
+            padding: 15px 20px 20px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(7,21,12,0) 100%);
+            border-bottom: 1px solid rgba(229, 193, 88, 0.25);
+        }
+        
+        .logo-wrapper {
+            display: inline-block;
+            animation: spinOnce 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .logo-main {
+            max-width: 380px;
+            width: 90%;
+            height: auto;
+            margin-top: 0;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            filter: drop-shadow(0 12px 20px rgba(0,0,0,0.7));
+            transition: transform 0.4s ease-in-out, filter 0.4s ease-in-out;
+            cursor: pointer;
+        }
+
+        .logo-main:hover {
+            transform: scale(1.18);
+            filter: drop-shadow(0 0 25px rgba(229, 193, 88, 0.95)) 
+                    drop-shadow(0 0 50px rgba(229, 193, 88, 0.6));
+        }
+
+        @keyframes spinOnce {
+            0% { transform: rotate(0deg) scale(0.8); opacity: 0; }
+            100% { transform: rotate(360deg) scale(1); opacity: 1; }
+        }
+
+        .slogan-hero {
+            font-family: var(--font-title);
+            color: var(--gold-accent);
+            font-size: 3.2em;
+            font-weight: 900;
+            font-style: italic;
+            letter-spacing: 2px;
+            margin: 5px 0 5px;
+            text-shadow: 0 0 20px rgba(229, 193, 88, 0.5);
+        }
+
+        .location-badge {
+            font-family: var(--font-heading);
+            font-size: 0.85em;
+            letter-spacing: 3px;
+            color: #93B59D;
+            text-transform: uppercase;
+        }
+
+        /* --- MAIN NAVIGATION --- */
+        nav.main-nav {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            font-family: var(--font-heading);
+            color: var(--text-light);
+            font-size: 1.1em;
+            font-weight: 700;
+            letter-spacing: 2px;
+            padding: 8px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            color: var(--gold-accent);
+            border-bottom: 2px solid var(--gold-accent);
+            text-shadow: 0 0 10px rgba(229, 193, 88, 0.5);
+        }
+
+        /* --- SECTIONS CONTENT SWITCHER --- */
+        .page-section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 15px 70px;
+        }
+
+        .page-section.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* --- HOME PAGE / NUESTRA HISTORIA --- */
+        .story-card {
+            background: rgba(16, 38, 25, 0.7);
+            border: 2px solid rgba(229, 193, 88, 0.3);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+            margin-top: 20px;
+        }
+
+        .story-title {
+            font-family: var(--font-title);
+            font-size: 3.2em;
+            color: var(--gold-accent);
+            text-align: center;
+            margin-top: 0;
+            font-style: italic;
+        }
+
+        .story-subtitle {
+            text-align: center;
+            font-family: var(--font-heading);
+            color: #A3C4AF;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            font-size: 1em;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .story-text {
+            font-size: 1.05em;
+            line-height: 1.8;
+            color: #D3E0D7;
+            font-weight: 300;
+        }
+
+        .story-text p { margin-bottom: 18px; }
+
+        .story-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .stat-box {
+            background: var(--emerald-light);
+            border: 1px solid var(--gold-accent);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: var(--font-title);
+            font-size: 2.5em;
+            color: var(--gold-accent);
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.8em;
+            font-family: var(--font-heading);
+            letter-spacing: 1px;
+            color: #A3C4AF;
+            margin-top: 5px;
+        }
+
+        /* --- PRODUCTS PAGE & COLLECTIONS TABS --- */
+        .collections-bar {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 35px;
+        }
+
+        .tab-btn {
+            background: rgba(16, 38, 25, 0.8);
+            border: 1px solid rgba(229, 193, 88, 0.3);
+            color: var(--text-light);
+            font-family: var(--font-heading);
+            font-size: 0.8em;
+            letter-spacing: 1px;
+            padding: 10px 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background: var(--gold-accent);
+            color: var(--emerald-dark);
+            border-color: var(--gold-accent);
+            font-weight: 700;
+            box-shadow: 0 0 12px rgba(229, 193, 88, 0.4);
+        }
+
+        .collection-banner {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .collection-name {
+            font-family: var(--font-title);
+            font-size: 3.2em;
+            color: var(--gold-accent);
+            font-style: italic;
+            margin: 0;
+        }
+
+        /* --- 4-COLUMN COMPACT PRODUCT GRID --- */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 per row on desktop */
+            gap: 20px;
+        }
+
+        /* --- COMPACT PRODUCT CARD WITH IMAGE PLACEHOLDER --- */
+        .product-card {
+            background-color: var(--emerald-card);
+            border: 1.5px solid #7F6322;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-accent);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.8), 0 0 15px rgba(229, 193, 88, 0.25);
+        }
+
+        /* Image Placeholder Box */
+        .product-img-box {
+            width: 100%;
+            height: 140px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(229, 193, 88, 0.2);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 8px;
+        }
+
+        .product-img-box img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            opacity: 0.85;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .product-card:hover .product-img-box img {
+            transform: scale(1.08);
+            opacity: 1;
+        }
+
+        .product-name {
+            font-family: var(--font-heading);
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin: 0 0 8px 0;
+            letter-spacing: 0.5px;
+            line-height: 1.3;
+        }
+
+        .product-number { color: var(--gold-accent); margin-right: 4px; }
+
+        .product-ingredients {
+            color: #B5C9BC;
+            font-size: 0.85em;
+            line-height: 1.5;
+            margin-bottom: 18px;
+            font-weight: 300;
+            min-height: 50px; /* Aligns pricing boxes across cards */
+        }
+
+        .price-section {
+            display: flex;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            padding: 8px 10px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(229, 193, 88, 0.3);
+        }
+
+        .price-option { text-align: center; flex: 1; }
+        .price-option:first-child { border-right: 1px solid rgba(229, 193, 88, 0.2); }
+
+        .price-label {
+            font-family: var(--font-heading);
+            font-size: 0.7em;
+            letter-spacing: 1px;
+            color: #8EB299;
+        }
+
+        .price-value {
+            font-family: var(--font-heading);
+            font-size: 1.25em;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-top: 2px;
+        }
+
+        .price-value.frasco { color: var(--gold-accent); }
+
+        .badge-frasco {
+            font-size: 0.6em;
+            display: block;
+            color: var(--gold-accent);
+        }
+
+        .buy-button {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            padding: 10px;
+            border-radius: 20px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.8em;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .buy-button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.5);
+        }
+
+        /* --- RESPONSIVE GRIDS FOR SMALLER SCREENS --- */
+        @media (max-width: 1200px) {
+            .product-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 850px) {
+            .product-grid { grid-template-columns: repeat(2, 1fr); }
+            .story-grid { grid-template-columns: 1fr; }
+            .logo-main { max-width: 260px; }
+            .slogan-hero { font-size: 2.2em; }
+        }
+
+        @media (max-width: 550px) {
+            .product-grid { grid-template-columns: 1fr; }
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #030A05;
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 2px solid var(--gold-accent);
+        }
+
+        .shipping-box {
+            max-width: 650px;
+            margin: 0 auto 20px;
+            background: rgba(229, 193, 88, 0.05);
+            border: 1px solid rgba(229, 193, 88, 0.3);
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-wrapper">
+            <img src="logo.png" alt="Logo Chai-itto" class="logo-main">
+        </div>
+        <div class="slogan-hero">Salud con Té</div>
+        <div class="location-badge">San Pedro Cholula, Puebla &bull; Desde 2021</div>
+
+        <nav class="main-nav">
+            <button class="nav-btn active" onclick="switchPage('inicio')">Inicio</button>
+            <button class="nav-btn" onclick="switchPage('productos')">Productos</button>
+        </nav>
+    </header>
+
+    <!-- SECTION 1: HOME PAGE / OUR STORY -->
+    <div id="inicio-page" class="page-section active">
+        <div class="story-card">
+            <h1 class="story-title">Nuestra Historia</h1>
+            <div class="story-subtitle">Cinco Años Compartiendo la Cultura del Té</div>
+            
+            <div class="story-grid">
+                <div class="story-text">
+                    <p>En el corazón histórico de <strong>San Pedro Cholula, Puebla</strong>, nació en <strong>2021</strong> una visión: reconectar a México con el bienestar ancestral a través de cada taza.</p>
+                    <p>Durante los últimos <strong>5 años</strong>, nos hemos dedicado apasionadamente a servir a clientes de toda la República Mexicana. Creemos que la salud y el deleite van de la mano; de ahí nuestra promesa eterna: <strong style="color: var(--gold-accent);">"Salud con Té"</strong>.</p>
+                    <p>Cada una de nuestras mezclas es una obra de arte diseñada para nutrir tu cuerpo, serenar tu mente y despertar tus sentidos.</p>
+                </div>
+
+                <div class="story-stats">
+                    <div class="stat-box">
+                        <div class="stat-number">120+</div>
+                        <div class="stat-label">Mezclas de Té y Tisanas</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Años de Tradición (2021-2026)</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">Nacional</div>
+                        <div class="stat-label">e Internacional</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">Cholula</div>
+                        <div class="stat-label">Puebla, México</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 2: PRODUCTS PAGE WITH COLLECTIONS TABS -->
+    <div id="productos-page" class="page-section">
+        
+        <div class="collections-bar">
+            <button class="tab-btn" onclick="selectCollection('BIENESTAR')">BIENESTAR</button>
+            <button class="tab-btn" onclick="selectCollection('CHAI LOVER')">CHAI LOVER</button>
+            <button class="tab-btn" onclick="selectCollection('BLUE MAGIC')">BLUE MAGIC</button>
+            <button class="tab-btn" onclick="selectCollection('VIAJES CON TE')">VIAJES CON TÉ</button>
+            <button class="tab-btn" onclick="selectCollection('NOCTURNA')">NOCTURNA</button>
+            <button class="tab-btn" onclick="selectCollection('ESPECIAL')">ESPECIAL</button>
+            <button class="tab-btn active" onclick="selectCollection('WOW')">WOW</button>
+            <button class="tab-btn" onclick="selectCollection('QUIERO MATCHA')">QUIERO MATCHA</button>
+        </div>
+
+        <div class="collection-banner">
+            <h2 id="current-collection-title" class="collection-name">WOW</h2>
+        </div>
+
+        <div id="products-container" class="product-grid">
+            <!-- Products dynamic display -->
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="shipping-box">
+            <i class="fa-solid fa-truck-fast fa-2x" style="color: var(--gold-accent); margin-bottom: 8px;"></i>
+            <p><strong>Política de Envíos Chai-itto:</strong> Las degustaciones en <em>taza</em> son exclusivas para nuestra sucursal física en Cholula. Para envíos a todo México, comercializamos nuestros <strong>frascos sellados</strong>. Tu pedido se envía inmediatamente tras confirmar tu pago y llega de 3 a 5 días hábiles.</p>
+        </div>
+        <p style="color: var(--gold-accent); font-family: var(--font-heading); font-size: 1.05em; margin-bottom: 5px;">Chai-itto &bull; Salud con Té</p>
+        <p style="font-size: 0.8em; opacity: 0.6;">&copy; 2026 Chai-itto. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        let allProducts = {};
+        
+        // Enter your official 10-digit WhatsApp phone number here (e.g. '5212221234567')
+        const whatsappPhoneNumber = ""; 
+
+        async function fetchProducts() {
+            const container = document.getElementById('products-container');
+            try {
+                const response = await fetch('products.json?v=' + Date.now());
+                if (!response.ok) throw new Error('HTTP status ' + response.status);
+                
+                allProducts = await response.json();
+                loadCollection('WOW');
+            } catch (error) {
+                console.error("Error loading products:", error);
+                if(container) {
+                    container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #E5C158;">Cargando menú... Si no aparece, por favor refresca la página.</div>`;
+                }
+            }
+        }
+
+        function switchPage(pageName) {
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+            if(pageName === 'inicio') {
+                document.getElementById('inicio-page').classList.add('active');
+                event.target.classList.add('active');
+            } else {
+                document.getElementById('productos-page').classList.add('active');
+                event.target.classList.add('active');
+                loadCollection('WOW');
+            }
+        }
+
+        function selectCollection(colName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                if(btn.innerText.trim() === colName) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+            document.getElementById('current-collection-title').innerText = colName;
+            loadCollection(colName);
+        }
+
+        function loadCollection(colName) {
+            const container = document.getElementById('products-container');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const list = allProducts[colName] || [];
+
+            if (list.length > 0) {
+                list.forEach(prod => {
+                    // Use product image if defined in JSON, else fallback to placeholder logo.png
+                    const imageSrc = prod.image || 'logo.png';
+                    
+                    // Direct working WhatsApp order link
+                    const waMessage = encodeURIComponent(`Hola Chai-itto, quisiera ordenar el Frasco de ${prod.num}. ${prod.name}`);
+                    const waLink = whatsappPhoneNumber 
+                        ? `https://wa.me/${whatsappPhoneNumber}?text=${waMessage}`
+                        : `https://api.whatsapp.com/send?text=${waMessage}`;
+
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+                    card.innerHTML = `
+                        <div>
+                            <div class="product-img-box">
+                                <img src="${imageSrc}" alt="${prod.name}">
+                            </div>
+                            <h3 class="product-name"><span class="product-number">${prod.num}.</span> ${prod.name}</h3>
+                            <p class="product-ingredients">${prod.ingredients}</p>
+                        </div>
+                        <div>
+                            <div class="price-section">
+                                <div class="price-option">
+                                    <span class="price-label">Taza</span>
+                                    <div class="price-value">$${prod.taza}</div>
+                                </div>
+                                <div class="price-option">
+                                    <span class="price-label">Frasco</span>
+                                    <div class="price-value frasco">$${prod.frasco}</div>
+                                    <span class="badge-frasco">Para Envío</span>
+                                </div>
+                            </div>
+                            <a href="${waLink}" target="_blank" class="buy-button">
+                                <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar Frasco
+                            </a>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            } else {
+                container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px; color: #A3C4AF; font-size: 1.1em;">Próximamente agregando la colección <strong>${colName}</strong>...</div>`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchProducts);
+    </script>
+</body>
+</html>
        /* --- HEADER & HERO BRANDING --- */
         header {
             text-align: center;
