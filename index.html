@@ -183,14 +183,20 @@
 
         .story-text {
             font-size: clamp(0.9em, 2.5vw, 1.05em);
-            line-height: 1.7;
+            line-height: 1.75;
             color: #D3E0D7;
             font-weight: 300;
             word-break: break-word;
+            padding: 0 15px; /* Equal left & right margins inside the card */
+            text-align: left; /* Clean, balanced readability on mobile */
         }
 
-        .story-text p { margin-bottom: 16px; }
-
+        .story-text p { 
+            margin-bottom: 16px; 
+            margin-left: 0;
+            margin-right: 0;
+        }
+        
         .story-stats {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
