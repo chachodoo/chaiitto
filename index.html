@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chai-itto | Salud con Té</title>
-    <!-- UPDATED GOOGLE FONTS IMPORT (Includes complete Latin/Spanish character set & weights) -->
+    <!-- GOOGLE FONTS IMPORT -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800&family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,700;1,900&display=swap" rel="stylesheet">
@@ -52,7 +52,6 @@
             max-width: 100%;
         }
 
-        /* LOGO & GLOW EXPAND TOGETHER FIX */
         .logo-main {
             width: clamp(220px, 80vw, 380px);
             height: auto;
@@ -70,7 +69,6 @@
             100% { transform: rotate(360deg) scale(1); opacity: 1; }
         }
 
-        /* Enforces image enlargement AND glow expansion simultaneously */
         .logo-wrapper:hover .logo-main, 
         .logo-main:hover, 
         .logo-main:active {
@@ -286,7 +284,7 @@
             box-shadow: 0 0 18px rgba(255, 255, 255, 0.9), 0 0 30px rgba(229, 193, 88, 0.6);
         }
 
-       /* --- UNIFIED LUXURY COLLECTION TITLE BANNER --- */
+        /* --- UNIFIED LUXURY COLLECTION TITLE BANNER --- */
         .collection-banner {
             text-align: center;
             margin-bottom: 25px;
@@ -306,6 +304,7 @@
             display: inline-block !important;
             line-height: 1.2 !important;
         }
+
         /* --- ADAPTIVE PRODUCT GRID --- */
         .product-grid {
             display: grid;
@@ -596,7 +595,29 @@
 
     </div>
 
-    <!-- SECTION 3: GALERÍA PAGE -->
+    <!-- SECTION 3: MENÚ SUCURSAL PAGE -->
+    <div id="menu-page" class="page-section">
+        <div class="story-card">
+            <h1 class="story-title"><i class="fa-solid fa-book-open"></i> Menú Sucursal Cholula</h1>
+            <div class="story-subtitle">Explora nuestra carta completa de tés, café orgánico, bebidas y repostería artesanal</div>
+
+            <!-- Interactive Menu Viewer -->
+            <div class="menu-viewer-container" style="background: rgba(0,0,0,0.3); border: 1px solid var(--gold-accent); border-radius: 12px; padding: 15px; text-align: center;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; color: var(--gold-accent); font-weight: bold;">
+                    <button onclick="changeMenuPage(-1)" class="nav-btn" style="padding: 6px 14px; border: 1px solid var(--gold-accent); border-radius: 20px;"><i class="fa-solid fa-chevron-left"></i> Anterior</button>
+                    <span id="menu-page-indicator" style="font-family: var(--font-heading); font-size: 1.1em;">Página 1 de 13</span>
+                    <button onclick="changeMenuPage(1)" class="nav-btn" style="padding: 6px 14px; border: 1px solid var(--gold-accent); border-radius: 20px;">Siguiente <i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+
+                <!-- Main Image Display -->
+                <div style="min-height: 400px; display: flex; align-items: center; justify-content: center; background: #111; border-radius: 8px; overflow: hidden; border: 1px solid rgba(229, 193, 88, 0.2);">
+                    <img id="menu-current-image" src="menu/page-1.png" alt="Página del Menú Chai-Itto" style="max-width: 100%; height: auto; border-radius: 4px;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 4: GALERÍA PAGE -->
     <div id="galeria-page" class="page-section">
         <div class="story-card">
             <h1 class="story-title"><i class="fa-solid fa-photo-film"></i> Nuestra Galería</h1>
@@ -611,7 +632,7 @@
         </div>
     </div>
 
-    <!-- SECTION 4: CONTÁCTANOS & GOOGLE MAPS PAGE -->
+    <!-- SECTION 5: CONTÁCTANOS & GOOGLE MAPS PAGE -->
     <div id="contactanos-page" class="page-section">
         <div class="story-card">
             <h1 class="story-title"><i class="fa-solid fa-location-dot"></i> Visítanos en Cholula</h1>
@@ -672,7 +693,7 @@
                         "Espectacular✨ Jamás había probado tal calidad de infusiones, la variedad es impresionante. Qué maravilla tener esta propuesta gastronómica aquí en Cholula."
                     </div>
 
-                    <!-- Direct Link to your official Google Maps Profile -->
+                    <!-- Direct Link to official Google Maps Profile -->
                     <a href="https://www.google.com/maps/place/CHAI-ITTO+T%C3%89,+CAF%C3%89,+POSTRES+ORGANIC/data=!4m2!3m1!1s0x85cfc7525aac3db7:0x5d6d23e1c43a6b59?sa=X&ved=1t:242&hl=es-419&ictx=111" target="_blank" rel="noopener noreferrer" class="google-btn">
                         <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver todas las opiniones en Google Maps
                     </a>
@@ -680,8 +701,6 @@
             </div>
         </div>
     </div>
-
-    
 
     <footer>
         <div class="shipping-box">
@@ -716,8 +735,8 @@
             document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
 
-            if (event && event.target) {
-                const targetBtn = event.target.closest('.nav-btn');
+            if (window.event && window.event.target) {
+                const targetBtn = window.event.target.closest('.nav-btn');
                 if (targetBtn) targetBtn.classList.add('active');
             }
 
@@ -729,6 +748,8 @@
                 document.getElementById('productos-page').classList.add('active');
                 if (collectionsBar) collectionsBar.style.display = 'flex';
                 selectCollection('BIENESTAR');
+            } else if (pageName === 'menu') {
+                document.getElementById('menu-page').classList.add('active');
             } else if (pageName === 'novedades') {
                 document.getElementById('productos-page').classList.add('active');
                 if (collectionsBar) collectionsBar.style.display = 'none';
@@ -742,6 +763,8 @@
             } else if (pageName === 'contactanos') {
                 document.getElementById('contactanos-page').classList.add('active');
             }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function normalizeStr(str) {
@@ -821,18 +844,15 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', fetchProducts);
-
         // Interactive Menu Viewer Script
-        let currentMenuPage = 1;
-        const totalMenuPages = 13; // Set to your exact 13 pages
-        
+        let currentMenuPage = 1;        
+        const totalMenuPages = 13; 
+
         function updateMenuDisplay() {
             const imgElement = document.getElementById('menu-current-image');
             const indicatorElement = document.getElementById('menu-page-indicator');
     
             if (imgElement && indicatorElement) {
-                // Pointing directly to menu/page-X.png
                 imgElement.src = `menu/page-${currentMenuPage}.png`;
                 indicatorElement.textContent = `Página ${currentMenuPage} de ${totalMenuPages}`;
             }
@@ -842,23 +862,10 @@
             currentMenuPage += direction;
             if (currentMenuPage < 1) currentMenuPage = totalMenuPages;
             if (currentMenuPage > totalMenuPages) currentMenuPage = 1;
-                updateMenuDisplay();
+            updateMenuDisplay();
         }
 
-        // Ensure switchPage toggles the menu section cleanly
-        const originalSwitchPage = switchPage;
-        switchPage = function(pageId) {
-            document.querySelectorAll('.page-section').forEach(sec => sec.style.display = 'none');
-    
-            const target = document.getElementById(pageId + '-page');
-            if (target) {
-                target.style.display = 'block';
-            } else if (typeof originalSwitchPage === 'function') {
-                originalSwitchPage(pageId);
-            }
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
-        
+        document.addEventListener('DOMContentLoaded', fetchProducts);
     </script>
 </body>
 </html>
