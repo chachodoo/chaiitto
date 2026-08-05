@@ -785,7 +785,7 @@
         </div>
     </div>
 
-    <!-- SECTION 4: GALERÍA PAGE -->
+   <!-- SECTION 4: GALERÍA PAGE -->
     <div id="galeria-page" class="page-section">
         <div class="story-card">
             <h1 class="story-title"><i class="fa-solid fa-photo-film"></i> Experiencia Chai-itto</h1>
@@ -795,14 +795,14 @@
                 Descubre cómo se vive la cultura del té en nuestra sucursal. Explora las vivencias de nuestros visitantes y conecta con nuestra comunidad.
             </p>
 
-            <!-- INFINITE SCROLLING CUSTOMER PHOTO RIBBON -->
+            <!-- INFINITE SCROLLING CUSTOMER MEDIA RIBBON -->
             <div style="background: rgba(0,0,0,0.2); border-radius: 16px; padding: 15px; margin-bottom: 35px; text-align: center;">
                 <h3 style="color: var(--gold-accent); font-family: var(--font-title); margin-top: 0; font-size: 1.4em;">
                     <i class="fa-solid fa-camera-retro" style="color: var(--gold-accent); margin-right: 8px;"></i> Galería de Clientes Chai-itto
                 </h3>
-                <p style="color: #A3C4AF; font-size: 0.85em; margin-bottom: 10px;">Haz clic sobre cualquier imagen para pausar o reanudar</p>
+                <p style="color: #A3C4AF; font-size: 0.85em; margin-bottom: 10px;">Pasa el cursor o mantén presionado para pausar la galería</p>
 
-                <div class="ribbon-wrapper" id="ribbon-interactive-wrapper" onclick="toggleRibbonPause()">
+                <div class="ribbon-wrapper">
                     <div class="ribbon-track" id="dynamic-ribbon-track"></div>
                 </div>
 
@@ -1099,23 +1099,41 @@ async function loadGalleryRibbon() {
             const item = document.createElement('div');
             item.className = 'ribbon-item';
             
-            const img = document.createElement('img');
-            img.src = src;
-            img.alt = "Cliente Chai-itto";
-            img.style.width = "100%";
-            img.style.height = "100%";
-            img.style.objectFit = "cover";
-            img.style.borderRadius = "8px";
-            
-            img.onerror = function() {
-                item.style.display = 'none';
-            };
+            const isVideo = src.toLowerCase().endsWith('.mp4') || 
+                            src.toLowerCase().endsWith('.mov') || 
+                            src.toLowerCase().endsWith('.webm');
 
-            item.appendChild(img);
+            if (isVideo) {
+                const video = document.createElement('video');
+                video.src = src;
+                video.autoplay = true;
+                video.loop = true;
+                video.muted = true;
+                video.playsInline = true;
+                video.style.width = "100%";
+                video.style.height = "100%";
+                video.style.objectFit = "cover";
+                video.style.borderRadius = "8px";
+                
+                video.onerror = function() { item.style.display = 'none'; };
+                item.appendChild(video);
+            } else {
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = "Cliente Chai-itto";
+                img.style.width = "100%";
+                img.style.height = "100%";
+                img.style.objectFit = "cover";
+                img.style.borderRadius = "8px";
+                
+                img.onerror = function() { item.style.display = 'none'; };
+                item.appendChild(img);
+            }
+
             return item;
         };
 
-        // Render set 3 times for a completely full, seamless continuous ribbon loop
+        // Repeat items enough times to fill the continuous marquee loop
         files.forEach(src => track.appendChild(createItem(src)));
         files.forEach(src => track.appendChild(createItem(src)));
         files.forEach(src => track.appendChild(createItem(src)));
@@ -1124,7 +1142,6 @@ async function loadGalleryRibbon() {
         console.error("Error loading gallery ribbon media:", error);
     }
 }
-
 document.addEventListener('DOMContentLoaded', loadGalleryRibbon);
         
     </script>
