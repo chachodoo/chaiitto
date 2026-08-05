@@ -1144,21 +1144,20 @@ async function loadGalleryRibbon() {
 }
 document.addEventListener('DOMContentLoaded', loadGalleryRibbon);
         // Automatically switch tabs based on URL hash (e.g. #menu-page)
-// Automatically load tab matching URL hash (e.g. chaiitto.com/#menu-page)
 function handleHashNavigation() {
-    const hash = window.location.hash; // Extracts "#menu-page"
+    const hash = window.location.hash;
     if (!hash) return;
 
-    const pageId = hash.replace('#', ''); // "menu-page"
+    const pageId = hash.replace('#', '');
     
-    // 1. Check if you have an active switchPage function or nav button click
+    // 1. Find the navigation button that links to this page
     const navBtn = document.querySelector(`[onclick*="${pageId}"]`);
     
     if (navBtn) {
-        // Simulates clicking your actual navbar button (preserves all styling/active states)
+        // Trigger the click to run your site's standard tab logic & highlighting
         navBtn.click();
     } else {
-        // Fallback: If no nav button exists, toggle page-section active classes
+        // Fallback: manually activate page section
         document.querySelectorAll('.page-section').forEach(section => {
             section.classList.remove('active');
             section.style.display = 'none';
@@ -1170,15 +1169,16 @@ function handleHashNavigation() {
             targetSection.style.display = 'block';
         }
     }
+
+    // 2. Clear the hash from the browser URL without reloading the page
+    // This stops the URL from being locked on #menu-page so other tabs work freely!
+    history.replaceState(null, null, window.location.pathname + window.location.search);
 }
 
 // Run on page load
 document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(handleHashNavigation, 100); // 100ms delay ensures full DOM ready
+    setTimeout(handleHashNavigation, 150);
 });
-
-// Run when clicking hash links on page
-window.addEventListener('hashchange', handleHashNavigation);
         
     </script>
 </body>
