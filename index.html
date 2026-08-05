@@ -202,15 +202,17 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
             width: 100%;
+            padding: 0 5px; /* Keeps distance from parent card edges */
         }
 
         .stat-box {
             background: var(--emerald-light);
-            border: 1px solid var(--gold-accent);
-            border-radius: 12px;
-            padding: 15px 8px;
+            border: 1.5px solid var(--gold-accent);
+            border-radius: 14px;
+            padding: 16px 10px;
             text-align: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            width: 100%;
         }
 
         .stat-number {
@@ -221,15 +223,27 @@
         }
 
         .stat-label {
-            font-size: clamp(0.68em, 2vw, 0.8em);
+            font-size: clamp(0.7em, 2.2vw, 0.8em);
             font-family: var(--font-heading);
             letter-spacing: 1px;
             color: #A3C4AF;
             margin-top: 5px;
         }
 
+        /* Mobile Adjustments for Story Grid & Stat Boxes */
         @media (max-width: 850px) {
-            .story-grid { grid-template-columns: 1fr; gap: 20px; }
+            .story-grid { 
+                grid-template-columns: 1fr; 
+                gap: 25px; 
+            }
+        }
+
+        @media (max-width: 480px) {
+            .story-stats { 
+                grid-template-columns: 1fr; /* Stacks stat boxes neatly on small mobile screens */
+                gap: 10px;
+                padding: 0;
+            }
         }
 
         /* --- UNIFIED COLLECTION TABS STYLING (MATCHING BIENESTAR BANNER) --- */
