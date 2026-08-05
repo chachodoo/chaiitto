@@ -1143,6 +1143,34 @@ async function loadGalleryRibbon() {
     }
 }
 document.addEventListener('DOMContentLoaded', loadGalleryRibbon);
+        // Automatically switch tabs based on URL hash (e.g. #menu-page)
+function handleHashNavigation() {
+    const hash = window.location.hash; // Gets "#menu-page" from URL
+    if (hash) {
+        const targetPage = hash.replace('#', ''); // Removes "#" -> "menu-page"
+        
+        // Find navigation button or page container for target tab
+        const pageElement = document.getElementById(targetPage);
+        if (pageElement) {
+            // Hide all page sections
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Display requested section
+            pageElement.style.display = 'block';
+            
+            // Scroll smoothly to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+}
+
+// Run on initial page load
+document.addEventListener('DOMContentLoaded', handleHashNavigation);
+
+// Run if hash changes while already on the site
+window.addEventListener('hashchange', handleHashNavigation);
         
     </script>
 </body>
