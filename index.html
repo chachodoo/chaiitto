@@ -44,10 +44,10 @@
             border-bottom: 1px solid rgba(229, 193, 88, 0.25);
         }
         
+        /* --- LOGO PERMANENT GLOW & ROTATION --- */
         .logo-wrapper {
             display: inline-block;
             max-width: 100%;
-            animation: spinOnce 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
         .logo-main {
@@ -55,20 +55,32 @@
             height: auto;
             display: block;
             margin: 0 auto;
-            filter: drop-shadow(0 12px 20px rgba(0,0,0,0.7));
-            transition: transform 0.4s ease-in-out, filter 0.4s ease-in-out;
+            /* Starts spinning and lands on a persistent golden glow */
+            animation: spinOnce 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             cursor: pointer;
-        }
-
-        .logo-main:hover {
-            transform: scale(1.08);
-            filter: drop-shadow(0 0 25px rgba(229, 193, 88, 0.95)) 
-                    drop-shadow(0 0 50px rgba(229, 193, 88, 0.6));
+            transition: transform 0.4s ease-in-out, filter 0.4s ease-in-out;
         }
 
         @keyframes spinOnce {
-            0% { transform: rotate(0deg) scale(0.8); opacity: 0; }
-            100% { transform: rotate(360deg) scale(1); opacity: 1; }
+            0% { 
+                transform: rotate(0deg) scale(0.8); 
+                opacity: 0;
+                filter: drop-shadow(0 0 0px rgba(229, 193, 88, 0));
+            }
+            100% { 
+                transform: rotate(360deg) scale(1); 
+                opacity: 1;
+                /* PERSISTENT GOLD GLOW AFTER SPIN */
+                filter: drop-shadow(0 0 15px rgba(229, 193, 88, 0.75)) 
+                        drop-shadow(0 0 30px rgba(229, 193, 88, 0.4));
+            }
+        }
+
+        /* Hover effect expands the glow */
+        .logo-main:hover {
+            transform: scale(1.08);
+            filter: drop-shadow(0 0 25px rgba(229, 193, 88, 0.95)) 
+                    drop-shadow(0 0 50px rgba(229, 193, 88, 0.7));
         }
 
         .slogan-hero {
@@ -286,23 +298,26 @@
             box-shadow: 0 0 18px rgba(255, 255, 255, 0.9), 0 0 30px rgba(229, 193, 88, 0.6);
         }
 
+        /* --- LOCKED COLLECTION TITLE BANNER --- */
         .collection-banner {
             text-align: center;
             margin-bottom: 25px;
             width: 100%;
         }
 
-        /* Forces Playfair Display italic gold styling on EVERY collection title */
-        .collection-name {
-            font-family: var(--font-title) !important; /* 'Playfair Display', Georgia, serif */
-            font-size: clamp(2.2em, 5.5vw, 3.5em);
-            color: var(--gold-accent);
-            font-style: italic;
-            font-weight: 700;
-            margin: 0;
-            text-shadow: 0 0 20px rgba(229, 193, 88, 0.45);
-            letter-spacing: 1px;
-            display: inline-block;
+        /* Enforces exact Playfair Display italic gold styling on EVERY tab switch */
+        #current-collection-title {
+            font-family: 'Playfair Display', Georgia, serif !important;
+            font-size: clamp(2.2em, 5.5vw, 3.5em) !important;
+            color: #E5C158 !important; /* Gold accent */
+            font-style: italic !important;
+            font-weight: 700 !important;
+            margin: 0 !important;
+            text-shadow: 0 0 20px rgba(229, 193, 88, 0.5) !important;
+            letter-spacing: 1px !important;
+            text-transform: uppercase !important;
+            display: inline-block !important;
+            line-height: 1.2 !important;
         }
 
         /* --- ADAPTIVE PRODUCT GRID --- */
