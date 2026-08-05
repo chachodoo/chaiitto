@@ -435,6 +435,86 @@
             font-size: 0.8em;
             line-height: 1.5;
         }
+
+        /* --- CONTACT & GALLERY SECTION STYLES --- */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .contact-card {
+            background: rgba(16, 38, 25, 0.85);
+            border: 1.5px solid rgba(229, 193, 88, 0.4);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+        }
+
+        .map-iframe {
+            width: 100%;
+            height: 280px;
+            border: 1px solid var(--gold-accent);
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+
+        .google-btn {
+            background: linear-gradient(135deg, #4285F4 0%, #34A853 100%);
+            color: #FFFFFF;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.9em;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .google-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .review-quote {
+            background: var(--emerald-light);
+            border-left: 3px solid var(--gold-accent);
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            font-size: 0.88em;
+            line-height: 1.5;
+            color: #D3E0D7;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid var(--gold-accent);
+            margin-top: 15px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        @media (max-width: 850px) {
+            .contact-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -447,11 +527,13 @@
         <div class="location-badge">San Pedro Cholula, Puebla &bull; Desde 2021</div>
 
         <nav class="main-nav">
-            <button class="nav-btn active" onclick="switchPage('inicio')">Inicio</button>
-            <button class="nav-btn" onclick="switchPage('productos')">Productos</button>
+            <button class="nav-btn active" onclick="switchPage('inicio')"><i class="fa-solid fa-house"></i> Inicio</button>
+            <button class="nav-btn" onclick="switchPage('productos')"><i class="fa-solid fa-mug-hot"></i> Productos</button>
             <button class="nav-btn highlight-new" onclick="switchPage('novedades')"><i class="fa-solid fa-sparkles"></i> Novedades</button>
             <button class="nav-btn highlight-clearance" onclick="switchPage('ultimas')"><i class="fa-solid fa-fire"></i> Últimas Piezas</button>
-        </nav>
+            <button class="nav-btn" onclick="switchPage('galeria')"><i class="fa-solid fa-photo-film"></i> Galería</button>
+            <button class="nav-btn" onclick="switchPage('contactanos')"><i class="fa-solid fa-location-dot"></i> Contáctanos</button>
+        </nav>>
     </header>
 
     <!-- SECTION 1: HOME PAGE / OUR STORY -->
@@ -513,6 +595,64 @@
 
     </div>
 
+    <!-- SECTION 3: GALERÍA PAGE -->
+    <div id="galeria-page" class="page-section">
+        <div class="story-card">
+            <h1 class="story-title"><i class="fa-solid fa-photo-film"></i> Nuestra Galería</h1>
+            <div class="story-subtitle">Vive la Experiencia Chai-itto</div>
+            
+            <p style="text-align: center; color: #D3E0D7;">Conoce nuestras catas, preparaciones artesanales y momentos especiales en Cholula.</p>
+            
+            <div class="video-container">
+                <!-- YouTube Video Embed -->
+                <iframe src="https://www.youtube.com/embed?listType=playlist&list=PLrAIk0N" title="Chai-itto Videos" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 4: CONTÁCTANOS & GOOGLE MAPS PAGE -->
+    <div id="contactanos-page" class="page-section">
+        <div class="story-card">
+            <h1 class="story-title"><i class="fa-solid fa-location-dot"></i> Visítanos en Cholula</h1>
+            <div class="story-subtitle">San Pedro Cholula, Puebla &bull; Google Maps & Reseñas</div>
+
+            <div class="contact-grid">
+                <!-- Left Box: Address, Map & Hours -->
+                <div class="contact-card">
+                    <h3 style="color: var(--gold-accent); font-family: var(--font-title); margin-top: 0; font-size: 1.5em;"><i class="fa-solid fa-store"></i> Sucursal Cholula</h3>
+                    <p style="font-size: 0.9em; line-height: 1.6; color: #D3E0D7;">
+                        <strong>Dirección:</strong> San Pedro Cholula, Puebla, México.<br>
+                        <strong>Atención Comercial:</strong> Degustaciones en taza en sucursal y envíos de frascos sellados a todo México.
+                    </p>
+                    
+                    <!-- Embed Google Map -->
+                    <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.932822002131!2d-98.308722!3d19.062325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfc70000000001%3A0x0!2sSan%20Pedro%20Cholula!5e0!3m2!1ses!2smx!4v1700000000000" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+
+                <!-- Right Box: Reviews & Direct Google Button -->
+                <div class="contact-card" style="text-align: center;">
+                    <h3 style="color: var(--gold-accent); font-family: var(--font-title); margin-top: 0; font-size: 1.5em;"><i class="fa-solid fa-star" style="color: #FFD700;"></i> Reseñas de Clientes</h3>
+                    <div style="font-size: 1.3em; color: #FFD700; margin-bottom: 15px;">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        <span style="color: var(--text-light); font-size: 0.8em; margin-left: 8px;">5.0 / 5.0 en Google</span>
+                    </div>
+
+                    <div class="review-quote">
+                        "Excelente calidad de tés y la atención en Cholula es inmejorable. El Chai Lover en frasco llegó intacto a mi domicilio."
+                    </div>
+                    <div class="review-quote">
+                        "Las tisanas de la colección Bienestar son maravillosas. 100% recomendado para pedir desde cualquier parte de México."
+                    </div>
+
+                    <!-- Direct Link to your Google Maps review page -->
+                    <a href="https://www.google.com/search?q=CHAI-ITTO+T%C3%89,+CAF%C3%89,+POSTRES+ORGANIC&stick=H4sIAAAAAAAA_-NgU1I1qLAwTU5LNjc1Mk1MTDZOSTK3MqgwTTFLMTJONUw2MU40SzK1XMSq6uzh6KnrGRLirxByuFNHwdnRDUQF-AeHBLkGK_gHuTv6eToDAK_mtilRAAAA&hl=es-419&mat=CVDN99HC2NPEElYBa0lj_-Q8rAK7eDpUesKqi06XnX3_StcojKkCCtf_JtrD4uQCD0JJF5m55XwXOXx8sL9SfY1h0wQclOG0en0_EOaWnKX_tKhTl3I8Nb3DR18Wi0p57A&authuser=0#mpd=~14182917982777757008/customers/reviews?p%3DCg51cGRhdGV0aW1lZGVzYxIDYWxs" target="_blank" rel="noopener noreferrer" class="google-btn">
+                        <i class="fa-brands fa-google fa-lg"></i> Déjanos tu Reseña en Google
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="shipping-box">
             <i class="fa-solid fa-truck-fast fa-2x" style="color: var(--gold-accent); margin-bottom: 8px;"></i>
@@ -567,6 +707,10 @@
                 document.getElementById('productos-page').classList.add('active');
                 if (collectionsBar) collectionsBar.style.display = 'none';
                 selectCollection('ÚLTIMAS PIEZAS');
+            } else if (pageName === 'galeria') {
+                document.getElementById('galeria-page').classList.add('active');
+            } else if (pageName === 'contactanos') {
+                document.getElementById('contactanos-page').classList.add('active');
             }
         }
 
