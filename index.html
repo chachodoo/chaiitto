@@ -933,15 +933,18 @@
         }
 
         function switchPage(pageName) {
+            // Hide all page sections
             document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+            // Reset active state on all navbar buttons
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
 
-            if (window.event && window.event.target) {
-                const targetBtn = window.event.target.closest('.nav-btn');
-                if (targetBtn) targetBtn.classList.add('active');
-            }
-
             const collectionsBar = document.querySelector('.collections-bar');
+
+            // Find matching nav button and activate it
+            const matchingBtn = document.querySelector(`.nav-btn[onclick*="'${pageName}'"]`);
+            if (matchingBtn) {
+                matchingBtn.classList.add('active');
+            }
 
             if (pageName === 'inicio') {
                 document.getElementById('inicio-page').classList.add('active');
@@ -966,6 +969,22 @@
             }
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function handleHashNavigation() {
+            const hash = window.location.hash;
+            if (!hash) return;
+
+            const pageId = hash.replace('#', '');
+            
+            // Map URL hashes to switchPage names (e.g. #menu-page or #menu -> 'menu')
+            let pageName = pageId.replace('-page', '');
+
+            // Call switchPage directly
+            switchPage(pageName);
+
+            // Cleanly remove hash from URL so clicking other tabs works without issue
+            history.replaceState(null, null, window.location.pathname + window.location.search);
         }
 
         function normalizeStr(str) {
@@ -1066,120 +1085,87 @@
             updateMenuDisplay();
         }
 
-        document.addEventListener('DOMContentLoaded', fetchProducts);
-
         let isRibbonPaused = false;
 
-function toggleRibbonPause() {
-    const track = document.getElementById('dynamic-ribbon-track');
-    if (!track) return;
-    
-    isRibbonPaused = !isRibbonPaused;
-    if (isRibbonPaused) {
-        track.classList.add('paused');
-    } else {
-        track.classList.remove('paused');
-    }
-}
-
-async function loadGalleryRibbon() {
-    const track = document.getElementById('dynamic-ribbon-track');
-    if (!track) return;
-
-    try {
-        const response = await fetch('galeria.json?v=' + Date.now());
-        if (!response.ok) throw new Error('Could not load galeria.json');
-
-        const files = await response.json();
-        if (!files || files.length === 0) return;
-
-        track.innerHTML = '';
-
-        const createItem = (src) => {
-            const item = document.createElement('div');
-            item.className = 'ribbon-item';
+        function toggleRibbonPause() {
+            const track = document.getElementById('dynamic-ribbon-track');
+            if (!track) return;
             
-            const isVideo = src.toLowerCase().endsWith('.mp4') || 
-                            src.toLowerCase().endsWith('.mov') || 
-                            src.toLowerCase().endsWith('.webm');
-
-            if (isVideo) {
-                const video = document.createElement('video');
-                video.src = src;
-                video.autoplay = true;
-                video.loop = true;
-                video.muted = true;
-                video.playsInline = true;
-                video.style.width = "100%";
-                video.style.height = "100%";
-                video.style.objectFit = "cover";
-                video.style.borderRadius = "8px";
-                
-                video.onerror = function() { item.style.display = 'none'; };
-                item.appendChild(video);
+            isRibbonPaused = !isRibbonPaused;
+            if (isRibbonPaused) {
+                track.classList.add('paused');
             } else {
-                const img = document.createElement('img');
-                img.src = src;
-                img.alt = "Cliente Chai-itto";
-                img.style.width = "100%";
-                img.style.height = "100%";
-                img.style.objectFit = "cover";
-                img.style.borderRadius = "8px";
-                
-                img.onerror = function() { item.style.display = 'none'; };
-                item.appendChild(img);
+                track.classList.remove('paused');
             }
+        }
 
-            return item;
-        };
+        async function loadGalleryRibbon() {
+            const track = document.getElementById('dynamic-ribbon-track');
+            if (!track) return;
 
-        // Repeat items enough times to fill the continuous marquee loop
-        files.forEach(src => track.appendChild(createItem(src)));
-        files.forEach(src => track.appendChild(createItem(src)));
-        files.forEach(src => track.appendChild(createItem(src)));
+            try {
+                const response = await fetch('galeria.json?v=' + Date.now());
+                if (!response.ok) throw new Error('Could not load galeria.json');
 
-    } catch (error) {
-        console.error("Error loading gallery ribbon media:", error);
-    }
-}
-document.addEventListener('DOMContentLoaded', loadGalleryRibbon);
-        // Automatically switch tabs based on URL hash (e.g. #menu-page)
-function handleHashNavigation() {
-    const hash = window.location.hash;
-    if (!hash) return;
+                const files = await response.json();
+                if (!files || files.length === 0) return;
 
-    const pageId = hash.replace('#', '');
-    
-    // 1. Find the navigation button that links to this page
-    const navBtn = document.querySelector(`[onclick*="${pageId}"]`);
-    
-    if (navBtn) {
-        // Trigger the click to run your site's standard tab logic & highlighting
-        navBtn.click();
-    } else {
-        // Fallback: manually activate page section
-        document.querySelectorAll('.page-section').forEach(section => {
-            section.classList.remove('active');
-            section.style.display = 'none';
+                track.innerHTML = '';
+
+                const createItem = (src) => {
+                    const item = document.createElement('div');
+                    item.className = 'ribbon-item';
+                    
+                    const isVideo = src.toLowerCase().endsWith('.mp4') || 
+                                    src.toLowerCase().endsWith('.mov') || 
+                                    src.toLowerCase().endsWith('.webm');
+
+                    if (isVideo) {
+                        const video = document.createElement('video');
+                        video.src = src;
+                        video.autoplay = true;
+                        video.loop = true;
+                        video.muted = true;
+                        video.playsInline = true;
+                        video.style.width = "100%";
+                        video.style.height = "100%";
+                        video.style.objectFit = "cover";
+                        video.style.borderRadius = "8px";
+                        
+                        video.onerror = function() { item.style.display = 'none'; };
+                        item.appendChild(video);
+                    } else {
+                        const img = document.createElement('img');
+                        img.src = src;
+                        img.alt = "Cliente Chai-itto";
+                        img.style.width = "100%";
+                        img.style.height = "100%";
+                        img.style.objectFit = "cover";
+                        img.style.borderRadius = "8px";
+                        
+                        img.onerror = function() { item.style.display = 'none'; };
+                        item.appendChild(img);
+                    }
+
+                    return item;
+                };
+
+                files.forEach(src => track.appendChild(createItem(src)));
+                files.forEach(src => track.appendChild(createItem(src)));
+                files.forEach(src => track.appendChild(createItem(src)));
+
+            } catch (error) {
+                console.error("Error loading gallery ribbon media:", error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchProducts();
+            loadGalleryRibbon();
+            handleHashNavigation();
         });
 
-        const targetSection = document.getElementById(pageId);
-        if (targetSection) {
-            targetSection.classList.add('active');
-            targetSection.style.display = 'block';
-        }
-    }
-
-    // 2. Clear the hash from the browser URL without reloading the page
-    // This stops the URL from being locked on #menu-page so other tabs work freely!
-    history.replaceState(null, null, window.location.pathname + window.location.search);
-}
-
-// Run on page load
-document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(handleHashNavigation, 150);
-});
-        
+        window.addEventListener('hashchange', handleHashNavigation);
     </script>
 </body>
 </html>
