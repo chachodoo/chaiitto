@@ -824,16 +824,16 @@
         document.addEventListener('DOMContentLoaded', fetchProducts);
 
         // Interactive Menu Viewer Script
-        let currentMenuPage = 1;        
-        const totalMenuPages = 16; // Adjust if total pages change (e.g. 13 to 16)
-
+        let currentMenuPage = 1;
+        const totalMenuPages = 13; // Set to your exact 13 pages
+        
         function updateMenuDisplay() {
             const imgElement = document.getElementById('menu-current-image');
             const indicatorElement = document.getElementById('menu-page-indicator');
     
             if (imgElement && indicatorElement) {
-                // Path format: images/menu/page-1.jpg, page-2.jpg, etc.
-                imgElement.src = `images/menu/page-${currentMenuPage}.jpg`;
+                // Pointing directly to menu/page-X.png
+                imgElement.src = `menu/page-${currentMenuPage}.png`;
                 indicatorElement.textContent = `Página ${currentMenuPage} de ${totalMenuPages}`;
             }
         }
@@ -842,13 +842,12 @@
             currentMenuPage += direction;
             if (currentMenuPage < 1) currentMenuPage = totalMenuPages;
             if (currentMenuPage > totalMenuPages) currentMenuPage = 1;
-            updateMenuDisplay();
+                updateMenuDisplay();
         }
 
-        // Make sure switchPage function handles 'menu' tab properly
+        // Ensure switchPage toggles the menu section cleanly
         const originalSwitchPage = switchPage;
         switchPage = function(pageId) {
-            // Hide all sections including menu
             document.querySelectorAll('.page-section').forEach(sec => sec.style.display = 'none');
     
             const target = document.getElementById(pageId + '-page');
