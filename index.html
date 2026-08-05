@@ -1144,32 +1144,40 @@ async function loadGalleryRibbon() {
 }
 document.addEventListener('DOMContentLoaded', loadGalleryRibbon);
         // Automatically switch tabs based on URL hash (e.g. #menu-page)
+// Automatically load tab matching URL hash (e.g. chaiitto.com/#menu-page)
 function handleHashNavigation() {
-    const hash = window.location.hash; // Gets "#menu-page" from URL
-    if (hash) {
-        const targetPage = hash.replace('#', ''); // Removes "#" -> "menu-page"
-        
-        // Find navigation button or page container for target tab
-        const pageElement = document.getElementById(targetPage);
-        if (pageElement) {
-            // Hide all page sections
-            document.querySelectorAll('.page-section').forEach(section => {
-                section.style.display = 'none';
-            });
-            
-            // Display requested section
-            pageElement.style.display = 'block';
-            
-            // Scroll smoothly to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+    const hash = window.location.hash; // Extracts "#menu-page"
+    if (!hash) return;
+
+    const pageId = hash.replace('#', ''); // "menu-page"
+    
+    // 1. Check if you have an active switchPage function or nav button click
+    const navBtn = document.querySelector(`[onclick*="${pageId}"]`);
+    
+    if (navBtn) {
+        // Simulates clicking your actual navbar button (preserves all styling/active states)
+        navBtn.click();
+    } else {
+        // Fallback: If no nav button exists, toggle page-section active classes
+        document.querySelectorAll('.page-section').forEach(section => {
+            section.classList.remove('active');
+            section.style.display = 'none';
+        });
+
+        const targetSection = document.getElementById(pageId);
+        if (targetSection) {
+            targetSection.classList.add('active');
+            targetSection.style.display = 'block';
         }
     }
 }
 
-// Run on initial page load
-document.addEventListener('DOMContentLoaded', handleHashNavigation);
+// Run on page load
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(handleHashNavigation, 100); // 100ms delay ensures full DOM ready
+});
 
-// Run if hash changes while already on the site
+// Run when clicking hash links on page
 window.addEventListener('hashchange', handleHashNavigation);
         
     </script>
