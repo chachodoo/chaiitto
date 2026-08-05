@@ -44,43 +44,38 @@
             border-bottom: 1px solid rgba(229, 193, 88, 0.25);
         }
         
-        /* --- LOGO PERMANENT GLOW & ROTATION --- */
         .logo-wrapper {
             display: inline-block;
             max-width: 100%;
+            perspective: 1000px;
         }
 
+        /* HIGH-INTENSITY PERMANENT GLOW LOGO */
         .logo-main {
-            width: clamp(200px, 80vw, 380px);
+            width: clamp(220px, 80vw, 380px);
             height: auto;
             display: block;
             margin: 0 auto;
-            /* Starts spinning and lands on a persistent golden glow */
-            animation: spinOnce 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             cursor: pointer;
-            transition: transform 0.4s ease-in-out, filter 0.4s ease-in-out;
+            /* INTENSE DUAL GOLD DROP-SHADOW GLOW */
+            filter: drop-shadow(0 0 20px rgba(229, 193, 88, 0.95)) 
+                    drop-shadow(0 0 40px rgba(229, 193, 88, 0.6))
+                    drop-shadow(0 8px 15px rgba(0, 0, 0, 0.9));
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.4s ease;
+            animation: spinOnce 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
         @keyframes spinOnce {
-            0% { 
-                transform: rotate(0deg) scale(0.8); 
-                opacity: 0;
-                filter: drop-shadow(0 0 0px rgba(229, 193, 88, 0));
-            }
-            100% { 
-                transform: rotate(360deg) scale(1); 
-                opacity: 1;
-                /* PERSISTENT GOLD GLOW AFTER SPIN */
-                filter: drop-shadow(0 0 15px rgba(229, 193, 88, 0.75)) 
-                        drop-shadow(0 0 30px rgba(229, 193, 88, 0.4));
-            }
+            0% { transform: rotate(0deg) scale(0.8); opacity: 0; }
+            100% { transform: rotate(360deg) scale(1); opacity: 1; }
         }
 
-        /* Hover effect expands the glow */
-        .logo-main:hover {
-            transform: scale(1.08);
-            filter: drop-shadow(0 0 25px rgba(229, 193, 88, 0.95)) 
-                    drop-shadow(0 0 50px rgba(229, 193, 88, 0.7));
+        /* HOVER / TOUCH GLOW ENLARGEMENT */
+        .logo-main:hover, .logo-main:active {
+            transform: scale(1.12);
+            filter: drop-shadow(0 0 35px rgba(255, 241, 170, 1)) 
+                    drop-shadow(0 0 65px rgba(229, 193, 88, 0.95))
+                    drop-shadow(0 0 90px rgba(229, 193, 88, 0.5));
         }
 
         .slogan-hero {
@@ -116,7 +111,7 @@
         .nav-btn {
             background: transparent;
             border: none;
-            font-family: var(--font-title); /* Unified Playfair Display font */
+            font-family: var(--font-title);
             font-style: italic;
             color: var(--gold-accent);
             font-size: clamp(1.1em, 3.5vw, 1.3em);
@@ -199,8 +194,8 @@
             color: #D3E0D7;
             font-weight: 300;
             word-break: break-word;
-            padding: 0 15px; /* Equal left & right margins inside the card */
-            text-align: left; /* Clean, balanced readability on mobile */
+            padding: 0 10px;
+            text-align: left;
         }
 
         .story-text p { 
@@ -208,13 +203,13 @@
             margin-left: 0;
             margin-right: 0;
         }
-        
+
         .story-stats {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
             width: 100%;
-            padding: 0 5px; /* Keeps distance from parent card edges */
+            padding: 0 5px;
         }
 
         .stat-box {
@@ -242,23 +237,15 @@
             margin-top: 5px;
         }
 
-        /* Mobile Adjustments for Story Grid & Stat Boxes */
         @media (max-width: 850px) {
-            .story-grid { 
-                grid-template-columns: 1fr; 
-                gap: 25px; 
-            }
+            .story-grid { grid-template-columns: 1fr; gap: 20px; }
         }
 
         @media (max-width: 480px) {
-            .story-stats { 
-                grid-template-columns: 1fr; /* Stacks stat boxes neatly on small mobile screens */
-                gap: 10px;
-                padding: 0;
-            }
+            .story-stats { grid-template-columns: 1fr; gap: 10px; padding: 0; }
         }
 
-        /* --- UNIFIED COLLECTION TABS STYLING (MATCHING BIENESTAR BANNER) --- */
+        /* --- UNIFIED COLLECTION TABS --- */
         .collections-bar {
             display: flex;
             justify-content: center;
@@ -271,8 +258,8 @@
         .tab-btn {
             background: rgba(16, 38, 25, 0.85);
             border: 1.5px solid rgba(229, 193, 88, 0.5);
-            color: var(--gold-accent); /* Golden text matching title banners */
-            font-family: var(--font-title); /* Serif Playfair Display font */
+            color: var(--gold-accent);
+            font-family: var(--font-title);
             font-style: italic;
             font-size: clamp(0.95em, 3vw, 1.15em);
             font-weight: 700;
@@ -289,7 +276,6 @@
             border-color: #FFFFFF;
         }
 
-        /* Active Selected Collection Tab: Glowing White Fill */
         .tab-btn.active {
             background: #FFFFFF;
             color: var(--emerald-dark);
@@ -298,19 +284,17 @@
             box-shadow: 0 0 18px rgba(255, 255, 255, 0.9), 0 0 30px rgba(229, 193, 88, 0.6);
         }
 
-        /* --- LOCKED COLLECTION TITLE BANNER --- */
-        /* --- LOCKED COLLECTION TITLE BANNER --- */
+        /* --- UNIFIED COLLECTION TITLE BANNER --- */
         .collection-banner {
             text-align: center;
             margin-bottom: 25px;
             width: 100%;
         }
 
-        /* Enforces exact Playfair Display italic gold styling on EVERY tab switch */
-        #current-collection-title {
+        .collection-name-title {
             font-family: 'Playfair Display', Georgia, serif !important;
             font-size: clamp(2.2em, 5.5vw, 3.5em) !important;
-            color: #E5C158 !important; /* Gold accent */
+            color: #E5C158 !important;
             font-style: italic !important;
             font-weight: 700 !important;
             margin: 0 !important;
@@ -519,7 +503,7 @@
         </div>
 
         <div class="collection-banner">
-            <h2 id="current-collection-title" class="collection-name">BIENESTAR</h2>
+            <h2 id="current-collection-title" class="collection-name-title">BIENESTAR</h2>
         </div>
 
         <div id="products-container" class="product-grid">
@@ -585,7 +569,6 @@
             }
         }
 
-        // Accent-insensitive and whitespace-clean comparison helper
         function normalizeStr(str) {
             return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toUpperCase();
         }
@@ -601,9 +584,9 @@
                 }
             });
 
-            // Banner Title Update
             const bannerTitle = document.getElementById('current-collection-title');
             if (bannerTitle) {
+                // Strictly updates text while inheriting the locked CSS class
                 bannerTitle.innerText = colName;
             }
 
@@ -615,7 +598,6 @@
             if (!container) return;
             container.innerHTML = '';
 
-            // Match keys safely ignoring accent differences
             let list = allProducts[colName];
             if (!list) {
                 const targetNorm = normalizeStr(colName);
