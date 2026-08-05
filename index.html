@@ -529,6 +529,7 @@
         <nav class="main-nav">
             <button class="nav-btn active" onclick="switchPage('inicio')"><i class="fa-solid fa-house"></i> Inicio</button>
             <button class="nav-btn" onclick="switchPage('productos')"><i class="fa-solid fa-mug-hot"></i> Productos</button>
+            <button class="nav-btn" onclick="switchPage('menu')"><i class="fa-solid fa-book-open"></i> Menú</button>
             <button class="nav-btn highlight-new" onclick="switchPage('novedades')"><i class="fa-solid fa-wand-magic-sparkles"></i> Novedades</button>
             <button class="nav-btn highlight-clearance" onclick="switchPage('ultimas')"><i class="fa-solid fa-fire"></i> Ofertas</button>
             <button class="nav-btn" onclick="switchPage('galeria')"><i class="fa-solid fa-photo-film"></i> Galería</button>
@@ -680,6 +681,8 @@
         </div>
     </div>
 
+    
+
     <footer>
         <div class="shipping-box">
             <i class="fa-solid fa-truck-fast fa-2x" style="color: var(--gold-accent); margin-bottom: 8px;"></i>
@@ -819,6 +822,44 @@
         }
 
         document.addEventListener('DOMContentLoaded', fetchProducts);
+
+        // Interactive Menu Viewer Script
+        let currentMenuPage = 1;        
+        const totalMenuPages = 16; // Adjust if total pages change (e.g. 13 to 16)
+
+        function updateMenuDisplay() {
+            const imgElement = document.getElementById('menu-current-image');
+            const indicatorElement = document.getElementById('menu-page-indicator');
+    
+            if (imgElement && indicatorElement) {
+                // Path format: images/menu/page-1.jpg, page-2.jpg, etc.
+                imgElement.src = `images/menu/page-${currentMenuPage}.jpg`;
+                indicatorElement.textContent = `Página ${currentMenuPage} de ${totalMenuPages}`;
+            }
+        }
+
+        function changeMenuPage(direction) {
+            currentMenuPage += direction;
+            if (currentMenuPage < 1) currentMenuPage = totalMenuPages;
+            if (currentMenuPage > totalMenuPages) currentMenuPage = 1;
+            updateMenuDisplay();
+        }
+
+        // Make sure switchPage function handles 'menu' tab properly
+        const originalSwitchPage = switchPage;
+        switchPage = function(pageId) {
+            // Hide all sections including menu
+            document.querySelectorAll('.page-section').forEach(sec => sec.style.display = 'none');
+    
+            const target = document.getElementById(pageId + '-page');
+            if (target) {
+                target.style.display = 'block';
+            } else if (typeof originalSwitchPage === 'function') {
+                originalSwitchPage(pageId);
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+        
     </script>
 </body>
 </html>
