@@ -514,6 +514,120 @@
         @media (max-width: 850px) {
             .contact-grid { grid-template-columns: 1fr; }
         }
+
+        /* --- GALERÍA & SOCIAL SHOWCASE STYLES --- */
+.galeria-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.insta-ribbon {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.insta-card {
+    background: rgba(7, 21, 12, 0.7);
+    border: 1px solid rgba(229, 193, 88, 0.3);
+    border-radius: 12px;
+    padding: 20px 15px;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--text-light);
+}
+
+.insta-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--gold-accent);
+    box-shadow: 0 10px 25px rgba(229, 193, 88, 0.25);
+    background: var(--emerald-light);
+}
+
+.insta-icon {
+    font-size: 2.2em;
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+}
+
+.insta-card-title {
+    font-family: var(--font-heading);
+    font-size: 0.9em;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 5px;
+}
+
+.insta-card-sub {
+    font-size: 0.75em;
+    color: #A3C4AF;
+}
+
+.social-btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+.insta-btn {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: #FFFFFF;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.9em;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
+}
+
+.insta-btn:hover {
+    transform: scale(1.05);
+}
+
+.yt-btn {
+    background: #FF0000;
+    color: #FFFFFF;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.9em;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
+}
+
+.yt-btn:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 900px) {
+    .insta-ribbon { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+    .insta-ribbon { grid-template-columns: 1fr; }
+}
     </style>
 </head>
 <body>
@@ -620,15 +734,68 @@
     <!-- SECTION 4: GALERÍA PAGE -->
     <div id="galeria-page" class="page-section">
         <div class="story-card">
-            <h1 class="story-title"><i class="fa-solid fa-photo-film"></i> Nuestra Galería</h1>
-            <div class="story-subtitle">Vive la Experiencia Chai-itto</div>
+            <h1 class="story-title"><i class="fa-solid fa-photo-film"></i> Experiencia Chai-itto</h1>
+            <div class="story-subtitle">Momentos, Catas & Historias de Nuestros Clientes en Cholula</div>
             
-            <p style="text-align: center; color: #D3E0D7;">Conoce nuestras catas, preparaciones artesanales y momentos especiales en Cholula.</p>
-            
-            <div class="video-container">
-                <!-- YouTube Video Embed -->
-                <iframe src="https://www.youtube.com/embed?listType=playlist&list=PLrAIk0N" title="Chai-itto Videos" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p style="text-align: center; color: #D3E0D7; max-width: 750px; margin: 0 auto 25px; line-height: 1.6;">
+                Descubre cómo se vive la cultura del té en nuestra sucursal. Explora las opiniones en video de quienes nos visitan y conecta con nuestra comunidad en redes sociales.
+            </p>
+
+            <!-- YOUTUBE PLAYLIST SHOWCASE -->
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--gold-accent); border-radius: 16px; padding: 20px; margin-bottom: 35px;">
+                <h3 style="color: var(--gold-accent); font-family: var(--font-title); margin-top: 0; text-align: center; font-size: 1.4em;">
+                    <i class="fa-brands fa-youtube" style="color: #FF0000; margin-right: 8px;"></i> Historias de Clientes en Sucursal
+                </h3>
+                
+                <div class="video-container">
+                    <!-- Embedded Official Customer Playlist -->
+                    <iframe src="https://www.youtube.com/embed/videoseries?list=PL8F14rO99by_JkM37mGinv9CrfOjnBvfB" title="Chai-itto Clientes en Cholula" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="https://youtube.com/playlist?list=PL8F14rO99by_JkM37mGinv9CrfOjnBvfB" target="_blank" rel="noopener noreferrer" class="yt-btn">
+                        <i class="fa-brands fa-youtube fa-lg"></i> Ver la Playlist Completa en YouTube
+                    </a>
+                </div>
             </div>
+
+            <!-- INSTAGRAM RIBBON SHOWCASE -->
+            <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(229, 193, 88, 0.3); border-radius: 16px; padding: 20px;">
+                <h3 style="color: var(--gold-accent); font-family: var(--font-title); margin-top: 0; text-align: center; font-size: 1.4em;">
+                    <i class="fa-brands fa-instagram" style="color: #E1306C; margin-right: 8px;"></i> @chaiittocholula en Instagram
+                </h3>
+                <p style="text-align: center; color: #A3C4AF; font-size: 0.85em; margin-bottom: 15px;">Síguenos para conocer nuestras infusiones de temporada, catas y eventos especiales</p>
+
+                <div class="insta-ribbon">
+                    <a href="https://www.instagram.com/chaiittocholula/" target="_blank" rel="noopener noreferrer" class="insta-card">
+                        <i class="fa-solid fa-mug-hot insta-icon"></i>
+                        <div class="insta-card-title">Preparaciones</div>
+                        <div class="insta-card-sub">Bebidas y tés por taza</div>
+                    </a>
+                    <a href="https://www.instagram.com/chaiittocholula/" target="_blank" rel="noopener noreferrer" class="insta-card">
+                        <i class="fa-solid fa-jar insta-icon"></i>
+                        <div class="insta-card-title">Colección Frascos</div>
+                        <div class="insta-card-sub">Para llevar o envío</div>
+                    </a>
+                    <a href="https://www.instagram.com/chaiittocholula/" target="_blank" rel="noopener noreferrer" class="insta-card">
+                        <i class="fa-solid fa-store insta-icon"></i>
+                        <div class="insta-card-title">Ambiente Cholula</div>
+                        <div class="insta-card-sub">Visita nuestra casa</div>
+                    </a>
+                    <a href="https://www.instagram.com/chaiittocholula/" target="_blank" rel="noopener noreferrer" class="insta-card">
+                        <i class="fa-solid fa-heart insta-icon"></i>
+                        <div class="insta-card-title">Comunidad</div>
+                        <div class="insta-card-sub">Momentos de nuestros fans</div>
+                    </a>
+                </div>
+
+                <div class="social-btn-group">
+                    <a href="https://www.instagram.com/chaiittocholula/" target="_blank" rel="noopener noreferrer" class="insta-btn">
+                        <i class="fa-brands fa-instagram fa-lg"></i> Seguir en Instagram
+                    </a>
+                </div>
+            </div>
+
         </div>
     </div>
 
