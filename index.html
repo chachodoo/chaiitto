@@ -581,24 +581,65 @@
     margin-top: 25px;
 }
 
-.insta-btn {
-    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-    color: #FFFFFF;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 24px;
-    border-radius: 25px;
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 0.9em;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-    transition: transform 0.3s ease;
+@media (max-width: 900px) {
+    .insta-ribbon { grid-template-columns: repeat(2, 1fr); }
 }
 
-.insta-btn:hover {
+@media (max-width: 480px) {
+    .insta-ribbon { grid-template-columns: 1fr; }
+}
+
+/* --- INFINITE AUTO-SCROLLING PHOTO RIBBON --- */
+.ribbon-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 15px 0;
+    margin: 20px 0;
+    background: rgba(0, 0, 0, 0.4);
+    border-top: 1px solid rgba(229, 193, 88, 0.3);
+    border-bottom: 1px solid rgba(229, 193, 88, 0.3);
+    border-radius: 12px;
+}
+
+.ribbon-track {
+    display: flex;
+    gap: 15px;
+    width: max-content;
+    animation: ribbonScroll 25s linear infinite;
+}
+
+/* Pause animation on mouse hover or touch press */
+.ribbon-wrapper:hover .ribbon-track {
+    animation-play-state: paused;
+}
+
+@keyframes ribbonScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.ribbon-item {
+    width: 220px;
+    height: 220px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1.5px solid var(--gold-accent);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.ribbon-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.ribbon-item:hover {
     transform: scale(1.05);
+    filter: brightness(1.1);
 }
 
 .yt-btn {
@@ -617,17 +658,26 @@
     transition: transform 0.3s ease;
 }
 
-.yt-btn:hover {
+.insta-btn {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: #FFFFFF;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.9em;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
+}
+
+.yt-btn:hover, .insta-btn:hover {
     transform: scale(1.05);
 }
-
-@media (max-width: 900px) {
-    .insta-ribbon { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 480px) {
-    .insta-ribbon { grid-template-columns: 1fr; }
-}
+        
     </style>
 </head>
 <body>
