@@ -609,6 +609,10 @@
     animation: ribbonScroll 25s linear infinite;
 }
 
+.ribbon-track.paused {
+    animation-play-state: paused !important;
+}        
+
 /* Pause animation on mouse hover or touch press */
 .ribbon-wrapper:hover .ribbon-track {
     animation-play-state: paused;
@@ -796,10 +800,9 @@
                 <h3 style="color: var(--gold-accent); font-family: var(--font-title); margin-top: 0; font-size: 1.4em;">
                     <i class="fa-solid fa-camera-retro" style="color: var(--gold-accent); margin-right: 8px;"></i> Galería de Clientes Chai-itto
                 </h3>
-                <p style="color: #A3C4AF; font-size: 0.85em; margin-bottom: 10px;">Pasa el cursor o mantén presionado para pausar la imagen</p>
+                <p style="color: #A3C4AF; font-size: 0.85em; margin-bottom: 10px;">Haz clic sobre cualquier imagen para pausar o reanudar</p>
 
-                <div class="ribbon-wrapper">
-                    <!-- Clean Empty Track: JS populates all images dynamically from galeria.json -->
+                <div class="ribbon-wrapper" id="ribbon-interactive-wrapper" onclick="toggleRibbonPause()">
                     <div class="ribbon-track" id="dynamic-ribbon-track"></div>
                 </div>
 
@@ -1065,7 +1068,21 @@
 
         document.addEventListener('DOMContentLoaded', fetchProducts);
 
-        async function loadGalleryRibbon() {
+        let isRibbonPaused = false;
+
+function toggleRibbonPause() {
+    const track = document.getElementById('dynamic-ribbon-track');
+    if (!track) return;
+    
+    isRibbonPaused = !isRibbonPaused;
+    if (isRibbonPaused) {
+        track.classList.add('paused');
+    } else {
+        track.classList.remove('paused');
+    }
+}
+
+async function loadGalleryRibbon() {
     const track = document.getElementById('dynamic-ribbon-track');
     if (!track) return;
 
@@ -1081,7 +1098,21 @@
         const createItem = (src) => {
             const item = document.createElement('div');
             item.className = 'ribbon-item';
-            item.innerHTML = `<img src="${src}" alt="Cliente Chai-itto" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">`;
+            
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = "Cliente Chai-itto";
+            img.style.width = "100%";
+            img.style.height = "100%";
+            img.style.objectFit = "cover";
+            img.style.borderRadius = "8px";
+            
+            // If an image path fails to load, hide that box so it doesn't leave an empty square
+            img.onerror = function() {
+                item.style.display = 'none';
+            };
+
+            item.appendChild(img);
             return item;
         };
 
