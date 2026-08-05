@@ -1107,7 +1107,6 @@ async function loadGalleryRibbon() {
             img.style.objectFit = "cover";
             img.style.borderRadius = "8px";
             
-            // If an image path fails to load, hide that box so it doesn't leave an empty square
             img.onerror = function() {
                 item.style.display = 'none';
             };
@@ -1116,10 +1115,9 @@ async function loadGalleryRibbon() {
             return item;
         };
 
-        // Render first set
+        // Render set 3 times for a completely full, seamless continuous ribbon loop
         files.forEach(src => track.appendChild(createItem(src)));
-
-        // Duplicate set for smooth infinite loop
+        files.forEach(src => track.appendChild(createItem(src)));
         files.forEach(src => track.appendChild(createItem(src)));
 
     } catch (error) {
