@@ -275,15 +275,20 @@
         .collection-banner {
             text-align: center;
             margin-bottom: 25px;
+            width: 100%;
         }
 
+        /* Forces Playfair Display italic gold styling on EVERY collection title */
         .collection-name {
-            font-family: var(--font-title);
-            font-size: clamp(2.2em, 5vw, 3.5em);
+            font-family: var(--font-title) !important; /* 'Playfair Display', Georgia, serif */
+            font-size: clamp(2.2em, 5.5vw, 3.5em);
             color: var(--gold-accent);
             font-style: italic;
+            font-weight: 700;
             margin: 0;
-            text-shadow: 0 0 20px rgba(229, 193, 88, 0.4);
+            text-shadow: 0 0 20px rgba(229, 193, 88, 0.45);
+            letter-spacing: 1px;
+            display: inline-block;
         }
 
         /* --- ADAPTIVE PRODUCT GRID --- */
@@ -566,6 +571,7 @@
                 }
             });
 
+            // Banner Title Update
             const bannerTitle = document.getElementById('current-collection-title');
             if (bannerTitle) {
                 bannerTitle.innerText = colName;
