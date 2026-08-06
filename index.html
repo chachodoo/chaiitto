@@ -624,21 +624,25 @@
 }
                 
 .ribbon-item {
+    display: flex !important;
     height: 220px !important;
     width: auto !important;
-    flex: 0 0 auto !important; /* Prevents flexbox from forcing item widths */
+    flex: 0 0 auto !important;
     border-radius: 10px;
     overflow: hidden;
     border: 1.5px solid var(--gold-accent);
     box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     transition: transform 0.3s ease, filter 0.3s ease;
+    background: transparent !important;
 }
 
 .ribbon-item img,
 .ribbon-item video {
     height: 220px !important;
-    width: auto !important; /* Lets browser calculate exact natural aspect ratio */
+    width: auto !important;
+    max-width: none !important;
     display: block !important;
+    object-fit: unset !important;
 }
 
 .ribbon-item:hover {
