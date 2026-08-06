@@ -1,0 +1,63 @@
+<div class="story-card">
+    <h1 class="story-title"><i class="fa-solid fa-location-dot"></i> Visítanos en Cholula</h1>
+    <div class="story-subtitle">San Pedro Cholula, Puebla &bull; Google Maps & Reseñas</div>
+
+    <div class="contact-grid">
+        <!-- Left Box: Address, Hours, Direct Contact & Google Map Embed -->
+        <div class="contact-card">
+            <h3 style="color: var(--gold-accent); font-family: var(--font-title); margin-top: 0; font-size: 1.5em;"><i class="fa-solid fa-store"></i> Sucursal Cholula</h3>
+            
+            <p style="font-size: 0.9em; line-height: 1.6; color: #D3E0D7; margin-bottom: 12px;">
+                <i class="fa-solid fa-location-dot" style="color: var(--gold-accent);"></i> <strong>Ubicación:</strong> San Pedro Cholula, Puebla, México.<br>
+                <i class="fa-solid fa-clock" style="color: var(--gold-accent);"></i> <strong>Horarios:</strong>
+                <span style="display: block; padding-left: 18px; margin-top: 2px; margin-bottom: 4px;">
+                    &bull; Lun, Mar, Mié, Jue, Dom: 1:00 PM – 9:00 PM<br>
+                    &bull; Viernes: 10:00 AM – 9:30 PM<br>
+                    &bull; Sábado: 1:00 PM – 9:30 PM
+                </span>
+                <i class="fa-solid fa-mug-hot" style="color: var(--gold-accent);"></i> <strong>Servicio en sucursal:</strong> Bebidas por taza, consumo local y venta de frascos para llevar.<br>
+                <i class="fa-solid fa-truck-fast" style="color: var(--gold-accent);"></i> <strong>Venta en línea:</strong> Frascos con envío a todo México.
+            </p>
+            
+            <div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;">
+                <a href="https://api.whatsapp.com/send?phone=522218415466" target="_blank" rel="noopener noreferrer" style="background: #25D366; color: #fff; text-decoration: none; padding: 10px 16px; border-radius: 20px; font-size: 0.85em; font-weight: bold; display: inline-flex; align-items: center; gap: 8px;">
+                    <i class="fa-brands fa-whatsapp fa-lg"></i> Chat en WhatsApp
+                </a>
+                <a href="tel:+522218415466" style="background: var(--emerald-light); border: 1px solid var(--gold-accent); color: #fff; text-decoration: none; padding: 10px 16px; border-radius: 20px; font-size: 0.85em; font-weight: bold; display: inline-flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-phone"></i> Llamar a Sucursal
+                </a>
+            </div>
+            
+            <!-- Google Map Embed -->
+            <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.923893608149!2d-98.30872202397193!3d19.062325082138135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfc7525aac3db7%3A0x5d6d23e1c43a6b59!2sCHAI-ITTO%20T%C3%89%2C%20CAF%C3%89%2C%20POSTRES%20ORGANIC!5e0!3m2!1ses-419!2smx!4v1700000000000!5m2!1ses-419!2smx" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <!-- Right Box: Authenticated Google Reviews -->
+        <div class="contact-card" style="text-align: center;">
+            <h3 style="color: var(--gold-accent); font-family: var(--font-title); margin-top: 0; font-size: 1.5em;"><i class="fa-brands fa-google" style="color: #4285F4;"></i> Reseñas en Google Maps</h3>
+            
+            <div style="font-size: 1.3em; color: #FFD700; margin-bottom: 5px;">
+                <span style="font-size: 1.4em; font-weight: 700; color: #FFFFFF; margin-right: 6px;">4.9</span>
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+            </div>
+            <p style="font-size: 0.85em; color: #A3C4AF; margin-top: 0; margin-bottom: 15px;">Basado en las opiniones verificadas de Google Maps</p>
+
+            <div class="review-quote">
+                <div style="color: #FFD700; font-size: 0.8em; margin-bottom: 4px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                "Increíble lugar para estar relajado y llenarse de conocimiento... fue acogedor y lindo de su parte, ¡gracias! También probamos la bebida de blue matcha, todo lindo en este local."
+            </div>
+            <div class="review-quote">
+                <div style="color: #FFD700; font-size: 0.8em; margin-bottom: 4px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                "Muy amable y servicial, si no conoces de tés te guía y te ayuda a elegir uno. No solo es un lugar donde ir a tomar té, es toda una experiencia de té."
+            </div>
+            <div class="review-quote">
+                <div style="color: #FFD700; font-size: 0.8em; margin-bottom: 4px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                "Espectacular✨ Jamás había probado tal calidad de infusiones, la variedad es impresionante. Qué maravilla tener esta propuesta gastronómica aquí en Cholula."
+            </div>
+
+            <a href="https://www.google.com/maps/place/CHAI-ITTO+T%C3%89,+CAF%C3%89,+POSTRES+ORGANIC/data=!4m2!3m1!1s0x85cfc7525aac3db7:0x5d6d23e1c43a6b59?sa=X&ved=1t:242&hl=es-419&ictx=111" target="_blank" rel="noopener noreferrer" class="google-btn">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver todas las opiniones en Google Maps
+            </a>
+        </div>
+    </div>
+</div>
