@@ -344,7 +344,7 @@
         .product-img-box img {
             max-height: 100%;
             max-width: 100%;
-            object-fit: contain;
+            object-fit: cover;
         }
 
         .product-name {
@@ -604,9 +604,9 @@
 
 .ribbon-track {
     display: flex;
-    gap: 15px;
+    gap: 5px;
     width: max-content;
-    animation: ribbonScroll 25s linear infinite;
+    animation: ribbonScroll 60s linear infinite;
 }
 
 .ribbon-track.paused {
@@ -622,7 +622,7 @@
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
 }
-
+                
 .ribbon-item {
     width: 220px;
     height: 220px;
@@ -632,12 +632,13 @@
     border: 1.5px solid var(--gold-accent);
     box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     transition: transform 0.3s ease, filter 0.3s ease;
+    background: #000; /* Dark background behind letterboxed photos */
 }
-
+        
 .ribbon-item img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
 }
 
@@ -1099,65 +1100,65 @@
             }
         }
 
-        async function loadGalleryRibbon() {
-            const track = document.getElementById('dynamic-ribbon-track');
-            if (!track) return;
+    async function loadGalleryRibbon() {
+    const track = document.getElementById('dynamic-ribbon-track');
+    if (!track) return;
 
-            try {
-                const response = await fetch('galeria.json?v=' + Date.now());
-                if (!response.ok) throw new Error('Could not load galeria.json');
+    try {
+        const response = await fetch('galeria.json?v=' + Date.now());
+        if (!response.ok) throw new Error('Could not load galeria.json');
 
-                const files = await response.json();
-                if (!files || files.length === 0) return;
+        const files = await response.json();
+        if (!files || files.length === 0) return;
 
-                track.innerHTML = '';
+        track.innerHTML = '';
 
-                const createItem = (src) => {
-                    const item = document.createElement('div');
-                    item.className = 'ribbon-item';
-                    
-                    const isVideo = src.toLowerCase().endsWith('.mp4') || 
-                                    src.toLowerCase().endsWith('.mov') || 
-                                    src.toLowerCase().endsWith('.webm');
+        const createItem = (src) => {
+            const item = document.createElement('div');
+            item.className = 'ribbon-item';
+            
+            const isVideo = src.toLowerCase().endsWith('.mp4') || 
+                            src.toLowerCase().endsWith('.mov') || 
+                            src.toLowerCase().endsWith('.webm');
 
-                    if (isVideo) {
-                        const video = document.createElement('video');
-                        video.src = src;
-                        video.autoplay = true;
-                        video.loop = true;
-                        video.muted = true;
-                        video.playsInline = true;
-                        video.style.width = "100%";
-                        video.style.height = "100%";
-                        video.style.objectFit = "cover";
-                        video.style.borderRadius = "8px";
-                        
-                        video.onerror = function() { item.style.display = 'none'; };
-                        item.appendChild(video);
-                    } else {
-                        const img = document.createElement('img');
-                        img.src = src;
-                        img.alt = "Cliente Chai-itto";
-                        img.style.width = "100%";
-                        img.style.height = "100%";
-                        img.style.objectFit = "cover";
-                        img.style.borderRadius = "8px";
-                        
-                        img.onerror = function() { item.style.display = 'none'; };
-                        item.appendChild(img);
-                    }
-
-                    return item;
-                };
-
-                files.forEach(src => track.appendChild(createItem(src)));
-                files.forEach(src => track.appendChild(createItem(src)));
-                files.forEach(src => track.appendChild(createItem(src)));
-
-            } catch (error) {
-                console.error("Error loading gallery ribbon media:", error);
+            if (isVideo) {
+                const video = document.createElement('video');
+                video.src = src;
+                video.autoplay = true;
+                video.loop = true;
+                video.muted = true;
+                video.playsInline = true;
+                video.style.width = "100%";
+                video.style.height = "100%";
+                video.style.objectFit = "contain"; // Shows full video without cropping
+                
+                video.onerror = function() { item.style.display = 'none'; };
+                item.appendChild(video);
+            } else {
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = "Cliente Chai-itto";
+                img.style.width = "100%";
+                img.style.height = "100%";
+                img.style.objectFit = "contain"; // Shows full photo without cropping
+                
+                img.onerror = function() { item.style.display = 'none'; };
+                item.appendChild(img);
             }
-        }
+
+            return item;
+        };
+
+        // Render first set (all 25+ files)
+        files.forEach(src => track.appendChild(createItem(src)));
+
+        // Duplicate set once for a smooth infinite marquee loop
+        files.forEach(src => track.appendChild(createItem(src)));
+
+    } catch (error) {
+        console.error("Error loading gallery ribbon media:", error);
+    }
+}
 
         document.addEventListener('DOMContentLoaded', () => {
             fetchProducts();
