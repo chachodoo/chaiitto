@@ -624,9 +624,9 @@
 }
                 
 .ribbon-item {
-    height: 220px;
-    width: auto; /* Lets the box expand/contract to fit the exact image shape */
-    flex-shrink: 0;
+    height: 220px !important;
+    width: auto !important;
+    flex: 0 0 auto !important; /* Prevents flexbox from forcing fixed widths */
     border-radius: 10px;
     overflow: hidden;
     border: 1.5px solid var(--gold-accent);
@@ -638,6 +638,7 @@
 .ribbon-item video {
     height: 100% !important;
     width: auto !important;
+    max-width: none !important; /* Prevents images from compressing */
     display: block !important;
 }
 
