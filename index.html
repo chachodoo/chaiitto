@@ -1128,20 +1128,12 @@
                 video.loop = true;
                 video.muted = true;
                 video.playsInline = true;
-                video.style.width = "100%";
-                video.style.height = "100%";
-                video.style.objectFit = "contain"; // Shows full video without cropping
-                
                 video.onerror = function() { item.style.display = 'none'; };
                 item.appendChild(video);
             } else {
                 const img = document.createElement('img');
                 img.src = src;
                 img.alt = "Cliente Chai-itto";
-                img.style.width = "100%";
-                img.style.height = "100%";
-                img.style.objectFit = "contain"; // Shows full photo without cropping
-                
                 img.onerror = function() { item.style.display = 'none'; };
                 item.appendChild(img);
             }
@@ -1149,10 +1141,10 @@
             return item;
         };
 
-        // Render first set (all 25+ files)
+        // Render first set
         files.forEach(src => track.appendChild(createItem(src)));
 
-        // Duplicate set once for a smooth infinite marquee loop
+        // Duplicate set once for smooth infinite marquee loop
         files.forEach(src => track.appendChild(createItem(src)));
 
     } catch (error) {
