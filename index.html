@@ -625,20 +625,22 @@
                 
 .ribbon-item {
     height: 220px !important;
-    width: auto !important;
-    flex: 0 0 auto !important; /* Prevents flexbox from forcing fixed widths */
+    width: max-content !important; /* Forces container to match image natural width */
+    flex: 0 0 auto !important;     /* Stops flexbox from stretching or squishing items */
     border-radius: 10px;
     overflow: hidden;
     border: 1.5px solid var(--gold-accent);
     box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     transition: transform 0.3s ease, filter 0.3s ease;
+    background: transparent !important; /* Removes any black background color fallback */
 }
 
 .ribbon-item img,
 .ribbon-item video {
-    height: 100% !important;
+    height: 220px !important;
     width: auto !important;
-    max-width: none !important; /* Prevents images from compressing */
+    max-width: none !important;
+    object-fit: fill !important;  /* Prevents letterboxing entirely */
     display: block !important;
 }
 
@@ -1116,10 +1118,10 @@
         const createItem = (src) => {
             const item = document.createElement('div');
             item.className = 'ribbon-item';
-            
+    
             const isVideo = src.toLowerCase().endsWith('.mp4') || 
-                            src.toLowerCase().endsWith('.mov') || 
-                            src.toLowerCase().endsWith('.webm');
+                    src.toLowerCase().endsWith('.mov') || 
+                    src.toLowerCase().endsWith('.webm');
 
             if (isVideo) {
                 const video = document.createElement('video');
