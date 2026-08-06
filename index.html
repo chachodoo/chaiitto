@@ -180,6 +180,8 @@
             font-size: clamp(0.85em, 2.5vw, 1em);
         }
 
+        
+
         .story-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -674,6 +676,43 @@
 .yt-btn:hover, .insta-btn:hover {
     transform: scale(1.05);
 }
+
+        /* --- LUXURY VISITOR COUNTER BANNER --- */
+.visitor-counter-card {
+    background: linear-gradient(135deg, rgba(24, 56, 36, 0.95) 0%, rgba(10, 26, 17, 0.95) 100%);
+    border: 1.5px solid var(--gold-accent);
+    border-radius: 16px;
+    padding: 18px 25px;
+    margin: 25px 0 10px;
+    box-shadow: 0 0 25px rgba(229, 193, 88, 0.25), inset 0 0 15px rgba(229, 193, 88, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.visitor-count-number {
+    font-family: var(--font-title);
+    font-size: clamp(2.2em, 5vw, 3.4em);
+    font-weight: 900;
+    color: var(--gold-glow);
+    text-shadow: 0 0 15px rgba(229, 193, 88, 0.9), 0 0 30px rgba(229, 193, 88, 0.5);
+    letter-spacing: 3px;
+    line-height: 1;
+}
+
+.visitor-count-label {
+    font-family: var(--font-heading);
+    font-size: clamp(0.85em, 2.5vw, 1.05em);
+    color: var(--text-light);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
         
     </style>
 </head>
@@ -702,7 +741,14 @@
         <div class="story-card">
             <h1 class="story-title">Nuestra Historia</h1>
             <div class="story-subtitle">Cinco Años Compartiendo la Cultura del Té</div>
-            
+            <!-- VISITOR COUNTER BANNER (019,777) -->
+<div class="visitor-counter-card">
+    <div class="visitor-count-label">
+        <i class="fa-solid fa-users-viewfinder fa-lg" style="color: var(--gold-accent);"></i>
+        <span>Clientes Atendidos:</span>
+    </div>
+    <div class="visitor-count-number" id="visitor-count-num">019,777</div>
+</div>
             <div class="story-grid">
                 <div class="story-text">
                     <p>En el corazón histórico de <strong>San Pedro Cholula, Puebla</strong>, nació en <strong>2021</strong> una visión: reconectar a México con el bienestar ancestral a través de cada taza.</p>
@@ -1140,11 +1186,54 @@
         console.error("Error loading gallery ribbon media:", error);
     }
 }
+function formatCounterNumber(num) {
+    let padded = String(num).padStart(6, '0');
+    return padded.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
+function initVisitorCounter() {
+    const BASE_COUNT = 19777; // Floor set at 19,777 (renders as 019,777)
+    let savedCount = parseInt(localStorage.getItem('chaiitto_visitor_count'));
+
+    // Reset floor if first time or lower than base
+    if (!savedCount || savedCount < BASE_COUNT) {
+        savedCount = BASE_COUNT;
+    }
+
+    // Increment count per visit
+    savedCount += 1;
+    localStorage.setItem('chaiitto_visitor_count', savedCount);
+
+    const counterEl = document.getElementById('visitor-count-num');
+    if (!counterEl) return;
+
+    // Rolling animation up to savedCount
+    const startNum = savedCount - 50;
+    const duration = 1800;
+    const frameTime = 1000 / 60;
+    const totalFrames = Math.round(duration / frameTime);
+    let frame = 0;
+
+    const counterInterval = setInterval(() => {
+        frame++;
+        const progress = frame / totalFrames;
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        const currentVal = Math.floor(startNum + (savedCount - startNum) * easeOut);
+
+        counterEl.textContent = formatCounterNumber(currentVal);
+
+        if (frame === totalFrames) {
+            clearInterval(counterInterval);
+            counterEl.textContent = formatCounterNumber(savedCount);
+        }
+    }, frameTime);
+}
+        
         document.addEventListener('DOMContentLoaded', () => {
             fetchProducts();
             loadGalleryRibbon();
             handleHashNavigation();
+            initVisitorCounter();
         });
 
         window.addEventListener('hashchange', handleHashNavigation);
