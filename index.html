@@ -599,7 +599,7 @@
             display: flex;
             gap: 5px;
             width: max-content;
-            animation: ribbonScroll 60s linear infinite;
+            animation: ribbonScroll 120s linear infinite; /* SLOWED DOWN TO 120s */
         }
 
         .ribbon-track.paused {
@@ -667,29 +667,27 @@
             transform: scale(1.05);
         }
 
-        /* --- LUXURY VISITOR COUNTER BANNER --- */
+        /* --- FOOTER VISITOR BADGE --- */
         .footer-visitor-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(16, 38, 25, 0.7);
-    border: 1px solid rgba(229, 193, 88, 0.3);
-    border-radius: 20px;
-    padding: 4px 14px;
-    margin-bottom: 15px;
-    font-size: 0.85em;
-    font-family: var(--font-body);
-    color: var(--text-light);
-    letter-spacing: 1px;
-}
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 38, 25, 0.7);
+            border: 1px solid rgba(229, 193, 88, 0.3);
+            border-radius: 20px;
+            padding: 4px 14px;
+            margin-bottom: 15px;
+            font-size: 0.85em;
+            font-family: var(--font-body);
+            color: var(--text-light);
+            letter-spacing: 1px;
+        }
 
-#visitor-count-num {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    color: var(--gold-accent);
-}
-
-        
+        #visitor-count-num {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--gold-accent);
+        }
 
         /* --- OFERTAS SPECIAL RIBBON & CARDS --- */
         .ofertas-ribbon-wrapper {
@@ -824,8 +822,6 @@
         .oferta-buy-btn:hover {
             transform: scale(1.03);
         }
-        
-        
     </style>
 </head>
 <body>
@@ -854,20 +850,20 @@
     </main>
 
     <footer>
-    <div class="shipping-box">
-        <i class="fa-solid fa-truck-fast fa-2x" style="color: var(--gold-accent); margin-bottom: 8px;"></i>
-        <p><strong>Política de Envíos Chai-itto:</strong> Las degustaciones en <em>taza</em> son exclusivas para nuestra sucursal física en Cholula. Para envíos a todo México, comercializamos nuestros <strong>frascos</strong>. Tu pedido se envía inmediatamente tras confirmar tu pago y llega de 3 a 5 días hábiles.</p>
-    </div>
-    
-    <!-- SUBTLE FOOTER VISITOR BADGE -->
-    <div class="footer-visitor-badge">
-        <i class="fa-solid fa-user" style="color: var(--gold-accent);"></i>
-        <span id="visitor-count-num">019,777</span>
-    </div>
+        <div class="shipping-box">
+            <i class="fa-solid fa-truck-fast fa-2x" style="color: var(--gold-accent); margin-bottom: 8px;"></i>
+            <p><strong>Política de Envíos Chai-itto:</strong> Las degustaciones en <em>taza</em> son exclusivas para nuestra sucursal física en Cholula. Para envíos a todo México, comercializamos nuestros <strong>frascos</strong>. Tu pedido se envía inmediatamente tras confirmar tu pago y llega de 3 a 5 días hábiles.</p>
+        </div>
+        
+        <!-- SUBTLE FOOTER VISITOR BADGE -->
+        <div class="footer-visitor-badge">
+            <i class="fa-solid fa-user" style="color: var(--gold-accent);"></i>
+            <span id="visitor-count-num">019,777</span>
+        </div>
 
-    <p style="color: var(--gold-accent); font-family: var(--font-heading); font-size: 1.05em; margin-bottom: 5px;">Chai-itto &bull; Salud con Té</p>
-    <p style="font-size: 0.8em; opacity: 0.6;">&copy; 2026 Chai-itto. Todos los derechos reservados.</p>
-</footer>
+        <p style="color: var(--gold-accent); font-family: var(--font-heading); font-size: 1.05em; margin-bottom: 5px;">Chai-itto &bull; Salud con Té</p>
+        <p style="font-size: 0.8em; opacity: 0.6;">&copy; 2026 Chai-itto. Todos los derechos reservados.</p>
+    </footer>
 
     <script>
         let allProducts = {};
@@ -1156,14 +1152,16 @@
                         video.loop = true;
                         video.muted = true;
                         video.playsInline = true;
-                        video.onerror = function() { this.style.display = 'none'; };
+                        // REMOVES MISSING FILES FROM DOM IMMEDIATELY
+                        video.onerror = function() { this.remove(); };
                         return video;
                     } else {
                         const img = document.createElement('img');
                         img.className = 'ribbon-item';
                         img.src = src;
                         img.alt = "Cliente Chai-itto";
-                        img.onerror = function() { this.style.display = 'none'; };
+                        // REMOVES MISSING FILES FROM DOM IMMEDIATELY
+                        img.onerror = function() { this.remove(); };
                         return img;
                     }
                 };
@@ -1182,29 +1180,29 @@
         }
 
         function initVisitorCounter() {
-    const BASE_COUNT = 19777;
-    let savedCount = parseInt(localStorage.getItem('chaiitto_visitor_count'));
+            const BASE_COUNT = 19777;
+            let savedCount = parseInt(localStorage.getItem('chaiitto_visitor_count'));
 
-    // Set initial floor if empty or below base
-    if (!savedCount || savedCount < BASE_COUNT) {
-        savedCount = BASE_COUNT;
-    }
+            // Set initial floor if empty or below base
+            if (!savedCount || savedCount < BASE_COUNT) {
+                savedCount = BASE_COUNT;
+            }
 
-    // Increment strictly once per page load/refresh
-    savedCount += 1;
-    localStorage.setItem('chaiitto_visitor_count', savedCount);
+            // Increment strictly once per page load/refresh
+            savedCount += 1;
+            localStorage.setItem('chaiitto_visitor_count', savedCount);
 
-    const counterEl = document.getElementById('visitor-count-num');
-    if (!counterEl) return;
+            const counterEl = document.getElementById('visitor-count-num');
+            if (!counterEl) return;
 
-    // Direct string update (no extra dependencies)
-    counterEl.textContent = formatCounterNumber(savedCount);
-}
+            // Direct string update
+            counterEl.textContent = formatCounterNumber(savedCount);
+        }
         
         document.addEventListener('DOMContentLoaded', async () => {
             await fetchProducts();
             handleHashNavigation();
-            initVisitorCounter(); // <--- Runs once
+            initVisitorCounter(); // <--- Runs once per refresh
         });
 
         window.addEventListener('hashchange', handleHashNavigation);
