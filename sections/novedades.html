@@ -1,0 +1,19 @@
+<div class="story-card">
+    <h1 class="story-title"><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--gold-accent);"></i> Novedades</h1>
+    <div class="story-subtitle">Descubre Nuestras Últimas Mezclas</div>
+
+    <div class="collection-banner">
+        <h2 id="current-collection-title" class="collection-name-title">NOVEDADES</h2>
+    </div>
+
+    <!-- Product Grid Shell -->
+    <div id="products-container" class="product-grid">
+        <!-- Products loaded dynamically from products.json -->
+    </div>
+</div>
+
+<script>
+    if (typeof selectCollection === 'function') {
+        selectCollection('NOVEDADES');
+    }
+</script>
