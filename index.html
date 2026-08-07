@@ -1182,58 +1182,29 @@
         }
 
         function initVisitorCounter() {
-    // 1. Check if this visitor has ALREADY been counted during this session
-    if (sessionStorage.getItem('chaiitto_session_counted')) {
-        // Just display current saved number without incrementing
-        const savedCount = parseInt(localStorage.getItem('chaiitto_visitor_count')) || 19777;
-        const counterEl = document.getElementById('visitor-count-num');
-        if (counterEl) counterEl.textContent = formatCounterNumber(savedCount);
-        return;
-    }
-
     const BASE_COUNT = 19777;
     let savedCount = parseInt(localStorage.getItem('chaiitto_visitor_count'));
 
+    // Set initial floor if empty or below base
     if (!savedCount || savedCount < BASE_COUNT) {
         savedCount = BASE_COUNT;
     }
 
-    // 2. Increment ONLY ONCE per site visit
+    // Increment strictly once per page load/refresh
     savedCount += 1;
     localStorage.setItem('chaiitto_visitor_count', savedCount);
-    
-    // 3. Mark session as counted so clicking tabs won't add more numbers
-    sessionStorage.setItem('chaiitto_session_counted', 'true');
 
     const counterEl = document.getElementById('visitor-count-num');
     if (!counterEl) return;
 
-    // Rolling animation on entry
-    const startNum = savedCount - 50;
-    const duration = 1800;
-    const frameTime = 1000 / 60;
-    const totalFrames = Math.round(duration / frameTime);
-    let frame = 0;
-
-    const counterInterval = setInterval(() => {
-        frame++;
-        const progress = frame / totalFrames;
-        const easeOut = 1 - Math.pow(1 - progress, 3);
-        const currentVal = Math.floor(startNum + (savedCount - startNum) * easeOut);
-
-        counterEl.textContent = formatCounterNumber(currentVal);
-
-        if (frame === totalFrames) {
-            clearInterval(counterInterval);
-            counterEl.textContent = formatCounterNumber(savedCount);
-        }
-    }, frameTime);
+    // Direct string update (no extra dependencies)
+    counterEl.textContent = formatCounterNumber(savedCount);
 }
         
         document.addEventListener('DOMContentLoaded', async () => {
             await fetchProducts();
             handleHashNavigation();
-            initVisitorCounter(); // <--- Runs counter globally regardless of active tab
+            initVisitorCounter(); // <--- Runs once
         });
 
         window.addEventListener('hashchange', handleHashNavigation);
