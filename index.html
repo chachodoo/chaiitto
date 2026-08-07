@@ -599,7 +599,7 @@
             display: flex;
             gap: 5px;
             width: max-content;
-            animation: ribbonScroll 45s linear infinite; /* SLOWED DOWN TO 120s */
+            animation: ribbonScroll 45s linear infinite;
         }
 
         .ribbon-track.paused {
@@ -898,11 +898,10 @@
 
             // Determine target HTML file in /sections/
             let targetFile = pageName;
-            let targetFile = pageName;
             if (pageName === 'novedades') {
                 targetFile = 'productos';
             } else if (pageName === 'ultimas') {
-                targetFile = 'ofertas';  // <--- THIS TELLS IT TO LOAD sections/ofertas.html
+                targetFile = 'ofertas';
             }
 
             try {
@@ -928,7 +927,6 @@
                     selectCollection('NOVEDADES');
                 } else if (pageName === 'ultimas') {
                     loadOfertasRibbon();
-                }
                 } else if (pageName === 'menu') {
                     currentMenuPage = 1;
                     updateMenuDisplay();
@@ -982,75 +980,6 @@
             if (!container) return;
             container.innerHTML = '';
 
-            // SPECIAL CASE: OFERTAS RIBBON SHOWCASE
-            if (normalizeStr(colName) === 'OFERTAS') {
-                const ofertasList = allProducts['OFERTAS'] || [
-                    {
-                        num: "01",
-                        name: "Tetera Japones",
-                        ingredients: "Hierro",
-                        precioOriginal: "1200",
-                        precioOferta: "1100",
-                        image: "logo.png"
-                    },
-                    {
-                        num: "02",
-                        name: "Blue Matcha Magic",
-                        ingredients: "Frasco 80g • Infusión azul antioxidante",
-                        precioOriginal: "280",
-                        precioOferta: "195",
-                        image: "logo.png"
-                    },
-                    {
-                        num: "03",
-                        name: "Tisana Frutos del Bosque",
-                        ingredients: "Frasco 120g • Frutas deshidratadas premium",
-                        precioOriginal: "210",
-                        precioOferta: "149",
-                        image: "logo.png"
-                    }
-                ];
-
-                const wrapper = document.createElement('div');
-                wrapper.className = 'ofertas-ribbon-wrapper';
-
-                const track = document.createElement('div');
-                track.className = 'ofertas-track';
-
-                ofertasList.forEach(item => {
-                    const orig = item.precioOriginal || (parseInt(item.frasco) + 50);
-                    const spec = item.precioOferta || item.frasco;
-                    const waMsg = encodeURIComponent(`¡Hola Chai-itto! Me interesa aprovechar la Oferta Especial de: #${item.num} ${item.name} (De $${orig} a solo $${spec} MXN). ¿Sigue disponible?`);
-                    const waUrl = `https://api.whatsapp.com/send?phone=${whatsappPhoneNumber}&text=${waMsg}`;
-
-                    const card = document.createElement('div');
-                    card.className = 'oferta-card';
-                    card.innerHTML = `
-                        <div>
-                            <div class="oferta-img-container">
-                                <img src="${item.image || 'logo.png'}" alt="${item.name}">
-                                <div class="oferta-badge">
-                                    <span class="oferta-badge-tag">OFERTA</span>
-                                    <span class="oferta-price-original">$${orig}</span>
-                                    <div class="oferta-price-special">$${spec}</div>
-                                </div>
-                            </div>
-                            <h3 class="oferta-title">#${item.num}. ${item.name}</h3>
-                            <p class="oferta-subtitle">${item.ingredients}</p>
-                        </div>
-                        <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="oferta-buy-btn">
-                            <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar Oferta
-                        </a>
-                    `;
-                    track.appendChild(card);
-                });
-
-                wrapper.appendChild(track);
-                container.appendChild(wrapper);
-                return;
-            }
-
-            // STANDARD PRODUCTS GRID RENDERING
             let list = allProducts[colName];
             if (!list) {
                 const targetNorm = normalizeStr(colName);
@@ -1128,6 +1057,57 @@
             }
         }
 
+        async function loadOfertasRibbon() {
+            const track = document.getElementById('ofertas-dynamic-track');
+            if (!track) return;
+
+            try {
+                const response = await fetch('ofertas.json?v=' + Date.now());
+                if (!response.ok) throw new Error('Could not load ofertas.json');
+
+                const ofertasList = await response.json();
+                if (!ofertasList || ofertasList.length === 0) {
+                    track.innerHTML = `<div style="color: #A3C4AF; padding: 20px;">No hay ofertas disponibles por el momento.</div>`;
+                    return;
+                }
+
+                track.innerHTML = '';
+
+                ofertasList.forEach(item => {
+                    const orig = item.precioOriginal;
+                    const spec = item.precioOferta;
+                    const descText = item.descripcion || '';
+                    const waMsg = encodeURIComponent(`¡Hola Chai-itto! Me interesa aprovechar la Oferta Especial de: #${item.num} ${item.name} (De $${orig} a solo $${spec} MXN). ¿Sigue disponible?`);
+                    const waUrl = `https://api.whatsapp.com/send?phone=${whatsappPhoneNumber}&text=${waMsg}`;
+
+                    const card = document.createElement('div');
+                    card.className = 'oferta-card';
+                    card.innerHTML = `
+                        <div>
+                            <div class="oferta-img-container">
+                                <img src="${item.image || 'logo.png'}" alt="${item.name}" onerror="this.src='logo.png'">
+                                <div class="oferta-badge">
+                                    <span class="oferta-badge-tag">OFERTA</span>
+                                    <span class="oferta-price-original">$${orig}</span>
+                                    <div class="oferta-price-special">$${spec}</div>
+                                </div>
+                            </div>
+                            <h3 class="oferta-title">#${item.num}. ${item.name}</h3>
+                            <p class="oferta-subtitle">${descText}</p>
+                        </div>
+                        <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="oferta-buy-btn">
+                            <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar Oferta
+                        </a>
+                    `;
+                    track.appendChild(card);
+                });
+
+            } catch (error) {
+                console.error("Error loading ofertas.json:", error);
+                track.innerHTML = `<div style="color: #FF8888; padding: 20px;">Error al cargar las ofertas.</div>`;
+            }
+        }
+
         async function loadGalleryRibbon() {
             const track = document.getElementById('dynamic-ribbon-track');
             if (!track) return;
@@ -1154,7 +1134,6 @@
                         video.loop = true;
                         video.muted = true;
                         video.playsInline = true;
-                        // REMOVES MISSING FILES FROM DOM IMMEDIATELY
                         video.onerror = function() { this.remove(); };
                         return video;
                     } else {
@@ -1162,7 +1141,6 @@
                         img.className = 'ribbon-item';
                         img.src = src;
                         img.alt = "Cliente Chai-itto";
-                        // REMOVES MISSING FILES FROM DOM IMMEDIATELY
                         img.onerror = function() { this.remove(); };
                         return img;
                     }
@@ -1185,77 +1163,23 @@
             const BASE_COUNT = 19777;
             let savedCount = parseInt(localStorage.getItem('chaiitto_visitor_count'));
 
-            // Set initial floor if empty or below base
             if (!savedCount || savedCount < BASE_COUNT) {
                 savedCount = BASE_COUNT;
             }
 
-            // Increment strictly once per page load/refresh
             savedCount += 1;
             localStorage.setItem('chaiitto_visitor_count', savedCount);
 
             const counterEl = document.getElementById('visitor-count-num');
             if (!counterEl) return;
 
-            // Direct string update
             counterEl.textContent = formatCounterNumber(savedCount);
         }
-
-        async function loadOfertasRibbon() {
-    const track = document.getElementById('ofertas-dynamic-track');
-    if (!track) return;
-
-    try {
-        const response = await fetch('ofertas.json?v=' + Date.now());
-        if (!response.ok) throw new Error('Could not load ofertas.json');
-
-        const ofertasList = await response.json();
-        if (!ofertasList || ofertasList.length === 0) {
-            track.innerHTML = `<div style="color: #A3C4AF; padding: 20px;">No hay ofertas disponibles por el momento.</div>`;
-            return;
-        }
-
-        track.innerHTML = '';
-
-        ofertasList.forEach(item => {
-            const orig = item.precioOriginal;
-            const spec = item.precioOferta;
-            const descText = item.descripcion || '';
-            const waMsg = encodeURIComponent(`¡Hola Chai-itto! Me interesa aprovechar la Oferta Especial de: #${item.num} ${item.name} (De $${orig} a solo $${spec} MXN). ¿Sigue disponible?`);
-            const waUrl = `https://api.whatsapp.com/send?phone=${whatsappPhoneNumber}&text=${waMsg}`;
-
-            const card = document.createElement('div');
-            card.className = 'oferta-card';
-            card.innerHTML = `
-                <div>
-                    <div class="oferta-img-container">
-                        <img src="${item.image || 'logo.png'}" alt="${item.name}" onerror="this.src='logo.png'">
-                        <div class="oferta-badge">
-                            <span class="oferta-badge-tag">OFERTA</span>
-                            <span class="oferta-price-original">$${orig}</span>
-                            <div class="oferta-price-special">$${spec}</div>
-                        </div>
-                    </div>
-                    <h3 class="oferta-title">#${item.num}. ${item.name}</h3>
-                    <p class="oferta-subtitle">${descText}</p>
-                </div>
-                <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="oferta-buy-btn">
-                    <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar Oferta
-                </a>
-            `;
-            track.appendChild(card);
-        });
-
-    } catch (error) {
-        console.error("Error loading ofertas.json:", error);
-        track.innerHTML = `<div style="color: #FF8888; padding: 20px;">Error al cargar las ofertas.</div>`;
-    }
-}
         
         document.addEventListener('DOMContentLoaded', async () => {
             await fetchProducts();
             handleHashNavigation();
-            initVisitorCounter(); // <--- Runs once per refresh
+            initVisitorCounter();
         });
 
         window.addEventListener('hashchange', handleHashNavigation);
