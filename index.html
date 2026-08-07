@@ -147,16 +147,16 @@
         }
 
         .story-card {
-        background: rgba(16, 38, 25, 0.95); /* Solidified dark green to eliminate GPU blur overhead */
-        border: 2px solid rgba(229, 193, 88, 0.35);
-        border-radius: 20px;
-        padding: clamp(20px, 4vw, 40px) clamp(15px, 4vw, 30px);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Reduced shadow spread */
-        margin-top: 15px;
-        width: 100%;
-        overflow: hidden;
-        word-wrap: break-word;
-        contain: content; /* Isolates rendering so scrolling this section doesn't re-render the whole page */
+            background: rgba(16, 38, 25, 0.95); /* Solidified dark green to eliminate GPU blur overhead */
+            border: 2px solid rgba(229, 193, 88, 0.35);
+            border-radius: 20px;
+            padding: clamp(20px, 4vw, 40px) clamp(15px, 4vw, 30px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Reduced shadow spread */
+            margin-top: 15px;
+            width: 100%;
+            overflow: hidden;
+            word-wrap: break-word;
+            contain: content; /* Isolates rendering so scrolling this section doesn't re-render the whole page */
         }
         .story-title {
             font-family: var(--font-title);
@@ -692,62 +692,41 @@
             color: var(--gold-accent);
         }
 
-        /* --- OFERTAS SPECIAL RIBBON & CARDS --- */
-        .ofertas-ribbon-wrapper {
+        /* --- OFERTAS RESPONSIVE GRID & CARDS --- */
+        .ofertas-track {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
             width: 100%;
-            overflow-x: auto;
-            padding: 20px 5px 30px;
-            scroll-behavior: smooth;
         }
 
-        .ofertas-ribbon-wrapper::-webkit-scrollbar {
-            height: 8px;
+        .oferta-card {
+            background: rgba(16, 38, 25, 0.95);
+            border: 1.5px solid var(--gold-accent);
+            border-radius: 16px;
+            padding: 14px;
+            width: 100% !important;
+            height: 100%;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            will-change: transform;
         }
 
-        .ofertas-ribbon-wrapper::-webkit-scrollbar-thumb {
-            background: var(--gold-accent);
-            border-radius: 4px;
+        .oferta-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(229, 193, 88, 0.3);
         }
 
-        /* Change track from flex row to responsive grid */
-.ofertas-track {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    width: 100%;
-}
-
-@media (max-width: 1100px) { .ofertas-track { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 768px) { .ofertas-track { grid-template-columns: repeat(2, 1fr); gap: 14px; } }
-@media (max-width: 480px) { .ofertas-track { grid-template-columns: 1fr; } }
-
-.oferta-card {
-    background: rgba(16, 38, 25, 0.95);
-    border: 1.5px solid var(--gold-accent);
-    border-radius: 16px;
-    padding: 14px;
-    width: 100% !important;
-    height: 100%;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    cursor: pointer;
-    will-change: transform; /* Promotes card rendering to GPU */
-}
-
-.oferta-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 30px rgba(229, 193, 88, 0.3);
-}
-
-/* Force top content box to take available space */
-.oferta-card > div:first-child {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
+        /* Force top content box to take available space for exact button alignment */
+        .oferta-card > div:first-child {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
 
         .oferta-img-container {
             position: relative;
@@ -763,6 +742,13 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .oferta-img-container img.loaded {
+            opacity: 1;
         }
 
         .oferta-badge {
@@ -821,23 +807,23 @@
         }
 
         /* Pin WhatsApp button cleanly to the bottom of every card */
-.oferta-buy-btn {
-    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-    color: white;
-    text-decoration: none;
-    text-align: center;
-    padding: 10px;
-    border-radius: 20px;
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 0.8em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    transition: transform 0.2s ease;
-    margin-top: auto; /* Guarantees bottom alignment across unequal text lengths */
-}
+        .oferta-buy-btn {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            padding: 10px;
+            border-radius: 20px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.8em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: transform 0.2s ease;
+            margin-top: auto; /* Guarantees bottom alignment across unequal text lengths */
+        }
 
         .oferta-buy-btn:hover {
             transform: scale(1.03);
@@ -974,22 +960,22 @@
         }
 
         /* --- COMPACT HEADER FOR SUBPAGES --- */
-header.compact-header {
-    padding: 10px 15px 10px;
-}
+        header.compact-header {
+            padding: 10px 15px 10px;
+        }
 
-header.compact-header .logo-main {
-    width: clamp(120px, 35vw, 170px) !important;
-}
+        header.compact-header .logo-main {
+            width: clamp(120px, 35vw, 170px) !important;
+        }
 
-header.compact-header .slogan-hero,
-header.compact-header .location-badge {
-    display: none !important;
-}
+        header.compact-header .slogan-hero,
+        header.compact-header .location-badge {
+            display: none !important;
+        }
 
-header.compact-header nav.main-nav {
-    margin-top: 10px;
-}
+        header.compact-header nav.main-nav {
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -1052,51 +1038,51 @@ header.compact-header nav.main-nav {
         }
 
         // --- COMPLETE PAGE SWITCHER FOR ALL TABS ---
-async function switchPage(pageName) {
-    const container = document.getElementById('dynamic-content-area');
-    const headerEl = document.querySelector('header');
-    if (!container) return;
+        async function switchPage(pageName) {
+            const container = document.getElementById('dynamic-content-area');
+            const headerEl = document.querySelector('header');
+            if (!container) return;
 
-    // Apply compact header across all sections after initial load
-    if (headerEl) {
-        headerEl.classList.add('compact-header');
-    }
+            // Apply compact header across all sections after initial load
+            if (headerEl) {
+                headerEl.classList.add('compact-header');
+            }
 
-    try {
-        const response = await fetch(`sections/${pageName}.html`);
-        if (!response.ok) throw new Error(`Could not load section: ${pageName}`);
-        
-        const html = await response.text();
-        container.innerHTML = html;
+            try {
+                const response = await fetch(`sections/${pageName}.html`);
+                if (!response.ok) throw new Error(`Could not load section: ${pageName}`);
+                
+                const html = await response.text();
+                container.innerHTML = html;
 
-        // Active Nav Button Styling (matches both data-page and onclick)
-        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-        const activeBtn = document.querySelector(`.nav-btn[data-page="${pageName}"], .nav-btn[onclick*="${pageName}"]`);
-        if (activeBtn) activeBtn.classList.add('active');
+                // Active Nav Button Styling (matches both data-page and onclick)
+                document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+                const activeBtn = document.querySelector(`.nav-btn[data-page="${pageName}"], .nav-btn[onclick*="${pageName}"]`);
+                if (activeBtn) activeBtn.classList.add('active');
 
-        // Page Specific Handlers
-        if (pageName === 'productos') {
-            selectCollection('BIENESTAR');
-        } else if (pageName === 'novedades') {
-            selectCollection('NOVEDADES');
-        } else if (pageName === 'ofertas') {
-            loadOfertasRibbon();
-        } else if (pageName === 'galeria') {
-            loadGalleryRibbon();
-        } else if (pageName === 'menu') {
-            updateMenuDisplay();
-        } else if (pageName === 'contactanos') {
-            // Contáctanos section loaded successfully
-            console.log('Contáctanos loaded');
+                // Page Specific Handlers
+                if (pageName === 'productos') {
+                    selectCollection('BIENESTAR');
+                } else if (pageName === 'novedades') {
+                    selectCollection('NOVEDADES');
+                } else if (pageName === 'ofertas') {
+                    loadOfertasGrid();
+                } else if (pageName === 'galeria') {
+                    loadGalleryRibbon();
+                } else if (pageName === 'menu') {
+                    updateMenuDisplay();
+                } else if (pageName === 'contactanos') {
+                    // Contáctanos section loaded successfully
+                    console.log('Contáctanos loaded');
+                }
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            } catch (error) {
+                console.error('Error loading page section:', error);
+                container.innerHTML = `<div style="color: #FF8888; text-align: center; padding: 40px;">Error al cargar la sección "${pageName}". Verifica que el archivo "sections/${pageName}.html" exista en tu servidor.</div>`;
+            }
         }
-
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    } catch (error) {
-        console.error('Error loading page section:', error);
-        container.innerHTML = `<div style="color: #FF8888; text-align: center; padding: 40px;">Error al cargar la sección "${pageName}". Verifica que el archivo "sections/${pageName}.html" exista en tu servidor.</div>`;
-    }
-}
 
         function handleHashNavigation() {
             const hash = window.location.hash;
@@ -1132,67 +1118,67 @@ async function switchPage(pageName) {
         }
 
         function loadCollection(colName) {
-    const container = document.getElementById('products-container');
-    if (!container) return;
-    container.innerHTML = '';
+            const container = document.getElementById('products-container');
+            if (!container) return;
+            container.innerHTML = '';
 
-    let list = allProducts[colName];
-    if (!list) {
-        const targetNorm = normalizeStr(colName);
-        const matchedKey = Object.keys(allProducts).find(k => normalizeStr(k) === targetNorm);
-        if (matchedKey) list = allProducts[matchedKey];
-    }
-    list = list || [];
+            let list = allProducts[colName];
+            if (!list) {
+                const targetNorm = normalizeStr(colName);
+                const matchedKey = Object.keys(allProducts).find(k => normalizeStr(k) === targetNorm);
+                if (matchedKey) list = allProducts[matchedKey];
+            }
+            list = list || [];
 
-    if (list.length > 0) {
-        list.forEach(prod => {
-            const imageSrc = prod.image || 'logo.png';
-            const numLabel = prod.num ? `<span class="product-number">${prod.num}.</span> ` : '';
-            
-            // Handle secondary price option (Frasco or Sobre)
-            const secondPriceValue = prod.frasco || prod.sobre || 0;
-            const secondPriceLabel = prod.sobre ? 'Sobre' : 'Frasco';
-            const secondPriceBadge = prod.sobre ? 'Para Llevar' : 'Para Envío';
+            if (list.length > 0) {
+                list.forEach(prod => {
+                    const imageSrc = prod.image || 'logo.png';
+                    const numLabel = prod.num ? `<span class="product-number">${prod.num}.</span> ` : '';
+                    
+                    // Handle secondary price option (Frasco or Sobre)
+                    const secondPriceValue = prod.frasco || prod.sobre || 0;
+                    const secondPriceLabel = prod.sobre ? 'Sobre' : 'Frasco';
+                    const secondPriceBadge = prod.sobre ? 'Para Llevar' : 'Para Envío';
 
-            const waMessage = encodeURIComponent(`Hola Chai-itto, quisiera ordenar ${prod.name}`);
-            const waLink = `https://api.whatsapp.com/send?phone=${whatsappPhoneNumber}&text=${waMessage}`;
+                    const waMessage = encodeURIComponent(`Hola Chai-itto, quisiera ordenar ${prod.name}`);
+                    const waLink = `https://api.whatsapp.com/send?phone=${whatsappPhoneNumber}&text=${waMessage}`;
 
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            card.innerHTML = `
-                <div>
-                    <div class="product-img-box">
-                        <img src="${imageSrc}" alt="${prod.name}" onerror="this.src='logo.png'">
-                    </div>
-                    <h3 class="product-name">${numLabel}${prod.name}</h3>
-                    <p class="product-ingredients">${prod.ingredients || ''}</p>
-                </div>
-                <div>
-                    <div class="price-section">
-                        ${prod.taza ? `
-                        <div class="price-option">
-                            <span class="price-label">Taza</span>
-                            <div class="price-value">$${prod.taza}</div>
-                        </div>` : ''}
-                        
-                        ${secondPriceValue ? `
-                        <div class="price-option">
-                            <span class="price-label">${secondPriceLabel}</span>
-                            <div class="price-value frasco">$${secondPriceValue}</div>
-                            <span class="badge-frasco">${secondPriceBadge}</span>
-                        </div>` : ''}
-                    </div>
-                    <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="buy-button">
-                        <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar
-                    </a>
-                </div>
-            `;
-            container.appendChild(card);
-        });
-    } else {
-        container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px; color: #A3C4AF; font-size: 1.1em;">Próximamente agregando productos a <strong>${colName}</strong>...</div>`;
-    }
-}
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+                    card.innerHTML = `
+                        <div>
+                            <div class="product-img-box">
+                                <img src="${imageSrc}" alt="${prod.name}" onerror="this.src='logo.png'">
+                            </div>
+                            <h3 class="product-name">${numLabel}${prod.name}</h3>
+                            <p class="product-ingredients">${prod.ingredients || ''}</p>
+                        </div>
+                        <div>
+                            <div class="price-section">
+                                ${prod.taza ? `
+                                <div class="price-option">
+                                    <span class="price-label">Taza</span>
+                                    <div class="price-value">$${prod.taza}</div>
+                                </div>` : ''}
+                                
+                                ${secondPriceValue ? `
+                                <div class="price-option">
+                                    <span class="price-label">${secondPriceLabel}</span>
+                                    <div class="price-value frasco">$${secondPriceValue}</div>
+                                    <span class="badge-frasco">${secondPriceBadge}</span>
+                                </div>` : ''}
+                            </div>
+                            <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="buy-button">
+                                <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar
+                            </a>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            } else {
+                container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px; color: #A3C4AF; font-size: 1.1em;">Próximamente agregando productos a <strong>${colName}</strong>...</div>`;
+            }
+        }
 
         function updateMenuDisplay() {
             const imgElement = document.getElementById('menu-current-image');
@@ -1227,7 +1213,7 @@ async function switchPage(pageName) {
         let currentModalImages = [];
         let currentModalIndex = 0;
 
-        async function loadOfertasRibbon() {
+        async function loadOfertasGrid() {
             const track = document.getElementById('ofertas-dynamic-track');
             if (!track) return;
 
@@ -1277,7 +1263,13 @@ async function switchPage(pageName) {
                     card.innerHTML = `
                         <div>
                             <div class="oferta-img-container">
-                                <img src="${coverImage}" alt="${item.name || 'Oferta'}" width="240" height="180" decoding="async" onerror="this.src='logo.png'">
+                                <img src="${coverImage}" 
+                                     alt="${item.name || 'Oferta'}" 
+                                     width="240" 
+                                     height="180" 
+                                     decoding="async" 
+                                     onload="this.classList.add('loaded')" 
+                                     onerror="this.src='logo.png'; this.classList.add('loaded');">
                                 <div class="oferta-badge">
                                     <span class="oferta-badge-tag">OFERTA</span>
                                     <span class="oferta-price-original">$${orig}</span>
