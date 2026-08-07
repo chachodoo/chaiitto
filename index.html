@@ -1064,8 +1064,15 @@ async function switchPage(pageName) {
         const activeBtn = document.querySelector(`.nav-btn[data-page="${pageName}"]`);
         if (activeBtn) activeBtn.classList.add('active');
 
-        // Page Specific Handlers
-        if (pageName === 'ofertas') {
+        if (pageName === 'productos') {
+            // Guarantee BIENESTAR products render immediately
+            selectCollection('BIENESTAR');
+        } else if (pageName === 'novedades') {
+            // If novedades displays a specific collection or product set:
+            if (typeof selectCollection === 'function') {
+                selectCollection('NOVEDADES');
+            }
+        } else if (pageName === 'ofertas') {
             loadOfertasRibbon();
         } else if (pageName === 'galeria') {
             loadGalleryRibbon();
