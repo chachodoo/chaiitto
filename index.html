@@ -1160,7 +1160,11 @@
             }
         }
 
-        async function loadOfertasRibbon() {
+        // Global state for the zoom modal carousel
+let currentModalImages = [];
+let currentModalIndex = 0;
+
+async function loadOfertasRibbon() {
     const track = document.getElementById('ofertas-dynamic-track');
     if (!track) return;
 
@@ -1181,15 +1185,27 @@
             const spec = item.precioOferta;
             const descText = item.descripcion || '';
             const titleText = item.name ? `#${item.num}. ${item.name}` : `#${item.num}`;
+            
+            // Support either array 'images' or single 'image' string
+            const imageList = item.images && item.images.length > 0 
+                ? item.images 
+                : [item.image || 'logo.png'];
+            
+            const coverImage = imageList[0];
+
             const waMsg = encodeURIComponent(`¡Hola Chai-itto! Me interesa aprovechar la Oferta Especial de: ${titleText} (De $${orig} a solo $${spec} MXN). ¿Sigue disponible?`);
             const waUrl = `https://api.whatsapp.com/send?phone=${whatsappPhoneNumber}&text=${waMsg}`;
 
             const card = document.createElement('div');
             card.className = 'oferta-card';
+            
+            // Clicking anywhere on the card opens the zoom modal
+            card.onclick = () => openOfertaModal(titleText, descText, imageList, waUrl);
+
             card.innerHTML = `
                 <div>
                     <div class="oferta-img-container">
-                        <img src="${item.image || 'logo.png'}" alt="${item.name || 'Oferta'}" onerror="this.src='logo.png'">
+                        <img src="${coverImage}" alt="${item.name || 'Oferta'}" onerror="this.src='logo.png'">
                         <div class="oferta-badge">
                             <span class="oferta-badge-tag">OFERTA</span>
                             <span class="oferta-price-original">$${orig}</span>
@@ -1199,7 +1215,7 @@
                     <h3 class="oferta-title">${titleText}</h3>
                     <p class="oferta-subtitle">${descText}</p>
                 </div>
-                <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="oferta-buy-btn">
+                <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="oferta-buy-btn" onclick="event.stopPropagation()">
                     <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar Oferta
                 </a>
             `;
@@ -1209,6 +1225,59 @@
     } catch (error) {
         console.error("Error loading ofertas.json:", error);
         track.innerHTML = `<div style="color: #FF8888; padding: 20px;">Error al cargar las ofertas.</div>`;
+    }
+}
+
+// Lightbox Modal Functions
+function openOfertaModal(title, subtitle, imageArray, waUrl) {
+    const modal = document.getElementById('oferta-modal');
+    if (!modal) return;
+
+    currentModalImages = imageArray;
+    currentModalIndex = 0;
+
+    document.getElementById('modal-title').textContent = title;
+    document.getElementById('modal-subtitle').textContent = subtitle;
+    document.getElementById('modal-buy-btn').href = waUrl;
+
+    updateModalImageDisplay();
+    modal.classList.add('active');
+}
+
+function updateModalImageDisplay() {
+    const imgEl = document.getElementById('modal-img');
+    const counterEl = document.getElementById('modal-counter');
+    const prevBtn = document.getElementById('modal-prev-btn');
+    const nextBtn = document.getElementById('modal-next-btn');
+
+    imgEl.src = currentModalImages[currentModalIndex];
+
+    if (currentModalImages.length > 1) {
+        counterEl.textContent = `Imagen ${currentModalIndex + 1} de ${currentModalImages.length}`;
+        prevBtn.style.display = 'flex';
+        nextBtn.style.display = 'flex';
+    } else {
+        counterEl.textContent = '';
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+    }
+}
+
+function changeModalImage(direction) {
+    currentModalIndex += direction;
+    if (currentModalIndex < 0) currentModalIndex = currentModalImages.length - 1;
+    if (currentModalIndex >= currentModalImages.length) currentModalIndex = 0;
+    updateModalImageDisplay();
+}
+
+function closeOfertaModal() {
+    const modal = document.getElementById('oferta-modal');
+    if (modal) modal.classList.remove('active');
+}
+
+function closeOfertaModalOnBackdrop(event) {
+    if (event.target.id === 'oferta-modal') {
+        closeOfertaModal();
     }
 }
 
