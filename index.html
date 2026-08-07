@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800&family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,700;1,900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <style>
         :root {
             --emerald-dark: #07150C;
@@ -1225,6 +1226,16 @@ async function loadOfertasRibbon() {
     const track = document.getElementById('ofertas-dynamic-track');
     if (!track) return;
 
+    // --- FIRE CELEBRATION CONFETTI BURST ---
+    if (typeof confetti === 'function') {
+        confetti({
+            particleCount: 120,
+            spread: 80,
+            origin: { y: 0.6 },
+            colors: ['#E5C158', '#FFF1AA', '#FF8888', '#25D366', '#FFFFFF']
+        });
+    }
+
     try {
         const response = await fetch('ofertas.json?v=' + Date.now());
         if (!response.ok) throw new Error('Could not load ofertas.json');
@@ -1243,7 +1254,6 @@ async function loadOfertasRibbon() {
             const descText = item.descripcion || '';
             const titleText = item.name ? `#${item.num}. ${item.name}` : `#${item.num}`;
             
-            // Support either array 'images' or single 'image' string
             const imageList = item.images && item.images.length > 0 
                 ? item.images 
                 : [item.image || 'logo.png'];
@@ -1256,7 +1266,7 @@ async function loadOfertasRibbon() {
             const card = document.createElement('div');
             card.className = 'oferta-card';
             
-            // Clicking anywhere on the card opens the zoom modal
+            // Open zoom modal on card click
             card.onclick = () => openOfertaModal(titleText, descText, imageList, waUrl);
 
             card.innerHTML = `
@@ -1285,7 +1295,7 @@ async function loadOfertasRibbon() {
     }
 }
 
-// Lightbox Modal Functions
+// LIGHTBOX MODAL FUNCTIONS
 function openOfertaModal(title, subtitle, imageArray, waUrl) {
     const modal = document.getElementById('oferta-modal');
     if (!modal) return;
