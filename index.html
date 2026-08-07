@@ -956,32 +956,35 @@
     50% { transform: scale(1.35); filter: drop-shadow(0 0 10px #FFF); }
 }
 
-/* --- BRIGHT GLOWING CARD BADGE --- */
+/* --- SLEEK TOP-CENTER MAGNIFIER ICON --- */
 .oferta-img-container::after {
-    content: "\f00e  AMPLIAR FOTOS";
-    font-family: "Font Awesome 6 Free", var(--font-body);
+    content: "\f00e"; /* Font Awesome Magnifier Icon */
+    font-family: "Font Awesome 6 Free";
     font-weight: 900;
     position: absolute;
-    bottom: 8px;
+    top: 10px;
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient(135deg, #E5C158 0%, #FFF1AA 100%);
-    color: #07150C;
-    border: none;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.72em;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7), 0 0 10px rgba(229, 193, 88, 0.8);
-    opacity: 1;
-    white-space: nowrap;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: rgba(7, 21, 12, 0.85);
+    color: var(--gold-accent);
+    border: 1px solid var(--gold-accent);
+    width: 32px;
+    height: 32px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 0.85em;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+    pointer-events: none;
+    z-index: 2;
 }
 
 .oferta-card:hover .oferta-img-container::after {
-    transform: translateX(-50%) scale(1.1);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 255, 255, 1);
+    transform: translateX(-50%) scale(1.15);
+    background: var(--gold-accent);
+    color: var(--emerald-dark);
+    box-shadow: 0 0 12px rgba(229, 193, 88, 0.8);
 }
     </style>
 </head>
@@ -1226,14 +1229,40 @@ async function loadOfertasRibbon() {
     const track = document.getElementById('ofertas-dynamic-track');
     if (!track) return;
 
-    // --- FIRE CELEBRATION CONFETTI BURST ---
+    // --- HIGH-INTENSITY DOUBLE CANNON CONFETTI EXPLOSION ---
     if (typeof confetti === 'function') {
+        // Center Burst
         confetti({
-            particleCount: 120,
-            spread: 80,
+            particleCount: 150,
+            spread: 100,
             origin: { y: 0.6 },
+            startVelocity: 45,
             colors: ['#E5C158', '#FFF1AA', '#FF8888', '#25D366', '#FFFFFF']
         });
+
+        // Left Cannon
+        setTimeout(() => {
+            confetti({
+                particleCount: 80,
+                angle: 60,
+                spread: 70,
+                origin: { x: 0, y: 0.8 },
+                startVelocity: 55,
+                colors: ['#E5C158', '#FFF1AA', '#FF8888', '#25D366']
+            });
+        }, 150);
+
+        // Right Cannon
+        setTimeout(() => {
+            confetti({
+                particleCount: 80,
+                angle: 120,
+                spread: 70,
+                origin: { x: 1, y: 0.8 },
+                startVelocity: 55,
+                colors: ['#E5C158', '#FFF1AA', '#FF8888', '#25D366']
+            });
+        }, 300);
     }
 
     try {
@@ -1266,7 +1295,6 @@ async function loadOfertasRibbon() {
             const card = document.createElement('div');
             card.className = 'oferta-card';
             
-            // Open zoom modal on card click
             card.onclick = () => openOfertaModal(titleText, descText, imageList, waUrl);
 
             card.innerHTML = `
