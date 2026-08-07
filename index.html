@@ -898,8 +898,11 @@
 
             // Determine target HTML file in /sections/
             let targetFile = pageName;
-            if (pageName === 'novedades' || pageName === 'ultimas') {
+            let targetFile = pageName;
+            if (pageName === 'novedades') {
                 targetFile = 'productos';
+            } else if (pageName === 'ultimas') {
+                targetFile = 'ofertas';  // <--- THIS TELLS IT TO LOAD sections/ofertas.html
             }
 
             try {
@@ -924,9 +927,8 @@
                     if (collectionsBar) collectionsBar.style.display = 'none';
                     selectCollection('NOVEDADES');
                 } else if (pageName === 'ultimas') {
-                    const collectionsBar = document.querySelector('.collections-bar');
-                    if (collectionsBar) collectionsBar.style.display = 'none';
-                    selectCollection('OFERTAS');
+                    loadOfertasRibbon();
+                }
                 } else if (pageName === 'menu') {
                     currentMenuPage = 1;
                     updateMenuDisplay();
@@ -1198,6 +1200,57 @@
             // Direct string update
             counterEl.textContent = formatCounterNumber(savedCount);
         }
+
+        async function loadOfertasRibbon() {
+    const track = document.getElementById('ofertas-dynamic-track');
+    if (!track) return;
+
+    try {
+        const response = await fetch('ofertas.json?v=' + Date.now());
+        if (!response.ok) throw new Error('Could not load ofertas.json');
+
+        const ofertasList = await response.json();
+        if (!ofertasList || ofertasList.length === 0) {
+            track.innerHTML = `<div style="color: #A3C4AF; padding: 20px;">No hay ofertas disponibles por el momento.</div>`;
+            return;
+        }
+
+        track.innerHTML = '';
+
+        ofertasList.forEach(item => {
+            const orig = item.precioOriginal;
+            const spec = item.precioOferta;
+            const descText = item.descripcion || '';
+            const waMsg = encodeURIComponent(`¡Hola Chai-itto! Me interesa aprovechar la Oferta Especial de: #${item.num} ${item.name} (De $${orig} a solo $${spec} MXN). ¿Sigue disponible?`);
+            const waUrl = `https://api.whatsapp.com/send?phone=${whatsappPhoneNumber}&text=${waMsg}`;
+
+            const card = document.createElement('div');
+            card.className = 'oferta-card';
+            card.innerHTML = `
+                <div>
+                    <div class="oferta-img-container">
+                        <img src="${item.image || 'logo.png'}" alt="${item.name}" onerror="this.src='logo.png'">
+                        <div class="oferta-badge">
+                            <span class="oferta-badge-tag">OFERTA</span>
+                            <span class="oferta-price-original">$${orig}</span>
+                            <div class="oferta-price-special">$${spec}</div>
+                        </div>
+                    </div>
+                    <h3 class="oferta-title">#${item.num}. ${item.name}</h3>
+                    <p class="oferta-subtitle">${descText}</p>
+                </div>
+                <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="oferta-buy-btn">
+                    <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar Oferta
+                </a>
+            `;
+            track.appendChild(card);
+        });
+
+    } catch (error) {
+        console.error("Error loading ofertas.json:", error);
+        track.innerHTML = `<div style="color: #FF8888; padding: 20px;">Error al cargar las ofertas.</div>`;
+    }
+}
         
         document.addEventListener('DOMContentLoaded', async () => {
             await fetchProducts();
