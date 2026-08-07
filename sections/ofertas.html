@@ -1,10 +1,38 @@
 <div class="story-card">
     <h1 class="story-title"><i class="fa-solid fa-fire" style="color: #FF8888;"></i> Ofertas Especiales</h1>
-    <div class="story-subtitle">Descuentos Exclusivos</div>
+    <div class="story-subtitle">Descuentos Exclusivos & Combinaciones Seleccionadas</div>
 
     <div class="ofertas-ribbon-wrapper">
         <div class="ofertas-track" id="ofertas-dynamic-track">
             <!-- Dynamic offer cards injected from ofertas.json -->
         </div>
+    </div>
+</div>
+
+<!-- LIGHTBOX ZOOM MODAL -->
+<div id="oferta-modal" class="oferta-modal" onclick="closeOfertaModalOnBackdrop(event)">
+    <div class="oferta-modal-content">
+        <span class="oferta-modal-close" onclick="closeOfertaModal()">&times;</span>
+        
+        <h3 id="modal-title" class="oferta-title" style="font-size: 1.3em; margin: 5px 0;"></h3>
+        <p id="modal-subtitle" class="oferta-subtitle" style="margin-bottom: 5px;"></p>
+
+        <div class="oferta-modal-viewer">
+            <button id="modal-prev-btn" class="modal-arrow prev" onclick="changeModalImage(-1)">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            
+            <img id="modal-img" src="logo.png" alt="Zoom Oferta">
+            
+            <button id="modal-next-btn" class="modal-arrow next" onclick="changeModalImage(1)">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <div id="modal-counter" style="color: #A3C4AF; font-size: 0.85em; margin-bottom: 12px;"></div>
+
+        <a id="modal-buy-btn" href="#" target="_blank" rel="noopener noreferrer" class="oferta-buy-btn" style="width: 100%; max-width: 300px; padding: 12px;">
+            <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar Oferta
+        </a>
     </div>
 </div>
