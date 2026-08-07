@@ -1,0 +1,82 @@
+[
+  {
+    "num": "01",
+    "name": "Tetera Japonesa",
+    "descripcion": "",
+    "precioOriginal": 1200,
+    "precioOferta": 1100,
+    "image": "ofertas/cc1.jpg"
+  },
+  {
+    "num": "02",
+    "name": "",
+    "descripcion": "",
+    "precioOriginal": 280,
+    "precioOferta": 195,
+    "image": "ofertas/cc2.jpg"
+  },
+  {
+    "num": "03",
+    "name": "",
+    "descripcion": "",
+    "precioOriginal": 210,
+    "precioOferta": 149,
+    "image": "ofertas/cc3.jpg"
+  },
+  {
+    "num": "04",
+    "name": "",
+    "descripcion": "",
+    "precioOriginal": 910,
+    "precioOferta": 750,
+    "image": "ofertas/cc4.jpg"
+  },
+    {
+    "num": "05",
+    "name": "",
+    "descripcion": "",
+    "precioOriginal": 910,
+    "precioOferta": 750,
+    "image": "ofertas/cc5.jpg"
+  },
+    {
+    "num": "06",
+    "name": "",
+    "descripcion": "",
+    "precioOriginal": 910,
+    "precioOferta": 750,
+    "image": "ofertas/cc6.jpg"
+  },
+    {
+    "num": "07",
+    "name": "",
+    "descripcion": "",
+    "precioOriginal": 910,
+    "precioOferta": 750,
+    "image": "ofertas/cc7.jpg"
+  },
+    {
+    "num": "08",
+    "name": "",
+    "descripcion": "",
+    "precioOriginal": 910,
+    "precioOferta": 750,
+    "image": "ofertas/cc8.jpg"
+  },
+    {
+    "num": "09",
+    "name": "",
+    "descripcion": "",
+    "precioOriginal": 910,
+    "precioOferta": 750,
+    "image": "ofertas/cc9.jpg"
+  },
+    {
+    "num": "10",
+    "name": "",
+    "descripcion": "",
+    "precioOriginal": 910,
+    "precioOferta": 750,
+    "image": "ofertas/cc10.jpg"
+  }
+]
