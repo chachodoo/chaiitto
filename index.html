@@ -925,6 +925,29 @@
 .oferta-card {
     cursor: pointer; /* Indicates clicking opens detail view */
 }
+
+        /* --- HOVER ZOOM HINT ON CARDS --- */
+.oferta-img-container::after {
+    content: "\f00e  Ver fotos";
+    font-family: "Font Awesome 6 Free", var(--font-body);
+    font-weight: 900;
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    background: rgba(7, 21, 12, 0.85);
+    color: var(--gold-accent);
+    border: 1px solid var(--gold-accent);
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.7em;
+    opacity: 0.8;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.oferta-card:hover .oferta-img-container::after {
+    opacity: 1;
+    transform: scale(1.05);
+}
     </style>
 </head>
 <body>
