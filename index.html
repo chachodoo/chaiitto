@@ -723,16 +723,33 @@
 @media (max-width: 768px) { .ofertas-track { grid-template-columns: repeat(2, 1fr); gap: 14px; } }
 @media (max-width: 480px) { .ofertas-track { grid-template-columns: 1fr; } }
 
-/* Allow cards to expand naturally in the grid */
+/* --- EVENLY ALIGNED OFERTA CARDS --- */
 .oferta-card {
+    background: rgba(16, 38, 25, 0.9);
+    border: 1.5px solid var(--gold-accent);
+    border-radius: 16px;
+    padding: 14px;
     width: 100% !important;
-    flex: none !important;
+    height: 100%; /* Stretches card to fill the row's full height */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Pushes bottom element to the bottom */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
-        .oferta-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 30px rgba(229, 193, 88, 0.3);
-        }
+.oferta-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(229, 193, 88, 0.3);
+}
+
+/* Force top content box to take available space */
+.oferta-card > div:first-child {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
 
         .oferta-img-container {
             position: relative;
@@ -805,22 +822,24 @@
             margin-bottom: 12px;
         }
 
-        .oferta-buy-btn {
-            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-            color: white;
-            text-decoration: none;
-            text-align: center;
-            padding: 9px;
-            border-radius: 20px;
-            font-family: var(--font-heading);
-            font-weight: 700;
-            font-size: 0.8em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            transition: transform 0.2s ease;
-        }
+        /* Pin WhatsApp button cleanly to the bottom of every card */
+.oferta-buy-btn {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+    border-radius: 20px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.8em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: transform 0.2s ease;
+    margin-top: auto; /* Guarantees bottom alignment across unequal text lengths */
+}
 
         .oferta-buy-btn:hover {
             transform: scale(1.03);
