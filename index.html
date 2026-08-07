@@ -49,6 +49,7 @@
             padding: 15px 15px 20px;
             background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(7,21,12,0) 100%);
             border-bottom: 1px solid rgba(229, 193, 88, 0.25);
+            transition: all 0.3s ease;
         }
         
         .logo-wrapper {
@@ -64,7 +65,7 @@
             cursor: pointer;
             filter: drop-shadow(0 0 18px rgba(229, 193, 88, 0.9)) 
                     drop-shadow(0 0 35px rgba(229, 193, 88, 0.5));
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease-in-out;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease-in-out, width 0.3s ease;
             animation: spinOnce 1.2s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
@@ -76,7 +77,7 @@
         .logo-wrapper:hover .logo-main, 
         .logo-main:hover, 
         .logo-main:active {
-            transform: scale(1.22) translateY(-4px) !important;
+            transform: scale(1.15) translateY(-4px) !important;
             filter: drop-shadow(0 0 30px rgba(255, 241, 170, 1)) 
                     drop-shadow(0 0 60px rgba(229, 193, 88, 0.95))
                     drop-shadow(0 0 90px rgba(229, 193, 88, 0.7)) !important;
@@ -728,6 +729,7 @@
             flex-direction: column;
             justify-content: space-between;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
         }
 
         .oferta-card:hover {
@@ -828,184 +830,134 @@
         }
 
         /* --- OFERTAS LIGHTBOX MODAL --- */
-.oferta-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.92);
-    z-index: 10000;
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(8px);
-    padding: 20px;
-}
+        .oferta-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(8px);
+            padding: 20px;
+        }
 
-.oferta-modal.active {
-    display: flex;
-}
+        .oferta-modal.active {
+            display: flex;
+        }
 
-.oferta-modal-content {
-    position: relative;
-    max-width: 800px;
-    width: 90%;
-    background: var(--emerald-card);
-    border: 2px solid var(--gold-accent);
-    border-radius: 16px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+        .oferta-modal-content {
+            position: relative;
+            max-width: 800px;
+            width: 90%;
+            background: var(--emerald-card);
+            border: 2px solid var(--gold-accent);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-.oferta-modal-close {
-    position: absolute;
-    top: 12px;
-    right: 18px;
-    color: var(--gold-accent);
-    font-size: 2em;
-    cursor: pointer;
-    line-height: 1;
-    transition: transform 0.2s;
-}
+        .oferta-modal-close {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            color: var(--gold-accent);
+            font-size: 2em;
+            cursor: pointer;
+            line-height: 1;
+            transition: transform 0.2s;
+        }
 
-.oferta-modal-close:hover {
-    transform: scale(1.2);
-    color: #FFF;
-}
+        .oferta-modal-close:hover {
+            transform: scale(1.2);
+            color: #FFF;
+        }
 
-.oferta-modal-viewer {
-    position: relative;
-    width: 100%;
-    max-height: 50vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 15px 0;
-    overflow: hidden;
-    border-radius: 10px;
-    background: rgba(0,0,0,0.5);
-}
+        .oferta-modal-viewer {
+            position: relative;
+            width: 100%;
+            max-height: 50vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 15px 0;
+            overflow: hidden;
+            border-radius: 10px;
+            background: rgba(0,0,0,0.5);
+        }
 
-.oferta-modal-viewer img {
-    max-width: 100%;
-    max-height: 50vh;
-    object-fit: contain;
-    border-radius: 8px;
-}
+        .oferta-modal-viewer img {
+            max-width: 100%;
+            max-height: 50vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
 
-.modal-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(16, 38, 25, 0.8);
-    color: var(--gold-accent);
-    border: 1px solid var(--gold-accent);
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    font-size: 1.2em;
-    transition: background 0.2s, transform 0.2s;
-    user-select: none;
-}
+        .modal-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(16, 38, 25, 0.8);
+            color: var(--gold-accent);
+            border: 1px solid var(--gold-accent);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background 0.2s, transform 0.2s;
+            user-select: none;
+        }
 
-.modal-arrow:hover {
-    background: var(--gold-accent);
-    color: var(--emerald-dark);
-    transform: translateY(-50%) scale(1.1);
-}
+        .modal-arrow:hover {
+            background: var(--gold-accent);
+            color: var(--emerald-dark);
+            transform: translateY(-50%) scale(1.1);
+        }
 
-.modal-arrow.prev { left: 10px; }
-.modal-arrow.next { right: 10px; }
+        .modal-arrow.prev { left: 10px; }
+        .modal-arrow.next { right: 10px; }
 
-.oferta-card {
-    cursor: pointer; /* Indicates clicking opens detail view */
-}
+        /* --- SLEEK TOP-CENTER MAGNIFIER ICON --- */
+        .oferta-img-container::after {
+            content: "\f00e";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(7, 21, 12, 0.85);
+            color: var(--gold-accent);
+            border: 1px solid var(--gold-accent);
+            width: 32px;
+            height: 32px;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50%;
+            font-size: 0.85em;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
 
-/* --- BRIGHT HIGH-CONTRAST NOTICE BANNER --- */
-.ofertas-notice-banner {
-    background: linear-gradient(135deg, rgba(229, 193, 88, 0.25) 0%, rgba(16, 38, 25, 0.95) 100%);
-    border: 1.5px solid var(--gold-accent);
-    color: var(--gold-glow);
-    text-align: center;
-    padding: 10px 18px;
-    border-radius: 25px;
-    font-size: 0.92em;
-    margin: 0 auto 18px;
-    max-width: 600px;
-    box-shadow: 0 0 15px rgba(229, 193, 88, 0.35);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-.pulse-icon {
-    color: var(--gold-accent);
-    font-size: 1.3em;
-    animation: pulseGlow 1.8s infinite ease-in-out;
-}
-
-@keyframes pulseGlow {
-    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px var(--gold-accent)); }
-    50% { transform: scale(1.35); filter: drop-shadow(0 0 10px #FFF); }
-}
-
-/* --- SLEEK TOP-CENTER MAGNIFIER ICON --- */
-.oferta-img-container::after {
-    content: "\f00e"; /* Font Awesome Magnifier Icon */
-    font-family: "Font Awesome 6 Free";
-    font-weight: 900;
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(7, 21, 12, 0.85);
-    color: var(--gold-accent);
-    border: 1px solid var(--gold-accent);
-    width: 32px;
-    height: 32px;
-    line-height: 30px;
-    text-align: center;
-    border-radius: 50%;
-    font-size: 0.85em;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
-    pointer-events: none;
-    z-index: 2;
-}
-
-.oferta-card:hover .oferta-img-container::after {
-    transform: translateX(-50%) scale(1.15);
-    background: var(--gold-accent);
-    color: var(--emerald-dark);
-    box-shadow: 0 0 12px rgba(229, 193, 88, 0.8);
-}
-        /* --- COMPACT HEADER FOR INNER PAGES --- */
-header.compact-header {
-    padding: 8px 15px 12px;
-}
-
-header.compact-header .logo-main {
-    width: clamp(140px, 40vw, 200px) !important; /* Smaller logo on subpages */
-}
-
-header.compact-header .slogan-hero,
-header.compact-header .location-badge {
-    display: none; /* Hides slogan to save space on subpages */
-}
-
-header.compact-header nav.main-nav {
-    margin-top: 10px;
-}
+        .oferta-card:hover .oferta-img-container::after {
+            transform: translateX(-50%) scale(1.15);
+            background: var(--gold-accent);
+            color: var(--emerald-dark);
+            box-shadow: 0 0 12px rgba(229, 193, 88, 0.8);
+        }
     </style>
 </head>
 <body>
@@ -1022,7 +974,7 @@ header.compact-header nav.main-nav {
             <button class="nav-btn" data-page="productos" onclick="switchPage('productos')"><i class="fa-solid fa-mug-hot"></i> Productos</button>
             <button class="nav-btn" data-page="menu" onclick="switchPage('menu')"><i class="fa-solid fa-book-open"></i> Menú</button>
             <button class="nav-btn highlight-new" data-page="novedades" onclick="switchPage('novedades')"><i class="fa-solid fa-wand-magic-sparkles"></i> Novedades</button>
-            <button class="nav-btn highlight-clearance" data-page="ultimas" onclick="switchPage('ultimas')"><i class="fa-solid fa-fire"></i> Ofertas</button>
+            <button class="nav-btn highlight-clearance" data-page="ofertas" onclick="switchPage('ofertas')"><i class="fa-solid fa-fire"></i> Ofertas</button>
             <button class="nav-btn" data-page="galeria" onclick="switchPage('galeria')"><i class="fa-solid fa-photo-film"></i> Galería</button>
             <button class="nav-btn" data-page="contactanos" onclick="switchPage('contactanos')"><i class="fa-solid fa-location-dot"></i> Contáctanos</button>
         </nav>
@@ -1067,45 +1019,39 @@ header.compact-header nav.main-nav {
             }
         }
 
-        // --- PAGE SWITCHER WITH COMPACT HEADER CONTROL ---
-async function switchPage(pageName) {
-    const container = document.getElementById('dynamic-content-area');
-    const headerEl = document.querySelector('header');
-    if (!container) return;
+        // --- PAGE SWITCHER ---
+        async function switchPage(pageName) {
+            const container = document.getElementById('dynamic-content-area');
+            if (!container) return;
 
-    // Compact header state for subpages
-    if (headerEl) {
-        if (pageName === 'inicio') {
-            headerEl.classList.remove('compact-header');
-        } else {
-            headerEl.classList.add('compact-header');
+            try {
+                const response = await fetch(`sections/${pageName}.html?v=` + Date.now());
+                if (!response.ok) throw new Error(`Could not load section: ${pageName}`);
+                
+                const html = await response.text();
+                container.innerHTML = html;
+
+                // Update Active Nav Button
+                document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+                const activeBtn = document.querySelector(`.nav-btn[data-page="${pageName}"]`);
+                if (activeBtn) activeBtn.classList.add('active');
+
+                // Page Specific Handlers
+                if (pageName === 'ofertas') {
+                    loadOfertasRibbon();
+                } else if (pageName === 'galeria') {
+                    loadGalleryRibbon();
+                } else if (pageName === 'menu') {
+                    updateMenuDisplay();
+                }
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            } catch (error) {
+                console.error('Error loading page section:', error);
+                container.innerHTML = `<div style="color: #FF8888; text-align: center; padding: 40px;">Error al cargar la sección.</div>`;
+            }
         }
-    }
-
-    try {
-        const response = await fetch(`sections/${pageName}.html`);
-        if (!response.ok) throw new Error(`Could not load section: ${pageName}`);
-        
-        const html = await response.text();
-        container.innerHTML = html;
-
-        // Active tab styling
-        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-        const activeBtn = document.querySelector(`.nav-btn[onclick*="${pageName}"]`);
-        if (activeBtn) activeBtn.classList.add('active');
-
-        // Page-specific initializers
-        if (pageName === 'ofertas') {
-            loadOfertasRibbon();
-        }
-
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    } catch (error) {
-        console.error('Error loading page section:', error);
-        container.innerHTML = `<div style="color: #FF8888; text-align: center; padding: 40px;">Error al cargar la sección.</div>`;
-    }
-}
 
         function handleHashNavigation() {
             const hash = window.location.hash;
@@ -1223,159 +1169,156 @@ async function switchPage(pageName) {
         }
 
         // Global state for the zoom modal carousel
-let currentModalImages = [];
-let currentModalIndex = 0;
+        let currentModalImages = [];
+        let currentModalIndex = 0;
 
-async function loadOfertasRibbon() {
-    const track = document.getElementById('ofertas-dynamic-track');
-    if (!track) return;
+        async function loadOfertasRibbon() {
+            const track = document.getElementById('ofertas-dynamic-track');
+            if (!track) return;
 
-    // --- HIGH-INTENSITY CONFETTI CONTAINED BELOW HEADER ---
-if (typeof confetti === 'function') {
-    confetti({
-        particleCount: 140,
-        spread: 90,
-        origin: { y: 0.45 }, // Starts below the navigation bar
-        startVelocity: 35,
-        colors: ['#E5C158', '#FFF1AA', '#FF8888', '#25D366', '#FFFFFF']
-    });
-}
+            // --- TRIPLE-BURST CELEBRATION CONFETTI ---
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 140,
+                    spread: 90,
+                    origin: { y: 0.45 },
+                    startVelocity: 35,
+                    colors: ['#E5C158', '#FFF1AA', '#FF8888', '#25D366', '#FFFFFF']
+                });
 
-        // Left Cannon
-        setTimeout(() => {
-            confetti({
-                particleCount: 80,
-                angle: 60,
-                spread: 70,
-                origin: { x: 0, y: 0.8 },
-                startVelocity: 55,
-                colors: ['#E5C158', '#FFF1AA', '#FF8888', '#25D366']
-            });
-        }, 150);
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 70,
+                        angle: 60,
+                        spread: 70,
+                        origin: { x: 0, y: 0.8 },
+                        startVelocity: 50,
+                        colors: ['#E5C158', '#FFF1AA', '#FF8888', '#25D366']
+                    });
+                }, 150);
 
-        // Right Cannon
-        setTimeout(() => {
-            confetti({
-                particleCount: 80,
-                angle: 120,
-                spread: 70,
-                origin: { x: 1, y: 0.8 },
-                startVelocity: 55,
-                colors: ['#E5C158', '#FFF1AA', '#FF8888', '#25D366']
-            });
-        }, 300);
-    }
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 70,
+                        angle: 120,
+                        spread: 70,
+                        origin: { x: 1, y: 0.8 },
+                        startVelocity: 50,
+                        colors: ['#E5C158', '#FFF1AA', '#FF8888', '#25D366']
+                    });
+                }, 300);
+            }
 
-    try {
-        const response = await fetch('ofertas.json?v=' + Date.now());
-        if (!response.ok) throw new Error('Could not load ofertas.json');
+            try {
+                const response = await fetch('ofertas.json?v=' + Date.now());
+                if (!response.ok) throw new Error('Could not load ofertas.json');
 
-        const ofertasList = await response.json();
-        if (!ofertasList || ofertasList.length === 0) {
-            track.innerHTML = `<div style="color: #A3C4AF; padding: 20px;">No hay ofertas disponibles por el momento.</div>`;
-            return;
+                const ofertasList = await response.json();
+                if (!ofertasList || ofertasList.length === 0) {
+                    track.innerHTML = `<div style="color: #A3C4AF; padding: 20px;">No hay ofertas disponibles por el momento.</div>`;
+                    return;
+                }
+
+                track.innerHTML = '';
+
+                ofertasList.forEach(item => {
+                    const orig = item.precioOriginal;
+                    const spec = item.precioOferta;
+                    const descText = item.descripcion || '';
+                    const titleText = item.name ? `#${item.num}. ${item.name}` : `#${item.num}`;
+                    
+                    const imageList = (item.images && item.images.length > 0)
+                        ? item.images 
+                        : [item.image || 'logo.png'];
+                    
+                    const coverImage = imageList[0];
+
+                    const waMsg = encodeURIComponent(`¡Hola Chai-itto! Me interesa aprovechar la Oferta Especial de: ${titleText} (De $${orig} a solo $${spec} MXN). ¿Sigue disponible?`);
+                    const waUrl = `https://api.whatsapp.com/send?phone=${whatsappPhoneNumber}&text=${waMsg}`;
+
+                    const card = document.createElement('div');
+                    card.className = 'oferta-card';
+                    
+                    card.onclick = () => openOfertaModal(titleText, descText, imageList, waUrl);
+
+                    card.innerHTML = `
+                        <div>
+                            <div class="oferta-img-container">
+                                <img src="${coverImage}" alt="${item.name || 'Oferta'}" onerror="this.src='logo.png'">
+                                <div class="oferta-badge">
+                                    <span class="oferta-badge-tag">OFERTA</span>
+                                    <span class="oferta-price-original">$${orig}</span>
+                                    <div class="oferta-price-special">$${spec}</div>
+                                </div>
+                            </div>
+                            <h3 class="oferta-title">${titleText}</h3>
+                            <p class="oferta-subtitle">${descText}</p>
+                        </div>
+                        <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="oferta-buy-btn" onclick="event.stopPropagation()">
+                            <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar Oferta
+                        </a>
+                    `;
+                    track.appendChild(card);
+                });
+
+            } catch (error) {
+                console.error("Error loading ofertas.json:", error);
+                track.innerHTML = `<div style="color: #FF8888; padding: 20px;">Error al cargar las ofertas.</div>`;
+            }
         }
 
-        track.innerHTML = '';
+        // LIGHTBOX MODAL FUNCTIONS
+        function openOfertaModal(title, subtitle, imageArray, waUrl) {
+            const modal = document.getElementById('oferta-modal');
+            if (!modal) return;
 
-        ofertasList.forEach(item => {
-            const orig = item.precioOriginal;
-            const spec = item.precioOferta;
-            const descText = item.descripcion || '';
-            const titleText = item.name ? `#${item.num}. ${item.name}` : `#${item.num}`;
-            
-            const imageList = item.images && item.images.length > 0 
-                ? item.images 
-                : [item.image || 'logo.png'];
-            
-            const coverImage = imageList[0];
+            currentModalImages = imageArray;
+            currentModalIndex = 0;
 
-            const waMsg = encodeURIComponent(`¡Hola Chai-itto! Me interesa aprovechar la Oferta Especial de: ${titleText} (De $${orig} a solo $${spec} MXN). ¿Sigue disponible?`);
-            const waUrl = `https://api.whatsapp.com/send?phone=${whatsappPhoneNumber}&text=${waMsg}`;
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-subtitle').textContent = subtitle;
+            document.getElementById('modal-buy-btn').href = waUrl;
 
-            const card = document.createElement('div');
-            card.className = 'oferta-card';
-            
-            card.onclick = () => openOfertaModal(titleText, descText, imageList, waUrl);
+            updateModalImageDisplay();
+            modal.classList.add('active');
+        }
 
-            card.innerHTML = `
-                <div>
-                    <div class="oferta-img-container">
-                        <img src="${coverImage}" alt="${item.name || 'Oferta'}" onerror="this.src='logo.png'">
-                        <div class="oferta-badge">
-                            <span class="oferta-badge-tag">OFERTA</span>
-                            <span class="oferta-price-original">$${orig}</span>
-                            <div class="oferta-price-special">$${spec}</div>
-                        </div>
-                    </div>
-                    <h3 class="oferta-title">${titleText}</h3>
-                    <p class="oferta-subtitle">${descText}</p>
-                </div>
-                <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="oferta-buy-btn" onclick="event.stopPropagation()">
-                    <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar Oferta
-                </a>
-            `;
-            track.appendChild(card);
-        });
+        function updateModalImageDisplay() {
+            const imgEl = document.getElementById('modal-img');
+            const counterEl = document.getElementById('modal-counter');
+            const prevBtn = document.getElementById('modal-prev-btn');
+            const nextBtn = document.getElementById('modal-next-btn');
 
-    } catch (error) {
-        console.error("Error loading ofertas.json:", error);
-        track.innerHTML = `<div style="color: #FF8888; padding: 20px;">Error al cargar las ofertas.</div>`;
-    }
-}
+            imgEl.src = currentModalImages[currentModalIndex];
 
-// LIGHTBOX MODAL FUNCTIONS
-function openOfertaModal(title, subtitle, imageArray, waUrl) {
-    const modal = document.getElementById('oferta-modal');
-    if (!modal) return;
+            if (currentModalImages.length > 1) {
+                counterEl.textContent = `Imagen ${currentModalIndex + 1} de ${currentModalImages.length}`;
+                prevBtn.style.display = 'flex';
+                nextBtn.style.display = 'flex';
+            } else {
+                counterEl.textContent = '';
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+            }
+        }
 
-    currentModalImages = imageArray;
-    currentModalIndex = 0;
+        function changeModalImage(direction) {
+            currentModalIndex += direction;
+            if (currentModalIndex < 0) currentModalIndex = currentModalImages.length - 1;
+            if (currentModalIndex >= currentModalImages.length) currentModalIndex = 0;
+            updateModalImageDisplay();
+        }
 
-    document.getElementById('modal-title').textContent = title;
-    document.getElementById('modal-subtitle').textContent = subtitle;
-    document.getElementById('modal-buy-btn').href = waUrl;
+        function closeOfertaModal() {
+            const modal = document.getElementById('oferta-modal');
+            if (modal) modal.classList.remove('active');
+        }
 
-    updateModalImageDisplay();
-    modal.classList.add('active');
-}
-
-function updateModalImageDisplay() {
-    const imgEl = document.getElementById('modal-img');
-    const counterEl = document.getElementById('modal-counter');
-    const prevBtn = document.getElementById('modal-prev-btn');
-    const nextBtn = document.getElementById('modal-next-btn');
-
-    imgEl.src = currentModalImages[currentModalIndex];
-
-    if (currentModalImages.length > 1) {
-        counterEl.textContent = `Imagen ${currentModalIndex + 1} de ${currentModalImages.length}`;
-        prevBtn.style.display = 'flex';
-        nextBtn.style.display = 'flex';
-    } else {
-        counterEl.textContent = '';
-        prevBtn.style.display = 'none';
-        nextBtn.style.display = 'none';
-    }
-}
-
-function changeModalImage(direction) {
-    currentModalIndex += direction;
-    if (currentModalIndex < 0) currentModalIndex = currentModalImages.length - 1;
-    if (currentModalIndex >= currentModalImages.length) currentModalIndex = 0;
-    updateModalImageDisplay();
-}
-
-function closeOfertaModal() {
-    const modal = document.getElementById('oferta-modal');
-    if (modal) modal.classList.remove('active');
-}
-
-function closeOfertaModalOnBackdrop(event) {
-    if (event.target.id === 'oferta-modal') {
-        closeOfertaModal();
-    }
-}
+        function closeOfertaModalOnBackdrop(event) {
+            if (event.target.id === 'oferta-modal') {
+                closeOfertaModal();
+            }
+        }
 
         async function loadGalleryRibbon() {
             const track = document.getElementById('dynamic-ribbon-track');
