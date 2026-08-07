@@ -1122,57 +1122,67 @@ async function switchPage(pageName) {
         }
 
         function loadCollection(colName) {
-            const container = document.getElementById('products-container');
-            if (!container) return;
-            container.innerHTML = '';
+    const container = document.getElementById('products-container');
+    if (!container) return;
+    container.innerHTML = '';
 
-            let list = allProducts[colName];
-            if (!list) {
-                const targetNorm = normalizeStr(colName);
-                const matchedKey = Object.keys(allProducts).find(k => normalizeStr(k) === targetNorm);
-                if (matchedKey) list = allProducts[matchedKey];
-            }
-            list = list || [];
+    let list = allProducts[colName];
+    if (!list) {
+        const targetNorm = normalizeStr(colName);
+        const matchedKey = Object.keys(allProducts).find(k => normalizeStr(k) === targetNorm);
+        if (matchedKey) list = allProducts[matchedKey];
+    }
+    list = list || [];
 
-            if (list.length > 0) {
-                list.forEach(prod => {
-                    const imageSrc = prod.image || 'logo.png';
-                    const waMessage = encodeURIComponent(`Hola Chai-itto, quisiera ordenar el Frasco de ${prod.num}. ${prod.name}`);
-                    const waLink = `https://api.whatsapp.com/send?phone=${whatsappPhoneNumber}&text=${waMessage}`;
+    if (list.length > 0) {
+        list.forEach(prod => {
+            const imageSrc = prod.image || 'logo.png';
+            const numLabel = prod.num ? `<span class="product-number">${prod.num}.</span> ` : '';
+            
+            // Handle secondary price option (Frasco or Sobre)
+            const secondPriceValue = prod.frasco || prod.sobre || 0;
+            const secondPriceLabel = prod.sobre ? 'Sobre' : 'Frasco';
+            const secondPriceBadge = prod.sobre ? 'Para Llevar' : 'Para Envío';
 
-                    const card = document.createElement('div');
-                    card.className = 'product-card';
-                    card.innerHTML = `
-                        <div>
-                            <div class="product-img-box">
-                                <img src="${imageSrc}" alt="${prod.name}">
-                            </div>
-                            <h3 class="product-name"><span class="product-number">${prod.num}.</span> ${prod.name}</h3>
-                            <p class="product-ingredients">${prod.ingredients}</p>
-                        </div>
-                        <div>
-                            <div class="price-section">
-                                <div class="price-option">
-                                    <span class="price-label">Taza</span>
-                                    <div class="price-value">$${prod.taza}</div>
-                                </div>
-                                <div class="price-option">
-                                    <span class="price-label">Frasco</span>
-                                    <div class="price-value frasco">$${prod.frasco}</div>
-                                    <span class="badge-frasco">Para Envío</span>
-                                </div>
-                            </div>
-                            <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="buy-button">
-                                <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar Frasco
-                            </a>
-                        </div>
-                    `;
-                    container.appendChild(card);
-                });
-            } else {
-                container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px; color: #A3C4AF; font-size: 1.1em;">Próximamente agregando productos a <strong>${colName}</strong>...</div>`;
-            }
-        }
+            const waMessage = encodeURIComponent(`Hola Chai-itto, quisiera ordenar ${prod.name}`);
+            const waLink = `https://api.whatsapp.com/send?phone=${whatsappPhoneNumber}&text=${waMessage}`;
+
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <div>
+                    <div class="product-img-box">
+                        <img src="${imageSrc}" alt="${prod.name}" onerror="this.src='logo.png'">
+                    </div>
+                    <h3 class="product-name">${numLabel}${prod.name}</h3>
+                    <p class="product-ingredients">${prod.ingredients || ''}</p>
+                </div>
+                <div>
+                    <div class="price-section">
+                        ${prod.taza ? `
+                        <div class="price-option">
+                            <span class="price-label">Taza</span>
+                            <div class="price-value">$${prod.taza}</div>
+                        </div>` : ''}
+                        
+                        ${secondPriceValue ? `
+                        <div class="price-option">
+                            <span class="price-label">${secondPriceLabel}</span>
+                            <div class="price-value frasco">$${secondPriceValue}</div>
+                            <span class="badge-frasco">${secondPriceBadge}</span>
+                        </div>` : ''}
+                    </div>
+                    <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="buy-button">
+                        <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar
+                    </a>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    } else {
+        container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px; color: #A3C4AF; font-size: 1.1em;">Próximamente agregando productos a <strong>${colName}</strong>...</div>`;
+    }
+}
 
         function updateMenuDisplay() {
             const imgElement = document.getElementById('menu-current-image');
