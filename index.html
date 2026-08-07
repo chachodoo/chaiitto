@@ -1067,72 +1067,45 @@ header.compact-header nav.main-nav {
             }
         }
 
-        async function switchPage(pageName) {
-        const container = document.getElementById('dynamic-content-area');
-        const headerEl = document.querySelector('header');
-        if (!container) return;
+        // --- PAGE SWITCHER WITH COMPACT HEADER CONTROL ---
+async function switchPage(pageName) {
+    const container = document.getElementById('dynamic-content-area');
+    const headerEl = document.querySelector('header');
+    if (!container) return;
 
-    // Toggle compact header state
-    if (pageName === 'inicio') {
-        if (headerEl) headerEl.classList.remove('compact-header');
-    } else {
-        if (headerEl) headerEl.classList.add('compact-header');
+    // Compact header state for subpages
+    if (headerEl) {
+        if (pageName === 'inicio') {
+            headerEl.classList.remove('compact-header');
+        } else {
+            headerEl.classList.add('compact-header');
+        }
     }
 
-            // Update active state on nav buttons
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                if (btn.getAttribute('data-page') === pageName) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
+    try {
+        const response = await fetch(`sections/${pageName}.html`);
+        if (!response.ok) throw new Error(`Could not load section: ${pageName}`);
+        
+        const html = await response.text();
+        container.innerHTML = html;
 
-            // Determine target HTML file in /sections/
-            let targetFile = pageName;
-            if (pageName === 'novedades') {
-                targetFile = 'productos';
-            } else if (pageName === 'ultimas') {
-                targetFile = 'ofertas';
-            }
+        // Active tab styling
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+        const activeBtn = document.querySelector(`.nav-btn[onclick*="${pageName}"]`);
+        if (activeBtn) activeBtn.classList.add('active');
 
-            try {
-                // Fetch section from cache or network
-                if (!sectionCache[targetFile]) {
-                    const response = await fetch(`sections/${targetFile}.html?v=` + Date.now());
-                    if (!response.ok) throw new Error(`Could not load section: ${targetFile}`);
-                    sectionCache[targetFile] = await response.text();
-                }
-
-                container.innerHTML = sectionCache[targetFile];
-
-                // Trigger page-specific functions after insertion
-                if (pageName === 'inicio') {
-                    // counter 
-                } else if (pageName === 'productos') {
-                    const collectionsBar = document.querySelector('.collections-bar');
-                    if (collectionsBar) collectionsBar.style.display = 'flex';
-                    selectCollection('BIENESTAR');
-                } else if (pageName === 'novedades') {
-                    const collectionsBar = document.querySelector('.collections-bar');
-                    if (collectionsBar) collectionsBar.style.display = 'none';
-                    selectCollection('NOVEDADES');
-                } else if (pageName === 'ultimas') {
-                    loadOfertasRibbon();
-                } else if (pageName === 'menu') {
-                    currentMenuPage = 1;
-                    updateMenuDisplay();
-                } else if (pageName === 'galeria') {
-                    loadGalleryRibbon();
-                }
-
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            } catch (error) {
-                console.error("Navigation error:", error);
-                container.innerHTML = `<div style="text-align:center; padding:60px; color:#E5C158;">Error al cargar la sección.</div>`;
-            }
+        // Page-specific initializers
+        if (pageName === 'ofertas') {
+            loadOfertasRibbon();
         }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    } catch (error) {
+        console.error('Error loading page section:', error);
+        container.innerHTML = `<div style="color: #FF8888; text-align: center; padding: 40px;">Error al cargar la sección.</div>`;
+    }
+}
 
         function handleHashNavigation() {
             const hash = window.location.hash;
