@@ -1214,99 +1214,77 @@ async function switchPage(pageName) {
         let currentModalIndex = 0;
 
         async function loadOfertasRibbon() {
-            const track = document.getElementById('ofertas-dynamic-track');
-            if (!track) return;
+    const track = document.getElementById('ofertas-dynamic-track');
+    if (!track) return;
 
-            // --- TRIPLE-BURST CELEBRATION CONFETTI ---
-            if (typeof confetti === 'function') {
-                confetti({
-                    particleCount: 140,
-                    spread: 90,
-                    origin: { y: 0.45 },
-                    startVelocity: 35,
-                    colors: ['#E5C158', '#FFF1AA', '#FF8888', '#25D366', '#FFFFFF']
-                });
+    // --- CONFETTI EXPLOSION ---
+    if (typeof confetti === 'function') {
+        confetti({
+            particleCount: 120,
+            spread: 80,
+            origin: { y: 0.45 },
+            startVelocity: 35,
+            colors: ['#E5C158', '#FFF1AA', '#FF8888', '#25D366', '#FFFFFF']
+        });
+    }
 
-                setTimeout(() => {
-                    confetti({
-                        particleCount: 70,
-                        angle: 60,
-                        spread: 70,
-                        origin: { x: 0, y: 0.8 },
-                        startVelocity: 50,
-                        colors: ['#E5C158', '#FFF1AA', '#FF8888', '#25D366']
-                    });
-                }, 150);
+    try {
+        // Fetch JSON with light cache control
+        const response = await fetch('ofertas.json?v=' + Math.floor(Date.now() / 60000));
+        if (!response.ok) throw new Error('Could not load ofertas.json');
 
-                setTimeout(() => {
-                    confetti({
-                        particleCount: 70,
-                        angle: 120,
-                        spread: 70,
-                        origin: { x: 1, y: 0.8 },
-                        startVelocity: 50,
-                        colors: ['#E5C158', '#FFF1AA', '#FF8888', '#25D366']
-                    });
-                }, 300);
-            }
-
-            try {
-                const response = await fetch('ofertas.json?v=' + Date.now());
-                if (!response.ok) throw new Error('Could not load ofertas.json');
-
-                const ofertasList = await response.json();
-                if (!ofertasList || ofertasList.length === 0) {
-                    track.innerHTML = `<div style="color: #A3C4AF; padding: 20px;">No hay ofertas disponibles por el momento.</div>`;
-                    return;
-                }
-
-                track.innerHTML = '';
-
-                ofertasList.forEach(item => {
-                    const orig = item.precioOriginal;
-                    const spec = item.precioOferta;
-                    const descText = item.descripcion || '';
-                    const titleText = item.name ? `#${item.num}. ${item.name}` : `#${item.num}`;
-                    
-                    const imageList = (item.images && item.images.length > 0)
-                        ? item.images 
-                        : [item.image || 'logo.png'];
-                    
-                    const coverImage = imageList[0];
-
-                    const waMsg = encodeURIComponent(`¡Hola Chai-itto! Me interesa aprovechar la Oferta Especial de: ${titleText} (De $${orig} a solo $${spec} MXN). ¿Sigue disponible?`);
-                    const waUrl = `https://api.whatsapp.com/send?phone=${whatsappPhoneNumber}&text=${waMsg}`;
-
-                    const card = document.createElement('div');
-                    card.className = 'oferta-card';
-                    
-                    card.onclick = () => openOfertaModal(titleText, descText, imageList, waUrl);
-
-                    card.innerHTML = `
-                        <div>
-                            <div class="oferta-img-container">
-                                <img src="${coverImage}" alt="${item.name || 'Oferta'}" onerror="this.src='logo.png'">
-                                <div class="oferta-badge">
-                                    <span class="oferta-badge-tag">OFERTA</span>
-                                    <span class="oferta-price-original">$${orig}</span>
-                                    <div class="oferta-price-special">$${spec}</div>
-                                </div>
-                            </div>
-                            <h3 class="oferta-title">${titleText}</h3>
-                            <p class="oferta-subtitle">${descText}</p>
-                        </div>
-                        <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="oferta-buy-btn" onclick="event.stopPropagation()">
-                            <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar Oferta
-                        </a>
-                    `;
-                    track.appendChild(card);
-                });
-
-            } catch (error) {
-                console.error("Error loading ofertas.json:", error);
-                track.innerHTML = `<div style="color: #FF8888; padding: 20px;">Error al cargar las ofertas.</div>`;
-            }
+        const ofertasList = await response.json();
+        if (!ofertasList || ofertasList.length === 0) {
+            track.innerHTML = `<div style="color: #A3C4AF; padding: 20px;">No hay ofertas disponibles por el momento.</div>`;
+            return;
         }
+
+        track.innerHTML = '';
+
+        ofertasList.forEach(item => {
+            const orig = item.precioOriginal;
+            const spec = item.precioOferta;
+            const descText = item.descripcion || '';
+            const titleText = item.name ? `#${item.num}. ${item.name}` : `#${item.num}`;
+            
+            const imageList = (item.images && item.images.length > 0)
+                ? item.images 
+                : [item.image || 'logo.png'];
+            
+            const coverImage = imageList[0];
+
+            const waMsg = encodeURIComponent(`¡Hola Chai-itto! Me interesa aprovechar la Oferta Especial de: ${titleText} (De $${orig} a solo $${spec} MXN). ¿Sigue disponible?`);
+            const waUrl = `https://api.whatsapp.com/send?phone=${whatsappPhoneNumber}&text=${waMsg}`;
+
+            const card = document.createElement('div');
+            card.className = 'oferta-card';
+            card.onclick = () => openOfertaModal(titleText, descText, imageList, waUrl);
+
+            card.innerHTML = `
+                <div>
+                    <div class="oferta-img-container">
+                        <img src="${coverImage}" alt="${item.name || 'Oferta'}" loading="lazy" decoding="async" onerror="this.src='logo.png'">
+                        <div class="oferta-badge">
+                            <span class="oferta-badge-tag">OFERTA</span>
+                            <span class="oferta-price-original">$${orig}</span>
+                            <div class="oferta-price-special">$${spec}</div>
+                        </div>
+                    </div>
+                    <h3 class="oferta-title">${titleText}</h3>
+                    <p class="oferta-subtitle">${descText}</p>
+                </div>
+                <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="oferta-buy-btn" onclick="event.stopPropagation()">
+                    <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar Oferta
+                </a>
+            `;
+            track.appendChild(card);
+        });
+
+    } catch (error) {
+        console.error("Error loading ofertas.json:", error);
+        track.innerHTML = `<div style="color: #FF8888; padding: 20px;">Error al cargar las ofertas.</div>`;
+    }
+}
 
         // LIGHTBOX MODAL FUNCTIONS
         function openOfertaModal(title, subtitle, imageArray, waUrl) {
