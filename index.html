@@ -1037,19 +1037,15 @@ header.compact-header nav.main-nav {
             }
         }
 
-        // --- PAGE SWITCHER WITH SHRINKING LOGO ---
+        // --- COMPLETE PAGE SWITCHER FOR ALL TABS ---
 async function switchPage(pageName) {
     const container = document.getElementById('dynamic-content-area');
     const headerEl = document.querySelector('header');
     if (!container) return;
 
-    // Shrink logo on subpages, expand on home
+    // Apply compact header across all sections after initial load
     if (headerEl) {
-        if (pageName === 'inicio') {
-            headerEl.classList.remove('compact-header');
-        } else {
-            headerEl.classList.add('compact-header');
-        }
+        headerEl.classList.add('compact-header');
     }
 
     try {
@@ -1059,32 +1055,32 @@ async function switchPage(pageName) {
         const html = await response.text();
         container.innerHTML = html;
 
-        // Update Active Nav Button
+        // Active Nav Button Styling (matches both data-page and onclick)
         document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-        const activeBtn = document.querySelector(`.nav-btn[data-page="${pageName}"]`);
+        const activeBtn = document.querySelector(`.nav-btn[data-page="${pageName}"], .nav-btn[onclick*="${pageName}"]`);
         if (activeBtn) activeBtn.classList.add('active');
 
+        // Page Specific Handlers
         if (pageName === 'productos') {
-            // Guarantee BIENESTAR products render immediately
             selectCollection('BIENESTAR');
         } else if (pageName === 'novedades') {
-            // If novedades displays a specific collection or product set:
-            if (typeof selectCollection === 'function') {
-                selectCollection('NOVEDADES');
-            }
+            selectCollection('NOVEDADES');
         } else if (pageName === 'ofertas') {
             loadOfertasRibbon();
         } else if (pageName === 'galeria') {
             loadGalleryRibbon();
         } else if (pageName === 'menu') {
             updateMenuDisplay();
+        } else if (pageName === 'contactanos') {
+            // Contáctanos section loaded successfully
+            console.log('Contáctanos loaded');
         }
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
     } catch (error) {
         console.error('Error loading page section:', error);
-        container.innerHTML = `<div style="color: #FF8888; text-align: center; padding: 40px;">Error al cargar la sección.</div>`;
+        container.innerHTML = `<div style="color: #FF8888; text-align: center; padding: 40px;">Error al cargar la sección "${pageName}". Verifica que el archivo "sections/${pageName}.html" exista en tu servidor.</div>`;
     }
 }
 
