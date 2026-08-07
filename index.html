@@ -989,6 +989,23 @@
     color: var(--emerald-dark);
     box-shadow: 0 0 12px rgba(229, 193, 88, 0.8);
 }
+        /* --- COMPACT HEADER FOR INNER PAGES --- */
+header.compact-header {
+    padding: 8px 15px 12px;
+}
+
+header.compact-header .logo-main {
+    width: clamp(140px, 40vw, 200px) !important; /* Smaller logo on subpages */
+}
+
+header.compact-header .slogan-hero,
+header.compact-header .location-badge {
+    display: none; /* Hides slogan to save space on subpages */
+}
+
+header.compact-header nav.main-nav {
+    margin-top: 10px;
+}
     </style>
 </head>
 <body>
@@ -1051,8 +1068,16 @@
         }
 
         async function switchPage(pageName) {
-            const container = document.getElementById('dynamic-content-area');
-            if (!container) return;
+        const container = document.getElementById('dynamic-content-area');
+        const headerEl = document.querySelector('header');
+        if (!container) return;
+
+    // Toggle compact header state
+    if (pageName === 'inicio') {
+        if (headerEl) headerEl.classList.remove('compact-header');
+    } else {
+        if (headerEl) headerEl.classList.add('compact-header');
+    }
 
             // Update active state on nav buttons
             document.querySelectorAll('.nav-btn').forEach(btn => {
@@ -1232,16 +1257,16 @@ async function loadOfertasRibbon() {
     const track = document.getElementById('ofertas-dynamic-track');
     if (!track) return;
 
-    // --- HIGH-INTENSITY DOUBLE CANNON CONFETTI EXPLOSION ---
-    if (typeof confetti === 'function') {
-        // Center Burst
-        confetti({
-            particleCount: 150,
-            spread: 100,
-            origin: { y: 0.6 },
-            startVelocity: 45,
-            colors: ['#E5C158', '#FFF1AA', '#FF8888', '#25D366', '#FFFFFF']
-        });
+    // --- HIGH-INTENSITY CONFETTI CONTAINED BELOW HEADER ---
+if (typeof confetti === 'function') {
+    confetti({
+        particleCount: 140,
+        spread: 90,
+        origin: { y: 0.45 }, // Starts below the navigation bar
+        startVelocity: 35,
+        colors: ['#E5C158', '#FFF1AA', '#FF8888', '#25D366', '#FFFFFF']
+    });
+}
 
         // Left Cannon
         setTimeout(() => {
