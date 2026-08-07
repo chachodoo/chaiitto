@@ -5,7 +5,10 @@
     "descripcion": "Hierro",
     "precioOriginal": 900,
     "precioOferta": 800,
-    "image": "ofertas/cc1.jpg"
+    "images": [
+      "ofertas/cc1.jpg",
+      "ofertas/cc1-1.png"
+    ]
   },
   {
     "num": "02",
