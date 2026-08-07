@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chai-itto | Panel Privado de Ofertas</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --emerald-dark: #07150C;
+            --emerald-card: #102619;
+            --emerald-light: #183824;
+            --gold-accent: #E5C158;
+            --text-light: #E2ECE5;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--emerald-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .admin-container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--emerald-card);
+            border: 2px solid var(--gold-accent);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            margin-top: 20px;
+        }
+
+        .auth-card {
+            max-width: 450px;
+            margin: 60px auto;
+            text-align: center;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold-accent);
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #A3C4AF;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="password"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(229, 193, 88, 0.4);
+            border-radius: 8px;
+            color: #FFF;
+            font-family: inherit;
+            font-size: 0.95em;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--gold-accent);
+            box-shadow: 0 0 10px rgba(229, 193, 88, 0.4);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #E5C158 0%, #B8932A 100%);
+            color: #000;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-family: 'Cinzel', serif;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(229, 193, 88, 0.4);
+        }
+
+        .btn-add { background: #183824; color: var(--gold-accent); border: 1.5px solid var(--gold-accent); width: 100%; margin-top: 10px; }
+        .btn-publish { background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: white; width: 100%; font-size: 1.1em; padding: 16px; margin-top: 25px; }
+        .btn-danger { background: #8B0000; color: white; padding: 4px 10px; font-size: 0.75em; border-radius: 6px; }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+        /* Queue Table */
+        .queue-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .queue-table th, .queue-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(229, 193, 88, 0.2);
+            font-size: 0.88em;
+        }
+
+        .queue-table th { background: rgba(229, 193, 88, 0.1); color: var(--gold-accent); font-family: 'Cinzel', serif; }
+
+        .status-banner {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            text-align: center;
+            font-weight: 600;
+        }
+        .status-success { background: rgba(37, 211, 102, 0.2); border: 1px solid #25D366; color: #25D366; }
+        .status-error { background: rgba(255, 136, 136, 0.2); border: 1px solid #FF8888; color: #FF8888; }
+        .status-info { background: rgba(229, 193, 88, 0.2); border: 1px solid var(--gold-accent); color: var(--gold-accent); }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <!-- 1. LOGIN SCREEN -->
+    <div id="login-screen" class="admin-container auth-card">
+        <i class="fa-solid fa-lock fa-3x" style="color: var(--gold-accent); margin-bottom: 15px;"></i>
+        <h2>Panel de Ofertas Chai-itto</h2>
+        <p style="font-size: 0.85em; color: #A3C4AF; margin-bottom: 20px;">Acceso exclusivo para personal autorizado</p>
+        
+        <div class="form-group">
+            <label>Contraseña Administrador:</label>
+            <input type="password" id="admin-pass-input" placeholder="Ingrese la contraseña">
+        </div>
+
+        <div class="form-group">
+            <label>Token de Acceso GitHub:</label>
+            <input type="password" id="github-token-input" placeholder="ghp_xxxxxxxxxxxx">
+            <span style="font-size: 0.7em; color: #888;">(Se guardará seguro en este navegador)</span>
+        </div>
+
+        <button class="btn" style="width: 100%;" onclick="authenticateAdmin()"><i class="fa-solid fa-key"></i> Entrar al Panel</button>
+    </div>
+
+    <!-- 2. DASHBOARD -->
+    <div id="dashboard-screen" class="admin-container hidden">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(229,193,88,0.3); padding-bottom: 15px;">
+            <h2><i class="fa-solid fa-fire"></i> Cargar Ofertas Especiales</h2>
+            <button class="btn btn-danger" onclick="logoutAdmin()"><i class="fa-solid fa-right-from-bracket"></i> Salir</button>
+        </div>
+
+        <div id="status-banner" class="status-banner"></div>
+
+        <!-- FORM ENTRY -->
+        <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 12px; border: 1px solid rgba(229, 193, 88, 0.2);">
+            <h3>1. Datos de la Oferta</h3>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Número (#):</label>
+                    <input type="text" id="oferta-num" placeholder="01">
+                </div>
+                <div class="form-group">
+                    <label>Nombre del Producto:</label>
+                    <input type="text" id="oferta-name" placeholder="Tetera Japonesa">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Descripción / Material:</label>
+                <input type="text" id="oferta-desc" placeholder="Hierro Colado Tradicional">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Precio Original ($ MXN):</label>
+                    <input type="number" id="oferta-orig" placeholder="900">
+                </div>
+                <div class="form-group">
+                    <label>Precio Oferta ($ MXN):</label>
+                    <input type="number" id="oferta-spec" placeholder="800">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Seleccionar Imagen(es):</label>
+                <input type="file" id="oferta-files" multiple accept="image/*" style="color: #A3C4AF;">
+            </div>
+
+            <button class="btn btn-add" onclick="addOfferToQueue()"><i class="fa-solid fa-plus"></i> Agregar esta Oferta a la Lista</button>
+        </div>
+
+        <!-- QUEUE STAGING AREA -->
+        <div style="margin-top: 30px;">
+            <h3>2. Lista de Ofertas a Publicar</h3>
+            <table class="queue-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Producto</th>
+                        <th>Precio Orig.</th>
+                        <th>Oferta</th>
+                        <th>Imágenes</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="queue-body">
+                    <tr>
+                        <td colspan="6" style="text-align: center; color: #888;">No hay ofertas agregadas en esta sesión.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button class="btn btn-publish" onclick="publishAllToGitHub()"><i class="fa-solid fa-cloud-arrow-up"></i> Publicar Ofertas en la Web</button>
+        </div>
+    </div>
+
+    <script>
+        // CONFIGURATION
+        const GITHUB_REPO_OWNER = "chachodoo"; // Cambiar por tu usuario de GitHub
+        const GITHUB_REPO_NAME = "chaiitto";   // Cambiar por el nombre exacto de tu repo
+        const MASTER_PASSWORD_HASH = "Cha@@tto!!";    // Contraseña para tu personal
+
+        let stagedOffers = [];
+
+        function showStatus(msg, type) {
+            const banner = document.getElementById('status-banner');
+            banner.className = `status-banner status-${type}`;
+            banner.innerHTML = msg;
+            banner.style.display = 'block';
+        }
+
+        function authenticateAdmin() {
+            const pass = document.getElementById('admin-pass-input').value.trim();
+            const token = document.getElementById('github-token-input').value.trim();
+
+            if (pass !== MASTER_PASSWORD_HASH) {
+                alert('Contraseña incorrecta');
+                return;
+            }
+
+            if (!token) {
+                alert('Debe ingresar un GitHub Personal Access Token válido.');
+                return;
+            }
+
+            localStorage.setItem('chai_gh_token', token);
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('dashboard-screen').classList.remove('hidden');
+        }
+
+        function logoutAdmin() {
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('dashboard-screen').classList.add('hidden');
+        }
+
+        function addOfferToQueue() {
+            const num = document.getElementById('oferta-num').value.trim();
+            const name = document.getElementById('oferta-name').value.trim();
+            const desc = document.getElementById('oferta-desc').value.trim();
+            const orig = parseInt(document.getElementById('oferta-orig').value);
+            const spec = parseInt(document.getElementById('oferta-spec').value);
+            const files = document.getElementById('oferta-files').files;
+
+            if (!num || !name || !orig || !spec || files.length === 0) {
+                alert('Por favor complete todos los campos y seleccione al menos una imagen.');
+                return;
+            }
+
+            const offerData = {
+                num, name, descripcion: desc,
+                precioOriginal: orig,
+                precioOferta: spec,
+                fileList: Array.from(files),
+                images: []
+            };
+
+            stagedOffers.push(offerData);
+            renderQueue();
+
+            // Clear inputs
+            document.getElementById('oferta-num').value = '';
+            document.getElementById('oferta-name').value = '';
+            document.getElementById('oferta-desc').value = '';
+            document.getElementById('oferta-orig').value = '';
+            document.getElementById('oferta-spec').value = '';
+            document.getElementById('oferta-files').value = '';
+        }
+
+        function renderQueue() {
+            const body = document.getElementById('queue-body');
+            if (stagedOffers.length === 0) {
+                body.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #888;">No hay ofertas agregadas en esta sesión.</td></tr>`;
+                return;
+            }
+
+            body.innerHTML = '';
+            stagedOffers.forEach((item, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${item.num}</td>
+                    <td><strong>${item.name}</strong><br><small>${item.descripcion}</small></td>
+                    <td>$${item.precioOriginal}</td>
+                    <td><strong style="color: var(--gold-accent);">$${item.precioOferta}</strong></td>
+                    <td>${item.fileList.length} archivo(s)</td>
+                    <td><button class="btn-danger" onclick="removeOffer(${index})">Eliminar</button></td>
+                `;
+                body.appendChild(tr);
+            });
+        }
+
+        function removeOffer(index) {
+            stagedOffers.splice(index, 1);
+            renderQueue();
+        }
+
+        async function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result.split(',')[1]);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        async function publishAllToGitHub() {
+            const token = localStorage.getItem('chai_gh_token');
+            if (!token || stagedOffers.length === 0) {
+                alert('Agregue al menos una oferta a la lista.');
+                return;
+            }
+
+            showStatus('<i class="fa-solid fa-spinner fa-spin"></i> Subiendo imágenes y actualizando ofertas.json...', 'info');
+
+            try {
+                const headers = {
+                    'Authorization': `token ${token}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                };
+
+                const cleanListForJson = [];
+
+                // 1. Upload Images to GitHub ofertas/ folder
+                for (let offer of stagedOffers) {
+                    const imagePaths = [];
+                    let idx = 1;
+
+                    for (let file of offer.fileList) {
+                        const extension = file.name.split('.').pop();
+                        const fileName = `oferta-${offer.num}-${idx}.${extension}`;
+                        const filePath = `ofertas/${fileName}`;
+                        const base64Content = await fileToBase64(file);
+
+                        // Check if file exists to get SHA if overwriting
+                        let sha = '';
+                        try {
+                            const checkRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/${filePath}`, { headers });
+                            if (checkRes.ok) {
+                                const checkData = await checkRes.json();
+                                sha = checkData.sha;
+                            }
+                        } catch(e){}
+
+                        // Upload file to repo
+                        const uploadRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/${filePath}`, {
+                            method: 'PUT',
+                            headers,
+                            body: JSON.stringify({
+                                message: `Upload oferta image: ${fileName}`,
+                                content: base64Content,
+                                sha: sha || undefined
+                            })
+                        });
+
+                        if (!uploadRes.ok) throw new Error(`Error al subir imagen ${fileName}`);
+
+                        imagePaths.push(filePath);
+                        idx++;
+                    }
+
+                    cleanListForJson.push({
+                        num: offer.num,
+                        name: offer.name,
+                        descripcion: offer.descripcion,
+                        precioOriginal: offer.precioOriginal,
+                        precioOferta: offer.precioOferta,
+                        images: imagePaths
+                    });
+                }
+
+                // 2. Fetch current ofertas.json SHA & content
+                const jsonRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/ofertas.json`, { headers });
+                if (!jsonRes.ok) throw new Error('No se pudo encontrar ofertas.json en el repositorio');
+                
+                const jsonData = await jsonRes.json();
+                const jsonSha = jsonData.sha;
+
+                // 3. Update ofertas.json on GitHub
+                const updatedJsonString = JSON.stringify(cleanListForJson, null, 2);
+                const encodedJson = btoa(unescape(encodeURIComponent(updatedJsonString)));
+
+                const updateRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/ofertas.json`, {
+                    method: 'PUT',
+                    headers,
+                    body: JSON.stringify({
+                        message: 'Actualizar ofertas.json desde Panel Privado',
+                        content: encodedJson,
+                        sha: jsonSha
+                    })
+                });
+
+                if (!updateRes.ok) throw new Error('Error al actualizar ofertas.json');
+
+                showStatus('¡Éxito! Las ofertas se han guardado y publicado en la web. Los cambios se verán reflejados en ~60 segundos.', 'success');
+                stagedOffers = [];
+                renderQueue();
+
+            } catch (error) {
+                console.error(error);
+                showStatus(`Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Auto-fill token if saved
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedToken = localStorage.getItem('chai_gh_token');
+            if (savedToken) {
+                document.getElementById('github-token-input').value = savedToken;
+            }
+        });
+    </script>
+</body>
+</html>
