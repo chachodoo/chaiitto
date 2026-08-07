@@ -958,6 +958,24 @@
             color: var(--emerald-dark);
             box-shadow: 0 0 12px rgba(229, 193, 88, 0.8);
         }
+
+        /* --- COMPACT HEADER FOR SUBPAGES --- */
+header.compact-header {
+    padding: 10px 15px 10px;
+}
+
+header.compact-header .logo-main {
+    width: clamp(120px, 35vw, 170px) !important;
+}
+
+header.compact-header .slogan-hero,
+header.compact-header .location-badge {
+    display: none !important;
+}
+
+header.compact-header nav.main-nav {
+    margin-top: 10px;
+}
     </style>
 </head>
 <body>
@@ -1019,39 +1037,49 @@
             }
         }
 
-        // --- PAGE SWITCHER ---
-        async function switchPage(pageName) {
-            const container = document.getElementById('dynamic-content-area');
-            if (!container) return;
+        // --- PAGE SWITCHER WITH SHRINKING LOGO ---
+async function switchPage(pageName) {
+    const container = document.getElementById('dynamic-content-area');
+    const headerEl = document.querySelector('header');
+    if (!container) return;
 
-            try {
-                const response = await fetch(`sections/${pageName}.html?v=` + Date.now());
-                if (!response.ok) throw new Error(`Could not load section: ${pageName}`);
-                
-                const html = await response.text();
-                container.innerHTML = html;
-
-                // Update Active Nav Button
-                document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-                const activeBtn = document.querySelector(`.nav-btn[data-page="${pageName}"]`);
-                if (activeBtn) activeBtn.classList.add('active');
-
-                // Page Specific Handlers
-                if (pageName === 'ofertas') {
-                    loadOfertasRibbon();
-                } else if (pageName === 'galeria') {
-                    loadGalleryRibbon();
-                } else if (pageName === 'menu') {
-                    updateMenuDisplay();
-                }
-
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            } catch (error) {
-                console.error('Error loading page section:', error);
-                container.innerHTML = `<div style="color: #FF8888; text-align: center; padding: 40px;">Error al cargar la sección.</div>`;
-            }
+    // Shrink logo on subpages, expand on home
+    if (headerEl) {
+        if (pageName === 'inicio') {
+            headerEl.classList.remove('compact-header');
+        } else {
+            headerEl.classList.add('compact-header');
         }
+    }
+
+    try {
+        const response = await fetch(`sections/${pageName}.html?v=` + Date.now());
+        if (!response.ok) throw new Error(`Could not load section: ${pageName}`);
+        
+        const html = await response.text();
+        container.innerHTML = html;
+
+        // Update Active Nav Button
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+        const activeBtn = document.querySelector(`.nav-btn[data-page="${pageName}"]`);
+        if (activeBtn) activeBtn.classList.add('active');
+
+        // Page Specific Handlers
+        if (pageName === 'ofertas') {
+            loadOfertasRibbon();
+        } else if (pageName === 'galeria') {
+            loadGalleryRibbon();
+        } else if (pageName === 'menu') {
+            updateMenuDisplay();
+        }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    } catch (error) {
+        console.error('Error loading page section:', error);
+        container.innerHTML = `<div style="color: #FF8888; text-align: center; padding: 40px;">Error al cargar la sección.</div>`;
+    }
+}
 
         function handleHashNavigation() {
             const hash = window.location.hash;
