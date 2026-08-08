@@ -1180,14 +1180,46 @@
             }
         }
 
+        // --- INSTANT MENU VIEWER WITH PRELOADING ---
         function updateMenuDisplay() {
             const imgElement = document.getElementById('menu-current-image');
             const indicatorElement = document.getElementById('menu-page-indicator');
+            const loaderElement = document.getElementById('menu-loader');
             
-            if (imgElement && indicatorElement) {
-                imgElement.src = `menu/page-${currentMenuPage}.png`;
+            if (indicatorElement) {
+                // 1. UPDATE TEXT COUNTER INSTANTLY (0ms delay)
                 indicatorElement.textContent = `Página ${currentMenuPage} de ${totalMenuPages}`;
             }
+
+            if (imgElement) {
+                // 2. Dim image and show loader while fetching new frame
+                imgElement.style.opacity = '0.3';
+                if (loaderElement) loaderElement.style.display = 'block';
+
+                imgElement.src = `menu/page-${currentMenuPage}.png`;
+            }
+
+            // 3. PRELOAD NEXT & PREVIOUS PAGES IN BACKGROUND
+            preloadAdjacentMenuPages();
+        }
+
+        function handleMenuImageLoaded() {
+            const imgElement = document.getElementById('menu-current-image');
+            const loaderElement = document.getElementById('menu-loader');
+
+            if (imgElement) imgElement.style.opacity = '1';
+            if (loaderElement) loaderElement.style.display = 'none';
+        }
+
+        function handleMenuImageError() {
+            const imgElement = document.getElementById('menu-current-image');
+            const loaderElement = document.getElementById('menu-loader');
+
+            if (imgElement) {
+                imgElement.src = 'logo.png';
+                imgElement.style.opacity = '1';
+            }
+            if (loaderElement) loaderElement.style.display = 'none';
         }
 
         function changeMenuPage(direction) {
@@ -1195,6 +1227,17 @@
             if (currentMenuPage < 1) currentMenuPage = totalMenuPages;
             if (currentMenuPage > totalMenuPages) currentMenuPage = 1;
             updateMenuDisplay();
+        }
+
+        function preloadAdjacentMenuPages() {
+            const nextPage = currentMenuPage === totalMenuPages ? 1 : currentMenuPage + 1;
+            const prevPage = currentMenuPage === 1 ? totalMenuPages : currentMenuPage - 1;
+
+            const imgNext = new Image();
+            imgNext.src = `menu/page-${nextPage}.png`;
+
+            const imgPrev = new Image();
+            imgPrev.src = `menu/page-${prevPage}.png`;
         }
 
         function toggleRibbonPause() {
