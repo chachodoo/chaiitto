@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Chai-itto | Conversor Masivo del Menú a WebP</title>
+    <style>
+        body { font-family: sans-serif; background: #07150C; color: #E2ECE5; padding: 40px; max-width: 700px; margin: 0 auto; }
+        h1 { color: #E5C158; }
+        input, button { padding: 12px; font-size: 1em; margin-bottom: 15px; border-radius: 8px; border: 1px solid #E5C158; width: 100%; box-sizing: border-box; }
+        button { background: #25D366; color: white; font-weight: bold; cursor: pointer; border: none; }
+        #log { background: #000; padding: 15px; border-radius: 8px; font-family: monospace; height: 300px; overflow-y: auto; color: #00FF66; }
+    </style>
+</head>
+<body>
+    <h1>Conversor Masivo del Menú a WebP</h1>
+    <p>Esta herramienta convertirá las 13 páginas de tu menú (`menu/page-1.png` a `page-13.png`) a formato **WebP ultraligero (~150KB)**.</p>
+    
+    <label>GitHub Personal Access Token:</label>
+    <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx">
+    <button onclick="startMenuMigration()">Convertir Menú a WebP</button>
+
+    <div id="log">Esperando inicio...<br></div>
+
+    <script>
+        const REPO_OWNER = "chachodoo";
+        const REPO_NAME = "chaiitto";
+        const TOTAL_PAGES = 13;
+
+        function log(msg) {
+            const el = document.getElementById('log');
+            el.innerHTML += msg + "<br>";
+            el.scrollTop = el.scrollHeight;
+        }
+
+        async function processMenuPage(dataUrl) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.src = dataUrl;
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 1200; // Optimal resolution for mobile readability
+                    let width = img.width, height = img.height;
+
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH;
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    const webpDataUrl = canvas.toDataURL('image/webp', 0.8);
+                    resolve(webpDataUrl.split(',')[1]);
+                };
+            });
+        }
+
+        async function startMenuMigration() {
+            const token = document.getElementById('gh-token').value.trim();
+            if (!token) return alert('Ingrese su GitHub Token.');
+
+            const headers = {
+                'Authorization': `token ${token}`,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json'
+            };
+
+            log("Iniciando conversión de páginas del menú...");
+
+            for (let i = 1; i <= TOTAL_PAGES; i++) {
+                const oldPath = `menu/page-${i}.png`;
+                const newPath = `menu/page-${i}.webp`;
+
+                log(`\nProcesando página ${i} de ${TOTAL_PAGES} (${oldPath})...`);
+
+                try {
+                    // Fetch existing PNG
+                    const imgRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${oldPath}`, { headers });
+                    if (!imgRes.ok) {
+                        log(`  ⚠️ No se encontró ${oldPath}, intentando con .jpg...`);
+                        continue;
+                    }
+
+                    const imgData = await imgRes.json();
+                    const rawBase64 = `data:image/png;base64,${imgData.content.replace(/\s/g, '')}`;
+
+                    log(`  Comprimiendo a WebP...`);
+                    const base64Webp = await processMenuPage(rawBase64);
+
+                    // Check if .webp file already exists to get SHA
+                    let fileSha = '';
+                    try {
+                        const checkFile = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${newPath}`, { headers });
+                        if (checkFile.ok) {
+                            const checkData = await checkFile.json();
+                            fileSha = checkData.sha;
+                        }
+                    } catch(e){}
+
+                    log(`  Subiendo ${newPath} a GitHub...`);
+                    const putRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${newPath}`, {
+                        method: 'PUT',
+                        headers,
+                        body: JSON.stringify({
+                            message: `Convert ${oldPath} to WebP: ${newPath}`,
+                            content: base64Webp,
+                            sha: fileSha || undefined
+                        })
+                    });
+
+                    if (!putRes.ok) throw new Error(`Error al subir ${newPath}`);
+                    log(`  ✅ Página ${i} convertida con éxito.`);
+
+                } catch (err) {
+                    log(`  ❌ Error en página ${i}: ${err.message}`);
+                }
+            }
+
+            log("\n==========================================");
+            log("✅ ¡MENÚ CONVERTIDO CON ÉXITO A WEBP!");
+            log("==========================================");
+        }
+    </script>
+</body>
+</html>
