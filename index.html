@@ -1301,12 +1301,12 @@
                         <div>
                             <div class="oferta-img-container">
                                 <img src="${coverImage}" 
-                                     alt="${item.name || 'Oferta'}" 
-                                     width="240" 
-                                     height="180" 
-                                     decoding="async" 
-                                     onload="this.classList.add('loaded')" 
-                                     onerror="this.src='logo.png'; this.classList.add('loaded');">
+                                 alt="${item.name || 'Oferta'}" 
+                                 width="240" 
+                                 height="180" 
+                                 loading="lazy" 
+                                 decoding="async" 
+                                 onerror="this.src='logo.png';">
                                 <div class="oferta-badge">
                                     <span class="oferta-badge-tag">OFERTA</span>
                                     <span class="oferta-price-original">$${orig}</span>
