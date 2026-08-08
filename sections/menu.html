@@ -10,9 +10,18 @@
             <button onclick="changeMenuPage(1)" class="nav-btn" style="padding: 6px 14px; border: 1px solid var(--gold-accent); border-radius: 20px;">Siguiente <i class="fa-solid fa-chevron-right"></i></button>
         </div>
 
-        <!-- Main Image Display -->
-        <div style="min-height: 400px; display: flex; align-items: center; justify-content: center; background: #111; border-radius: 8px; overflow: hidden; border: 1px solid rgba(229, 193, 88, 0.2);">
-            <img id="menu-current-image" src="menu/page-1.png" alt="Página del Menú Chai-Itto" style="max-width: 100%; height: auto; border-radius: 4px;">
+        <!-- Main Image Display with Instant Loader -->
+        <div style="position: relative; min-height: 400px; display: flex; align-items: center; justify-content: center; background: #111; border-radius: 8px; overflow: hidden; border: 1px solid rgba(229, 193, 88, 0.2);">
+            <div id="menu-loader" style="display: none; position: absolute; color: var(--gold-accent); font-size: 1.5em; z-index: 2;">
+                <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
+            </div>
+            <img id="menu-current-image" 
+                 src="menu/page-1.png" 
+                 alt="Página del Menú Chai-Itto" 
+                 decoding="async" 
+                 style="max-width: 100%; height: auto; border-radius: 4px; transition: opacity 0.15s ease;"
+                 onload="handleMenuImageLoaded()"
+                 onerror="handleMenuImageError()">
         </div>
     </div>
 </div>
