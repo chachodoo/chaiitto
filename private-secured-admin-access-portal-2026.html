@@ -244,9 +244,9 @@
 
     <script>
         // CONFIGURATION
-        const GITHUB_REPO_OWNER = "chachodoo"; // Cambiar por tu usuario de GitHub
-        const GITHUB_REPO_NAME = "chaiitto";   // Cambiar por el nombre exacto de tu repo
-        const MASTER_PASSWORD_HASH = "Cha@@tto!!";    // Contraseña para tu personal
+        const GITHUB_REPO_OWNER = "chachodoo";
+        const GITHUB_REPO_NAME = "chaiitto";   
+        const MASTER_PASSWORD_HASH = "Cha@@tto!!";
 
         let stagedOffers = [];
 
@@ -341,7 +341,8 @@
             renderQueue();
         }
 
-        async function fileToBase64(file) {
+        // Strategy 3 + Blur-Up Generator: WebP 80% compression + 1KB Micro-Blur preview string
+        async function fileToWebpAndBlur(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
@@ -349,21 +350,21 @@
                     const img = new Image();
                     img.src = e.target.result;
                     img.onload = () => {
+                        // 1. Convert main image to WebP (Max 800px width/height)
                         const canvas = document.createElement('canvas');
-                        const MAX_WIDTH = 1200;
-                        const MAX_HEIGHT = 1200;
+                        const MAX_SIZE = 800;
                         let width = img.width;
                         let height = img.height;
 
                         if (width > height) {
-                            if (width > MAX_WIDTH) {
-                                height *= MAX_WIDTH / width;
-                                width = MAX_WIDTH;
+                            if (width > MAX_SIZE) {
+                                height *= MAX_SIZE / width;
+                                width = MAX_SIZE;
                             }
                         } else {
-                            if (height > MAX_HEIGHT) {
-                                width *= MAX_HEIGHT / height;
-                                height = MAX_HEIGHT;
+                            if (height > MAX_SIZE) {
+                                width *= MAX_SIZE / height;
+                                height = MAX_SIZE;
                             }
                         }
 
@@ -371,10 +372,22 @@
                         canvas.height = height;
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, width, height);
-                        
-                        // Compress to JPEG with 80% quality
-                        const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.8);
-                        resolve(compressedDataUrl.split(',')[1]);
+
+                        const webpDataUrl = canvas.toDataURL('image/webp', 0.8);
+                        const base64Webp = webpDataUrl.split(',')[1];
+
+                        // 2. Generate tiny 20px Base64 micro-blur string for instant 0ms preview
+                        const blurCanvas = document.createElement('canvas');
+                        blurCanvas.width = 20;
+                        blurCanvas.height = 15;
+                        const blurCtx = blurCanvas.getContext('2d');
+                        blurCtx.drawImage(img, 0, 0, 20, 15);
+                        const blurDataUrl = blurCanvas.toDataURL('image/jpeg', 0.4);
+
+                        resolve({
+                            base64Webp,
+                            blurDataUrl
+                        });
                     };
                 };
                 reader.onerror = error => reject(error);
@@ -388,7 +401,7 @@
                 return;
             }
 
-            showStatus('<i class="fa-solid fa-spinner fa-spin"></i> Leyendo ofertas actuales y subiendo nuevas...', 'info');
+            showStatus('<i class="fa-solid fa-spinner fa-spin"></i> Leyendo ofertas actuales, convirtiendo a WebP y subiendo...', 'info');
 
             try {
                 const headers = {
@@ -406,7 +419,6 @@
                     if (jsonRes.ok) {
                         const jsonData = await jsonRes.json();
                         jsonSha = jsonData.sha;
-                        // Safe UTF-8 Base64 decoding
                         const decodedContent = decodeURIComponent(escape(atob(jsonData.content.replace(/\s/g, ''))));
                         existingOffers = JSON.parse(decodedContent);
                     }
@@ -416,18 +428,20 @@
 
                 const newItemsForJson = [];
 
-                // 2. Upload Images to GitHub ofertas/ folder
+                // 2. Process and Upload Images as WebP
                 for (let offer of stagedOffers) {
                     const imagePaths = [];
+                    let coverBlur = '';
                     let idx = 1;
 
                     for (let file of offer.fileList) {
-                        const extension = file.name.split('.').pop();
-                        const fileName = `oferta-${offer.num}-${idx}.${extension}`;
+                        const fileName = `oferta-${offer.num}-${idx}.webp`;
                         const filePath = `ofertas/${fileName}`;
-                        const base64Content = await fileToBase64(file);
+                        
+                        const { base64Webp, blurDataUrl } = await fileToWebpAndBlur(file);
 
-                        // Check if file exists to get SHA if overwriting
+                        if (idx === 1) coverBlur = blurDataUrl;
+
                         let sha = '';
                         try {
                             const checkRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/${filePath}`, { headers });
@@ -437,13 +451,12 @@
                             }
                         } catch(e){}
 
-                        // Upload file to repo
                         const uploadRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/${filePath}`, {
                             method: 'PUT',
                             headers,
                             body: JSON.stringify({
-                                message: `Upload oferta image: ${fileName}`,
-                                content: base64Content,
+                                message: `Upload oferta webp image: ${fileName}`,
+                                content: base64Webp,
                                 sha: sha || undefined
                             })
                         });
@@ -460,6 +473,7 @@
                         descripcion: offer.descripcion,
                         precioOriginal: offer.precioOriginal,
                         precioOferta: offer.precioOferta,
+                        blurPreview: coverBlur,
                         images: imagePaths
                     });
                 }
@@ -475,7 +489,7 @@
                     method: 'PUT',
                     headers,
                     body: JSON.stringify({
-                        message: 'Agregar nuevas ofertas desde Panel Privado (Append)',
+                        message: 'Agregar nuevas ofertas WebP con BlurPreview (Append)',
                         content: encodedJson,
                         sha: jsonSha || undefined
                     })
@@ -483,7 +497,7 @@
 
                 if (!updateRes.ok) throw new Error('Error al actualizar ofertas.json');
 
-                showStatus('¡Éxito! Las nuevas ofertas se han agregado a la lista existente.', 'success');
+                showStatus('¡Éxito! Las nuevas ofertas optimizadas (WebP + Blur) se han publicado correctamente.', 'success');
                 stagedOffers = [];
                 renderQueue();
 
