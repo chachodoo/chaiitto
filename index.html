@@ -1121,16 +1121,56 @@
 
             if (list.length > 0) {
                 list.forEach(prod => {
-                    const imageSrc = prod.image || 'logo.png';
+                    const imageSrc = prod.image || prod.imagen || 'logo.png';
                     const numLabel = prod.num ? `<span class="product-number">${prod.num}.</span> ` : '';
-                    
-                    // Handle secondary price option (Frasco or Sobre)
-                    const secondPriceValue = prod.frasco || prod.sobre || 0;
-                    const secondPriceLabel = prod.sobre ? 'Sobre' : 'Frasco';
-                    const secondPriceBadge = prod.sobre ? 'Para Llevar' : 'Para Envío';
 
-                    const waMessage = encodeURIComponent(`Hola Chai-itto, quisiera ordenar ${prod.name}`);
-                    const waLink = `https://api.whatsapp.com/send?phone=${whatsappPhoneNumber}&text=${waMessage}`;
+                    // 1. Calculate Frasco and Sobre prices
+                    const frascoPrice = Number(prod.frasco) || 0;
+                    
+                    // Auto-calculate Sobre price if not explicitly set in JSON: Frasco - $45
+                    let sobrePrice = Number(prod.sobre) || 0;
+                    if (!sobrePrice && frascoPrice > 0) {
+                        sobrePrice = frascoPrice - 45;
+                    }
+
+                    const isShippable = frascoPrice > 0 || sobrePrice > 0;
+
+                    // 2. Build Frasco Price Column (Shippable)
+                    let frascoHtml = '';
+                    if (frascoPrice > 0) {
+                        frascoHtml = `
+                            <div class="price-option">
+                                <span class="price-label">Frasco</span>
+                                <div class="price-value frasco">$${frascoPrice}</div>
+                                <span class="badge-frasco"><i class="fa-solid fa-truck-fast"></i> Para Envío</span>
+                            </div>`;
+                    }
+
+                    // 3. Build Sobre Price Column (Shippable: Frasco - $45)
+                    let sobreHtml = '';
+                    if (sobrePrice > 0) {
+                        sobreHtml = `
+                            <div class="price-option">
+                                <span class="price-label">Sobre</span>
+                                <div class="price-value frasco">$${sobrePrice}</div>
+                                <span class="badge-frasco"><i class="fa-solid fa-truck-fast"></i> Para Envío</span>
+                            </div>`;
+                    }
+
+                    // 4. Action Button Logic
+                    let buttonHtml = '';
+                    if (isShippable) {
+                        buttonHtml = `
+                            <button onclick="handleProductSelect('${prod.name}', ${frascoPrice}, ${sobrePrice})" class="buy-button">
+                                <i class="fa-solid fa-box-open"></i> Comprar para Envío
+                            </button>`;
+                    } else {
+                        // For items with no frasco/sobre prices defined (e.g., local-only items)
+                        buttonHtml = `
+                            <button onclick="switchPage('menu')" class="buy-button" style="background: rgba(16, 38, 25, 0.9); border: 1px solid var(--gold-accent); color: var(--gold-accent);">
+                                <i class="fa-solid fa-book-open"></i> Ver en Menú
+                            </button>`;
+                    }
 
                     const card = document.createElement('div');
                     card.className = 'product-card';
@@ -1143,23 +1183,11 @@
                             <p class="product-ingredients">${prod.ingredients || ''}</p>
                         </div>
                         <div>
-                            <div class="price-section">
-                                ${prod.taza ? `
-                                <div class="price-option">
-                                    <span class="price-label">Taza</span>
-                                    <div class="price-value">$${prod.taza}</div>
-                                </div>` : ''}
-                                
-                                ${secondPriceValue ? `
-                                <div class="price-option">
-                                    <span class="price-label">${secondPriceLabel}</span>
-                                    <div class="price-value frasco">$${secondPriceValue}</div>
-                                    <span class="badge-frasco">${secondPriceBadge}</span>
-                                </div>` : ''}
+                            <div class="price-section" style="display: flex; justify-content: space-around;">
+                                ${frascoHtml}
+                                ${sobreHtml}
                             </div>
-                            <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="buy-button">
-                                <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar
-                            </a>
+                            ${buttonHtml}
                         </div>
                     `;
                     container.appendChild(card);
@@ -1170,21 +1198,21 @@
         }
 
         function updateMenuDisplay() {
-    const imgElement = document.getElementById('menu-current-image');
-    const indicatorElement = document.getElementById('menu-page-indicator');
-    const loaderElement = document.getElementById('menu-loader');
+        const imgElement = document.getElementById('menu-current-image');
+        const indicatorElement = document.getElementById('menu-page-indicator');
+        const loaderElement = document.getElementById('menu-loader');
     
-    if (indicatorElement) {
+        if (indicatorElement) {
         indicatorElement.textContent = `Página ${currentMenuPage} de ${totalMenuPages}`;
-    }
+        }
 
-    if (imgElement) {
-        imgElement.style.opacity = '0.3';
-        if (loaderElement) loaderElement.style.display = 'block';
+        if (imgElement) {
+            imgElement.style.opacity = '0.3';
+            if (loaderElement) loaderElement.style.display = 'block';
 
-        // SWAPPED FROM .png TO .webp
-        imgElement.src = `menu/page-${currentMenuPage}.webp`;
-    }
+            // SWAPPED FROM .png TO .webp
+            imgElement.src = `menu/page-${currentMenuPage}.webp`;
+        }
 
     preloadAdjacentMenuPages();
 }
