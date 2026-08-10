@@ -15,13 +15,14 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <style>
         :root {
-            --emerald-dark: #07150C;
-            --emerald-card: #102619;
-            --emerald-light: #183824;
-            --gold-accent: #E5C158;
-            --gold-glow: #FFF1AA;
-            --text-light: #E2ECE5;
-            --text-gold: #F5E5A3;
+            --emerald-dark: #030D07;
+            --emerald-card: #0E2C1D;
+            --emerald-light: #16402B;
+            --gold-accent: #F5D061;
+            --gold-glow: #FFF4A3;
+            --gold-border: #D4AF37;
+            --text-light: #F2F8F4;
+            --text-muted: #D1EAD8;
             --font-title: 'Playfair Display', Georgia, serif;
             --font-heading: 'Cinzel', serif;
             --font-body: 'Montserrat', sans-serif;
@@ -37,7 +38,7 @@
             color: var(--text-light);
             margin: 0;
             padding: 0;
-            background-image: radial-gradient(circle at 50% 15%, #143320 0%, var(--emerald-dark) 75%);
+            background-image: radial-gradient(circle at 50% 10%, #0F3522 0%, #030D07 80%);
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -45,10 +46,10 @@
         /* --- HEADER & HERO BRANDING --- */
         header {
             text-align: center;
-            padding: 15px 15px 20px;
-            background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(7,21,12,0) 100%);
-            border-bottom: 1px solid rgba(229, 193, 88, 0.25);
-            transition: all 0.3s ease;
+            padding: 18px 15px 22px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.85) 0%, rgba(3,13,7,0) 100%);
+            border-bottom: 1px solid rgba(245, 208, 97, 0.4);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
         }
         
         .logo-wrapper {
@@ -88,9 +89,9 @@
             font-size: clamp(1.8em, 6vw, 3.2em);
             font-weight: 900;
             font-style: italic;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             margin: 5px 0;
-            text-shadow: 0 0 20px rgba(229, 193, 88, 0.5);
+            text-shadow: 0 0 25px rgba(245, 208, 97, 0.7);
         }
 
         .location-badge {
@@ -308,24 +309,31 @@
         @media (max-width: 768px) { .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
         @media (max-width: 480px) { .product-grid { grid-template-columns: 1fr; } }
 
-        /* --- PRODUCT CARD STYLING --- */
+        /* --- HIGH-CONTRAST PRODUCT CARDS --- */
         .product-card {
-            background-color: var(--emerald-card);
-            border: 1.5px solid #7F6322;
-            border-radius: 12px;
-            padding: 14px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            background: linear-gradient(145deg, #0E2C1D 0%, #081C13 100%);
+            border: 1.5px solid var(--gold-border);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.1);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-glow);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8), 0 0 20px rgba(245, 208, 97, 0.35);
         }
 
         .product-img-box {
             width: 100%;
-            height: 130px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(229, 193, 88, 0.2);
-            border-radius: 8px;
+            height: 140px;
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid rgba(245, 208, 97, 0.3);
+            border-radius: 10px;
             margin-bottom: 12px;
             display: flex;
             align-items: center;
@@ -341,30 +349,32 @@
 
         .product-name {
             font-family: var(--font-heading);
-            font-size: 1em;
+            font-size: 1.05em;
             font-weight: 700;
             color: #FFFFFF;
             margin: 0 0 6px 0;
             line-height: 1.3;
+            letter-spacing: 0.5px;
         }
 
         .product-number { color: var(--gold-accent); margin-right: 4px; }
 
         .product-ingredients {
-            color: #B5C9BC;
-            font-size: 0.8em;
-            line-height: 1.4;
+            color: var(--text-muted);
+            font-size: 0.82em;
+            line-height: 1.45;
             margin-bottom: 14px;
-            font-weight: 300;
+            font-weight: 400;
         }
 
         .price-section {
             display: flex;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 8px;
-            padding: 6px 8px;
-            margin-bottom: 10px;
-            border: 1px solid rgba(229, 193, 88, 0.3);
+            background: rgba(0, 0, 0, 0.55);
+            border-radius: 10px;
+            padding: 8px 10px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(245, 208, 97, 0.4);
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.5);
         }
 
         .price-option { text-align: center; flex: 1; }
@@ -372,19 +382,23 @@
 
         .price-label {
             font-family: var(--font-heading);
-            font-size: 0.65em;
+            font-size: 0.7em;
             letter-spacing: 1px;
-            color: #8EB299;
+            color: var(--text-muted);
+            text-transform: uppercase;
         }
 
         .price-value {
             font-family: var(--font-heading);
-            font-size: 1.15em;
-            font-weight: 700;
+            font-size: 1.25em;
+            font-weight: 800;
             color: #FFFFFF;
         }
 
-        .price-value.frasco { color: var(--gold-accent); }
+        .price-value.frasco { 
+            color: var(--gold-accent); 
+            text-shadow: 0 0 10px rgba(245, 208, 97, 0.4);
+        }
 
         .badge-frasco {
             font-size: 0.55em;
@@ -392,31 +406,33 @@
             color: var(--gold-accent);
         }
 
+        /* --- POPPING GOLD ACTION BUTTON --- */
         .buy-button {
-            background: linear-gradient(135deg, #102619 0%, #183824 100%);
-            border: 1.5px solid var(--gold-accent);
-            color: var(--gold-accent);
+            background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%) !important;
+            border: none !important;
+            color: #030D07 !important;
             text-decoration: none;
             text-align: center;
-            padding: 10px;
-            border-radius: 20px;
+            padding: 12px 14px;
+            border-radius: 25px;
             font-family: var(--font-heading);
-            font-weight: 700;
-            font-size: 0.8em;
+            font-weight: 800;
+            font-size: 0.85em;
+            letter-spacing: 0.8px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+            box-shadow: 0 4px 18px rgba(245, 208, 97, 0.35) !important;
         }
 
         .buy-button:hover {
-            background: var(--gold-accent);
-            color: var(--emerald-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(229, 193, 88, 0.6);
+            background: linear-gradient(135deg, #FFF4A3 0%, #F5D061 100%) !important;
+            color: #000000 !important;
+            transform: translateY(-2px) scale(1.02) !important;
+            box-shadow: 0 0 25px rgba(255, 244, 163, 0.7) !important;
         }
 
         /* --- FOOTER --- */
