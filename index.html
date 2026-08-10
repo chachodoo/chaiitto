@@ -29,7 +29,6 @@
 
         * {
             box-sizing: border-box;
-            /* REMOVED scroll-behavior: smooth from global * to fix stuttery page scrolling */
         }
 
         body {
@@ -147,16 +146,16 @@
         }
 
         .story-card {
-            background: rgba(16, 38, 25, 0.95); /* Solidified dark green to eliminate GPU blur overhead */
+            background: rgba(16, 38, 25, 0.95);
             border: 2px solid rgba(229, 193, 88, 0.35);
             border-radius: 20px;
             padding: clamp(20px, 4vw, 40px) clamp(15px, 4vw, 30px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Reduced shadow spread */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             margin-top: 15px;
             width: 100%;
             overflow: hidden;
             word-wrap: break-word;
-            contain: content; /* Isolates rendering so scrolling this section doesn't re-render the whole page */
+            contain: content;
         }
         .story-title {
             font-family: var(--font-title);
@@ -282,11 +281,10 @@
 
         .collection-banner, 
         #current-collection-title { 
-        display: none !important; 
+            display: none !important; 
         }
 
-        .collection-name-title, 
-        #current-collection-title {
+        .collection-name-title {
             font-family: 'Cinzel Decorative', 'Playfair Display', Georgia, serif !important;
             font-size: clamp(2em, 5.5vw, 3.2em) !important;
             color: #E5C158 !important;
@@ -408,6 +406,8 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
+            cursor: pointer;
+            border: none;
         }
 
         /* --- FOOTER --- */
@@ -719,7 +719,6 @@
             box-shadow: 0 12px 30px rgba(229, 193, 88, 0.3);
         }
 
-        /* Force top content box to take available space for exact button alignment */
         .oferta-card > div:first-child {
             display: flex;
             flex-direction: column;
@@ -737,11 +736,11 @@
         }
 
         .oferta-img-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
 
         .oferta-badge {
             position: absolute;
@@ -798,7 +797,6 @@
             margin-bottom: 12px;
         }
 
-        /* Pin WhatsApp button cleanly to the bottom of every card */
         .oferta-buy-btn {
             background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
             color: white;
@@ -814,7 +812,7 @@
             justify-content: center;
             gap: 6px;
             transition: transform 0.2s ease;
-            margin-top: auto; /* Guarantees bottom alignment across unequal text lengths */
+            margin-top: auto;
         }
 
         .oferta-buy-btn:hover {
@@ -920,7 +918,6 @@
         .modal-arrow.prev { left: 10px; }
         .modal-arrow.next { right: 10px; }
 
-        /* --- SLEEK TOP-CENTER MAGNIFIER ICON --- */
         .oferta-img-container::after {
             content: "\f00e";
             font-family: "Font Awesome 6 Free";
@@ -998,7 +995,7 @@
     <footer>
         <div class="shipping-box">
             <i class="fa-solid fa-truck-fast fa-2x" style="color: var(--gold-accent); margin-bottom: 8px;"></i>
-            <p><strong>Política de Envíos Chai-itto:</strong> Las degustaciones en <em>taza</em> son exclusivas para nuestra sucursal física en Cholula. Para envíos a todo México, comercializamos nuestros <strong>frascos</strong>. Tu pedido se envía inmediatamente tras confirmar tu pago y llega de 3 a 5 días hábiles.</p>
+            <p><strong>Política de Envíos Chai-itto:</strong> Las degustaciones en <em>taza</em> son exclusivas para nuestra sucursal física en Cholula. Para envíos a todo México, comercializamos nuestros <strong>frascos</strong> y <strong>sobres</strong>. Tu pedido se envía inmediatamente tras confirmar tu pago y llega de 3 a 5 días hábiles.</p>
         </div>
         
         <!-- SUBTLE FOOTER VISITOR BADGE -->
@@ -1011,6 +1008,33 @@
         <p style="font-size: 0.8em; opacity: 0.6;">&copy; 2026 Chai-itto. Todos los derechos reservados.</p>
     </footer>
 
+    <!-- SHIPPING & CLIP CHECKOUT MODAL -->
+    <div id="checkout-modal" class="oferta-modal">
+        <div class="oferta-modal-content" style="max-width: 500px;">
+            <span class="oferta-modal-close" onclick="closeCheckoutModal()">&times;</span>
+            <h2 id="checkout-product-title" style="color: var(--gold-accent); font-family: var(--font-title); margin-top: 10px;"></h2>
+            <p style="color: #A3C4AF; font-size: 0.9em; margin-bottom: 20px;">Selecciona la presentación para tu envío a todo México:</p>
+
+            <div style="display: flex; gap: 15px; margin-bottom: 20px; width: 100%;">
+                <div id="option-frasco-box" onclick="selectPresentation('Frasco')" style="flex: 1; padding: 15px; border: 2px solid var(--gold-accent); border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.3);">
+                    <div style="font-family: var(--font-heading); font-weight: bold; color: #FFF;">Frasco</div>
+                    <div id="modal-frasco-price" style="color: var(--gold-accent); font-size: 1.3em; font-weight: bold; margin: 5px 0;"></div>
+                    <span style="font-size: 0.75em; color: #8EB299;"><i class="fa-solid fa-truck-fast"></i> Para Envío</span>
+                </div>
+
+                <div id="option-sobre-box" onclick="selectPresentation('Sobre')" style="flex: 1; padding: 15px; border: 1.5px solid rgba(229,193,88,0.4); border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.3);">
+                    <div style="font-family: var(--font-heading); font-weight: bold; color: #FFF;">Sobre</div>
+                    <div id="modal-sobre-price" style="color: var(--gold-accent); font-size: 1.3em; font-weight: bold; margin: 5px 0;"></div>
+                    <span style="font-size: 0.75em; color: #8EB299;"><i class="fa-solid fa-truck-fast"></i> Para Envío</span>
+                </div>
+            </div>
+
+            <a id="checkout-action-btn" href="#" target="_blank" rel="noopener noreferrer" class="buy-button" style="width: 100%; padding: 14px; font-size: 1em;">
+                <i class="fa-solid fa-credit-card"></i> Pagar con Clip
+            </a>
+        </div>
+    </div>
+
     <script>
         let allProducts = {};
         const whatsappPhoneNumber = "522218415466"; 
@@ -1018,6 +1042,20 @@
         let currentMenuPage = 1;        
         const totalMenuPages = 14; 
         let isRibbonPaused = false;
+
+        // CLIP PAYMENT LINKS MAPPED BY EXACT ITEM PRICE
+        // Replace these URLs with your actual Clip Payment Link URLs generated in the Clip App/Dashboard
+        const CLIP_PAYMENT_LINKS = {
+            250: "https://clip.mx",
+            295: "https://clip.mx",
+            400: "https://clip.mx",
+            445: "https://clip.mx"
+        };
+
+        let selectedProductName = '';
+        let selectedFrascoPrice = 0;
+        let selectedSobrePrice = 0;
+        let chosenPresentation = 'Frasco';
 
         async function fetchProducts() {
             try {
@@ -1029,13 +1067,11 @@
             }
         }
 
-        // --- COMPLETE PAGE SWITCHER FOR ALL TABS ---
         async function switchPage(pageName) {
             const container = document.getElementById('dynamic-content-area');
             const headerEl = document.querySelector('header');
             if (!container) return;
 
-            // Apply compact header across all sections after initial load
             if (headerEl) {
                 headerEl.classList.add('compact-header');
             }
@@ -1047,12 +1083,10 @@
                 const html = await response.text();
                 container.innerHTML = html;
 
-                // Active Nav Button Styling (matches both data-page and onclick)
                 document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
                 const activeBtn = document.querySelector(`.nav-btn[data-page="${pageName}"], .nav-btn[onclick*="${pageName}"]`);
                 if (activeBtn) activeBtn.classList.add('active');
 
-                // Page Specific Handlers
                 if (pageName === 'productos') {
                     selectCollection('BIENESTAR');
                 } else if (pageName === 'novedades') {
@@ -1064,7 +1098,6 @@
                 } else if (pageName === 'menu') {
                     updateMenuDisplay();
                 } else if (pageName === 'contactanos') {
-                    // Contáctanos section loaded successfully
                     console.log('Contáctanos loaded');
                 }
 
@@ -1100,9 +1133,6 @@
                 }
             });
 
-            // REMOVED REDUNDANT SUB-HEADER:
-            // The active tab button already identifies the selected collection cleanly.
-
             loadCollection(colName);
         }
 
@@ -1124,10 +1154,8 @@
                     const imageSrc = prod.image || prod.imagen || 'logo.png';
                     const numLabel = prod.num ? `<span class="product-number">${prod.num}.</span> ` : '';
 
-                    // 1. Calculate Frasco and Sobre prices
                     const frascoPrice = Number(prod.frasco) || 0;
                     
-                    // Auto-calculate Sobre price if not explicitly set in JSON: Frasco - $45
                     let sobrePrice = Number(prod.sobre) || 0;
                     if (!sobrePrice && frascoPrice > 0) {
                         sobrePrice = frascoPrice - 45;
@@ -1135,7 +1163,6 @@
 
                     const isShippable = frascoPrice > 0 || sobrePrice > 0;
 
-                    // 2. Build Frasco Price Column (Shippable)
                     let frascoHtml = '';
                     if (frascoPrice > 0) {
                         frascoHtml = `
@@ -1146,7 +1173,6 @@
                             </div>`;
                     }
 
-                    // 3. Build Sobre Price Column (Shippable: Frasco - $45)
                     let sobreHtml = '';
                     if (sobrePrice > 0) {
                         sobreHtml = `
@@ -1157,15 +1183,13 @@
                             </div>`;
                     }
 
-                    // 4. Action Button Logic
                     let buttonHtml = '';
                     if (isShippable) {
                         buttonHtml = `
-                            <button onclick="handleProductSelect('${prod.name}', ${frascoPrice}, ${sobrePrice})" class="buy-button">
+                            <button onclick="handleProductSelect('${prod.name.replace(/'/g, "\\'")}', ${frascoPrice}, ${sobrePrice})" class="buy-button">
                                 <i class="fa-solid fa-box-open"></i> Comprar para Envío
                             </button>`;
                     } else {
-                        // For items with no frasco/sobre prices defined (e.g., local-only items)
                         buttonHtml = `
                             <button onclick="switchPage('menu')" class="buy-button" style="background: rgba(16, 38, 25, 0.9); border: 1px solid var(--gold-accent); color: var(--gold-accent);">
                                 <i class="fa-solid fa-book-open"></i> Ver en Menú
@@ -1197,25 +1221,69 @@
             }
         }
 
+        function handleProductSelect(name, frascoPrice, sobrePrice) {
+            selectedProductName = name;
+            selectedFrascoPrice = frascoPrice;
+            selectedSobrePrice = sobrePrice;
+
+            document.getElementById('checkout-product-title').textContent = name;
+            document.getElementById('modal-frasco-price').textContent = `$${frascoPrice}`;
+            document.getElementById('modal-sobre-price').textContent = `$${sobrePrice}`;
+
+            selectPresentation('Frasco');
+
+            const modal = document.getElementById('checkout-modal');
+            if (modal) modal.classList.add('active');
+        }
+
+        function selectPresentation(type) {
+            chosenPresentation = type;
+            const frascoBox = document.getElementById('option-frasco-box');
+            const sobreBox = document.getElementById('option-sobre-box');
+            const actionBtn = document.getElementById('checkout-action-btn');
+
+            const price = type === 'Frasco' ? selectedFrascoPrice : selectedSobrePrice;
+            const clipLink = CLIP_PAYMENT_LINKS[price] || "https://clip.mx";
+
+            if (type === 'Frasco') {
+                frascoBox.style.border = '2px solid #E5C158';
+                frascoBox.style.background = 'rgba(229, 193, 88, 0.15)';
+                sobreBox.style.border = '1.5px solid rgba(229, 193, 88, 0.4)';
+                sobreBox.style.background = 'rgba(0,0,0,0.3)';
+            } else {
+                sobreBox.style.border = '2px solid #E5C158';
+                sobreBox.style.background = 'rgba(229, 193, 88, 0.15)';
+                frascoBox.style.border = '1.5px solid rgba(229, 193, 88, 0.4)';
+                frascoBox.style.background = 'rgba(0,0,0,0.3)';
+            }
+
+            actionBtn.href = clipLink;
+            actionBtn.innerHTML = `<i class="fa-solid fa-credit-card"></i> Pagar $${price} MXN con Clip`;
+        }
+
+        function closeCheckoutModal() {
+            const modal = document.getElementById('checkout-modal');
+            if (modal) modal.classList.remove('active');
+        }
+
         function updateMenuDisplay() {
-        const imgElement = document.getElementById('menu-current-image');
-        const indicatorElement = document.getElementById('menu-page-indicator');
-        const loaderElement = document.getElementById('menu-loader');
-    
-        if (indicatorElement) {
-        indicatorElement.textContent = `Página ${currentMenuPage} de ${totalMenuPages}`;
+            const imgElement = document.getElementById('menu-current-image');
+            const indicatorElement = document.getElementById('menu-page-indicator');
+            const loaderElement = document.getElementById('menu-loader');
+            
+            if (indicatorElement) {
+                indicatorElement.textContent = `Página ${currentMenuPage} de ${totalMenuPages}`;
+            }
+
+            if (imgElement) {
+                imgElement.style.opacity = '0.3';
+                if (loaderElement) loaderElement.style.display = 'block';
+
+                imgElement.src = `menu/page-${currentMenuPage}.webp`;
+            }
+
+            preloadAdjacentMenuPages();
         }
-
-        if (imgElement) {
-            imgElement.style.opacity = '0.3';
-            if (loaderElement) loaderElement.style.display = 'block';
-
-            // SWAPPED FROM .png TO .webp
-            imgElement.src = `menu/page-${currentMenuPage}.webp`;
-        }
-
-    preloadAdjacentMenuPages();
-}
 
         function handleMenuImageLoaded() {
             const imgElement = document.getElementById('menu-current-image');
@@ -1244,15 +1312,15 @@
         }
 
         function preloadAdjacentMenuPages() {
-    const nextPage = currentMenuPage === totalMenuPages ? 1 : currentMenuPage + 1;
-    const prevPage = currentMenuPage === 1 ? totalMenuPages : currentMenuPage - 1;
+            const nextPage = currentMenuPage === totalMenuPages ? 1 : currentMenuPage + 1;
+            const prevPage = currentMenuPage === 1 ? totalMenuPages : currentMenuPage - 1;
 
-    const imgNext = new Image();
-    imgNext.src = `menu/page-${nextPage}.webp`;
+            const imgNext = new Image();
+            imgNext.src = `menu/page-${nextPage}.webp`;
 
-    const imgPrev = new Image();
-    imgPrev.src = `menu/page-${prevPage}.webp`;
-}
+            const imgPrev = new Image();
+            imgPrev.src = `menu/page-${prevPage}.webp`;
+        }
 
         function toggleRibbonPause() {
             const track = document.getElementById('dynamic-ribbon-track');
@@ -1266,7 +1334,6 @@
             }
         }
 
-        // Global state for the zoom modal carousel
         let currentModalImages = [];
         let currentModalIndex = 0;
 
@@ -1307,7 +1374,6 @@
                         : [item.image || 'logo.png'];
                     
                     const coverImage = imageList[0];
-                    // Fallback tiny blur string if older item lacks blurPreview
                     const placeholderBlur = item.blurPreview || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180"%3E%3Crect width="100%25" height="100%25" fill="%23102619"/%3E%3C/svg%3E';
 
                     const waMsg = encodeURIComponent(`¡Hola Chai-itto! Me interesa aprovechar la Oferta Especial de: ${titleText} (De $${orig} a solo $${spec} MXN). ¿Sigue disponible?`);
@@ -1343,7 +1409,6 @@
                     `;
                     track.appendChild(card);
 
-                    // Off-screen WebP download + instant un-blur swap
                     const fullImg = new Image();
                     fullImg.src = coverImage;
                     
@@ -1368,7 +1433,6 @@
             }
         }
 
-        // LIGHTBOX MODAL FUNCTIONS
         function openOfertaModal(title, subtitle, imageArray, waUrl) {
             const modal = document.getElementById('oferta-modal');
             if (!modal) return;
@@ -1426,7 +1490,6 @@
             if (!track) return;
 
             try {
-                // 1-minute light cache control to preserve speed while ensuring updates land
                 const response = await fetch('galeria.json?v=' + Math.floor(Date.now() / 60000));
                 if (!response.ok) throw new Error('Could not load galeria.json');
 
@@ -1465,7 +1528,6 @@
                     }
                 };
 
-                // Single DOM batch write for instant rendering
                 files.forEach(src => fragment.appendChild(createItem(src)));
                 files.forEach(src => fragment.appendChild(createItem(src)));
                 track.appendChild(fragment);
@@ -1504,83 +1566,6 @@
         });
 
         window.addEventListener('hashchange', handleHashNavigation);
-        let selectedProductName = '';
-let selectedFrascoPrice = 0;
-let selectedSobrePrice = 0;
-let chosenPresentation = 'Frasco';
-
-function handleProductSelect(name, frascoPrice, sobrePrice) {
-    selectedProductName = name;
-    selectedFrascoPrice = frascoPrice;
-    selectedSobrePrice = sobrePrice;
-    chosenPresentation = 'Frasco';
-
-    document.getElementById('checkout-product-title').textContent = name;
-    document.getElementById('modal-frasco-price').textContent = `$${frascoPrice}`;
-    document.getElementById('modal-sobre-price').textContent = `$${sobrePrice}`;
-
-    selectPresentation('Frasco');
-
-    const modal = document.getElementById('checkout-modal');
-    if (modal) modal.classList.add('active');
-}
-
-function selectPresentation(type) {
-    chosenPresentation = type;
-    const frascoBox = document.getElementById('option-frasco-box');
-    const sobreBox = document.getElementById('option-sobre-box');
-    const actionBtn = document.getElementById('checkout-action-btn');
-
-    const price = type === 'Frasco' ? selectedFrascoPrice : selectedSobrePrice;
-
-    if (type === 'Frasco') {
-        frascoBox.style.border = '2px solid #E5C158';
-        frascoBox.style.background = 'rgba(229, 193, 88, 0.15)';
-        sobreBox.style.border = '1.5px solid rgba(229, 193, 88, 0.4)';
-        sobreBox.style.background = 'rgba(0,0,0,0.3)';
-    } else {
-        sobreBox.style.border = '2px solid #E5C158';
-        sobreBox.style.background = 'rgba(229, 193, 88, 0.15)';
-        frascoBox.style.border = '1.5px solid rgba(229, 193, 88, 0.4)';
-        frascoBox.style.background = 'rgba(0,0,0,0.3)';
-    }
-
-    // Direct WhatsApp message with full details (or replace link with Clip Payment Link)
-    const msg = encodeURIComponent(`¡Hola Chai-itto! Quisiera ordenar para envío a domicilio:\n- Producto: ${selectedProductName}\n- Presentación: ${type}\n- Precio: $${price} MXN`);
-    actionBtn.href = `https://api.whatsapp.com/send?phone=${whatsappPhoneNumber}&text=${msg}`;
-    actionBtn.innerHTML = `<i class="fa-brands fa-whatsapp fa-lg"></i> Comprar ${type} ($${price} MXN)`;
-}
-
-function closeCheckoutModal() {
-    const modal = document.getElementById('checkout-modal');
-    if (modal) modal.classList.remove('active');
-}
     </script>
-    <!-- SHIPPING & CHECKOUT MODAL -->
-<div id="checkout-modal" class="oferta-modal">
-    <div class="oferta-modal-content" style="max-width: 500px;">
-        <span class="oferta-modal-close" onclick="closeCheckoutModal()">&times;</span>
-        <h2 id="checkout-product-title" style="color: var(--gold-accent); font-family: var(--font-title); margin-top: 10px;"></h2>
-        <p style="color: #A3C4AF; font-size: 0.9em; margin-bottom: 20px;">Selecciona la presentación para tu envío a todo México:</p>
-
-        <div style="display: flex; gap: 15px; margin-bottom: 20px; width: 100%;">
-            <div id="option-frasco-box" onclick="selectPresentation('Frasco')" style="flex: 1; padding: 15px; border: 2px solid var(--gold-accent); border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.3);">
-                <div style="font-family: var(--font-heading); font-weight: bold; color: #FFF;">Frasco</div>
-                <div id="modal-frasco-price" style="color: var(--gold-accent); font-size: 1.3em; font-weight: bold; margin: 5px 0;"></div>
-                <span style="font-size: 0.75em; color: #8EB299;"><i class="fa-solid fa-truck-fast"></i> Para Envío</span>
-            </div>
-
-            <div id="option-sobre-box" onclick="selectPresentation('Sobre')" style="flex: 1; padding: 15px; border: 1.5px solid rgba(229,193,88,0.4); border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.3);">
-                <div style="font-family: var(--font-heading); font-weight: bold; color: #FFF;">Sobre</div>
-                <div id="modal-sobre-price" style="color: var(--gold-accent); font-size: 1.3em; font-weight: bold; margin: 5px 0;"></div>
-                <span style="font-size: 0.75em; color: #8EB299;"><i class="fa-solid fa-truck-fast"></i> Para Envío</span>
-            </div>
-        </div>
-
-        <a id="checkout-action-btn" href="#" target="_blank" rel="noopener noreferrer" class="buy-button" style="width: 100%; padding: 14px; font-size: 1em;">
-            <i class="fa-solid fa-credit-card"></i> Continuar con la Compra
-        </a>
-    </div>
-</div>
 </body>
 </html>
