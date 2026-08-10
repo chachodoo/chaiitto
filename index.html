@@ -1102,11 +1102,8 @@
                 }
             });
 
-            const bannerTitle = document.getElementById('current-collection-title');
-            if (bannerTitle) {
-                bannerTitle.innerText = colName;
-                bannerTitle.className = "collection-name-title";
-            }
+            // REMOVED REDUNDANT SUB-HEADER:
+            // The active tab button already identifies the selected collection cleanly.
 
             loadCollection(colName);
         }
