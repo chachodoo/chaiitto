@@ -1504,6 +1504,83 @@
         });
 
         window.addEventListener('hashchange', handleHashNavigation);
+        let selectedProductName = '';
+let selectedFrascoPrice = 0;
+let selectedSobrePrice = 0;
+let chosenPresentation = 'Frasco';
+
+function handleProductSelect(name, frascoPrice, sobrePrice) {
+    selectedProductName = name;
+    selectedFrascoPrice = frascoPrice;
+    selectedSobrePrice = sobrePrice;
+    chosenPresentation = 'Frasco';
+
+    document.getElementById('checkout-product-title').textContent = name;
+    document.getElementById('modal-frasco-price').textContent = `$${frascoPrice}`;
+    document.getElementById('modal-sobre-price').textContent = `$${sobrePrice}`;
+
+    selectPresentation('Frasco');
+
+    const modal = document.getElementById('checkout-modal');
+    if (modal) modal.classList.add('active');
+}
+
+function selectPresentation(type) {
+    chosenPresentation = type;
+    const frascoBox = document.getElementById('option-frasco-box');
+    const sobreBox = document.getElementById('option-sobre-box');
+    const actionBtn = document.getElementById('checkout-action-btn');
+
+    const price = type === 'Frasco' ? selectedFrascoPrice : selectedSobrePrice;
+
+    if (type === 'Frasco') {
+        frascoBox.style.border = '2px solid #E5C158';
+        frascoBox.style.background = 'rgba(229, 193, 88, 0.15)';
+        sobreBox.style.border = '1.5px solid rgba(229, 193, 88, 0.4)';
+        sobreBox.style.background = 'rgba(0,0,0,0.3)';
+    } else {
+        sobreBox.style.border = '2px solid #E5C158';
+        sobreBox.style.background = 'rgba(229, 193, 88, 0.15)';
+        frascoBox.style.border = '1.5px solid rgba(229, 193, 88, 0.4)';
+        frascoBox.style.background = 'rgba(0,0,0,0.3)';
+    }
+
+    // Direct WhatsApp message with full details (or replace link with Clip Payment Link)
+    const msg = encodeURIComponent(`¡Hola Chai-itto! Quisiera ordenar para envío a domicilio:\n- Producto: ${selectedProductName}\n- Presentación: ${type}\n- Precio: $${price} MXN`);
+    actionBtn.href = `https://api.whatsapp.com/send?phone=${whatsappPhoneNumber}&text=${msg}`;
+    actionBtn.innerHTML = `<i class="fa-brands fa-whatsapp fa-lg"></i> Comprar ${type} ($${price} MXN)`;
+}
+
+function closeCheckoutModal() {
+    const modal = document.getElementById('checkout-modal');
+    if (modal) modal.classList.remove('active');
+}
     </script>
+    <!-- SHIPPING & CHECKOUT MODAL -->
+<div id="checkout-modal" class="oferta-modal">
+    <div class="oferta-modal-content" style="max-width: 500px;">
+        <span class="oferta-modal-close" onclick="closeCheckoutModal()">&times;</span>
+        <h2 id="checkout-product-title" style="color: var(--gold-accent); font-family: var(--font-title); margin-top: 10px;"></h2>
+        <p style="color: #A3C4AF; font-size: 0.9em; margin-bottom: 20px;">Selecciona la presentación para tu envío a todo México:</p>
+
+        <div style="display: flex; gap: 15px; margin-bottom: 20px; width: 100%;">
+            <div id="option-frasco-box" onclick="selectPresentation('Frasco')" style="flex: 1; padding: 15px; border: 2px solid var(--gold-accent); border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.3);">
+                <div style="font-family: var(--font-heading); font-weight: bold; color: #FFF;">Frasco</div>
+                <div id="modal-frasco-price" style="color: var(--gold-accent); font-size: 1.3em; font-weight: bold; margin: 5px 0;"></div>
+                <span style="font-size: 0.75em; color: #8EB299;"><i class="fa-solid fa-truck-fast"></i> Para Envío</span>
+            </div>
+
+            <div id="option-sobre-box" onclick="selectPresentation('Sobre')" style="flex: 1; padding: 15px; border: 1.5px solid rgba(229,193,88,0.4); border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.3);">
+                <div style="font-family: var(--font-heading); font-weight: bold; color: #FFF;">Sobre</div>
+                <div id="modal-sobre-price" style="color: var(--gold-accent); font-size: 1.3em; font-weight: bold; margin: 5px 0;"></div>
+                <span style="font-size: 0.75em; color: #8EB299;"><i class="fa-solid fa-truck-fast"></i> Para Envío</span>
+            </div>
+        </div>
+
+        <a id="checkout-action-btn" href="#" target="_blank" rel="noopener noreferrer" class="buy-button" style="width: 100%; padding: 14px; font-size: 1em;">
+            <i class="fa-solid fa-credit-card"></i> Continuar con la Compra
+        </a>
+    </div>
+</div>
 </body>
 </html>
