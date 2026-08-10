@@ -1009,31 +1009,39 @@
     </footer>
 
     <!-- SHIPPING & CLIP CHECKOUT MODAL -->
-    <div id="checkout-modal" class="oferta-modal">
-        <div class="oferta-modal-content" style="max-width: 500px;">
-            <span class="oferta-modal-close" onclick="closeCheckoutModal()">&times;</span>
-            <h2 id="checkout-product-title" style="color: var(--gold-accent); font-family: var(--font-title); margin-top: 10px;"></h2>
-            <p style="color: #A3C4AF; font-size: 0.9em; margin-bottom: 20px;">Selecciona la presentación para tu envío a todo México:</p>
+    <!-- ENHANCED SHIPPING & CLIP CHECKOUT MODAL -->
+<div id="checkout-modal" class="oferta-modal">
+    <div class="oferta-modal-content" style="max-width: 520px; padding: 25px; border-radius: 20px;">
+        <span class="oferta-modal-close" onclick="closeCheckoutModal()">&times;</span>
+        
+        <div style="font-family: var(--font-heading); font-size: 0.75em; letter-spacing: 2px; color: var(--gold-accent); text-transform: uppercase; margin-bottom: 5px;">Envío Nacional Seguro</div>
+        <h2 id="checkout-product-title" style="color: #FFF; font-family: var(--font-title); margin: 0 0 15px 0; font-size: 1.8em;"></h2>
+        
+        <p style="color: #A3C4AF; font-size: 0.85em; margin-bottom: 22px; line-height: 1.4;">Elige la presentación perfecta para disfrutar tu mezcla en cualquier parte de México:</p>
 
-            <div style="display: flex; gap: 15px; margin-bottom: 20px; width: 100%;">
-                <div id="option-frasco-box" onclick="selectPresentation('Frasco')" style="flex: 1; padding: 15px; border: 2px solid var(--gold-accent); border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.3);">
-                    <div style="font-family: var(--font-heading); font-weight: bold; color: #FFF;">Frasco</div>
-                    <div id="modal-frasco-price" style="color: var(--gold-accent); font-size: 1.3em; font-weight: bold; margin: 5px 0;"></div>
-                    <span style="font-size: 0.75em; color: #8EB299;"><i class="fa-solid fa-truck-fast"></i> Para Envío</span>
-                </div>
-
-                <div id="option-sobre-box" onclick="selectPresentation('Sobre')" style="flex: 1; padding: 15px; border: 1.5px solid rgba(229,193,88,0.4); border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.3);">
-                    <div style="font-family: var(--font-heading); font-weight: bold; color: #FFF;">Sobre</div>
-                    <div id="modal-sobre-price" style="color: var(--gold-accent); font-size: 1.3em; font-weight: bold; margin: 5px 0;"></div>
-                    <span style="font-size: 0.75em; color: #8EB299;"><i class="fa-solid fa-truck-fast"></i> Para Envío</span>
-                </div>
+        <div style="display: flex; gap: 14px; margin-bottom: 22px; width: 100%;">
+            <!-- FRASCO OPTION -->
+            <div id="option-frasco-box" onclick="selectPresentation('Frasco')" style="flex: 1; padding: 16px 12px; border: 2px solid var(--gold-accent); border-radius: 14px; cursor: pointer; background: rgba(0,0,0,0.4); text-align: center; transition: all 0.25s ease;">
+                <i class="fa-solid fa-jar fa-xl" style="color: var(--gold-accent); margin-bottom: 8px; display: block;"></i>
+                <div style="font-family: var(--font-heading); font-weight: bold; color: #FFF; font-size: 1em;">Frasco</div>
+                <div id="modal-frasco-price" style="color: var(--gold-accent); font-size: 1.4em; font-weight: 800; margin: 4px 0;"></div>
+                <span style="font-size: 0.7em; color: #B5C9BC; display: block;">Conservación Premium</span>
             </div>
 
-            <a id="checkout-action-btn" href="#" target="_blank" rel="noopener noreferrer" class="buy-button" style="width: 100%; padding: 14px; font-size: 1em;">
-                <i class="fa-solid fa-credit-card"></i> Pagar con Clip
-            </a>
+            <!-- SOBRE OPTION -->
+            <div id="option-sobre-box" onclick="selectPresentation('Sobre')" style="flex: 1; padding: 16px 12px; border: 1.5px solid rgba(229,193,88,0.4); border-radius: 14px; cursor: pointer; background: rgba(0,0,0,0.4); text-align: center; transition: all 0.25s ease;">
+                <i class="fa-solid fa-box-archive fa-xl" style="color: #8EB299; margin-bottom: 8px; display: block;"></i>
+                <div style="font-family: var(--font-heading); font-weight: bold; color: #FFF; font-size: 1em;">Sobre Refill</div>
+                <div id="modal-sobre-price" style="color: var(--gold-accent); font-size: 1.4em; font-weight: 800; margin: 4px 0;"></div>
+                <span style="font-size: 0.7em; color: #B5C9BC; display: block;">Empaque Ecofriendly</span>
+            </div>
         </div>
+
+        <a id="checkout-action-btn" href="#" target="_blank" rel="noopener noreferrer" class="buy-button" style="width: 100%; padding: 16px; font-size: 0.95em; border-radius: 30px;">
+            <i class="fa-solid fa-credit-card"></i> Pagar con Clip
+        </a>
     </div>
+</div>
 
     <script>
         let allProducts = {};
@@ -1187,12 +1195,12 @@
                     if (isShippable) {
                         buttonHtml = `
                             <button onclick="handleProductSelect('${prod.name.replace(/'/g, "\\'")}', ${frascoPrice}, ${sobrePrice})" class="buy-button">
-                                <i class="fa-solid fa-box-open"></i> Comprar para Envío
+                            <i class="fa-solid fa-sparkles"></i> Ordenar a Domicilio
                             </button>`;
                     } else {
-                        buttonHtml = `
+                            buttonHtml = `
                             <button onclick="switchPage('menu')" class="buy-button" style="background: rgba(16, 38, 25, 0.9); border: 1px solid var(--gold-accent); color: var(--gold-accent);">
-                                <i class="fa-solid fa-book-open"></i> Ver en Menú
+                            <i class="fa-solid fa-book-open"></i> Ver en Menú Sucursal
                             </button>`;
                     }
 
