@@ -112,7 +112,17 @@
     {"num": "99", "name": "BANANA SPLIT", "ingredients": "Plátano, Cereza negra, Piña, Uvas, Jamaica.", "taza": 99, "frasco": 295}
   ],
   "QUIERO MATCHA": [
-        {"num": "3", "name": "MATCHA LATTE", "ingredients": "Matcha Organico, Leche Organica", "taza": 95, "frasco": 295}
+  {"num": "", "name": "Matcha Pink Chai", "ingredients": "", "taza": 125, "frasco": ""},
+  {"num": "", "name": "Matcha Chai", "ingredients": "", "taza": 125, "frasco": ""},
+  {"num": "", "name": "Matcha Taro", "ingredients": "", "taza": 125, "frasco": ""},
+  {"num": "", "name": "Matcha Kombucha", "ingredients": "", "taza": 125, "frasco": ""},
+  {"num": "", "name": "Matcha Lavanda", "ingredients": "", "taza": 125, "frasco": ""},
+  {"num": "", "name": "Matcha Frutos Rojos", "ingredients": "", "taza": 125, "frasco": ""},
+  {"num": "", "name": "Matcha Pistache", "ingredients": "", "taza": 125, "frasco": ""},
+  {"num": "", "name": "Matcha Verde Azul", "ingredients": "", "taza": 125, "frasco": ""},
+  {"num": "", "name": "Matcha Menta Cacao", "ingredients": "", "taza": 125, "frasco": ""},
+  {"num": "", "name": "Matcha Adaptógenos", "ingredients": "", "taza": 125, "frasco": ""},
+  {"num": "", "name": "Matcha Proteína", "ingredients": "", "taza": 125, "frasco": ""}      
   ],
   "NOVEDADES": [
     {"num": "", "name": "Café Menengiç", "ingredients": "Pistachos silvestres tostados y molidos", "taza": 95, "frasco": 195},
