@@ -2,53 +2,70 @@
     <h1 class="story-title"><i class="fa-solid fa-mug-hot"></i> Comunidad & Contacto</h1>
     <div class="story-subtitle">Únete a nuestro Club de Té, síguenos en redes y visítanos en Cholula</div>
 
-    <!-- 4-CARD DASHBOARD GRID -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+    <!-- STRICT 2-COLUMN DESKTOP GRID -->
+    <style>
+        .grid-2x2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 25px;
+        }
+        @media (max-width: 768px) {
+            .grid-2x2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <div class="grid-2x2">
         
-        <!-- CARD 1: WHATSAPP VIP CLUB (TOP LEFT) -->
-        <div class="contact-card" style="display: flex; flex-direction: column; justify-content: space-between; border: 1.5px solid var(--gold-accent); box-shadow: 0 0 15px rgba(245, 208, 97, 0.1);">
+        <!-- CARD 1: WHATSAPP VIP CLUB (TOP LEFT - CENTERED QR) -->
+        <div class="contact-card" style="display: flex; flex-direction: column; justify-content: space-between; text-align: center; border: 1.5px solid var(--gold-accent); box-shadow: 0 0 15px rgba(245, 208, 97, 0.15);">
             <div>
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
                     <span style="font-family: var(--font-heading); font-size: 0.7em; letter-spacing: 1.5px; color: var(--gold-accent); text-transform: uppercase;">Exclusivo VIP</span>
                     <i class="fa-brands fa-whatsapp fa-xl" style="color: #25D366;"></i>
                 </div>
                 <h3 style="font-family: var(--font-title); color: #FFF; margin: 0 0 8px 0; font-size: 1.4em;">Club de Té WhatsApp</h3>
-                <p style="color: #A3C4AF; font-size: 0.85em; line-height: 1.5; margin-bottom: 15px;">
-                    Recibe lanzamientos de mezclas, promociones secretas y avisos de catas en sucursal antes que nadie.
+                <p style="color: #A3C4AF; font-size: 0.85em; line-height: 1.4; margin-bottom: 15px;">
+                    Recibe lanzamientos de mezclas, promociones secretas y avisos de catas antes que nadie.
                 </p>
             </div>
 
-            <div style="display: flex; gap: 15px; align-items: center; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 12px; border: 1px solid rgba(245,208,97,0.2);">
-                <div style="flex: 1;">
-                    <a href="https://chat.whatsapp.com/IeBNBW1Tiap5SBGyrBLt8r?s=cl&p=a&ilr=0" target="_blank" rel="noopener noreferrer" class="buy-button" style="padding: 10px 14px; font-size: 0.8em; text-decoration: none; justify-content: center; width: 100%;">
-                        <i class="fa-brands fa-whatsapp"></i> Unirme al Grupo
-                    </a>
-                </div>
-                <div style="text-align: center; background: #FFF; padding: 4px; border-radius: 6px; width: 65px; height: 65px; flex-shrink: 0;">
+            <!-- CENTERED QR CODE & BUTTON BOX -->
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; border: 1px solid rgba(245,208,97,0.2);">
+                <div style="background: #FFF; padding: 6px; border-radius: 10px; width: 120px; height: 120px; margin-bottom: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
                     <img src="whats-qr.webp" alt="QR WhatsApp" onerror="this.src='whats-qr.png'" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
+                <span style="font-size: 0.7em; color: #A3C4AF; margin-bottom: 10px; font-family: var(--font-heading);">
+                    <i class="fa-solid fa-camera"></i> Escanea con tu celular o da clic
+                </span>
+                <a href="https://chat.whatsapp.com/IeBNBW1Tiap5SBGyrBLt8r?s=cl&p=a&ilr=0" target="_blank" rel="noopener noreferrer" class="buy-button" style="padding: 12px 20px; font-size: 0.85em; text-decoration: none; justify-content: center; width: 100%;">
+                    <i class="fa-brands fa-whatsapp fa-lg"></i> Unirme al Grupo VIP
+                </a>
             </div>
         </div>
 
         <!-- CARD 2: INSTAGRAM COMMUNITY (TOP RIGHT) -->
-        <div class="contact-card" style="display: flex; flex-direction: column; justify-content: space-between; border: 1.5px solid rgba(245, 208, 97, 0.4);">
+        <div class="contact-card" style="display: flex; flex-direction: column; justify-content: space-between; text-align: center; border: 1.5px solid rgba(245, 208, 97, 0.4);">
             <div>
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
                     <span style="font-family: var(--font-heading); font-size: 0.7em; letter-spacing: 1.5px; color: var(--gold-accent); text-transform: uppercase;">Comunidad Visual</span>
                     <i class="fa-brands fa-instagram fa-xl" style="color: #E1306C;"></i>
                 </div>
                 <h3 style="font-family: var(--font-title); color: #FFF; margin: 0 0 8px 0; font-size: 1.4em;">Síguenos en Instagram</h3>
-                <p style="color: #A3C4AF; font-size: 0.85em; line-height: 1.5; margin-bottom: 15px;">
+                <p style="color: #A3C4AF; font-size: 0.85em; line-height: 1.4; margin-bottom: 15px;">
                     Descubre rituales de preparación, estéticas de nuestros frascos y momentos cotidianos en nuestra barra de Cholula.
                 </p>
             </div>
 
-            <div>
-                <div style="font-family: var(--font-heading); color: var(--gold-accent); font-size: 0.9em; margin-bottom: 10px; text-align: center; font-weight: bold;">
+            <div style="background: rgba(0,0,0,0.3); padding: 20px 15px; border-radius: 12px; border: 1px solid rgba(245,208,97,0.2); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <i class="fa-brands fa-instagram fa-3x" style="color: var(--gold-accent); margin-bottom: 10px;"></i>
+                <div style="font-family: var(--font-heading); color: var(--gold-accent); font-size: 1.1em; margin-bottom: 12px; font-weight: bold;">
                     @chaiittocholula
                 </div>
-                <a href="https://instagram.com/chaiittocholula" target="_blank" rel="noopener noreferrer" class="insta-btn" style="justify-content: center; padding: 11px 16px; font-size: 0.85em; width: 100%;">
-                    <i class="fa-brands fa-instagram"></i> Ver Perfil de Instagram
+                <a href="https://instagram.com/chaiittocholula" target="_blank" rel="noopener noreferrer" class="insta-btn" style="justify-content: center; padding: 12px 20px; font-size: 0.85em; width: 100%;">
+                    <i class="fa-brands fa-instagram fa-lg"></i> Ver Perfil de Instagram
                 </a>
             </div>
         </div>
@@ -56,20 +73,20 @@
         <!-- CARD 3: STORE LOCATION & MAP (BOTTOM LEFT) -->
         <div class="contact-card" style="display: flex; flex-direction: column; justify-content: space-between;">
             <div>
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
                     <span style="font-family: var(--font-heading); font-size: 0.7em; letter-spacing: 1.5px; color: var(--gold-accent); text-transform: uppercase;">Visítanos</span>
                     <i class="fa-solid fa-store" style="color: var(--gold-accent);"></i>
                 </div>
-                <h3 style="font-family: var(--font-title); color: #FFF; margin: 0 0 10px 0; font-size: 1.4em;">Sucursal Cholula</h3>
+                <h3 style="font-family: var(--font-title); color: #FFF; margin: 0 0 8px 0; font-size: 1.4em;">Sucursal Cholula</h3>
                 
-                <p style="font-size: 0.82em; line-height: 1.5; color: #D3E0D7; margin-bottom: 12px;">
+                <p style="font-size: 0.82em; line-height: 1.5; color: #D3E0D7; margin-bottom: 10px;">
                     <i class="fa-solid fa-location-dot" style="color: var(--gold-accent);"></i> San Pedro Cholula, Puebla, México.<br>
                     <i class="fa-solid fa-clock" style="color: var(--gold-accent);"></i> <strong>Horarios:</strong><br>
                     &bull; Lun – Jue, Dom: 1:00 PM – 9:00 PM<br>
                     &bull; Vie: 10:00 AM – 9:30 PM | Sáb: 1:00 PM – 9:30 PM
                 </p>
 
-                <div style="display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
+                <div style="display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;">
                     <a href="https://api.whatsapp.com/send?phone=522218415466" target="_blank" rel="noopener noreferrer" style="background: #25D366; color: #fff; text-decoration: none; padding: 7px 12px; border-radius: 15px; font-size: 0.75em; font-weight: bold; display: inline-flex; align-items: center; gap: 6px;">
                         <i class="fa-brands fa-whatsapp"></i> Chat Directo
                     </a>
@@ -79,7 +96,7 @@
                 </div>
             </div>
 
-            <iframe class="map-iframe" style="height: 130px; border-radius: 10px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.923893608149!2d-98.30872202397193!3d19.062325082138135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfc7525aac3db7%3A0x5d6d23e1c43a6b59!2sCHAI-ITTO%20T%C3%89%2C%20CAF%C3%89%2C%20POSTRES%20ORGANIC!5e0!3m2!1ses-419!2smx!4v1700000000000!5m2!1ses-419!2smx" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe class="map-iframe" style="height: 120px; border-radius: 10px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.923893608149!2d-98.30872202397193!3d19.062325082138135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfc7525aac3db7%3A0x5d6d23e1c43a6b59!2sCHAI-ITTO%20T%C3%89%2C%20CAF%C3%89%2C%20POSTRES%20ORGANIC!5e0!3m2!1ses-419!2smx!4v1700000000000!5m2!1ses-419!2smx" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
 
         <!-- CARD 4: GOOGLE REVIEWS (BOTTOM RIGHT) -->
@@ -94,12 +111,12 @@
                     <span style="font-size: 1.3em; font-weight: 700; color: #FFFFFF; margin-right: 4px;">4.9</span>
                     <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
                 </div>
-                <p style="font-size: 0.75em; color: #A3C4AF; margin: 0 0 12px 0;">Reseñas verificadas en Google Maps</p>
+                <p style="font-size: 0.75em; color: #A3C4AF; margin: 0 0 10px 0;">Reseñas verificadas en Google Maps</p>
 
                 <div class="review-quote" style="font-size: 0.8em; padding: 8px; margin-bottom: 6px;">
                     "Muy amable y servicial... No solo es un lugar donde ir a tomar té, es toda una experiencia de té."
                 </div>
-                <div class="review-quote" style="font-size: 0.8em; padding: 8px; margin-bottom: 12px;">
+                <div class="review-quote" style="font-size: 0.8em; padding: 8px; margin-bottom: 10px;">
                     "Espectacular✨ Jamás había probado tal calidad de infusiones, la variedad es impresionante."
                 </div>
             </div>
