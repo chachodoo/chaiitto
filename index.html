@@ -278,7 +278,7 @@
             box-shadow: 0 4px 15px rgba(245, 208, 97, 0.4) !important;
         }
 
-        /* 2x2 GRID FOR INICIO HIGHLIGHT BOXES */
+        /* 2x2 GRID FOR INICIO 4-BOX HIGHLIGHTS */
         #dynamic-content-area .stats-grid, 
         #dynamic-content-area .features-grid, 
         #dynamic-content-area .boxes-grid,
@@ -331,23 +331,45 @@
             font-weight: 600;
         }
 
-        /* GALLERY RIBBON GRID STYLING */
+        /* ---------------------------------------------------- */
+        /* --- AUTO-SCROLLING CONTINUOUS GALLERY RIBBON --- */
+        /* ---------------------------------------------------- */
+        .gallery-ribbon-wrapper {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            margin-top: 20px;
+            padding: 10px 0;
+            background: var(--matcha-card);
+            border: 1.5px solid var(--gold-border);
+            border-radius: 16px;
+        }
+
         #gallery-dynamic-container {
-            display: grid !important;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
-            gap: 20px !important;
-            margin-top: 20px !important;
-            width: 100% !important;
+            display: flex !important;
+            gap: 16px !important;
+            width: max-content !important;
+            animation: galleryRibbon 40s linear infinite !important;
+        }
+
+        .gallery-ribbon-wrapper:hover #gallery-dynamic-container {
+            animation-play-state: paused !important;
+        }
+
+        @keyframes galleryRibbon {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         .gallery-item-card {
-            width: 100%;
-            height: 260px;
+            width: 300px;
+            height: 220px;
+            flex-shrink: 0;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(45, 90, 39, 0.12);
             border: 1.5px solid var(--gold-border);
-            background: var(--matcha-bg);
+            background: #000;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1126,20 +1148,24 @@
             if (imgElement) imgElement.src = `menu/page-${currentMenuPage}.webp`;
         }
 
-        // AUTO-FILTERING GALLERY LOADER (AUTO-PURGES 404 NOT FOUND FILES)
+        // CONTINUOUS SCROLLING RIBBON GALLERY LOADER
         async function loadGalleryRibbon() {
             let container = document.getElementById('gallery-dynamic-container');
+            let mainSection = document.querySelector('#dynamic-content-area .story-card') || document.getElementById('dynamic-content-area');
             
-            if (!container) {
-                const mainSection = document.querySelector('#dynamic-content-area .story-card') || document.getElementById('dynamic-content-area');
-                if (mainSection) {
-                    container = document.createElement('div');
-                    container.id = 'gallery-dynamic-container';
-                    mainSection.appendChild(container);
-                } else {
-                    return;
-                }
+            // Wrap in outer scrolling ribbon shell if not present
+            if (mainSection && !document.querySelector('.gallery-ribbon-wrapper')) {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'gallery-ribbon-wrapper';
+                
+                container = document.createElement('div');
+                container.id = 'gallery-dynamic-container';
+                
+                wrapper.appendChild(container);
+                mainSection.appendChild(wrapper);
             }
+
+            if (!container) return;
 
             try {
                 const response = await fetch('galeria.json?v=' + Date.now());
@@ -1156,10 +1182,8 @@
                 
                 container.innerHTML = '';
 
-                galleryItems.forEach(item => {
-                    const cleanPath = typeof item === 'string' ? item : (item.src || item.image || item.url || item.file || '');
-                    if (!cleanPath) return;
-
+                // Render valid gallery cards
+                const createCardNode = (cleanPath) => {
                     const isVideo = cleanPath.toLowerCase().endsWith('.mp4') || cleanPath.toLowerCase().endsWith('.webm');
                     
                     const card = document.createElement('div');
@@ -1168,25 +1192,36 @@
                     if (isVideo) {
                         const video = document.createElement('video');
                         video.src = cleanPath;
-                        video.controls = true;
-                        video.playsInline = true;
+                        video.autoplay = true;
+                        video.loop = true;
                         video.muted = true;
-                        video.preload = 'metadata';
-                        // Immediately remove non-existent 404 video files
+                        video.playsInline = true;
+                        video.preload = 'auto';
                         video.onerror = () => card.remove();
                         card.appendChild(video);
                     } else {
                         const img = document.createElement('img');
                         img.src = cleanPath;
                         img.alt = 'Galería Chai-itto';
-                        // Immediately remove non-existent 404 image files
                         img.onerror = () => card.remove();
                         img.onclick = () => openOfertaModal('Galería Chai-itto', 'Salud con Té', [cleanPath], 'Galería', 0);
                         card.appendChild(img);
                     }
+                    return card;
+                };
 
-                    container.appendChild(card);
+                // Append original list
+                galleryItems.forEach(item => {
+                    const cleanPath = typeof item === 'string' ? item : (item.src || item.image || item.url || item.file || '');
+                    if (cleanPath) container.appendChild(createCardNode(cleanPath));
                 });
+
+                // Duplicate valid nodes for seamless infinite marquee scrolling
+                const currentCards = Array.from(container.children);
+                currentCards.forEach(cardNode => {
+                    container.appendChild(cardNode.cloneNode(true));
+                });
+
             } catch (error) {
                 console.error("Error loading gallery:", error);
             }
