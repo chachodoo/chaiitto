@@ -713,9 +713,9 @@
         <span id="cart-count-badge" style="background: #030D07; color: var(--gold-accent); border-radius: 50%; padding: 2px 8px; font-size: 0.85em;">0</span>
     </div>
 
-    <!-- SLIDE-OUT CART DRAWER WITH SEPARATED PAYPAL & CARD POPUP BUTTONS -->
+    <!-- SLIDE-OUT CART DRAWER WITH FULL SCROLLING ENABLED -->
     <div id="cart-drawer-backdrop" onclick="closeCartOnBackdrop(event)" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.7); z-index: 10000; backdrop-filter: blur(5px);">
-        <div style="position: absolute; right: 0; top: 0; width: 100%; max-width: 420px; height: 100%; background: var(--emerald-card); border-left: 2px solid var(--gold-accent); padding: 25px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: -10px 0 30px rgba(0,0,0,0.8);">
+        <div style="position: absolute; right: 0; top: 0; width: 100%; max-width: 440px; height: 100%; background: var(--emerald-card); border-left: 2px solid var(--gold-accent); padding: 25px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: -10px 0 30px rgba(0,0,0,0.8); overflow-y: auto;">
             
             <div>
                 <!-- DRAWER HEADER -->
@@ -729,24 +729,21 @@
                 </div>
 
                 <!-- CART ITEMS LIST -->
-                <div id="cart-items-container" style="max-height: 38vh; overflow-y: auto; padding-right: 5px;"></div>
+                <div id="cart-items-container" style="max-height: none; padding-right: 5px;"></div>
             </div>
 
             <!-- DRAWER FOOTER / CHECKOUT OPTIONS -->
-            <div style="border-top: 1px solid rgba(229,193,88,0.3); padding-top: 15px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-family: var(--font-heading); font-size: 1.2em;">
+            <div style="border-top: 1px solid rgba(229,193,88,0.3); padding-top: 18px; margin-top: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-family: var(--font-heading); font-size: 1.2em;">
                     <span style="color: #A3C4AF;">Total Estimado:</span>
                     <span id="cart-total-price" style="color: var(--gold-glow); font-weight: bold; font-size: 1.3em;">$0 MXN</span>
                 </div>
 
-                <!-- OPTION 1: PAYPAL POPUP BUTTON -->
-                <div id="paypal-button-container" style="width: 100%; min-height: 45px; margin-bottom: 8px;"></div>
-
-                <!-- OPTION 2: CREDIT CARD POPUP BUTTON (FORCED POPUP MODAL) -->
-                <div id="card-button-container" style="width: 100%; min-height: 45px; margin-bottom: 8px;"></div>
+                <!-- PAYPAL & CARD BUTTON CONTAINER (DYNAMIC FULL HEIGHT) -->
+                <div id="paypal-button-container" style="width: 100%; height: auto; min-height: 100px;"></div>
 
                 <!-- OPTION 3: DIRECT PAYMENT LINK / INVOICE REQUEST BUTTON -->
-                <div id="request-link-container">
+                <div id="request-link-container" style="margin-top: 12px;">
                     <button onclick="requestDirectPaymentLink()" class="request-link-btn">
                         <i class="fa-solid fa-paper-plane" style="color: var(--gold-accent);"></i> Solicitar Link / Factura de Pago
                     </button>
@@ -870,24 +867,19 @@
         }
 
         function renderPayPalButtons() {
-            const paypalContainer = document.getElementById('paypal-button-container');
-            const cardContainer = document.getElementById('card-button-container');
+            const container = document.getElementById('paypal-button-container');
+            if (!container) return;
 
-            if (!paypalContainer || !cardContainer) return;
-
-            paypalContainer.innerHTML = ''; 
-            cardContainer.innerHTML = ''; 
+            container.innerHTML = ''; // Clear container
 
             const grandTotal = calculateCartTotal();
             if (grandTotal <= 0 || cart.length === 0) {
-                paypalContainer.innerHTML = '<p style="color: #A3C4AF; text-align: center; font-size: 0.8em;">Agrega productos para activar el pago seguro.</p>';
+                container.innerHTML = '<p style="color: #A3C4AF; text-align: center; font-size: 0.8em;">Agrega productos para activar el pago seguro.</p>';
                 return;
             }
 
             if (window.paypal) {
-                // 1. RENDER PAYPAL POPUP BUTTON
                 paypal.Buttons({
-                    fundingSource: paypal.FUNDING.PAYPAL,
                     style: {
                         layout: 'vertical',
                         color:  'gold',
@@ -923,47 +915,6 @@
                         alert('Ocurrió un problema al procesar el pago. Por favor intenta de nuevo.');
                     }
                 }).render('#paypal-button-container');
-
-                // 2. RENDER CARD BUTTON THAT FORCES POPUP MODAL (NO INLINE FIELDS)
-                if (paypal.FUNDING.CARD) {
-                    paypal.Buttons({
-                        fundingSource: paypal.FUNDING.CARD,
-                        style: {
-                            layout: 'vertical',
-                            color:  'black',
-                            shape:  'rect',
-                            label:  'pay'
-                        },
-                        createOrder: function(data, actions) {
-                            return actions.order.create({
-                                purchase_units: [{
-                                    description: `Pedido Chai-itto (${cart.length} productos)`,
-                                    amount: {
-                                        currency_code: "MXN",
-                                        value: grandTotal.toFixed(2)
-                                    }
-                                }]
-                            });
-                        },
-                        onApprove: function(data, actions) {
-                            return actions.order.capture().then(function(details) {
-                                cart = [];
-                                saveCart();
-                                toggleCartDrawer();
-
-                                if (typeof confetti === 'function') {
-                                    confetti({ particleCount: 200, spread: 100, origin: { y: 0.4 } });
-                                }
-
-                                alert(`¡Pago completado con éxito! Recibirás la confirmación de envío en tu correo.`);
-                            });
-                        },
-                        onError: function(err) {
-                            console.error('PayPal Card Error:', err);
-                            alert('Ocurrió un problema al procesar el pago con tarjeta. Por favor intenta de nuevo.');
-                        }
-                    }).render('#card-button-container');
-                }
             }
         }
 
