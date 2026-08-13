@@ -1379,201 +1379,204 @@
         let currentModalIndex = 0;
 
         /* --- EXACT RENDERER FOR ACCESORIOS.JSON --- */
-        async function loadAccesoriosGrid() {
-            const track = document.getElementById('accesorios-dynamic-track');
-            if (!track) return;
+async function loadAccesoriosGrid() {
+    const track = document.getElementById('accesorios-dynamic-track');
+    if (!track) return;
 
-            try {
-                const response = await fetch('accesorios.json?v=' + Math.floor(Date.now() / 60000));
-                if (!response.ok) throw new Error('Could not load accesorios.json');
+    try {
+        const response = await fetch('accesorios.json?v=' + Math.floor(Date.now() / 60000));
+        if (!response.ok) throw new Error('Could not load accesorios.json');
 
-                const accesoriosList = await response.json();
-                if (!accesoriosList || accesoriosList.length === 0) {
-                    track.innerHTML = `<div style="color: #A3C4AF; padding: 20px;">No hay accesorios disponibles por el momento.</div>`;
-                    return;
-                }
-
-                track.innerHTML = '';
-
-                accesoriosList.forEach(item => {
-                    const price = item.precio || item.precioOferta || 0;
-                    const descText = item.descripcion || '';
-                    const titleText = item.name ? `#${item.num}. ${item.name}` : `#${item.num}`;
-                    
-                    const imageList = (item.images && item.images.length > 0)
-                        ? item.images 
-                        : [item.image || 'logo.png'];
-                    
-                    const coverImage = imageList[0];
-                    const placeholderBlur = item.blurPreview || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180"%3E%3Crect width="100%25" height="100%25" fill="%23102619"/%3E%3C/svg%3E';
-
-                    const waMsg = encodeURIComponent(`¡Hola Chai-itto! Me interesa adquirir el accesorio: ${titleText} ($${price} MXN). ¿Sigue disponible?`);
-                    const waUrl = `https://api.whatsapp.com/send?phone=${whatsappPhoneNumber}&text=${waMsg}`;
-
-                    const card = document.createElement('div');
-                    card.className = 'oferta-card';
-                    card.onclick = () => openOfertaModal(titleText, descText, imageList, waUrl);
-
-                    const imgId = `acc-img-${item.num}`;
-
-                    card.innerHTML = `
-                        <div>
-                            <div class="oferta-img-container" style="background-image: url('${placeholderBlur}'); background-size: cover; background-position: center;">
-                                <img id="${imgId}" 
-                                     src="${placeholderBlur}" 
-                                     alt="${item.name || 'Accesorio'}" 
-                                     width="240" 
-                                     height="180" 
-                                     style="filter: blur(8px); transition: filter 0.3s ease, opacity 0.3s ease;">
-                                <div class="oferta-badge" style="background: linear-gradient(135deg, #16402B 0%, #0E2C1D 100%);">
-                                    <span class="oferta-badge-tag" style="background: var(--gold-accent); color: #000;">ACCESORIO</span>
-                                    <div class="oferta-price-special">$${price}</div>
-                                </div>
-                            </div>
-                            <h3 class="oferta-title">${titleText}</h3>
-                            <p class="oferta-subtitle">${descText}</p>
-                        </div>
-                        <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="oferta-buy-btn" onclick="event.stopPropagation()">
-                            <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar Accesorio
-                        </a>
-                    `;
-                    track.appendChild(card);
-
-                    const fullImg = new Image();
-                    fullImg.src = coverImage;
-                    
-                    const applyFullImg = () => {
-                        const target = document.getElementById(imgId);
-                        if (target) {
-                            target.src = coverImage;
-                            target.style.filter = 'blur(0px)';
-                        }
-                    };
-
-                    if ('decode' in fullImg) {
-                        fullImg.decode().then(applyFullImg).catch(applyFullImg);
-                    } else {
-                        fullImg.onload = applyFullImg;
-                    }
-                });
-
-            } catch (error) {
-                console.error("Error loading accesorios.json:", error);
-                track.innerHTML = `<div style="color: #FF8888; padding: 20px;">Error al cargar el catálogo de accesorios.</div>`;
-            }
+        const accesoriosList = await response.json();
+        if (!accesoriosList || accesoriosList.length === 0) {
+            track.innerHTML = `<div style="color: #A3C4AF; padding: 20px;">No hay accesorios disponibles por el momento.</div>`;
+            return;
         }
+
+        track.innerHTML = '';
+
+        accesoriosList.forEach(item => {
+            const price = item.precio || item.precioOferta || 0;
+            const descText = item.descripcion || '';
+            const titleText = item.name ? `#${item.num}. ${item.name}` : `#${item.num}`;
+            
+            const imageList = (item.images && item.images.length > 0)
+                ? item.images 
+                : [item.image || 'logo.png'];
+            
+            const coverImage = imageList[0];
+            const placeholderBlur = item.blurPreview || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180"%3E%3Crect width="100%25" height="100%25" fill="%23102619"/%3E%3C/svg%3E';
+
+            const card = document.createElement('div');
+            card.className = 'oferta-card';
+            card.onclick = () => openOfertaModal(titleText, descText, imageList, titleText, price);
+
+            const imgId = `acc-img-${item.num}`;
+
+            card.innerHTML = `
+                <div>
+                    <div class="oferta-img-container" style="background-image: url('${placeholderBlur}'); background-size: cover; background-position: center;">
+                        <img id="${imgId}" 
+                             src="${placeholderBlur}" 
+                             alt="${item.name || 'Accesorio'}" 
+                             width="240" 
+                             height="180" 
+                             style="filter: blur(8px); transition: filter 0.3s ease, opacity 0.3s ease;">
+                        <div class="oferta-badge" style="background: linear-gradient(135deg, #16402B 0%, #0E2C1D 100%);">
+                            <span class="oferta-badge-tag" style="background: var(--gold-accent); color: #000;">ACCESORIO</span>
+                            <div class="oferta-price-special">$${price}</div>
+                        </div>
+                    </div>
+                    <h3 class="oferta-title">${titleText}</h3>
+                    <p class="oferta-subtitle">${descText}</p>
+                </div>
+                <button class="buy-button" onclick="event.stopPropagation(); handleProductSelect('${item.name.replace(/'/g, "\\'")}', ${price}, ${price})">
+                    <i class="fa-solid fa-credit-card"></i> Pagar con Clip
+                </button>
+            `;
+            track.appendChild(card);
+
+            const fullImg = new Image();
+            fullImg.src = coverImage;
+            
+            const applyFullImg = () => {
+                const target = document.getElementById(imgId);
+                if (target) {
+                    target.src = coverImage;
+                    target.style.filter = 'blur(0px)';
+                }
+            };
+
+            if ('decode' in fullImg) {
+                fullImg.decode().then(applyFullImg).catch(applyFullImg);
+            } else {
+                fullImg.onload = applyFullImg;
+            }
+        });
+
+    } catch (error) {
+        console.error("Error loading accesorios.json:", error);
+        track.innerHTML = `<div style="color: #FF8888; padding: 20px;">Error al cargar el catálogo de accesorios.</div>`;
+    }
+}
 
         /* --- EXACT RENDERER FOR OFERTAS.JSON --- */
-        async function loadOfertasGrid() {
-            const track = document.getElementById('ofertas-dynamic-track');
-            if (!track) return;
+async function loadOfertasGrid() {
+    const track = document.getElementById('ofertas-dynamic-track');
+    if (!track) return;
 
-            if (typeof confetti === 'function') {
-                confetti({
-                    particleCount: 120,
-                    spread: 80,
-                    origin: { y: 0.45 },
-                    startVelocity: 35,
-                    colors: ['#E5C158', '#FFF1AA', '#FF8888', '#25D366', '#FFFFFF']
-                });
-            }
+    if (typeof confetti === 'function') {
+        confetti({
+            particleCount: 120,
+            spread: 80,
+            origin: { y: 0.45 },
+            startVelocity: 35,
+            colors: ['#E5C158', '#FFF1AA', '#FF8888', '#25D366', '#FFFFFF']
+        });
+    }
 
-            try {
-                const response = await fetch('ofertas.json?v=' + Math.floor(Date.now() / 60000));
-                if (!response.ok) throw new Error('Could not load ofertas.json');
+    try {
+        const response = await fetch('ofertas.json?v=' + Math.floor(Date.now() / 60000));
+        if (!response.ok) throw new Error('Could not load ofertas.json');
 
-                const ofertasList = await response.json();
-                if (!ofertasList || ofertasList.length === 0) {
-                    track.innerHTML = `<div style="color: #A3C4AF; padding: 20px;">No hay ofertas disponibles por el momento.</div>`;
-                    return;
-                }
+        const ofertasList = await response.json();
+        if (!ofertasList || ofertasList.length === 0) {
+            track.innerHTML = `<div style="color: #A3C4AF; padding: 20px;">No hay ofertas disponibles por el momento.</div>`;
+            return;
+        }
 
-                track.innerHTML = '';
+        track.innerHTML = '';
 
-                ofertasList.forEach(item => {
-                    const orig = item.precioOriginal;
-                    const spec = item.precioOferta;
-                    const descText = item.descripcion || '';
-                    const titleText = item.name ? `#${item.num}. ${item.name}` : `#${item.num}`;
-                    
-                    const imageList = (item.images && item.images.length > 0)
-                        ? item.images 
-                        : [item.image || 'logo.png'];
-                    
-                    const coverImage = imageList[0];
-                    const placeholderBlur = item.blurPreview || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180"%3E%3Crect width="100%25" height="100%25" fill="%23102619"/%3E%3C/svg%3E';
+        ofertasList.forEach(item => {
+            const orig = item.precioOriginal;
+            const spec = item.precioOferta;
+            const descText = item.descripcion || '';
+            const titleText = item.name ? `#${item.num}. ${item.name}` : `#${item.num}`;
+            
+            const imageList = (item.images && item.images.length > 0)
+                ? item.images 
+                : [item.image || 'logo.png'];
+            
+            const coverImage = imageList[0];
+            const placeholderBlur = item.blurPreview || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180"%3E%3Crect width="100%25" height="100%25" fill="%23102619"/%3E%3C/svg%3E';
 
-                    const waMsg = encodeURIComponent(`¡Hola Chai-itto! Me interesa aprovechar la Oferta Especial de: ${titleText} (De $${orig} a solo $${spec} MXN). ¿Sigue disponible?`);
-                    const waUrl = `https://api.whatsapp.com/send?phone=${whatsappPhoneNumber}&text=${waMsg}`;
+            const card = document.createElement('div');
+            card.className = 'oferta-card';
+            card.onclick = () => openOfertaModal(titleText, descText, imageList, titleText, spec);
 
-                    const card = document.createElement('div');
-                    card.className = 'oferta-card';
-                    card.onclick = () => openOfertaModal(titleText, descText, imageList, waUrl);
+            const imgId = `oferta-img-${item.num}`;
 
-                    const imgId = `oferta-img-${item.num}`;
-
-                    card.innerHTML = `
-                        <div>
-                            <div class="oferta-img-container" style="background-image: url('${placeholderBlur}'); background-size: cover; background-position: center;">
-                                <img id="${imgId}" 
-                                     src="${placeholderBlur}" 
-                                     alt="${item.name || 'Oferta'}" 
-                                     width="240" 
-                                     height="180" 
-                                     style="filter: blur(8px); transition: filter 0.3s ease, opacity 0.3s ease;">
-                                <div class="oferta-badge">
-                                    <span class="oferta-badge-tag">OFERTA</span>
-                                    <span class="oferta-price-original">$${orig}</span>
-                                    <div class="oferta-price-special">$${spec}</div>
-                                </div>
-                            </div>
-                            <h3 class="oferta-title">${titleText}</h3>
-                            <p class="oferta-subtitle">${descText}</p>
+            card.innerHTML = `
+                <div>
+                    <div class="oferta-img-container" style="background-image: url('${placeholderBlur}'); background-size: cover; background-position: center;">
+                        <img id="${imgId}" 
+                             src="${placeholderBlur}" 
+                             alt="${item.name || 'Oferta'}" 
+                             width="240" 
+                             height="180" 
+                             style="filter: blur(8px); transition: filter 0.3s ease, opacity 0.3s ease;">
+                        <div class="oferta-badge">
+                            <span class="oferta-badge-tag">OFERTA</span>
+                            <span class="oferta-price-original">$${orig}</span>
+                            <div class="oferta-price-special">$${spec}</div>
                         </div>
-                        <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="oferta-buy-btn" onclick="event.stopPropagation()">
-                            <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar Oferta
-                        </a>
-                    `;
-                    track.appendChild(card);
+                    </div>
+                    <h3 class="oferta-title">${titleText}</h3>
+                    <p class="oferta-subtitle">${descText}</p>
+                </div>
+                <button class="buy-button" onclick="event.stopPropagation(); handleProductSelect('${item.name.replace(/'/g, "\\'")}', ${spec}, ${spec})">
+                    <i class="fa-solid fa-credit-card"></i> Pagar con Clip
+                </button>
+            `;
+            track.appendChild(card);
 
-                    const fullImg = new Image();
-                    fullImg.src = coverImage;
-                    
-                    const applyFullImg = () => {
-                        const target = document.getElementById(imgId);
-                        if (target) {
-                            target.src = coverImage;
-                            target.style.filter = 'blur(0px)';
-                        }
-                    };
+            const fullImg = new Image();
+            fullImg.src = coverImage;
+            
+            const applyFullImg = () => {
+                const target = document.getElementById(imgId);
+                if (target) {
+                    target.src = coverImage;
+                    target.style.filter = 'blur(0px)';
+                }
+            };
 
-                    if ('decode' in fullImg) {
-                        fullImg.decode().then(applyFullImg).catch(applyFullImg);
-                    } else {
-                        fullImg.onload = applyFullImg;
-                    }
-                });
-
-            } catch (error) {
-                console.error("Error loading ofertas.json:", error);
-                track.innerHTML = `<div style="color: #FF8888; padding: 20px;">Error al cargar las ofertas.</div>`;
+            if ('decode' in fullImg) {
+                fullImg.decode().then(applyFullImg).catch(applyFullImg);
+            } else {
+                fullImg.onload = applyFullImg;
             }
-        }
+        });
 
-        function openOfertaModal(title, subtitle, imageArray, waUrl) {
-            const modal = document.getElementById('oferta-modal');
-            if (!modal) return;
+    } catch (error) {
+        console.error("Error loading ofertas.json:", error);
+        track.innerHTML = `<div style="color: #FF8888; padding: 20px;">Error al cargar las ofertas.</div>`;
+    }
+}
 
-            currentModalImages = imageArray;
-            currentModalIndex = 0;
+        /* --- LIGHTBOX MODAL TRIGGER FOR CLIP --- */
+function openOfertaModal(title, subtitle, imageArray, prodName, price) {
+    const modal = document.getElementById('oferta-modal');
+    if (!modal) return;
 
-            document.getElementById('modal-title').textContent = title;
-            document.getElementById('modal-subtitle').textContent = subtitle;
-            document.getElementById('modal-buy-btn').href = waUrl;
+    currentModalImages = imageArray;
+    currentModalIndex = 0;
 
-            updateModalImageDisplay();
-            modal.classList.add('active');
-        }
+    document.getElementById('modal-title').textContent = title;
+    document.getElementById('modal-subtitle').textContent = subtitle;
+    
+    const buyBtn = document.getElementById('modal-buy-btn');
+    buyBtn.className = "buy-button";
+    buyBtn.innerHTML = `<i class="fa-solid fa-credit-card"></i> Pagar con Clip`;
+    buyBtn.onclick = (e) => {
+        e.preventDefault();
+        closeOfertaModal();
+        handleProductSelect(prodName, price, price);
+    };
+
+    updateModalImageDisplay();
+    modal.classList.add('active');
+}
 
         function updateModalImageDisplay() {
             const imgEl = document.getElementById('modal-img');
