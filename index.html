@@ -228,9 +228,7 @@
             font-size: clamp(0.85em, 2.5vw, 1em);
         }
 
-        /* ---------------------------------------------------- */
         /* --- EXCLUSIVE DARK STYLING FOR CONTACTANOS PAGE --- */
-        /* ---------------------------------------------------- */
         #dynamic-content-area.dark-section .story-card,
         #dynamic-content-area.dark-section .contact-card,
         #dynamic-content-area.dark-section .contact-container {
@@ -286,20 +284,26 @@
             transform: translateY(-2px) !important;
         }
 
-        /* 2x2 GRID FOR INICIO HIGHLIGHT BOXES (2 LEFT, 2 RIGHT) */
-        .stats-grid, .features-grid, .boxes-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin: 25px 0;
-            max-width: 1000px;
-            margin-left: auto;
-            margin-right: auto;
+        /* HARD-FORCED 2x2 GRID FOR INICIO 4-BOX HIGHLIGHTS (2 LEFT, 2 RIGHT) */
+        #dynamic-content-area .stats-grid, 
+        #dynamic-content-area .features-grid, 
+        #dynamic-content-area .boxes-grid,
+        #dynamic-content-area .grid-2x2,
+        #dynamic-content-area div[class*="grid"] {
+            display: grid !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 20px !important;
+            margin: 25px auto !important;
+            max-width: 1000px !important;
         }
 
         @media (max-width: 600px) { 
-            .stats-grid, .features-grid, .boxes-grid { 
-                grid-template-columns: 1fr; 
+            #dynamic-content-area .stats-grid, 
+            #dynamic-content-area .features-grid, 
+            #dynamic-content-area .boxes-grid,
+            #dynamic-content-area .grid-2x2,
+            #dynamic-content-area div[class*="grid"] { 
+                grid-template-columns: 1fr !important; 
             } 
         }
 
@@ -333,6 +337,15 @@
             color: var(--text-dark);
             line-height: 1.35;
             font-weight: 600;
+        }
+
+        /* GALLERY RIBBON GRID STYLING */
+        #gallery-dynamic-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+            width: 100%;
         }
 
         /* --- UNIFIED COLLECTION TABS --- */
@@ -373,15 +386,15 @@
         }
 
         /* --- ADAPTIVE PRODUCT GRID --- */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
+        #dynamic-content-area .product-grid {
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 16px !important;
         }
 
-        @media (max-width: 1100px) { .product-grid { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width: 768px) { .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
-        @media (max-width: 480px) { .product-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 1100px) { #dynamic-content-area .product-grid { grid-template-columns: repeat(3, 1fr) !important; } }
+        @media (max-width: 768px) { #dynamic-content-area .product-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; } }
+        @media (max-width: 480px) { #dynamic-content-area .product-grid { grid-template-columns: 1fr !important; } }
 
         /* --- PRODUCT CARDS --- */
         .product-card {
@@ -569,11 +582,11 @@
         }
 
         /* --- OFERTAS RESPONSIVE GRID & CARDS --- */
-        .ofertas-track {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 20px;
-            width: 100%;
+        #dynamic-content-area .ofertas-track {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)) !important;
+            gap: 20px !important;
+            width: 100% !important;
         }
 
         .oferta-card {
@@ -902,7 +915,7 @@
                     </p>
                 </div>
 
-                <!-- OPTION 2: PAYPAL & CARD BUTTON CONTAINER (DYNAMIC FULL HEIGHT) -->
+                <!-- OPTION 2: PAYPAL & CARD BUTTON CONTAINER -->
                 <div id="paypal-button-container" style="width: 100%; height: auto; min-height: 100px;"></div>
             </div>
 
@@ -1023,7 +1036,7 @@
             const container = document.getElementById('paypal-button-container');
             if (!container) return;
 
-            container.innerHTML = ''; // Clear container
+            container.innerHTML = ''; 
 
             const grandTotal = calculateCartTotal();
             if (grandTotal <= 0 || cart.length === 0) {
@@ -1101,7 +1114,7 @@
             if (imgElement) imgElement.src = `menu/page-${currentMenuPage}.webp`;
         }
 
-        // GALLERY RIBBON LOADER
+        // ROBUST GALLERY RIBBON LOADER
         async function loadGalleryRibbon() {
             const container = document.getElementById('gallery-dynamic-container');
             if (!container) return;
@@ -1110,15 +1123,22 @@
                 const response = await fetch('galeria.json?v=' + Date.now());
                 if (!response.ok) return;
 
-                const galleryImages = await response.json();
+                let galleryData = await response.json();
+                
+                // Ensure data is array format
+                let galleryImages = Array.isArray(galleryData) ? galleryData : (Object.values(galleryData)[0] || []);
+                
                 container.innerHTML = '';
 
                 galleryImages.forEach(imgSrc => {
+                    const cleanPath = typeof imgSrc === 'string' ? imgSrc : (imgSrc.src || imgSrc.image || '');
+                    if (!cleanPath) return;
+
                     const img = document.createElement('img');
-                    img.src = imgSrc;
+                    img.src = cleanPath;
                     img.alt = 'Galería Chai-itto';
-                    img.style.cssText = 'width: 100%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 15px; cursor: pointer;';
-                    img.onclick = () => openOfertaModal('Galería Chai-itto', 'Salud con Té', [imgSrc], 'Galería', 0);
+                    img.style.cssText = 'width: 100%; height: 260px; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 12px rgba(45, 90, 39, 0.12); cursor: pointer; border: 1.5px solid var(--gold-border);';
+                    img.onclick = () => openOfertaModal('Galería Chai-itto', 'Salud con Té', [cleanPath], 'Galería', 0);
                     container.appendChild(img);
                 });
             } catch (error) {
