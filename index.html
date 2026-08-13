@@ -1278,29 +1278,45 @@
         }
 
         function selectPresentation(type) {
-            chosenPresentation = type;
-            const frascoBox = document.getElementById('option-frasco-box');
-            const sobreBox = document.getElementById('option-sobre-box');
-            const actionBtn = document.getElementById('checkout-action-btn');
+    chosenPresentation = type;
+    const frascoBox = document.getElementById('option-frasco-box');
+    const sobreBox = document.getElementById('option-sobre-box');
+    const actionBtn = document.getElementById('checkout-action-btn');
 
-            const price = type === 'Frasco' ? selectedFrascoPrice : selectedSobrePrice;
-            const clipLink = CLIP_PAYMENT_LINKS[price] || "https://clip.mx";
+    const price = type === 'Frasco' ? selectedFrascoPrice : selectedSobrePrice;
+    
+    // 1. Check if price exists in dictionary
+    const clipLink = CLIP_PAYMENT_LINKS[price];
 
-            if (type === 'Frasco') {
-                frascoBox.style.border = '2px solid #E5C158';
-                frascoBox.style.background = 'rgba(229, 193, 88, 0.15)';
-                sobreBox.style.border = '1.5px solid rgba(229, 193, 88, 0.4)';
-                sobreBox.style.background = 'rgba(0,0,0,0.3)';
-            } else {
-                sobreBox.style.border = '2px solid #E5C158';
-                sobreBox.style.background = 'rgba(229, 193, 88, 0.15)';
-                frascoBox.style.border = '1.5px solid rgba(229, 193, 88, 0.4)';
-                frascoBox.style.background = 'rgba(0,0,0,0.3)';
-            }
-
-            actionBtn.href = clipLink;
-            actionBtn.innerHTML = `<i class="fa-solid fa-credit-card"></i> Pagar $${price} MXN con Clip`;
+    // 2. UI Highlight for Frasco vs Sobre
+    if (frascoBox && sobreBox) {
+        if (type === 'Frasco') {
+            frascoBox.style.border = '2px solid #E5C158';
+            frascoBox.style.background = 'rgba(229, 193, 88, 0.15)';
+            sobreBox.style.border = '1.5px solid rgba(229, 193, 88, 0.4)';
+            sobreBox.style.background = 'rgba(0,0,0,0.3)';
+        } else {
+            sobreBox.style.border = '2px solid #E5C158';
+            sobreBox.style.background = 'rgba(229, 193, 88, 0.15)';
+            frascoBox.style.border = '1.5px solid rgba(229, 193, 88, 0.4)';
+            frascoBox.style.background = 'rgba(0,0,0,0.3)';
         }
+    }
+
+    // 3. Fallback logic: Clip link vs WhatsApp message
+    if (clipLink) {
+        actionBtn.href = clipLink;
+        actionBtn.style.background = "linear-gradient(135deg, #F5D061 0%, #D4AF37 100%)";
+        actionBtn.style.color = "#030D07";
+        actionBtn.innerHTML = `<i class="fa-solid fa-credit-card"></i> Pagar $${price} MXN con Clip`;
+    } else {
+        const waText = encodeURIComponent(`¡Hola Chai-itto! Me interesa comprar: ${selectedProductName} ($${price} MXN). ¿Me compartes el link de Clip para pagar?`);
+        actionBtn.href = `https://api.whatsapp.com/send?phone=${whatsappPhoneNumber}&text=${waText}`;
+        actionBtn.style.background = "linear-gradient(135deg, #25D366 0%, #128C7E 100%)";
+        actionBtn.style.color = "#FFFFFF";
+        actionBtn.innerHTML = `<i class="fa-brands fa-whatsapp fa-lg"></i> Pedir Link Clip ($${price} MXN)`;
+    }
+}
 
         function closeCheckoutModal() {
             const modal = document.getElementById('checkout-modal');
