@@ -279,37 +279,40 @@
         }
 
         /* ---------------------------------------------------- */
-        /* --- INICIO SECTION: 4 CARDS FORCED INTO 1 SINGLE ROW --- */
+        /* --- INICIO SECTION LAYOUT FIX --- */
         /* ---------------------------------------------------- */
-        #dynamic-content-area .stats-grid, 
-        #dynamic-content-area .features-grid, 
-        #dynamic-content-area .boxes-grid,
-        #dynamic-content-area .story-card > div[style*="grid"],
-        #dynamic-content-area .story-card > div[class*="grid"] {
+        /* Force story-grid to stack text on top and stats on bottom */
+        .story-grid {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 25px !important;
+            width: 100% !important;
+        }
+
+        .story-text {
+            width: 100% !important;
+            max-width: 900px !important;
+            margin: 0 auto !important;
+            text-align: center !important;
+        }
+
+        /* Force 4 stat boxes into 1 horizontal row across full page width */
+        .story-stats {
             display: grid !important;
             grid-template-columns: repeat(4, 1fr) !important;
             gap: 16px !important;
-            margin: 30px auto !important;
             width: 100% !important;
-            max-width: 1200px !important;
+            margin-top: 15px !important;
         }
 
         @media (max-width: 992px) { 
-            #dynamic-content-area .stats-grid, 
-            #dynamic-content-area .features-grid, 
-            #dynamic-content-area .boxes-grid,
-            #dynamic-content-area .story-card > div[style*="grid"],
-            #dynamic-content-area .story-card > div[class*="grid"] { 
+            .story-stats { 
                 grid-template-columns: repeat(2, 1fr) !important; 
             } 
         }
 
         @media (max-width: 550px) { 
-            #dynamic-content-area .stats-grid, 
-            #dynamic-content-area .features-grid, 
-            #dynamic-content-area .boxes-grid,
-            #dynamic-content-area .story-card > div[style*="grid"],
-            #dynamic-content-area .story-card > div[class*="grid"] { 
+            .story-stats { 
                 grid-template-columns: 1fr !important; 
             } 
         }
@@ -1375,7 +1378,7 @@
                     const isShippable = frascoPrice > 0 || sobrePrice > 0;
 
                     let frascoHtml = frascoPrice > 0 ? `<div class="price-option"><span class="price-label">Frasco</span><div class="price-value frasco">$${frascoPrice}</div><span class="badge-frasco"><i class="fa-solid fa-truck-fast"></i> Para Envío</span></div>` : '';
-                    let sobreHtml = sobrePrice > 0 ? `<div class="price-option"><span class="price-label">Sobre</span><div class="price-value frasco">$${sobrePrice}</div><span class="badge-frasco"><i class="fa-solid fa-truck-fast"></i> Para Envío</span></div>` : '';
+                    let sobreHtml = sobrePrice > 0 ? `<div class="price-option"><span class="price-label">Sobre</span><div class="price-value frasco">$${sobreHtml}</div><span class="badge-frasco"><i class="fa-solid fa-truck-fast"></i> Para Envío</span></div>` : '';
 
                     const safeName = prod.name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
 
