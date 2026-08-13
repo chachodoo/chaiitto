@@ -19,8 +19,8 @@
 
     <style>
         :root {
-            --emerald-dark: #0E2C1D;
-            --emerald-card: #123825;
+            --emerald-dark: #0B2317;
+            --emerald-card: #0E2C1D;
             --emerald-light: #16402B;
             --gold-accent: #F5D061;
             --gold-glow: #FFF4A3;
@@ -42,7 +42,7 @@
             color: var(--text-light);
             margin: 0;
             padding: 0;
-            background-image: radial-gradient(circle at 50% 10%, #16402B 0%, #071C12 100%);
+            background-image: radial-gradient(circle at 50% 10%, #123B28 0%, #04120A 100%);
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -107,7 +107,7 @@
         header {
             text-align: center;
             padding: 25px 15px 22px;
-            background: linear-gradient(180deg, rgba(7, 28, 18, 0.95) 0%, rgba(14, 44, 29, 0) 100%);
+            background: linear-gradient(180deg, rgba(4, 18, 10, 0.95) 0%, rgba(11, 35, 23, 0) 100%);
             border-bottom: 1px solid rgba(245, 208, 97, 0.35);
             box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
             position: relative;
@@ -198,7 +198,7 @@
             text-shadow: 0 0 12px rgba(255, 255, 255, 0.9), 0 0 20px rgba(229, 193, 88, 0.6);
         }
 
-        /* --- DYNAMIC SECTION SHELL --- */
+        /* --- DYNAMIC SECTION SHELL & INICIO 4-BOX GRID --- */
         #dynamic-content-area {
             max-width: 1400px;
             margin: 0 auto;
@@ -208,16 +208,15 @@
         }
 
         .story-card {
-            background: rgba(18, 56, 37, 0.95);
-            border: 2px solid rgba(229, 193, 88, 0.35);
+            background: rgba(14, 44, 29, 0.95);
+            border: 2px solid rgba(229, 193, 88, 0.4);
             border-radius: 20px;
             padding: clamp(20px, 4vw, 40px) clamp(15px, 4vw, 30px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
             margin-top: 15px;
             width: 100%;
             overflow: hidden;
             word-wrap: break-word;
-            contain: content;
         }
 
         .story-title {
@@ -238,6 +237,50 @@
             font-size: clamp(0.85em, 2.5vw, 1em);
         }
 
+        /* 4 HIGHLIGHT BOXES STYLING (INICIO PAGE) */
+        .stats-grid, .features-grid, .boxes-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin: 25px 0;
+        }
+
+        @media (max-width: 900px) { .stats-grid, .features-grid, .boxes-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 480px) { .stats-grid, .features-grid, .boxes-grid { grid-template-columns: 1fr; } }
+
+        .stat-box, .feature-box, .info-box {
+            background: linear-gradient(145deg, #123B28 0%, #0A2417 100%);
+            border: 1.5px solid var(--gold-border);
+            border-radius: 16px;
+            padding: 22px 15px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .stat-box:hover, .feature-box:hover, .info-box:hover {
+            transform: translateY(-4px);
+            border-color: var(--gold-glow);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.6), 0 0 18px rgba(245, 208, 97, 0.3);
+        }
+
+        .stat-number, .feature-number {
+            font-family: var(--font-heading);
+            font-size: 2.2em;
+            font-weight: 800;
+            color: var(--gold-accent);
+            text-shadow: 0 0 12px rgba(245, 208, 97, 0.5);
+            margin-bottom: 6px;
+        }
+
+        .stat-label, .feature-label {
+            font-family: var(--font-body);
+            font-size: 0.88em;
+            color: var(--text-light);
+            line-height: 1.35;
+            font-weight: 600;
+        }
+
         /* --- UNIFIED COLLECTION TABS --- */
         .collections-bar {
             display: flex;
@@ -249,7 +292,7 @@
         }
 
         .tab-btn {
-            background: rgba(18, 56, 37, 0.85);
+            background: rgba(14, 44, 29, 0.85);
             border: 1.5px solid rgba(229, 193, 88, 0.5);
             color: var(--gold-accent);
             font-family: var(--font-title);
@@ -290,7 +333,7 @@
 
         /* --- HIGH-CONTRAST PRODUCT CARDS --- */
         .product-card {
-            background: linear-gradient(145deg, #123825 0%, #0A2417 100%);
+            background: linear-gradient(145deg, #123B28 0%, #0A2417 100%);
             border: 1.5px solid var(--gold-border);
             border-radius: 16px;
             padding: 16px;
@@ -446,7 +489,7 @@
 
         /* --- FOOTER --- */
         footer {
-            background-color: #071C12;
+            background-color: #04120A;
             text-align: center;
             padding: 30px 15px;
             border-top: 2px solid var(--gold-accent);
@@ -467,7 +510,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(18, 56, 37, 0.7);
+            background: rgba(14, 44, 29, 0.7);
             border: 1px solid rgba(229, 193, 88, 0.3);
             border-radius: 20px;
             padding: 4px 14px;
@@ -493,7 +536,7 @@
         }
 
         .oferta-card {
-            background: rgba(18, 56, 37, 0.95);
+            background: rgba(14, 44, 29, 0.95);
             border: 1.5px solid var(--gold-accent);
             border-radius: 16px;
             padding: 14px;
@@ -651,7 +694,7 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(18, 56, 37, 0.8);
+            background: rgba(14, 44, 29, 0.8);
             color: var(--gold-accent);
             border: 1px solid var(--gold-accent);
             width: 44px;
