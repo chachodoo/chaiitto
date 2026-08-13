@@ -1034,43 +1034,43 @@
     </footer>
 
     <!-- ENHANCED SHIPPING & CLIP CHECKOUT MODAL -->
-<div id="checkout-modal" class="oferta-modal">
-    <div class="oferta-modal-content" style="max-width: 520px; padding: 25px; border-radius: 20px;">
-        <span class="oferta-modal-close" onclick="closeCheckoutModal()">&times;</span>
-        
-        <div style="font-family: var(--font-heading); font-size: 0.75em; letter-spacing: 2px; color: var(--gold-accent); text-transform: uppercase; margin-bottom: 5px;">Envío Nacional Seguro</div>
-        <h2 id="checkout-product-title" style="color: #FFF; font-family: var(--font-title); margin: 0 0 15px 0; font-size: 1.8em;"></h2>
-        
-        <p style="color: var(--text-muted); font-size: 0.85em; margin-bottom: 22px; line-height: 1.4;">Elige la presentación perfecta para disfrutar tu mezcla en cualquier parte de México:</p>
+    <div id="checkout-modal" class="oferta-modal">
+        <div class="oferta-modal-content" style="max-width: 520px; padding: 25px; border-radius: 20px;">
+            <span class="oferta-modal-close" onclick="closeCheckoutModal()">&times;</span>
+            
+            <div style="font-family: var(--font-heading); font-size: 0.75em; letter-spacing: 2px; color: var(--gold-accent); text-transform: uppercase; margin-bottom: 5px;">Envío Nacional Seguro</div>
+            <h2 id="checkout-product-title" style="color: #FFF; font-family: var(--font-title); margin: 0 0 15px 0; font-size: 1.8em;"></h2>
+            
+            <p style="color: var(--text-muted); font-size: 0.85em; margin-bottom: 22px; line-height: 1.4;">Elige la presentación perfecta para disfrutar tu mezcla en cualquier parte de México:</p>
 
-        <div style="display: flex; gap: 14px; margin-bottom: 22px; width: 100%;">
-            <!-- FRASCO OPTION WITH REAL JAR IMAGE -->
-            <div id="option-frasco-box" onclick="selectPresentation('Frasco')" style="flex: 1; padding: 16px 12px; border: 2px solid var(--gold-accent); border-radius: 14px; cursor: pointer; background: rgba(0,0,0,0.4); text-align: center; transition: all 0.25s ease;">
-                <div style="width: 100%; height: 75px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
-                    <img src="frasco.webp" alt="Frasco de Vidrio Chai-itto" onerror="this.src='frasco.jpg'" style="height: 70px; width: 70px; object-fit: cover; border-radius: 50%; border: 1.5px solid var(--gold-accent); box-shadow: 0 4px 12px rgba(0,0,0,0.6);">
+            <div style="display: flex; gap: 14px; margin-bottom: 22px; width: 100%;">
+                <!-- FRASCO OPTION WITH REAL JAR IMAGE -->
+                <div id="option-frasco-box" onclick="selectPresentation('Frasco')" style="flex: 1; padding: 16px 12px; border: 2px solid var(--gold-accent); border-radius: 14px; cursor: pointer; background: rgba(0,0,0,0.4); text-align: center; transition: all 0.25s ease;">
+                    <div style="width: 100%; height: 75px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+                        <img src="frasco.webp" alt="Frasco de Vidrio Chai-itto" onerror="this.src='frasco.jpg'" style="height: 70px; width: 70px; object-fit: cover; border-radius: 50%; border: 1.5px solid var(--gold-accent); box-shadow: 0 4px 12px rgba(0,0,0,0.6);">
+                    </div>
+                    <div style="font-family: var(--font-heading); font-weight: bold; color: #FFF; font-size: 1em;">Frasco</div>
+                    <div id="modal-frasco-price" style="color: var(--gold-accent); font-size: 1.4em; font-weight: 800; margin: 4px 0;"></div>
+                    <span style="font-size: 0.7em; color: var(--text-muted); display: block;"><i class="fa-solid fa-truck-fast"></i> Para Envío</span>
                 </div>
-                <div style="font-family: var(--font-heading); font-weight: bold; color: #FFF; font-size: 1em;">Frasco</div>
-                <div id="modal-frasco-price" style="color: var(--gold-accent); font-size: 1.4em; font-weight: 800; margin: 4px 0;"></div>
-                <span style="font-size: 0.7em; color: var(--text-muted); display: block;"><i class="fa-solid fa-truck-fast"></i> Para Envío</span>
+
+                <!-- SOBRE OPTION -->
+                <div id="option-sobre-box" onclick="selectPresentation('Sobre')" style="flex: 1; padding: 16px 12px; border: 1.5px solid rgba(245,208,97,0.4); border-radius: 14px; cursor: pointer; background: rgba(0,0,0,0.4); text-align: center; transition: all 0.25s ease;">
+                    <div style="width: 100%; height: 75px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+                        <img src="sobre.webp" alt="Sobre Chai-itto" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" style="height: 70px; width: 70px; object-fit: cover; border-radius: 50%; border: 1.5px solid rgba(245,208,97,0.4);">
+                        <i class="fa-solid fa-box-archive fa-2xl" style="color: #8EB299; display: none;"></i>
+                    </div>
+                    <div style="font-family: var(--font-heading); font-weight: bold; color: #FFF; font-size: 1em;">Sobre</div>
+                    <div id="modal-sobre-price" style="color: var(--gold-accent); font-size: 1.4em; font-weight: 800; margin: 4px 0;"></div>
+                    <span style="font-size: 0.7em; color: var(--text-muted); display: block;"><i class="fa-solid fa-truck-fast"></i> Para Envío</span>
+                </div>
             </div>
 
-            <!-- SOBRE OPTION -->
-            <div id="option-sobre-box" onclick="selectPresentation('Sobre')" style="flex: 1; padding: 16px 12px; border: 1.5px solid rgba(245,208,97,0.4); border-radius: 14px; cursor: pointer; background: rgba(0,0,0,0.4); text-align: center; transition: all 0.25s ease;">
-                <div style="width: 100%; height: 75px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
-                    <img src="sobre.webp" alt="Sobre Chai-itto" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" style="height: 70px; width: 70px; object-fit: cover; border-radius: 50%; border: 1.5px solid rgba(245,208,97,0.4);">
-                    <i class="fa-solid fa-box-archive fa-2xl" style="color: #8EB299; display: none;"></i>
-                </div>
-                <div style="font-family: var(--font-heading); font-weight: bold; color: #FFF; font-size: 1em;">Sobre</div>
-                <div id="modal-sobre-price" style="color: var(--gold-accent); font-size: 1.4em; font-weight: 800; margin: 4px 0;"></div>
-                <span style="font-size: 0.7em; color: var(--text-muted); display: block;"><i class="fa-solid fa-truck-fast"></i> Para Envío</span>
-            </div>
+            <a id="checkout-action-btn" href="#" target="_blank" rel="noopener noreferrer" class="buy-button" style="width: 100%; padding: 16px; font-size: 0.95em; border-radius: 30px;">
+                <i class="fa-solid fa-credit-card"></i> Pagar con Clip
+            </a>
         </div>
-
-        <a id="checkout-action-btn" href="#" target="_blank" rel="noopener noreferrer" class="buy-button" style="width: 100%; padding: 16px; font-size: 0.95em; border-radius: 30px;">
-            <i class="fa-solid fa-credit-card"></i> Pagar con Clip
-        </a>
     </div>
-</div>
 
     <script>
         let allProducts = {};
@@ -1082,7 +1082,7 @@
 
         // CLIP PAYMENT LINKS MAPPED BY EXACT ITEM PRICE
         const CLIP_PAYMENT_LINKS = {
-            
+            79: "https://clip.mx", // Default Clip entry for accessories
             250: "https://pago.clip.mx/v3/512e0dbc-65fb-4efe-98e0-1c56bfa41233",
             295: "https://pago.clip.mx/v3/d3fa5484-de6b-423d-b376-aee2b1d9913f",
             400: "https://pago.clip.mx/v3/b8b95889-7a5e-4836-aeee-b2baf574a3d0",
@@ -1130,6 +1130,8 @@
                     selectCollection('BIENESTAR');
                 } else if (pageName === 'novedades') {
                     selectCollection('NOVEDADES');
+                } else if (pageName === 'accesorios') {
+                    loadAccesoriosGrid();
                 } else if (pageName === 'ofertas') {
                     loadOfertasGrid();
                 } else if (pageName === 'galeria') {
@@ -1376,6 +1378,92 @@
         let currentModalImages = [];
         let currentModalIndex = 0;
 
+        /* --- EXACT RENDERER FOR ACCESORIOS.JSON --- */
+        async function loadAccesoriosGrid() {
+            const track = document.getElementById('accesorios-dynamic-track');
+            if (!track) return;
+
+            try {
+                const response = await fetch('accesorios.json?v=' + Math.floor(Date.now() / 60000));
+                if (!response.ok) throw new Error('Could not load accesorios.json');
+
+                const accesoriosList = await response.json();
+                if (!accesoriosList || accesoriosList.length === 0) {
+                    track.innerHTML = `<div style="color: #A3C4AF; padding: 20px;">No hay accesorios disponibles por el momento.</div>`;
+                    return;
+                }
+
+                track.innerHTML = '';
+
+                accesoriosList.forEach(item => {
+                    const price = item.precio || item.precioOferta || 0;
+                    const descText = item.descripcion || '';
+                    const titleText = item.name ? `#${item.num}. ${item.name}` : `#${item.num}`;
+                    
+                    const imageList = (item.images && item.images.length > 0)
+                        ? item.images 
+                        : [item.image || 'logo.png'];
+                    
+                    const coverImage = imageList[0];
+                    const placeholderBlur = item.blurPreview || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180"%3E%3Crect width="100%25" height="100%25" fill="%23102619"/%3E%3C/svg%3E';
+
+                    const waMsg = encodeURIComponent(`¡Hola Chai-itto! Me interesa adquirir el accesorio: ${titleText} ($${price} MXN). ¿Sigue disponible?`);
+                    const waUrl = `https://api.whatsapp.com/send?phone=${whatsappPhoneNumber}&text=${waMsg}`;
+
+                    const card = document.createElement('div');
+                    card.className = 'oferta-card';
+                    card.onclick = () => openOfertaModal(titleText, descText, imageList, waUrl);
+
+                    const imgId = `acc-img-${item.num}`;
+
+                    card.innerHTML = `
+                        <div>
+                            <div class="oferta-img-container" style="background-image: url('${placeholderBlur}'); background-size: cover; background-position: center;">
+                                <img id="${imgId}" 
+                                     src="${placeholderBlur}" 
+                                     alt="${item.name || 'Accesorio'}" 
+                                     width="240" 
+                                     height="180" 
+                                     style="filter: blur(8px); transition: filter 0.3s ease, opacity 0.3s ease;">
+                                <div class="oferta-badge" style="background: linear-gradient(135deg, #16402B 0%, #0E2C1D 100%);">
+                                    <span class="oferta-badge-tag" style="background: var(--gold-accent); color: #000;">ACCESORIO</span>
+                                    <div class="oferta-price-special">$${price}</div>
+                                </div>
+                            </div>
+                            <h3 class="oferta-title">${titleText}</h3>
+                            <p class="oferta-subtitle">${descText}</p>
+                        </div>
+                        <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="oferta-buy-btn" onclick="event.stopPropagation()">
+                            <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar Accesorio
+                        </a>
+                    `;
+                    track.appendChild(card);
+
+                    const fullImg = new Image();
+                    fullImg.src = coverImage;
+                    
+                    const applyFullImg = () => {
+                        const target = document.getElementById(imgId);
+                        if (target) {
+                            target.src = coverImage;
+                            target.style.filter = 'blur(0px)';
+                        }
+                    };
+
+                    if ('decode' in fullImg) {
+                        fullImg.decode().then(applyFullImg).catch(applyFullImg);
+                    } else {
+                        fullImg.onload = applyFullImg;
+                    }
+                });
+
+            } catch (error) {
+                console.error("Error loading accesorios.json:", error);
+                track.innerHTML = `<div style="color: #FF8888; padding: 20px;">Error al cargar el catálogo de accesorios.</div>`;
+            }
+        }
+
+        /* --- EXACT RENDERER FOR OFERTAS.JSON --- */
         async function loadOfertasGrid() {
             const track = document.getElementById('ofertas-dynamic-track');
             if (!track) return;
@@ -1607,4 +1695,4 @@
         window.addEventListener('hashchange', handleHashNavigation);
     </script>
 </body>
-</html>        
+</html>
