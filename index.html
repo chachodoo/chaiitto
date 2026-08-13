@@ -379,14 +379,14 @@
         .gallery-item-card img {
             width: 100%;
             height: 100%;
-            object-fit: cover !important; /* ELIMINATES ALL BLACK BARS */
+            object-fit: cover !important;
             display: block;
         }
 
         .gallery-item-card video {
             width: 100%;
             height: 100%;
-            object-fit: cover !important; /* ELIMINATES ALL BLACK BARS */
+            object-fit: cover !important;
             display: block;
             cursor: pointer;
         }
@@ -1162,32 +1162,31 @@
             if (imgElement) imgElement.src = `menu/page-${currentMenuPage}.webp`;
         }
 
-        // UNCLIPPED SLOW CONTINUOUS GALLERY RIBBON WITH MUTED AUTOPLAY MP4 (CLICK TO UNMUTE)
+        // UNCLIPPED SLOW CONTINUOUS GALLERY RIBBON FIRST -> YOUTUBE BELOW (NO INSTAGRAM)
         async function loadGalleryRibbon() {
-            let container = document.getElementById('gallery-dynamic-container');
             let mainSection = document.querySelector('#dynamic-content-area .story-card') || document.getElementById('dynamic-content-area');
-            
-            if (mainSection && !document.querySelector('.gallery-ribbon-wrapper')) {
-                const wrapper = document.createElement('div');
-                wrapper.className = 'gallery-ribbon-wrapper';
-                
-                container = document.createElement('div');
-                container.id = 'gallery-dynamic-container';
-                
-                wrapper.appendChild(container);
-                mainSection.appendChild(wrapper);
+            if (!mainSection) return;
 
-                // Add YouTube Section directly below Ribbon
-                const ytSection = document.createElement('div');
-                ytSection.className = 'youtube-gallery-section';
-                ytSection.innerHTML = `
+            // Clear dynamic section to strictly enforce Ribbon ON TOP and YouTube BELOW
+            mainSection.innerHTML = `
+                <h1 class="story-title">Galería Chai-itto</h1>
+                <p class="story-subtitle">Momentos, Té y Tradición</p>
+                
+                <!-- 1. RIBBON WRAPPER ON TOP -->
+                <div class="gallery-ribbon-wrapper">
+                    <div id="gallery-dynamic-container"></div>
+                </div>
+
+                <!-- 2. YOUTUBE SECTION BELOW RIBBON -->
+                <div class="youtube-gallery-section">
                     <h3 style="color: var(--matcha-deep); font-family: var(--font-title); margin: 25px 0 15px 0;">Videos y Experiencias</h3>
                     <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 16px; border: 2px solid var(--gold-border); box-shadow: 0 6px 18px rgba(0,0,0,0.1);">
                         <iframe src="https://www.youtube.com/embed?listType=user_uploads&list=Chai-itto" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
-                    </div>`;
-                mainSection.appendChild(ytSection);
-            }
+                    </div>
+                </div>
+            `;
 
+            let container = document.getElementById('gallery-dynamic-container');
             if (!container) return;
 
             try {
@@ -1202,8 +1201,6 @@
                 } else if (typeof galleryData === 'object' && galleryData !== null) {
                     galleryItems = galleryData.images || galleryData.galeria || galleryData.items || Object.values(galleryData);
                 }
-                
-                container.innerHTML = '';
 
                 // Card element generator
                 const createCardNode = (cleanPath) => {
@@ -1224,7 +1221,7 @@
                         video.preload = 'auto';
                         video.onerror = () => card.remove();
                         
-                        // Click video to toggle mute/unmute audio on demand!
+                        // Click video to toggle mute/unmute audio on demand
                         video.onclick = (e) => {
                             e.stopPropagation();
                             video.muted = !video.muted;
