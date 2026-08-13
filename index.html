@@ -332,14 +332,14 @@
         }
 
         /* ---------------------------------------------------- */
-        /* --- AUTO-SCROLLING CONTINUOUS GALLERY RIBBON --- */
+        /* --- SLOW, UNCLIPPED CONTINUOUS GALLERY RIBBON --- */
         /* ---------------------------------------------------- */
         .gallery-ribbon-wrapper {
             width: 100%;
             overflow: hidden;
             position: relative;
-            margin-top: 20px;
-            padding: 10px 0;
+            margin: 15px 0 35px 0;
+            padding: 18px 0;
             background: var(--matcha-card);
             border: 1.5px solid var(--gold-border);
             border-radius: 16px;
@@ -347,9 +347,9 @@
 
         #gallery-dynamic-container {
             display: flex !important;
-            gap: 16px !important;
+            gap: 20px !important;
             width: max-content !important;
-            animation: galleryRibbon 40s linear infinite !important;
+            animation: galleryRibbon 85s linear infinite !important; /* SLOWER PACE */
         }
 
         .gallery-ribbon-wrapper:hover #gallery-dynamic-container {
@@ -362,24 +362,42 @@
         }
 
         .gallery-item-card {
-            width: 300px;
-            height: 220px;
+            width: 320px;
+            height: 240px;
             flex-shrink: 0;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(45, 90, 39, 0.12);
+            box-shadow: 0 4px 14px rgba(45, 90, 39, 0.12);
             border: 1.5px solid var(--gold-border);
             background: #000;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 4px;
+            position: relative;
         }
 
-        .gallery-item-card img, .gallery-item-card video {
+        .gallery-item-card img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain !important; /* UNCLIPPED FULL IMAGE */
             display: block;
+            border-radius: 8px;
+        }
+
+        .gallery-item-card video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain !important; /* UNCLIPPED FULL VIDEO */
+            display: block;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .youtube-gallery-section {
+            margin-top: 30px;
+            text-align: center;
+            width: 100%;
         }
 
         /* --- UNIFIED COLLECTION TABS --- */
@@ -419,23 +437,22 @@
             box-shadow: 0 4px 15px rgba(45, 90, 39, 0.25);
         }
 
-        /* --- ADAPTIVE PRODUCT GRID --- */
+        /* --- PRODUCT GRID (3 PER ROW ON DESKTOP) --- */
         #dynamic-content-area .product-grid {
             display: grid !important;
-            grid-template-columns: repeat(4, 1fr) !important;
-            gap: 16px !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 20px !important;
         }
 
-        @media (max-width: 1100px) { #dynamic-content-area .product-grid { grid-template-columns: repeat(3, 1fr) !important; } }
-        @media (max-width: 768px) { #dynamic-content-area .product-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; } }
-        @media (max-width: 480px) { #dynamic-content-area .product-grid { grid-template-columns: 1fr !important; } }
+        @media (max-width: 900px) { #dynamic-content-area .product-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 14px !important; } }
+        @media (max-width: 550px) { #dynamic-content-area .product-grid { grid-template-columns: 1fr !important; } }
 
         /* --- PRODUCT CARDS --- */
         .product-card {
             background: #FFFFFF;
             border: 1.5px solid rgba(212, 175, 55, 0.4);
             border-radius: 16px;
-            padding: 16px;
+            padding: 18px;
             box-shadow: 0 6px 18px rgba(45, 90, 39, 0.08);
             display: flex;
             flex-direction: column;
@@ -451,7 +468,7 @@
 
         .product-img-box {
             width: 100%;
-            height: 140px;
+            height: 150px;
             background: var(--matcha-bg);
             border: 1px solid rgba(74, 124, 54, 0.2);
             border-radius: 10px;
@@ -1148,12 +1165,11 @@
             if (imgElement) imgElement.src = `menu/page-${currentMenuPage}.webp`;
         }
 
-        // CONTINUOUS SCROLLING RIBBON GALLERY LOADER
+        // UNCLIPPED SLOW CONTINUOUS GALLERY RIBBON WITH MUTED AUTOPLAY MP4 (CLICK TO UNMUTE)
         async function loadGalleryRibbon() {
             let container = document.getElementById('gallery-dynamic-container');
             let mainSection = document.querySelector('#dynamic-content-area .story-card') || document.getElementById('dynamic-content-area');
             
-            // Wrap in outer scrolling ribbon shell if not present
             if (mainSection && !document.querySelector('.gallery-ribbon-wrapper')) {
                 const wrapper = document.createElement('div');
                 wrapper.className = 'gallery-ribbon-wrapper';
@@ -1163,6 +1179,16 @@
                 
                 wrapper.appendChild(container);
                 mainSection.appendChild(wrapper);
+
+                // Add YouTube Section directly below Ribbon
+                const ytSection = document.createElement('div');
+                ytSection.className = 'youtube-gallery-section';
+                ytSection.innerHTML = `
+                    <h3 style="color: var(--matcha-deep); font-family: var(--font-title); margin: 25px 0 15px 0;">Videos y Experiencias</h3>
+                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 16px; border: 2px solid var(--gold-border); box-shadow: 0 6px 18px rgba(0,0,0,0.1);">
+                        <iframe src="https://www.youtube.com/embed?listType=user_uploads&list=Chai-itto" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
+                    </div>`;
+                mainSection.appendChild(ytSection);
             }
 
             if (!container) return;
@@ -1182,7 +1208,7 @@
                 
                 container.innerHTML = '';
 
-                // Render valid gallery cards
+                // Card element generator
                 const createCardNode = (cleanPath) => {
                     const isVideo = cleanPath.toLowerCase().endsWith('.mp4') || cleanPath.toLowerCase().endsWith('.webm');
                     
@@ -1194,10 +1220,17 @@
                         video.src = cleanPath;
                         video.autoplay = true;
                         video.loop = true;
-                        video.muted = true;
+                        video.muted = true; // Auto-plays muted cleanly
                         video.playsInline = true;
                         video.preload = 'auto';
                         video.onerror = () => card.remove();
+                        
+                        // Click video to toggle mute/unmute audio on demand!
+                        video.onclick = (e) => {
+                            e.stopPropagation();
+                            video.muted = !video.muted;
+                        };
+
                         card.appendChild(video);
                     } else {
                         const img = document.createElement('img');
@@ -1210,17 +1243,19 @@
                     return card;
                 };
 
-                // Append original list
+                // Render original list
                 galleryItems.forEach(item => {
                     const cleanPath = typeof item === 'string' ? item : (item.src || item.image || item.url || item.file || '');
                     if (cleanPath) container.appendChild(createCardNode(cleanPath));
                 });
 
-                // Duplicate valid nodes for seamless infinite marquee scrolling
-                const currentCards = Array.from(container.children);
-                currentCards.forEach(cardNode => {
-                    container.appendChild(cardNode.cloneNode(true));
-                });
+                // Duplicate valid nodes for seamless infinite marquee loop
+                setTimeout(() => {
+                    const validCards = Array.from(container.children);
+                    validCards.forEach(cardNode => {
+                        container.appendChild(cardNode.cloneNode(true));
+                    });
+                }, 300);
 
             } catch (error) {
                 console.error("Error loading gallery:", error);
