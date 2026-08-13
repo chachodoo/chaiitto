@@ -1111,30 +1111,27 @@
     <div id="cart-drawer-backdrop" onclick="closeCartOnBackdrop(event)" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.7); z-index: 10000; backdrop-filter: blur(5px);">
         <div style="position: absolute; right: 0; top: 0; width: 100%; max-width: 420px; height: 100%; background: var(--emerald-card); border-left: 2px solid var(--gold-accent); padding: 25px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: -10px 0 30px rgba(0,0,0,0.8);">
             
-            <!-- DRAWER HEADER -->
-            <div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(229,193,88,0.3); padding-bottom: 15px;">
-                    <h2 style="color: var(--gold-accent); font-family: var(--font-title); margin: 0; font-size: 1.5em;"><i class="fa-solid fa-cart-shopping"></i> Tu Pedido</h2>
-                    <span onclick="toggleCartDrawer()" style="color: var(--gold-accent); font-size: 1.8em; cursor: pointer; line-height: 1;">&times;</span>
-                </div>
-
-                <!-- CART ITEMS LIST -->
-                <div id="cart-items-container" style="max-height: 55vh; overflow-y: auto; padding-right: 5px;">
-                    <!-- Dynamic items rendered here -->
-                </div>
-            </div>
+            <!-- DRAWER HEADER WITH SEGUIR COMPRANDO BUTTON -->
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(229,193,88,0.3); padding-bottom: 15px;">
+    <h2 style="color: var(--gold-accent); font-family: var(--font-title); margin: 0; font-size: 1.4em;">
+        <i class="fa-solid fa-cart-shopping"></i> Tu Pedido
+    </h2>
+    <button onclick="toggleCartDrawer()" style="background: rgba(229,193,88,0.15); color: var(--gold-accent); border: 1px solid var(--gold-accent); border-radius: 20px; padding: 6px 14px; font-family: var(--font-heading); font-size: 0.75em; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s ease;">
+        <i class="fa-solid fa-arrow-left"></i> Seguir Comprando
+    </button>
+</div>
 
             <!-- DRAWER FOOTER / CHECKOUT -->
-            <div style="border-top: 1px solid rgba(229,193,88,0.3); padding-top: 18px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-family: var(--font-heading); font-size: 1.2em;">
-                    <span style="color: #A3C4AF;">Total Estimado:</span>
-                    <span id="cart-total-price" style="color: var(--gold-glow); font-weight: bold; font-size: 1.3em;">$0 MXN</span>
-                </div>
+<div style="border-top: 1px solid rgba(229,193,88,0.3); padding-top: 18px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-family: var(--font-heading); font-size: 1.2em;">
+        <span style="color: #A3C4AF;">Total Estimado:</span>
+        <span id="cart-total-price" style="color: var(--gold-glow); font-weight: bold; font-size: 1.3em;">$0 MXN</span>
+    </div>
 
-                <button onclick="sendCartToWhatsApp()" class="buy-button" style="width: 100%; padding: 15px; font-size: 0.95em; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%) !important; color: #FFF !important;">
-                    <i class="fa-brands fa-whatsapp fa-lg"></i> Enviar Pedido por WhatsApp
-                </button>
-            </div>
+    <button onclick="sendCartToWhatsApp()" class="buy-button" style="width: 100%; padding: 15px; font-size: 0.9em; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%) !important; color: #FFF !important; border-radius: 30px;">
+        <i class="fa-brands fa-whatsapp fa-lg"></i> Pedir Link de Pago ($)
+    </button>
+</div>
 
         </div>
     </div>
