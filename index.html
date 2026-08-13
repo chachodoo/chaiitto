@@ -281,7 +281,6 @@
         /* ---------------------------------------------------- */
         /* --- INICIO SECTION LAYOUT FIX --- */
         /* ---------------------------------------------------- */
-        /* Force story-grid to stack text on top and stats on bottom */
         .story-grid {
             display: flex !important;
             flex-direction: column !important;
@@ -296,7 +295,6 @@
             text-align: center !important;
         }
 
-        /* Force 4 stat boxes into 1 horizontal row across full page width */
         .story-stats {
             display: grid !important;
             grid-template-columns: repeat(4, 1fr) !important;
@@ -355,7 +353,7 @@
         }
 
         /* ---------------------------------------------------- */
-        /* --- DYNAMIC ASPECT RATIO RIBBON (NO CLIPPING, NO BLACK BARS) --- */
+        /* --- DYNAMIC ASPECT RATIO RIBBON --- */
         /* ---------------------------------------------------- */
         .gallery-ribbon-wrapper {
             width: 100%;
@@ -457,6 +455,15 @@
             border-color: var(--matcha-deep);
             font-weight: 900;
             box-shadow: 0 4px 15px rgba(45, 90, 39, 0.25);
+        }
+
+        .collection-name-title {
+            text-align: center;
+            font-family: var(--font-title);
+            color: var(--matcha-deep);
+            font-size: 1.8em;
+            margin: 15px 0 25px 0;
+            font-style: italic;
         }
 
         /* --- PRODUCT GRID (3 PER ROW ON DESKTOP) --- */
@@ -1350,9 +1357,19 @@
 
         function selectCollection(colName) {
             const targetNorm = normalizeStr(colName);
+            
+            // Highlight active tab button
             document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.toggle('active', normalizeStr(btn.innerText) === targetNorm);
+                const btnNorm = normalizeStr(btn.textContent || btn.innerText || '');
+                btn.classList.toggle('active', btnNorm === targetNorm);
             });
+
+            // Update section title banner if present
+            const titleEl = document.getElementById('current-collection-title');
+            if (titleEl) {
+                titleEl.textContent = colName;
+            }
+
             loadCollection(colName);
         }
 
@@ -1362,6 +1379,8 @@
             container.innerHTML = '';
 
             let list = allProducts[colName];
+
+            // Robust fallback if accenting differs (e.g. "VIAJES CON TÉ" vs "VIAJES CON TE")
             if (!list) {
                 const targetNorm = normalizeStr(colName);
                 const matchedKey = Object.keys(allProducts).find(k => normalizeStr(k) === targetNorm);
@@ -1373,14 +1392,16 @@
                 list.forEach(prod => {
                     const imageSrc = prod.image || prod.imagen || 'logo.png';
                     const numLabel = prod.num ? `<span class="product-number">${prod.num}.</span> ` : '';
+                    
+                    // Support frasco, sobre, taza price tags from products.json
                     const frascoPrice = Number(prod.frasco) || 0;
                     let sobrePrice = Number(prod.sobre) || (frascoPrice > 0 ? frascoPrice - 45 : 0);
                     const isShippable = frascoPrice > 0 || sobrePrice > 0;
 
                     let frascoHtml = frascoPrice > 0 ? `<div class="price-option"><span class="price-label">Frasco</span><div class="price-value frasco">$${frascoPrice}</div><span class="badge-frasco"><i class="fa-solid fa-truck-fast"></i> Para Envío</span></div>` : '';
-                    let sobreHtml = sobrePrice > 0 ? `<div class="price-option"><span class="price-label">Sobre</span><div class="price-value frasco">$${sobreHtml}</div><span class="badge-frasco"><i class="fa-solid fa-truck-fast"></i> Para Envío</span></div>` : '';
+                    let sobreHtml = sobrePrice > 0 ? `<div class="price-option"><span class="price-label">Sobre</span><div class="price-value frasco">$${sobrePrice}</div><span class="badge-frasco"><i class="fa-solid fa-truck-fast"></i> Para Envío</span></div>` : '';
 
-                    const safeName = prod.name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    const safeName = (prod.name || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
 
                     let buttonHtml = isShippable ? `
                         <button onclick="handleProductSelect('${safeName}', ${frascoPrice}, ${sobrePrice})" class="buy-button">
@@ -1394,8 +1415,8 @@
                     card.className = 'product-card';
                     card.innerHTML = `
                         <div>
-                            <div class="product-img-box"><img src="${imageSrc}" alt="${prod.name}" onerror="this.src='logo.png'"></div>
-                            <h3 class="product-name">${numLabel}${prod.name}</h3>
+                            <div class="product-img-box"><img src="${imageSrc}" alt="${prod.name || ''}" onerror="this.src='logo.png'"></div>
+                            <h3 class="product-name">${numLabel}${prod.name || ''}</h3>
                             <p class="product-ingredients">${prod.ingredients || ''}</p>
                         </div>
                         <div>
