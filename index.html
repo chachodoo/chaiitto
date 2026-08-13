@@ -19,14 +19,14 @@
 
     <style>
         :root {
-            --emerald-dark: #0B2317;
-            --emerald-card: #0E2C1D;
-            --emerald-light: #16402B;
-            --gold-accent: #F5D061;
-            --gold-glow: #FFF4A3;
+            --matcha-bg: #F4F8F3;
+            --matcha-card: #E7F0E8;
+            --matcha-deep: #2D5A27;
+            --matcha-accent: #4A7C36;
+            --gold-accent: #B8860B;
             --gold-border: #D4AF37;
-            --text-light: #F2F8F4;
-            --text-muted: #D1EAD8;
+            --text-dark: #1C3317;
+            --text-muted: #4F6B48;
             --font-title: 'Playfair Display', Georgia, serif;
             --font-heading: 'Cinzel', serif;
             --font-body: 'Montserrat', sans-serif;
@@ -38,11 +38,11 @@
 
         body {
             font-family: var(--font-body);
-            background-color: var(--emerald-dark);
-            color: var(--text-light);
+            background-color: var(--matcha-bg);
+            color: var(--text-dark);
             margin: 0;
             padding: 0;
-            background-image: radial-gradient(circle at 50% 10%, #123B28 0%, #04120A 100%);
+            background-image: radial-gradient(circle at 50% 10%, #EBF4EC 0%, #F4F8F3 100%);
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -52,13 +52,13 @@
             position: fixed;
             top: 20px;
             right: 25px;
-            background: linear-gradient(135deg, #FFE873 0%, #F5D061 50%, #D4AF37 100%);
-            color: #030D07;
+            background: linear-gradient(135deg, #2D5A27 0%, #4A7C36 100%);
+            color: #FFFFFF;
             padding: 12px 22px;
             border-radius: 30px;
             cursor: pointer;
             z-index: 9999;
-            box-shadow: 0 6px 20px rgba(245, 208, 97, 0.5), 0 0 15px rgba(255, 244, 163, 0.6);
+            box-shadow: 0 6px 20px rgba(45, 90, 39, 0.35);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -66,7 +66,7 @@
             font-weight: 800;
             font-size: 0.9em;
             letter-spacing: 0.8px;
-            border: 2px solid #FFFFFF;
+            border: 2px solid var(--gold-border);
             transition: all 0.3s ease;
             animation: cartGlow 2.5s infinite alternate;
         }
@@ -82,34 +82,32 @@
         }
 
         @keyframes cartGlow {
-            0% { box-shadow: 0 6px 20px rgba(245, 208, 97, 0.5), 0 0 15px rgba(255, 244, 163, 0.4); transform: scale(1); }
-            50% { box-shadow: 0 8px 30px rgba(255, 244, 163, 0.9), 0 0 25px rgba(245, 208, 97, 0.8); transform: scale(1.04); }
-            100% { box-shadow: 0 6px 20px rgba(245, 208, 97, 0.5), 0 0 15px rgba(255, 244, 163, 0.4); transform: scale(1); }
+            0% { box-shadow: 0 6px 18px rgba(74, 124, 54, 0.3); transform: scale(1); }
+            50% { box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5); transform: scale(1.04); }
+            100% { box-shadow: 0 6px 18px rgba(74, 124, 54, 0.3); transform: scale(1); }
         }
 
         #floating-cart-btn:hover {
             transform: scale(1.08) translateY(-2px) !important;
-            box-shadow: 0 10px 35px rgba(255, 255, 255, 0.9), 0 0 30px rgba(245, 208, 97, 1) !important;
+            box-shadow: 0 10px 30px rgba(45, 90, 39, 0.5) !important;
         }
 
         #cart-count-badge {
-            background: #8B0000;
+            background: #D9534F;
             color: #FFFFFF;
             border-radius: 50%;
             padding: 3px 9px;
             font-size: 0.85em;
             font-weight: 900;
-            border: 1px solid var(--gold-glow);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+            border: 1px solid #FFFFFF;
         }
 
         /* --- HEADER & HERO BRANDING --- */
         header {
             text-align: center;
             padding: 25px 15px 22px;
-            background: linear-gradient(180deg, rgba(4, 18, 10, 0.95) 0%, rgba(11, 35, 23, 0) 100%);
-            border-bottom: 1px solid rgba(245, 208, 97, 0.35);
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(180deg, #E2ECE3 0%, rgba(244, 248, 243, 0) 100%);
+            border-bottom: 2px solid rgba(212, 175, 55, 0.4);
             position: relative;
         }
         
@@ -124,9 +122,8 @@
             display: block;
             margin: 0 auto;
             cursor: pointer;
-            filter: drop-shadow(0 0 18px rgba(229, 193, 88, 0.9)) 
-                    drop-shadow(0 0 35px rgba(229, 193, 88, 0.5));
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease-in-out, width 0.3s ease;
+            filter: drop-shadow(0 4px 12px rgba(45, 90, 39, 0.25));
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease-in-out;
             animation: spinOnce 1.2s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
@@ -135,38 +132,34 @@
             100% { transform: rotate(360deg) scale(1); opacity: 1; }
         }
 
-        .logo-wrapper:hover .logo-main, 
-        .logo-main:hover, 
-        .logo-main:active {
-            transform: scale(1.15) translateY(-4px) !important;
-            filter: drop-shadow(0 0 30px rgba(255, 241, 170, 1)) 
-                    drop-shadow(0 0 60px rgba(229, 193, 88, 0.95))
-                    drop-shadow(0 0 90px rgba(229, 193, 88, 0.7)) !important;
+        .logo-wrapper:hover .logo-main {
+            transform: scale(1.1) translateY(-4px) !important;
+            filter: drop-shadow(0 6px 20px rgba(74, 124, 54, 0.4)) !important;
         }
 
         .slogan-hero {
             font-family: var(--font-title);
-            color: var(--gold-accent);
+            color: var(--matcha-deep);
             font-size: clamp(1.8em, 6vw, 3.2em);
             font-weight: 900;
             font-style: italic;
             letter-spacing: 1.5px;
             margin: 5px 0;
-            text-shadow: 0 0 25px rgba(245, 208, 97, 0.7);
+            text-shadow: 0 2px 10px rgba(74, 124, 54, 0.15);
         }
 
         .location-badge {
             font-family: var(--font-heading);
             font-size: clamp(0.7em, 2.5vw, 0.85em);
             letter-spacing: 2px;
-            color: #93B59D;
+            color: var(--text-muted);
             text-transform: uppercase;
             padding: 0 10px;
         }
 
         /* --- MAIN NAVIGATION --- */
         nav.main-nav {
-            margin-top: 15px;
+            margin-top: 18px;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
@@ -179,7 +172,7 @@
             border: none;
             font-family: var(--font-title);
             font-style: italic;
-            color: var(--gold-accent);
+            color: var(--matcha-deep);
             font-size: clamp(1.1em, 3.5vw, 1.3em);
             font-weight: 700;
             padding: 6px 12px;
@@ -189,13 +182,11 @@
             white-space: nowrap;
         }
 
-        .nav-btn.highlight-new { color: var(--gold-accent); }
-        .nav-btn.highlight-clearance { color: #FF8888; }
+        .nav-btn.highlight-clearance { color: #C0392B; }
 
         .nav-btn:hover, .nav-btn.active {
-            color: #FFFFFF !important;
-            border-bottom: 2px solid #FFFFFF;
-            text-shadow: 0 0 12px rgba(255, 255, 255, 0.9), 0 0 20px rgba(229, 193, 88, 0.6);
+            color: var(--gold-accent) !important;
+            border-bottom: 2px solid var(--gold-accent);
         }
 
         /* --- DYNAMIC SECTION SHELL & INICIO 4-BOX GRID --- */
@@ -208,11 +199,11 @@
         }
 
         .story-card {
-            background: rgba(14, 44, 29, 0.95);
-            border: 2px solid rgba(229, 193, 88, 0.4);
+            background: #FFFFFF;
+            border: 2px solid var(--gold-border);
             border-radius: 20px;
             padding: clamp(20px, 4vw, 40px) clamp(15px, 4vw, 30px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            box-shadow: 0 10px 25px rgba(45, 90, 39, 0.08);
             margin-top: 15px;
             width: 100%;
             overflow: hidden;
@@ -222,7 +213,7 @@
         .story-title {
             font-family: var(--font-title);
             font-size: clamp(2em, 6vw, 3.2em);
-            color: var(--gold-accent);
+            color: var(--matcha-deep);
             text-align: center;
             margin-top: 0;
             font-style: italic;
@@ -231,7 +222,7 @@
         .story-subtitle {
             text-align: center;
             font-family: var(--font-heading);
-            color: #A3C4AF;
+            color: var(--text-muted);
             letter-spacing: 2px;
             margin-bottom: 25px;
             font-size: clamp(0.85em, 2.5vw, 1em);
@@ -249,34 +240,33 @@
         @media (max-width: 480px) { .stats-grid, .features-grid, .boxes-grid { grid-template-columns: 1fr; } }
 
         .stat-box, .feature-box, .info-box {
-            background: linear-gradient(145deg, #123B28 0%, #0A2417 100%);
-            border: 1.5px solid var(--gold-border);
+            background: var(--matcha-card);
+            border: 1.5px solid rgba(212, 175, 55, 0.5);
             border-radius: 16px;
             padding: 22px 15px;
             text-align: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            box-shadow: 0 6px 15px rgba(45, 90, 39, 0.06);
             transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
         .stat-box:hover, .feature-box:hover, .info-box:hover {
             transform: translateY(-4px);
-            border-color: var(--gold-glow);
-            box-shadow: 0 12px 28px rgba(0,0,0,0.6), 0 0 18px rgba(245, 208, 97, 0.3);
+            border-color: var(--gold-accent);
+            box-shadow: 0 10px 22px rgba(45, 90, 39, 0.12);
         }
 
         .stat-number, .feature-number {
             font-family: var(--font-heading);
             font-size: 2.2em;
             font-weight: 800;
-            color: var(--gold-accent);
-            text-shadow: 0 0 12px rgba(245, 208, 97, 0.5);
+            color: var(--matcha-deep);
             margin-bottom: 6px;
         }
 
         .stat-label, .feature-label {
             font-family: var(--font-body);
             font-size: 0.88em;
-            color: var(--text-light);
+            color: var(--text-dark);
             line-height: 1.35;
             font-weight: 600;
         }
@@ -292,9 +282,9 @@
         }
 
         .tab-btn {
-            background: rgba(14, 44, 29, 0.85);
-            border: 1.5px solid rgba(229, 193, 88, 0.5);
-            color: var(--gold-accent);
+            background: var(--matcha-card);
+            border: 1.5px solid rgba(212, 175, 55, 0.5);
+            color: var(--matcha-deep);
             font-family: var(--font-title);
             font-style: italic;
             font-size: clamp(0.95em, 3vw, 1.15em);
@@ -304,20 +294,18 @@
             cursor: pointer;
             transition: all 0.3s ease;
             white-space: nowrap;
-            text-shadow: 0 0 10px rgba(229, 193, 88, 0.2);
         }
 
         .tab-btn:hover {
-            color: #FFFFFF;
-            border-color: #FFFFFF;
+            border-color: var(--matcha-deep);
         }
 
         .tab-btn.active {
-            background: #FFFFFF;
-            color: var(--emerald-dark);
-            border-color: #FFFFFF;
+            background: var(--matcha-deep);
+            color: #FFFFFF;
+            border-color: var(--matcha-deep);
             font-weight: 900;
-            box-shadow: 0 0 18px rgba(255, 255, 255, 0.9), 0 0 30px rgba(229, 193, 88, 0.6);
+            box-shadow: 0 4px 15px rgba(45, 90, 39, 0.25);
         }
 
         /* --- ADAPTIVE PRODUCT GRID --- */
@@ -331,30 +319,30 @@
         @media (max-width: 768px) { .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
         @media (max-width: 480px) { .product-grid { grid-template-columns: 1fr; } }
 
-        /* --- HIGH-CONTRAST PRODUCT CARDS --- */
+        /* --- PRODUCT CARDS --- */
         .product-card {
-            background: linear-gradient(145deg, #123B28 0%, #0A2417 100%);
-            border: 1.5px solid var(--gold-border);
+            background: #FFFFFF;
+            border: 1.5px solid rgba(212, 175, 55, 0.4);
             border-radius: 16px;
             padding: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 6px 18px rgba(45, 90, 39, 0.08);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .product-card:hover {
             transform: translateY(-5px);
-            border-color: var(--gold-glow);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 20px rgba(245, 208, 97, 0.35);
+            box-shadow: 0 12px 28px rgba(45, 90, 39, 0.15);
+            border-color: var(--gold-border);
         }
 
         .product-img-box {
             width: 100%;
             height: 140px;
-            background: rgba(0, 0, 0, 0.35);
-            border: 1px solid rgba(245, 208, 97, 0.3);
+            background: var(--matcha-bg);
+            border: 1px solid rgba(74, 124, 54, 0.2);
             border-radius: 10px;
             margin-bottom: 12px;
             display: flex;
@@ -373,10 +361,9 @@
             font-family: var(--font-heading);
             font-size: 1.05em;
             font-weight: 700;
-            color: #FFFFFF;
+            color: var(--matcha-deep);
             margin: 0 0 6px 0;
             line-height: 1.3;
-            letter-spacing: 0.5px;
         }
 
         .product-number { color: var(--gold-accent); margin-right: 4px; }
@@ -391,16 +378,15 @@
 
         .price-section {
             display: flex;
-            background: rgba(0, 0, 0, 0.45);
+            background: var(--matcha-card);
             border-radius: 10px;
             padding: 8px 10px;
             margin-bottom: 12px;
-            border: 1px solid rgba(245, 208, 97, 0.4);
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.3);
+            border: 1px solid rgba(212, 175, 55, 0.3);
         }
 
         .price-option { text-align: center; flex: 1; }
-        .price-option:first-child { border-right: 1px solid rgba(229, 193, 88, 0.2); }
+        .price-option:first-child { border-right: 1px solid rgba(74, 124, 54, 0.2); }
 
         .price-label {
             font-family: var(--font-heading);
@@ -414,12 +400,7 @@
             font-family: var(--font-heading);
             font-size: 1.25em;
             font-weight: 800;
-            color: #FFFFFF;
-        }
-
-        .price-value.frasco { 
-            color: var(--gold-accent); 
-            text-shadow: 0 0 10px rgba(245, 208, 97, 0.4);
+            color: var(--matcha-deep);
         }
 
         .badge-frasco {
@@ -430,9 +411,9 @@
 
         /* --- ACTION BUTTONS --- */
         .buy-button {
-            background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%) !important;
+            background: linear-gradient(135deg, #2D5A27 0%, #4A7C36 100%) !important;
             border: none !important;
-            color: #030D07 !important;
+            color: #FFFFFF !important;
             text-decoration: none;
             text-align: center;
             padding: 12px 14px;
@@ -446,20 +427,18 @@
             justify-content: center;
             gap: 8px;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
-            box-shadow: 0 4px 18px rgba(245, 208, 97, 0.35) !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 4px 14px rgba(45, 90, 39, 0.25) !important;
         }
 
         .buy-button:hover {
-            background: linear-gradient(135deg, #FFF4A3 0%, #F5D061 100%) !important;
-            color: #000000 !important;
+            background: linear-gradient(135deg, #3D6E37 0%, #5B9246 100%) !important;
             transform: translateY(-2px) scale(1.02) !important;
-            box-shadow: 0 0 25px rgba(255, 244, 163, 0.7) !important;
+            box-shadow: 0 6px 20px rgba(45, 90, 39, 0.35) !important;
         }
 
-        /* --- HIGH CONTRAST LIGHT CART DRAW BUTTON --- */
         .request-link-btn {
-            background: linear-gradient(135deg, #16402B 0%, #0E2C1D 100%);
+            background: var(--matcha-deep);
             border: 2px solid var(--gold-border);
             color: #FFFFFF;
             text-align: center;
@@ -476,55 +455,53 @@
             cursor: pointer;
             width: 100%;
             margin-bottom: 14px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(45, 90, 39, 0.15);
             transition: all 0.3s ease;
         }
 
         .request-link-btn:hover {
-            background: var(--gold-accent);
-            color: var(--emerald-dark);
+            background: var(--matcha-accent);
             transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(212, 175, 55, 0.4);
         }
 
         /* --- FOOTER --- */
         footer {
-            background-color: #04120A;
+            background-color: var(--matcha-card);
             text-align: center;
             padding: 30px 15px;
-            border-top: 2px solid var(--gold-accent);
+            border-top: 2px solid var(--gold-border);
         }
 
         .shipping-box {
             max-width: 650px;
             margin: 0 auto 20px;
-            background: rgba(229, 193, 88, 0.05);
-            border: 1px solid rgba(229, 193, 88, 0.3);
+            background: #FFFFFF;
+            border: 1px solid rgba(212, 175, 55, 0.4);
             padding: 15px;
             border-radius: 12px;
             font-size: 0.8em;
             line-height: 1.5;
+            color: var(--text-dark);
         }
 
         .footer-visitor-badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(14, 44, 29, 0.7);
-            border: 1px solid rgba(229, 193, 88, 0.3);
+            background: #FFFFFF;
+            border: 1px solid rgba(74, 124, 54, 0.3);
             border-radius: 20px;
             padding: 4px 14px;
             margin-bottom: 15px;
             font-size: 0.85em;
             font-family: var(--font-body);
-            color: var(--text-light);
-            letter-spacing: 1px;
+            color: var(--text-dark);
         }
 
         #visitor-count-num {
             font-family: var(--font-heading);
             font-weight: 700;
-            color: var(--gold-accent);
+            color: var(--matcha-deep);
         }
 
         /* --- OFERTAS RESPONSIVE GRID & CARDS --- */
@@ -536,13 +513,13 @@
         }
 
         .oferta-card {
-            background: rgba(14, 44, 29, 0.95);
-            border: 1.5px solid var(--gold-accent);
+            background: #FFFFFF;
+            border: 1.5px solid var(--gold-border);
             border-radius: 16px;
             padding: 14px;
             width: 100% !important;
             height: 100%;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.06);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -552,7 +529,7 @@
 
         .oferta-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 12px 30px rgba(229, 193, 88, 0.3);
+            box-shadow: 0 12px 28px rgba(45, 90, 39, 0.15);
         }
 
         .oferta-img-container {
@@ -561,8 +538,8 @@
             height: 180px;
             border-radius: 10px;
             overflow: hidden;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid rgba(229, 193, 88, 0.2);
+            background: var(--matcha-bg);
+            border: 1px solid rgba(74, 124, 54, 0.2);
         }
 
         .oferta-img-container img {
@@ -576,12 +553,11 @@
             position: absolute;
             top: 8px;
             right: 8px;
-            background: linear-gradient(135deg, #8B0000 0%, #4A0000 100%);
-            border: 1.5px solid var(--gold-accent);
+            background: var(--matcha-deep);
+            border: 1px solid var(--gold-border);
             border-radius: 10px;
             padding: 6px 10px;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.7);
         }
 
         .oferta-badge-tag {
@@ -598,7 +574,7 @@
 
         .oferta-price-original {
             font-size: 0.75em;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: line-through;
             display: block;
             line-height: 1;
@@ -608,22 +584,21 @@
             font-family: var(--font-title);
             font-size: 1.15em;
             font-weight: 800;
-            color: var(--gold-glow);
-            text-shadow: 0 0 8px rgba(229, 193, 88, 0.8);
+            color: #FFFFFF;
             margin-top: 2px;
         }
 
         .oferta-title {
             font-family: var(--font-heading);
             font-size: 0.95em;
-            color: #FFFFFF;
+            color: var(--matcha-deep);
             margin: 10px 0 4px;
             font-weight: 700;
         }
 
         .oferta-subtitle {
             font-size: 0.78em;
-            color: #B5C9BC;
+            color: var(--text-muted);
             margin-bottom: 12px;
         }
 
@@ -635,11 +610,11 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(0, 0, 0, 0.92);
+            background: rgba(0, 0, 0, 0.75);
             z-index: 10000;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(5px);
             padding: 20px;
         }
 
@@ -649,12 +624,12 @@
             position: relative;
             max-width: 800px;
             width: 90%;
-            background: var(--emerald-card);
-            border: 2px solid var(--gold-accent);
+            background: #FFFFFF;
+            border: 2px solid var(--gold-border);
             border-radius: 16px;
             padding: 20px;
             text-align: center;
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.25);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -664,7 +639,7 @@
             position: absolute;
             top: 12px;
             right: 18px;
-            color: var(--gold-accent);
+            color: var(--matcha-deep);
             font-size: 2em;
             cursor: pointer;
             line-height: 1;
@@ -680,7 +655,7 @@
             margin: 15px 0;
             overflow: hidden;
             border-radius: 10px;
-            background: rgba(0,0,0,0.5);
+            background: var(--matcha-bg);
         }
 
         .oferta-modal-viewer img {
@@ -694,9 +669,9 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(14, 44, 29, 0.8);
-            color: var(--gold-accent);
-            border: 1px solid var(--gold-accent);
+            background: #FFFFFF;
+            color: var(--matcha-deep);
+            border: 1px solid var(--matcha-deep);
             width: 44px;
             height: 44px;
             border-radius: 50%;
@@ -747,17 +722,17 @@
 
     <footer>
         <div class="shipping-box">
-            <i class="fa-solid fa-truck-fast fa-2x" style="color: var(--gold-accent); margin-bottom: 8px;"></i>
+            <i class="fa-solid fa-truck-fast fa-2x" style="color: var(--matcha-deep); margin-bottom: 8px;"></i>
             <p><strong>Política de Envíos Chai-itto:</strong> Las degustaciones en <em>taza</em> son exclusivas para nuestra sucursal física en Cholula. Para envíos a todo México, comercializamos nuestros <strong>frascos</strong> y <strong>sobres</strong>. Tu pedido se envía inmediatamente tras confirmar tu pago y llega de 3 a 5 días hábiles.</p>
         </div>
         
         <div class="footer-visitor-badge">
-            <i class="fa-solid fa-user" style="color: var(--gold-accent);"></i>
+            <i class="fa-solid fa-user" style="color: var(--matcha-deep);"></i>
             <span id="visitor-count-num">019,777</span>
         </div>
 
-        <p style="color: var(--gold-accent); font-family: var(--font-heading); font-size: 1.05em; margin-bottom: 5px;">Chai-itto &bull; Salud con Té</p>
-        <p style="font-size: 0.8em; opacity: 0.6;">&copy; 2026 Chai-itto. Todos los derechos reservados.</p>
+        <p style="color: var(--matcha-deep); font-family: var(--font-heading); font-size: 1.05em; margin-bottom: 5px;">Chai-itto &bull; Salud con Té</p>
+        <p style="font-size: 0.8em; opacity: 0.7; color: var(--text-dark);">&copy; 2026 Chai-itto. Todos los derechos reservados.</p>
     </footer>
 
     <!-- PRODUCTOS PRESENTATION MODAL -->
@@ -765,27 +740,27 @@
         <div class="oferta-modal-content" style="max-width: 520px; padding: 25px; border-radius: 20px;">
             <span class="oferta-modal-close" onclick="closeCheckoutModal()">&times;</span>
             
-            <div style="font-family: var(--font-heading); font-size: 0.75em; letter-spacing: 2px; color: var(--gold-accent); text-transform: uppercase; margin-bottom: 5px;">Envío Nacional Seguro</div>
-            <h2 id="checkout-product-title" style="color: #FFF; font-family: var(--font-title); margin: 0 0 15px 0; font-size: 1.8em;"></h2>
+            <div style="font-family: var(--font-heading); font-size: 0.75em; letter-spacing: 2px; color: var(--matcha-deep); text-transform: uppercase; margin-bottom: 5px;">Envío Nacional Seguro</div>
+            <h2 id="checkout-product-title" style="color: var(--text-dark); font-family: var(--font-title); margin: 0 0 15px 0; font-size: 1.8em;"></h2>
             
             <p style="color: var(--text-muted); font-size: 0.85em; margin-bottom: 22px; line-height: 1.4;">Elige la presentación perfecta para agregar a tu carrito:</p>
 
             <div style="display: flex; gap: 14px; margin-bottom: 22px; width: 100%;">
-                <div id="option-frasco-box" onclick="selectPresentation('Frasco')" style="flex: 1; padding: 16px 12px; border: 2px solid var(--gold-accent); border-radius: 14px; cursor: pointer; background: rgba(0,0,0,0.4); text-align: center; transition: all 0.25s ease;">
+                <div id="option-frasco-box" onclick="selectPresentation('Frasco')" style="flex: 1; padding: 16px 12px; border: 2px solid var(--matcha-deep); border-radius: 14px; cursor: pointer; background: var(--matcha-card); text-align: center; transition: all 0.25s ease;">
                     <div style="width: 100%; height: 75px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
-                        <img src="frasco.webp" alt="Frasco Chai-itto" onerror="this.src='frasco.jpg'" style="height: 70px; width: 70px; object-fit: cover; border-radius: 50%; border: 1.5px solid var(--gold-accent);">
+                        <img src="frasco.webp" alt="Frasco Chai-itto" onerror="this.src='frasco.jpg'" style="height: 70px; width: 70px; object-fit: cover; border-radius: 50%; border: 1.5px solid var(--matcha-deep);">
                     </div>
-                    <div style="font-family: var(--font-heading); font-weight: bold; color: #FFF; font-size: 1em;">Frasco</div>
-                    <div id="modal-frasco-price" style="color: var(--gold-accent); font-size: 1.4em; font-weight: 800; margin: 4px 0;"></div>
+                    <div style="font-family: var(--font-heading); font-weight: bold; color: var(--text-dark); font-size: 1em;">Frasco</div>
+                    <div id="modal-frasco-price" style="color: var(--matcha-deep); font-size: 1.4em; font-weight: 800; margin: 4px 0;"></div>
                     <span style="font-size: 0.7em; color: var(--text-muted); display: block;"><i class="fa-solid fa-truck-fast"></i> Para Envío</span>
                 </div>
 
-                <div id="option-sobre-box" onclick="selectPresentation('Sobre')" style="flex: 1; padding: 16px 12px; border: 1.5px solid rgba(245,208,97,0.4); border-radius: 14px; cursor: pointer; background: rgba(0,0,0,0.4); text-align: center; transition: all 0.25s ease;">
+                <div id="option-sobre-box" onclick="selectPresentation('Sobre')" style="flex: 1; padding: 16px 12px; border: 1.5px solid rgba(74,124,54,0.4); border-radius: 14px; cursor: pointer; background: #FFFFFF; text-align: center; transition: all 0.25s ease;">
                     <div style="width: 100%; height: 75px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
-                        <img src="sobre.webp" alt="Sobre Chai-itto" onerror="this.style.display='none';" style="height: 70px; width: 70px; object-fit: cover; border-radius: 50%; border: 1.5px solid rgba(245,208,97,0.4);">
+                        <img src="sobre.webp" alt="Sobre Chai-itto" onerror="this.style.display='none';" style="height: 70px; width: 70px; object-fit: cover; border-radius: 50%; border: 1.5px solid rgba(74,124,54,0.4);">
                     </div>
-                    <div style="font-family: var(--font-heading); font-weight: bold; color: #FFF; font-size: 1em;">Sobre</div>
-                    <div id="modal-sobre-price" style="color: var(--gold-accent); font-size: 1.4em; font-weight: 800; margin: 4px 0;"></div>
+                    <div style="font-family: var(--font-heading); font-weight: bold; color: var(--text-dark); font-size: 1em;">Sobre</div>
+                    <div id="modal-sobre-price" style="color: var(--matcha-deep); font-size: 1.4em; font-weight: 800; margin: 4px 0;"></div>
                     <span style="font-size: 0.7em; color: var(--text-muted); display: block;"><i class="fa-solid fa-truck-fast"></i> Para Envío</span>
                 </div>
             </div>
@@ -809,7 +784,7 @@
                 <button id="modal-next-btn" class="modal-arrow next" onclick="changeModalImage(1)"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
 
-            <div id="modal-counter" style="color: #A3C4AF; font-size: 0.85em; margin-bottom: 12px;"></div>
+            <div id="modal-counter" style="color: var(--text-muted); font-size: 0.85em; margin-bottom: 12px;"></div>
 
             <button id="modal-buy-btn" class="buy-button" style="width: 100%; max-width: 300px; padding: 12px;">
                 <i class="fa-solid fa-cart-plus"></i> Agregar al Carrito
@@ -818,16 +793,16 @@
     </div>
 
     <!-- INDUSTRY STANDARD HIGH-CONTRAST LIGHT CART DRAWER -->
-    <div id="cart-drawer-backdrop" onclick="closeCartOnBackdrop(event)" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.7); z-index: 10000; backdrop-filter: blur(5px);">
-        <div style="position: absolute; right: 0; top: 0; width: 100%; max-width: 440px; height: 100%; background: #FBFDF9; border-left: 3px solid var(--gold-border); padding: 25px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: -10px 0 30px rgba(0,0,0,0.5); overflow-y: auto; color: #1C2820;">
+    <div id="cart-drawer-backdrop" onclick="closeCartOnBackdrop(event)" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); z-index: 10000; backdrop-filter: blur(5px);">
+        <div style="position: absolute; right: 0; top: 0; width: 100%; max-width: 440px; height: 100%; background: #FBFDF9; border-left: 3px solid var(--gold-border); padding: 25px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: -10px 0 30px rgba(0,0,0,0.15); overflow-y: auto; color: #1C2820;">
             
             <div>
                 <!-- DRAWER HEADER -->
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #E2E8E4; padding-bottom: 15px;">
-                    <h2 style="color: #0E2C1D; font-family: var(--font-title); margin: 0; font-size: 1.4em;">
-                        <i class="fa-solid fa-cart-shopping" style="color: #D4AF37;"></i> Tu Pedido
+                    <h2 style="color: var(--matcha-deep); font-family: var(--font-title); margin: 0; font-size: 1.4em;">
+                        <i class="fa-solid fa-cart-shopping" style="color: var(--gold-border);"></i> Tu Pedido
                     </h2>
-                    <button onclick="toggleCartDrawer()" style="background: #EBF2EE; color: #0E2C1D; border: 1px solid #C2D4CE; border-radius: 20px; padding: 6px 14px; font-family: var(--font-heading); font-size: 0.75em; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                    <button onclick="toggleCartDrawer()" style="background: #EBF2EE; color: var(--matcha-deep); border: 1px solid #C2D4CE; border-radius: 20px; padding: 6px 14px; font-family: var(--font-heading); font-size: 0.75em; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 6px;">
                         <i class="fa-solid fa-arrow-left"></i> Seguir Comprando
                     </button>
                 </div>
@@ -840,12 +815,12 @@
             <div style="border-top: 2px solid #E2E8E4; padding-top: 18px; margin-top: 20px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-family: var(--font-heading); font-size: 1.2em;">
                     <span style="color: #4A5D52; font-weight: 600;">Total Estimado:</span>
-                    <span id="cart-total-price" style="color: #0E2C1D; font-weight: 800; font-size: 1.35em;">$0 MXN</span>
+                    <span id="cart-total-price" style="color: var(--matcha-deep); font-weight: 800; font-size: 1.35em;">$0 MXN</span>
                 </div>
 
-                <!-- INDUSTRY STANDARD TRUST SEAL BANNER IN CHECKOUT -->
+                <!-- TRUST SEAL BANNER IN CHECKOUT -->
                 <div style="background: #F2F7F4; border: 1px solid #D1E2D8; border-radius: 10px; padding: 10px; text-align: center; margin-bottom: 14px;">
-                    <div style="font-size: 0.78em; color: #16402B; font-weight: 800; margin-bottom: 3px; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                    <div style="font-size: 0.78em; color: var(--matcha-deep); font-weight: 800; margin-bottom: 3px; display: flex; align-items: center; justify-content: center; gap: 6px;">
                         <i class="fa-solid fa-shield-halved" style="color: #2ECC71;"></i> Pago Encriptado SSL de 256 bits
                     </div>
                     <div style="font-size: 0.68em; color: #556B60; line-height: 1.2;">
@@ -859,7 +834,7 @@
                         <i class="fa-solid fa-paper-plane" style="color: #F5D061;"></i> Solicitar Link / Factura de Pago
                     </button>
                     <p style="font-size: 0.72em; color: #556B60; text-align: center; margin: -6px 0 14px 0; line-height: 1.3;">
-                        <i class="fa-solid fa-lock" style="color: #0E2C1D;"></i> Recibe un link o factura directo a tu correo o WhatsApp para revisar antes de pagar.
+                        <i class="fa-solid fa-lock" style="color: var(--matcha-deep);"></i> Recibe un link o factura directo a tu correo o WhatsApp para revisar antes de pagar.
                     </p>
                 </div>
 
@@ -948,13 +923,13 @@
                     itemEl.style.cssText = 'display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; background: #FFFFFF; padding: 12px 14px; border-radius: 10px; border: 1px solid #E2E8E4; box-shadow: 0 2px 6px rgba(0,0,0,0.05);';
                     itemEl.innerHTML = `
                         <div style="flex: 1; padding-right: 10px;">
-                            <div style="color: #0E2C1D; font-size: 0.92em; font-family: var(--font-heading); font-weight: bold;">${item.title}</div>
-                            <div style="color: #8C6F12; font-size: 0.88em; font-weight: 700;">$${item.price} MXN</div>
+                            <div style="color: var(--matcha-deep); font-size: 0.92em; font-family: var(--font-heading); font-weight: bold;">${item.title}</div>
+                            <div style="color: var(--gold-accent); font-size: 0.88em; font-weight: 700;">$${item.price} MXN</div>
                         </div>
                         <div style="display: flex; align-items: center; gap: 8px;">
-                            <button onclick="updateCartQty(${index}, -1)" style="background: #F0F5F2; color: #0E2C1D; border: 1px solid #C2D4CE; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold;">-</button>
-                            <span style="color: #0E2C1D; font-weight: bold; font-size: 0.95em;">${item.qty}</span>
-                            <button onclick="updateCartQty(${index}, 1)" style="background: #F0F5F2; color: #0E2C1D; border: 1px solid #C2D4CE; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold;">+</button>
+                            <button onclick="updateCartQty(${index}, -1)" style="background: #F0F5F2; color: var(--matcha-deep); border: 1px solid #C2D4CE; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold;">-</button>
+                            <span style="color: var(--text-dark); font-weight: bold; font-size: 0.95em;">${item.qty}</span>
+                            <button onclick="updateCartQty(${index}, 1)" style="background: #F0F5F2; color: var(--matcha-deep); border: 1px solid #C2D4CE; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold;">+</button>
                         </div>
                     `;
                     container.appendChild(itemEl);
@@ -1143,7 +1118,7 @@
                         <button onclick="handleProductSelect('${safeName}', ${frascoPrice}, ${sobrePrice})" class="buy-button">
                             <i class="fa-solid fa-cart-plus"></i> Agregar al Carrito
                         </button>` : `
-                        <button onclick="switchPage('menu')" class="buy-button" style="background: rgba(16, 38, 25, 0.9); border: 1px solid var(--gold-accent); color: var(--gold-accent);">
+                        <button onclick="switchPage('menu')" class="buy-button" style="background: rgba(45, 90, 39, 0.9); border: 1px solid var(--gold-border); color: #FFFFFF;">
                             <i class="fa-solid fa-book-open"></i> Ver en Menú
                         </button>`;
 
@@ -1162,7 +1137,7 @@
                     container.appendChild(card);
                 });
             } else {
-                container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px; color: #A3C4AF;">Próximamente agregando productos a <strong>${colName}</strong>...</div>`;
+                container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px; color: var(--text-muted);">Próximamente agregando productos a <strong>${colName}</strong>...</div>`;
             }
         }
 
@@ -1187,15 +1162,15 @@
 
             if (frascoBox && sobreBox) {
                 if (type === 'Frasco') {
-                    frascoBox.style.border = '2px solid #E5C158';
-                    frascoBox.style.background = 'rgba(229, 193, 88, 0.15)';
-                    sobreBox.style.border = '1.5px solid rgba(229, 193, 88, 0.4)';
-                    sobreBox.style.background = 'rgba(0,0,0,0.3)';
+                    frascoBox.style.border = '2px solid var(--matcha-deep)';
+                    frascoBox.style.background = 'var(--matcha-card)';
+                    sobreBox.style.border = '1.5px solid rgba(74, 124, 54, 0.4)';
+                    sobreBox.style.background = '#FFFFFF';
                 } else {
-                    sobreBox.style.border = '2px solid #E5C158';
-                    sobreBox.style.background = 'rgba(229, 193, 88, 0.15)';
-                    frascoBox.style.border = '1.5px solid rgba(229, 193, 88, 0.4)';
-                    frascoBox.style.background = 'rgba(0,0,0,0.3)';
+                    sobreBox.style.border = '2px solid var(--matcha-deep)';
+                    sobreBox.style.background = 'var(--matcha-card)';
+                    frascoBox.style.border = '1.5px solid rgba(74, 124, 54, 0.4)';
+                    frascoBox.style.background = '#FFFFFF';
                 }
             }
         }
@@ -1246,8 +1221,8 @@
                         <div>
                             <div class="oferta-img-container">
                                 <img src="${coverImage}" alt="${item.name || 'Accesorio'}">
-                                <div class="oferta-badge" style="background: linear-gradient(135deg, #16402B 0%, #0E2C1D 100%);">
-                                    <span class="oferta-badge-tag" style="background: var(--gold-accent); color: #000;">ACCESORIO</span>
+                                <div class="oferta-badge" style="background: var(--matcha-deep);">
+                                    <span class="oferta-badge-tag" style="background: var(--gold-border); color: #000;">ACCESORIO</span>
                                     <div class="oferta-price-special">$${price}</div>
                                 </div>
                             </div>
