@@ -332,7 +332,7 @@
         }
 
         /* ---------------------------------------------------- */
-        /* --- SLOW, UNCLIPPED CONTINUOUS GALLERY RIBBON --- */
+        /* --- SLOW, NO BLACK BARS GALLERY RIBBON --- */
         /* ---------------------------------------------------- */
         .gallery-ribbon-wrapper {
             width: 100%;
@@ -349,7 +349,7 @@
             display: flex !important;
             gap: 20px !important;
             width: max-content !important;
-            animation: galleryRibbon 85s linear infinite !important; /* SLOWER PACE */
+            animation: galleryRibbon 85s linear infinite !important;
         }
 
         .gallery-ribbon-wrapper:hover #gallery-dynamic-container {
@@ -369,28 +369,25 @@
             overflow: hidden;
             box-shadow: 0 4px 14px rgba(45, 90, 39, 0.12);
             border: 1.5px solid var(--gold-border);
-            background: #000;
+            background: var(--matcha-bg);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 4px;
             position: relative;
         }
 
         .gallery-item-card img {
             width: 100%;
             height: 100%;
-            object-fit: contain !important; /* UNCLIPPED FULL IMAGE */
+            object-fit: cover !important; /* ELIMINATES ALL BLACK BARS */
             display: block;
-            border-radius: 8px;
         }
 
         .gallery-item-card video {
             width: 100%;
             height: 100%;
-            object-fit: contain !important; /* UNCLIPPED FULL VIDEO */
+            object-fit: cover !important; /* ELIMINATES ALL BLACK BARS */
             display: block;
-            border-radius: 8px;
             cursor: pointer;
         }
 
@@ -1221,6 +1218,8 @@
                         video.autoplay = true;
                         video.loop = true;
                         video.muted = true; // Auto-plays muted cleanly
+                        video.defaultMuted = true;
+                        video.volume = 0;
                         video.playsInline = true;
                         video.preload = 'auto';
                         video.onerror = () => card.remove();
@@ -1229,6 +1228,7 @@
                         video.onclick = (e) => {
                             e.stopPropagation();
                             video.muted = !video.muted;
+                            video.volume = video.muted ? 0 : 1;
                         };
 
                         card.appendChild(video);
