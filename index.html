@@ -311,8 +311,23 @@
 
         @media (max-width: 550px) { 
             .story-stats { 
-                grid-template-columns: 1fr !important; 
+                grid-template-columns: 1fr !important; /* CLEAN 1-COLUMN MOBILE STACK */
+                gap: 12px !important;
             } 
+
+            .stat-box, .feature-box, .info-box {
+                padding: 16px 12px !important;
+                width: 100% !important;
+            }
+
+            .stat-number, .feature-number {
+                font-size: 1.6em !important;
+            }
+
+            .stat-label, .feature-label {
+                font-size: 0.82em !important;
+                word-wrap: break-word !important;
+            }
         }
 
         .stat-box, .feature-box, .info-box {
@@ -327,6 +342,8 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            box-sizing: border-box;
+            width: 100%;
         }
 
         .stat-box:hover, .feature-box:hover, .info-box:hover {
