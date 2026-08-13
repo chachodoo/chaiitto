@@ -114,7 +114,6 @@
 
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
-        /* Queue Table */
         .queue-table {
             width: 100%;
             border-collapse: collapse;
@@ -182,7 +181,7 @@
             
             <div class="form-group" style="margin-top: 10px;">
                 <label>Sección de Publicación:</label>
-                <select id="target-catalog" style="color: var(--gold-accent); font-weight: bold;">
+                <select id="target-catalog" onchange="toggleFormMode()" style="color: var(--gold-accent); font-weight: bold;">
                     <option value="accesorios">Accesorios & Merch (accesorios.json)</option>
                     <option value="ofertas">Ofertas Especiales (ofertas.json)</option>
                 </select>
@@ -204,13 +203,14 @@
                 <input type="text" id="oferta-desc" placeholder="Hierro Colado Tradicional con Infusor">
             </div>
 
+            <!-- DYNAMIC PRICE INPUTS -->
             <div class="form-row">
-                <div class="form-group">
+                <div class="form-group hidden" id="group-orig-price">
                     <label>Precio Original ($ MXN):</label>
                     <input type="number" id="oferta-orig" placeholder="900">
                 </div>
-                <div class="form-group">
-                    <label>Precio Oferta / Final ($ MXN):</label>
+                <div class="form-group" id="group-final-price" style="grid-column: span 2;">
+                    <label id="label-final-price">Precio ($ MXN):</label>
                     <input type="number" id="oferta-spec" placeholder="800">
                 </div>
             </div>
@@ -232,15 +232,14 @@
                         <th>Sección</th>
                         <th>#</th>
                         <th>Producto</th>
-                        <th>Precio Orig.</th>
-                        <th>Precio Final</th>
+                        <th>Precio</th>
                         <th>Imágenes</th>
                         <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody id="queue-body">
                     <tr>
-                        <td colspan="7" style="text-align: center; color: #888;">No hay elementos agregados en esta sesión.</td>
+                        <td colspan="6" style="text-align: center; color: #888;">No hay elementos agregados en esta sesión.</td>
                     </tr>
                 </tbody>
             </table>
@@ -262,6 +261,23 @@
             banner.style.display = 'block';
         }
 
+        function toggleFormMode() {
+            const target = document.getElementById('target-catalog').value;
+            const origGroup = document.getElementById('group-orig-price');
+            const finalGroup = document.getElementById('group-final-price');
+            const finalLabel = document.getElementById('label-final-price');
+
+            if (target === 'accesorios') {
+                origGroup.classList.add('hidden');
+                finalGroup.style.gridColumn = 'span 2';
+                finalLabel.textContent = 'Precio ($ MXN):';
+            } else {
+                origGroup.classList.remove('hidden');
+                finalGroup.style.gridColumn = 'span 1';
+                finalLabel.textContent = 'Precio Oferta ($ MXN):';
+            }
+        }
+
         async function authenticateAdmin() {
             const token = document.getElementById('github-token-input').value.trim();
 
@@ -271,14 +287,11 @@
             }
 
             try {
-                // Live check against GitHub API to verify repo write permissions
                 const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}`, {
                     headers: { 'Authorization': `token ${token}` }
                 });
 
-                if (!res.ok) {
-                    throw new Error('Token inválido o sin permisos sobre el repositorio.');
-                }
+                if (!res.ok) throw new Error('Token inválido o sin permisos sobre el repositorio.');
 
                 const data = await res.json();
                 if (!data.permissions || !data.permissions.push) {
@@ -288,6 +301,7 @@
                 localStorage.setItem('chai_gh_token', token);
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('dashboard-screen').classList.remove('hidden');
+                toggleFormMode();
 
             } catch (err) {
                 alert(`Error de autenticación: ${err.message}`);
@@ -305,18 +319,23 @@
             const num = document.getElementById('oferta-num').value.trim();
             const name = document.getElementById('oferta-name').value.trim();
             const desc = document.getElementById('oferta-desc').value.trim();
-            const orig = parseInt(document.getElementById('oferta-orig').value);
-            const spec = parseInt(document.getElementById('oferta-spec').value);
+            const orig = parseInt(document.getElementById('oferta-orig').value) || 0;
+            const spec = parseInt(document.getElementById('oferta-spec').value) || 0;
             const files = document.getElementById('oferta-files').files;
 
-            if (!num || !name || !orig || !spec || files.length === 0) {
-                alert('Por favor complete todos los campos y seleccione al menos una imagen.');
+            if (!num || !name || !spec || files.length === 0) {
+                alert('Por favor complete todos los campos requeridos y seleccione al menos una imagen.');
+                return;
+            }
+
+            if (target === 'ofertas' && !orig) {
+                alert('Por favor ingrese el Precio Original para la oferta.');
                 return;
             }
 
             stagedOffers.push({
                 target, num, name, descripcion: desc,
-                precioOriginal: orig,
+                precioOriginal: target === 'ofertas' ? orig : null,
                 precioOferta: spec,
                 fileList: Array.from(files),
                 images: []
@@ -324,7 +343,6 @@
             
             renderQueue();
 
-            // Reset input fields
             document.getElementById('oferta-num').value = '';
             document.getElementById('oferta-name').value = '';
             document.getElementById('oferta-desc').value = '';
@@ -336,19 +354,22 @@
         function renderQueue() {
             const body = document.getElementById('queue-body');
             if (stagedOffers.length === 0) {
-                body.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #888;">No hay elementos agregados en esta sesión.</td></tr>`;
+                body.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #888;">No hay elementos agregados en esta sesión.</td></tr>`;
                 return;
             }
 
             body.innerHTML = '';
             stagedOffers.forEach((item, index) => {
                 const tr = document.createElement('tr');
+                const priceDisplay = item.target === 'ofertas' 
+                    ? `<span style="text-decoration: line-through; color: #888; font-size:0.85em;">$${item.precioOriginal}</span> <strong style="color: var(--gold-accent);">$${item.precioOferta}</strong>`
+                    : `<strong>$${item.precioOferta}</strong>`;
+
                 tr.innerHTML = `
                     <td><strong style="color: var(--gold-accent);">${item.target.toUpperCase()}</strong></td>
                     <td>${item.num}</td>
                     <td><strong>${item.name}</strong><br><small>${item.descripcion}</small></td>
-                    <td>$${item.precioOriginal}</td>
-                    <td><strong>$${item.precioOferta}</strong></td>
+                    <td>${priceDisplay}</td>
                     <td>${item.fileList.length} archivo(s)</td>
                     <td><button class="btn-danger" onclick="removeOffer(${index})">Eliminar</button></td>
                 `;
@@ -424,7 +445,6 @@
                     'Content-Type': 'application/json'
                 };
 
-                // Group staged offers by target JSON file
                 const groups = {
                     accesorios: stagedOffers.filter(o => o.target === 'accesorios'),
                     ofertas: stagedOffers.filter(o => o.target === 'ofertas')
@@ -491,15 +511,23 @@
                             idx++;
                         }
 
-                        newJsonItems.push({
+                        // Save clean price structure depending on section
+                        const itemObj = {
                             num: offer.num,
                             name: offer.name,
                             descripcion: offer.descripcion,
-                            precioOriginal: offer.precioOriginal,
-                            precioOferta: offer.precioOferta,
                             blurPreview: coverBlur,
                             images: imagePaths
-                        });
+                        };
+
+                        if (catalogKey === 'ofertas') {
+                            itemObj.precioOriginal = offer.precioOriginal;
+                            itemObj.precioOferta = offer.precioOferta;
+                        } else {
+                            itemObj.precio = offer.precioOferta;
+                        }
+
+                        newJsonItems.push(itemObj);
                     }
 
                     const combined = [...existingItems, ...newJsonItems];
@@ -534,6 +562,7 @@
             if (savedToken) {
                 document.getElementById('github-token-input').value = savedToken;
             }
+            toggleFormMode();
         });
     </script>
 </body>
