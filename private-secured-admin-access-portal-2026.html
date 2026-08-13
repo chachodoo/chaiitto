@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chai-itto | Panel Privado de Ofertas</title>
+    <title>Chai-itto | Panel Privado de Ofertas & Accesorios</title>
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -69,6 +69,7 @@
         input[type="text"],
         input[type="number"],
         input[type="password"],
+        select,
         textarea {
             width: 100%;
             padding: 12px;
@@ -80,7 +81,7 @@
             font-size: 0.95em;
         }
 
-        input:focus, textarea:focus {
+        input:focus, select:focus, textarea:focus {
             outline: none;
             border-color: var(--gold-accent);
             box-shadow: 0 0 10px rgba(229, 193, 88, 0.4);
@@ -109,7 +110,7 @@
 
         .btn-add { background: #183824; color: var(--gold-accent); border: 1.5px solid var(--gold-accent); width: 100%; margin-top: 10px; }
         .btn-publish { background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: white; width: 100%; font-size: 1.1em; padding: 16px; margin-top: 25px; }
-        .btn-danger { background: #8B0000; color: white; padding: 4px 10px; font-size: 0.75em; border-radius: 6px; }
+        .btn-danger { background: #8B0000; color: white; padding: 4px 10px; font-size: 0.75em; border-radius: 6px; cursor: pointer; }
 
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
@@ -151,28 +152,25 @@
 
     <!-- 1. LOGIN SCREEN -->
     <div id="login-screen" class="admin-container auth-card">
-        <i class="fa-solid fa-lock fa-3x" style="color: var(--gold-accent); margin-bottom: 15px;"></i>
-        <h2>Panel de Ofertas Chai-itto</h2>
-        <p style="font-size: 0.85em; color: #A3C4AF; margin-bottom: 20px;">Acceso exclusivo para personal autorizado</p>
+        <i class="fa-solid fa-shield-halved fa-3x" style="color: var(--gold-accent); margin-bottom: 15px;"></i>
+        <h2>Panel de Administración Chai-itto</h2>
+        <p style="font-size: 0.85em; color: #A3C4AF; margin-bottom: 20px;">Acceso autenticado vía Token de GitHub</p>
         
         <div class="form-group">
-            <label>Contraseña Administrador:</label>
-            <input type="password" id="admin-pass-input" placeholder="Ingrese la contraseña">
+            <label>GitHub Personal Access Token:</label>
+            <input type="password" id="github-token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+            <span style="font-size: 0.7em; color: #888; display: block; margin-top: 5px;">
+                Se almacena localmente en su navegador para firmar los commits directamente.
+            </span>
         </div>
 
-        <div class="form-group">
-            <label>Token de Acceso GitHub:</label>
-            <input type="password" id="github-token-input" placeholder="ghp_xxxxxxxxxxxx">
-            <span style="font-size: 0.7em; color: #888;">(Se guardará seguro en este navegador)</span>
-        </div>
-
-        <button class="btn" style="width: 100%;" onclick="authenticateAdmin()"><i class="fa-solid fa-key"></i> Entrar al Panel</button>
+        <button class="btn" style="width: 100%;" onclick="authenticateAdmin()"><i class="fa-solid fa-key"></i> Autenticar y Entrar</button>
     </div>
 
     <!-- 2. DASHBOARD -->
     <div id="dashboard-screen" class="admin-container hidden">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(229,193,88,0.3); padding-bottom: 15px;">
-            <h2><i class="fa-solid fa-fire"></i> Cargar Ofertas Especiales</h2>
+            <h2><i class="fa-solid fa-boxes-packing"></i> Cargar Catálogo Web</h2>
             <button class="btn btn-danger" onclick="logoutAdmin()"><i class="fa-solid fa-right-from-bracket"></i> Salir</button>
         </div>
 
@@ -180,22 +178,30 @@
 
         <!-- FORM ENTRY -->
         <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 12px; border: 1px solid rgba(229, 193, 88, 0.2);">
-            <h3>1. Datos de la Oferta</h3>
+            <h3>1. Datos del Producto u Oferta</h3>
             
+            <div class="form-group" style="margin-top: 10px;">
+                <label>Sección de Publicación:</label>
+                <select id="target-catalog" style="color: var(--gold-accent); font-weight: bold;">
+                    <option value="accesorios">Accesorios & Merch (accesorios.json)</option>
+                    <option value="ofertas">Ofertas Especiales (ofertas.json)</option>
+                </select>
+            </div>
+
             <div class="form-row">
                 <div class="form-group">
-                    <label>Número (#):</label>
+                    <label>Código / Número (#):</label>
                     <input type="text" id="oferta-num" placeholder="01">
                 </div>
                 <div class="form-group">
                     <label>Nombre del Producto:</label>
-                    <input type="text" id="oferta-name" placeholder="Tetera Japonesa">
+                    <input type="text" id="oferta-name" placeholder="Tetera Japonesa Hierro">
                 </div>
             </div>
 
             <div class="form-group">
-                <label>Descripción / Material:</label>
-                <input type="text" id="oferta-desc" placeholder="Hierro Colado Tradicional">
+                <label>Descripción / Detalles:</label>
+                <input type="text" id="oferta-desc" placeholder="Hierro Colado Tradicional con Infusor">
             </div>
 
             <div class="form-row">
@@ -204,7 +210,7 @@
                     <input type="number" id="oferta-orig" placeholder="900">
                 </div>
                 <div class="form-group">
-                    <label>Precio Oferta ($ MXN):</label>
+                    <label>Precio Oferta / Final ($ MXN):</label>
                     <input type="number" id="oferta-spec" placeholder="800">
                 </div>
             </div>
@@ -214,39 +220,38 @@
                 <input type="file" id="oferta-files" multiple accept="image/*" style="color: #A3C4AF;">
             </div>
 
-            <button class="btn btn-add" onclick="addOfferToQueue()"><i class="fa-solid fa-plus"></i> Agregar esta Oferta a la Lista</button>
+            <button class="btn btn-add" onclick="addOfferToQueue()"><i class="fa-solid fa-plus"></i> Agregar a la Lista</button>
         </div>
 
         <!-- QUEUE STAGING AREA -->
         <div style="margin-top: 30px;">
-            <h3>2. Lista de Ofertas a Publicar</h3>
+            <h3>2. Lista a Publicar</h3>
             <table class="queue-table">
                 <thead>
                     <tr>
+                        <th>Sección</th>
                         <th>#</th>
                         <th>Producto</th>
                         <th>Precio Orig.</th>
-                        <th>Oferta</th>
+                        <th>Precio Final</th>
                         <th>Imágenes</th>
                         <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody id="queue-body">
                     <tr>
-                        <td colspan="6" style="text-align: center; color: #888;">No hay ofertas agregadas en esta sesión.</td>
+                        <td colspan="7" style="text-align: center; color: #888;">No hay elementos agregados en esta sesión.</td>
                     </tr>
                 </tbody>
             </table>
 
-            <button class="btn btn-publish" onclick="publishAllToGitHub()"><i class="fa-solid fa-cloud-arrow-up"></i> Publicar Ofertas en la Web</button>
+            <button class="btn btn-publish" onclick="publishAllToGitHub()"><i class="fa-solid fa-cloud-arrow-up"></i> Publicar Cambios en la Web</button>
         </div>
     </div>
 
     <script>
-        // CONFIGURATION
         const GITHUB_REPO_OWNER = "chachodoo";
         const GITHUB_REPO_NAME = "chaiitto";   
-        const MASTER_PASSWORD_HASH = "Cha!!tto";
 
         let stagedOffers = [];
 
@@ -257,31 +262,46 @@
             banner.style.display = 'block';
         }
 
-        function authenticateAdmin() {
-            const pass = document.getElementById('admin-pass-input').value.trim();
+        async function authenticateAdmin() {
             const token = document.getElementById('github-token-input').value.trim();
 
-            if (pass !== MASTER_PASSWORD_HASH) {
-                alert('Contraseña incorrecta');
-                return;
-            }
-
             if (!token) {
-                alert('Debe ingresar un GitHub Personal Access Token válido.');
+                alert('Ingrese su GitHub Personal Access Token.');
                 return;
             }
 
-            localStorage.setItem('chai_gh_token', token);
-            document.getElementById('login-screen').classList.add('hidden');
-            document.getElementById('dashboard-screen').classList.remove('hidden');
+            try {
+                // Live check against GitHub API to verify repo write permissions
+                const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}`, {
+                    headers: { 'Authorization': `token ${token}` }
+                });
+
+                if (!res.ok) {
+                    throw new Error('Token inválido o sin permisos sobre el repositorio.');
+                }
+
+                const data = await res.json();
+                if (!data.permissions || !data.permissions.push) {
+                    throw new Error('El token ingresado no tiene permisos de escritura (push).');
+                }
+
+                localStorage.setItem('chai_gh_token', token);
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('dashboard-screen').classList.remove('hidden');
+
+            } catch (err) {
+                alert(`Error de autenticación: ${err.message}`);
+            }
         }
 
         function logoutAdmin() {
+            localStorage.removeItem('chai_gh_token');
             document.getElementById('login-screen').classList.remove('hidden');
             document.getElementById('dashboard-screen').classList.add('hidden');
         }
 
         function addOfferToQueue() {
+            const target = document.getElementById('target-catalog').value;
             const num = document.getElementById('oferta-num').value.trim();
             const name = document.getElementById('oferta-name').value.trim();
             const desc = document.getElementById('oferta-desc').value.trim();
@@ -294,18 +314,17 @@
                 return;
             }
 
-            const offerData = {
-                num, name, descripcion: desc,
+            stagedOffers.push({
+                target, num, name, descripcion: desc,
                 precioOriginal: orig,
                 precioOferta: spec,
                 fileList: Array.from(files),
                 images: []
-            };
-
-            stagedOffers.push(offerData);
+            });
+            
             renderQueue();
 
-            // Clear inputs
+            // Reset input fields
             document.getElementById('oferta-num').value = '';
             document.getElementById('oferta-name').value = '';
             document.getElementById('oferta-desc').value = '';
@@ -317,7 +336,7 @@
         function renderQueue() {
             const body = document.getElementById('queue-body');
             if (stagedOffers.length === 0) {
-                body.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #888;">No hay ofertas agregadas en esta sesión.</td></tr>`;
+                body.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #888;">No hay elementos agregados en esta sesión.</td></tr>`;
                 return;
             }
 
@@ -325,10 +344,11 @@
             stagedOffers.forEach((item, index) => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
+                    <td><strong style="color: var(--gold-accent);">${item.target.toUpperCase()}</strong></td>
                     <td>${item.num}</td>
                     <td><strong>${item.name}</strong><br><small>${item.descripcion}</small></td>
                     <td>$${item.precioOriginal}</td>
-                    <td><strong style="color: var(--gold-accent);">$${item.precioOferta}</strong></td>
+                    <td><strong>$${item.precioOferta}</strong></td>
                     <td>${item.fileList.length} archivo(s)</td>
                     <td><button class="btn-danger" onclick="removeOffer(${index})">Eliminar</button></td>
                 `;
@@ -341,7 +361,6 @@
             renderQueue();
         }
 
-        // Strategy 3 + Blur-Up Generator: WebP 80% compression + 1KB Micro-Blur preview string
         async function fileToWebpAndBlur(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -350,7 +369,6 @@
                     const img = new Image();
                     img.src = e.target.result;
                     img.onload = () => {
-                        // 1. Convert main image to WebP (Max 800px width/height)
                         const canvas = document.createElement('canvas');
                         const MAX_SIZE = 800;
                         let width = img.width;
@@ -376,7 +394,6 @@
                         const webpDataUrl = canvas.toDataURL('image/webp', 0.8);
                         const base64Webp = webpDataUrl.split(',')[1];
 
-                        // 2. Generate tiny 20px Base64 micro-blur string for instant 0ms preview
                         const blurCanvas = document.createElement('canvas');
                         blurCanvas.width = 20;
                         blurCanvas.height = 15;
@@ -384,10 +401,7 @@
                         blurCtx.drawImage(img, 0, 0, 20, 15);
                         const blurDataUrl = blurCanvas.toDataURL('image/jpeg', 0.4);
 
-                        resolve({
-                            base64Webp,
-                            blurDataUrl
-                        });
+                        resolve({ base64Webp, blurDataUrl });
                     };
                 };
                 reader.onerror = error => reject(error);
@@ -397,11 +411,11 @@
         async function publishAllToGitHub() {
             const token = localStorage.getItem('chai_gh_token');
             if (!token || stagedOffers.length === 0) {
-                alert('Agregue al menos una oferta a la lista.');
+                alert('Agregue al menos un elemento a la lista.');
                 return;
             }
 
-            showStatus('<i class="fa-solid fa-spinner fa-spin"></i> Leyendo ofertas actuales, convirtiendo a WebP y subiendo...', 'info');
+            showStatus('<i class="fa-solid fa-spinner fa-spin"></i> Procesando imágenes WebP y actualizando archivos en GitHub...', 'info');
 
             try {
                 const headers = {
@@ -410,94 +424,102 @@
                     'Content-Type': 'application/json'
                 };
 
-                // 1. READ EXISTING ofertas.json TO PRESERVE OLD OFFERS
-                let existingOffers = [];
-                let jsonSha = '';
+                // Group staged offers by target JSON file
+                const groups = {
+                    accesorios: stagedOffers.filter(o => o.target === 'accesorios'),
+                    ofertas: stagedOffers.filter(o => o.target === 'ofertas')
+                };
 
-                try {
-                    const jsonRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/ofertas.json`, { headers });
-                    if (jsonRes.ok) {
-                        const jsonData = await jsonRes.json();
-                        jsonSha = jsonData.sha;
-                        const decodedContent = decodeURIComponent(escape(atob(jsonData.content.replace(/\s/g, ''))));
-                        existingOffers = JSON.parse(decodedContent);
+                for (let catalogKey of ['accesorios', 'ofertas']) {
+                    const itemsInGroup = groups[catalogKey];
+                    if (itemsInGroup.length === 0) continue;
+
+                    const jsonFileName = `${catalogKey}.json`;
+                    const folderName = catalogKey;
+
+                    let existingItems = [];
+                    let jsonSha = '';
+
+                    try {
+                        const jsonRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/${jsonFileName}`, { headers });
+                        if (jsonRes.ok) {
+                            const jsonData = await jsonRes.json();
+                            jsonSha = jsonData.sha;
+                            const decodedContent = decodeURIComponent(escape(atob(jsonData.content.replace(/\s/g, ''))));
+                            existingItems = JSON.parse(decodedContent);
+                        }
+                    } catch(e) {
+                        console.warn(`Creando archivo ${jsonFileName} nuevo:`, e);
                     }
-                } catch(e) {
-                    console.warn("No se pudo leer ofertas.json previo, se creará uno nuevo:", e);
-                }
 
-                const newItemsForJson = [];
+                    const newJsonItems = [];
 
-                // 2. Process and Upload Images as WebP
-                for (let offer of stagedOffers) {
-                    const imagePaths = [];
-                    let coverBlur = '';
-                    let idx = 1;
+                    for (let offer of itemsInGroup) {
+                        const imagePaths = [];
+                        let coverBlur = '';
+                        let idx = 1;
 
-                    for (let file of offer.fileList) {
-                        const fileName = `oferta-${offer.num}-${idx}.webp`;
-                        const filePath = `ofertas/${fileName}`;
-                        
-                        const { base64Webp, blurDataUrl } = await fileToWebpAndBlur(file);
+                        for (let file of offer.fileList) {
+                            const fileName = `${catalogKey}-${offer.num}-${idx}.webp`;
+                            const filePath = `${folderName}/${fileName}`;
+                            
+                            const { base64Webp, blurDataUrl } = await fileToWebpAndBlur(file);
+                            if (idx === 1) coverBlur = blurDataUrl;
 
-                        if (idx === 1) coverBlur = blurDataUrl;
+                            let sha = '';
+                            try {
+                                const checkRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/${filePath}`, { headers });
+                                if (checkRes.ok) {
+                                    const checkData = await checkRes.json();
+                                    sha = checkData.sha;
+                                }
+                            } catch(e){}
 
-                        let sha = '';
-                        try {
-                            const checkRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/${filePath}`, { headers });
-                            if (checkRes.ok) {
-                                const checkData = await checkRes.json();
-                                sha = checkData.sha;
-                            }
-                        } catch(e){}
+                            const uploadRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/${filePath}`, {
+                                method: 'PUT',
+                                headers,
+                                body: JSON.stringify({
+                                    message: `Upload ${catalogKey} webp image: ${fileName}`,
+                                    content: base64Webp,
+                                    sha: sha || undefined
+                                })
+                            });
 
-                        const uploadRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/${filePath}`, {
-                            method: 'PUT',
-                            headers,
-                            body: JSON.stringify({
-                                message: `Upload oferta webp image: ${fileName}`,
-                                content: base64Webp,
-                                sha: sha || undefined
-                            })
+                            if (!uploadRes.ok) throw new Error(`Error al subir imagen ${fileName}`);
+
+                            imagePaths.push(filePath);
+                            idx++;
+                        }
+
+                        newJsonItems.push({
+                            num: offer.num,
+                            name: offer.name,
+                            descripcion: offer.descripcion,
+                            precioOriginal: offer.precioOriginal,
+                            precioOferta: offer.precioOferta,
+                            blurPreview: coverBlur,
+                            images: imagePaths
                         });
-
-                        if (!uploadRes.ok) throw new Error(`Error al subir imagen ${fileName}`);
-
-                        imagePaths.push(filePath);
-                        idx++;
                     }
 
-                    newItemsForJson.push({
-                        num: offer.num,
-                        name: offer.name,
-                        descripcion: offer.descripcion,
-                        precioOriginal: offer.precioOriginal,
-                        precioOferta: offer.precioOferta,
-                        blurPreview: coverBlur,
-                        images: imagePaths
+                    const combined = [...existingItems, ...newJsonItems];
+                    const updatedJsonString = JSON.stringify(combined, null, 2);
+                    const encodedJson = btoa(unescape(encodeURIComponent(updatedJsonString)));
+
+                    const updateRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/${jsonFileName}`, {
+                        method: 'PUT',
+                        headers,
+                        body: JSON.stringify({
+                            message: `Publicar nuevos elementos en ${jsonFileName}`,
+                            content: encodedJson,
+                            sha: jsonSha || undefined
+                        })
                     });
+
+                    if (!updateRes.ok) throw new Error(`Error al actualizar ${jsonFileName}`);
                 }
 
-                // 3. COMBINE EXISTING OFFERS WITH NEW OFFERS (APPEND)
-                const combinedOffers = [...existingOffers, ...newItemsForJson];
-
-                // 4. Update ofertas.json on GitHub
-                const updatedJsonString = JSON.stringify(combinedOffers, null, 2);
-                const encodedJson = btoa(unescape(encodeURIComponent(updatedJsonString)));
-
-                const updateRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/ofertas.json`, {
-                    method: 'PUT',
-                    headers,
-                    body: JSON.stringify({
-                        message: 'Agregar nuevas ofertas WebP con BlurPreview (Append)',
-                        content: encodedJson,
-                        sha: jsonSha || undefined
-                    })
-                });
-
-                if (!updateRes.ok) throw new Error('Error al actualizar ofertas.json');
-
-                showStatus('¡Éxito! Las nuevas ofertas optimizadas (WebP + Blur) se han publicado correctamente.', 'success');
+                showStatus('¡Éxito! Todos los productos y/o ofertas se han publicado correctamente.', 'success');
                 stagedOffers = [];
                 renderQueue();
 
@@ -507,7 +529,6 @@
             }
         }
 
-        // Auto-fill token if saved
         document.addEventListener('DOMContentLoaded', () => {
             const savedToken = localStorage.getItem('chai_gh_token');
             if (savedToken) {
