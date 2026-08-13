@@ -278,18 +278,11 @@
             box-shadow: 0 4px 15px rgba(245, 208, 97, 0.4) !important;
         }
 
-        #dynamic-content-area.dark-section button[type="submit"]:hover,
-        #dynamic-content-area.dark-section .contact-btn:hover {
-            background: linear-gradient(135deg, #FFF4A3 0%, #F5D061 100%) !important;
-            transform: translateY(-2px) !important;
-        }
-
-        /* HARD-FORCED 2x2 GRID FOR INICIO 4-BOX HIGHLIGHTS (2 LEFT, 2 RIGHT) */
+        /* 2x2 GRID FOR INICIO HIGHLIGHT BOXES */
         #dynamic-content-area .stats-grid, 
         #dynamic-content-area .features-grid, 
         #dynamic-content-area .boxes-grid,
-        #dynamic-content-area .grid-2x2,
-        #dynamic-content-area div[class*="grid"] {
+        #dynamic-content-area .grid-2x2 {
             display: grid !important;
             grid-template-columns: repeat(2, 1fr) !important;
             gap: 20px !important;
@@ -301,8 +294,7 @@
             #dynamic-content-area .stats-grid, 
             #dynamic-content-area .features-grid, 
             #dynamic-content-area .boxes-grid,
-            #dynamic-content-area .grid-2x2,
-            #dynamic-content-area div[class*="grid"] { 
+            #dynamic-content-area .grid-2x2 { 
                 grid-template-columns: 1fr !important; 
             } 
         }
@@ -346,6 +338,26 @@
             gap: 20px !important;
             margin-top: 20px !important;
             width: 100% !important;
+        }
+
+        .gallery-item-card {
+            width: 100%;
+            height: 260px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(45, 90, 39, 0.12);
+            border: 1.5px solid var(--gold-border);
+            background: var(--matcha-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item-card img, .gallery-item-card video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         /* --- UNIFIED COLLECTION TABS --- */
@@ -1114,11 +1126,10 @@
             if (imgElement) imgElement.src = `menu/page-${currentMenuPage}.webp`;
         }
 
-        // ROBUST & FLEXIBLE GALLERY RIBBON LOADER
+        // AUTO-FILTERING GALLERY LOADER (AUTO-PURGES 404 NOT FOUND FILES)
         async function loadGalleryRibbon() {
             let container = document.getElementById('gallery-dynamic-container');
             
-            // If container is missing in sections/galeria.html, create it on the fly!
             if (!container) {
                 const mainSection = document.querySelector('#dynamic-content-area .story-card') || document.getElementById('dynamic-content-area');
                 if (mainSection) {
@@ -1136,26 +1147,45 @@
 
                 let galleryData = await response.json();
                 
-                // Parse any JSON structure safely
-                let galleryImages = [];
+                let galleryItems = [];
                 if (Array.isArray(galleryData)) {
-                    galleryImages = galleryData;
+                    galleryItems = galleryData;
                 } else if (typeof galleryData === 'object' && galleryData !== null) {
-                    galleryImages = galleryData.images || galleryData.galeria || Object.values(galleryData);
+                    galleryItems = galleryData.images || galleryData.galeria || galleryData.items || Object.values(galleryData);
                 }
                 
                 container.innerHTML = '';
 
-                galleryImages.forEach(imgSrc => {
-                    const cleanPath = typeof imgSrc === 'string' ? imgSrc : (imgSrc.src || imgSrc.image || imgSrc.url || '');
+                galleryItems.forEach(item => {
+                    const cleanPath = typeof item === 'string' ? item : (item.src || item.image || item.url || item.file || '');
                     if (!cleanPath) return;
 
-                    const img = document.createElement('img');
-                    img.src = cleanPath;
-                    img.alt = 'Galería Chai-itto';
-                    img.style.cssText = 'width: 100%; height: 260px; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 12px rgba(45, 90, 39, 0.12); cursor: pointer; border: 1.5px solid var(--gold-border);';
-                    img.onclick = () => openOfertaModal('Galería Chai-itto', 'Salud con Té', [cleanPath], 'Galería', 0);
-                    container.appendChild(img);
+                    const isVideo = cleanPath.toLowerCase().endsWith('.mp4') || cleanPath.toLowerCase().endsWith('.webm');
+                    
+                    const card = document.createElement('div');
+                    card.className = 'gallery-item-card';
+
+                    if (isVideo) {
+                        const video = document.createElement('video');
+                        video.src = cleanPath;
+                        video.controls = true;
+                        video.playsInline = true;
+                        video.muted = true;
+                        video.preload = 'metadata';
+                        // Immediately remove non-existent 404 video files
+                        video.onerror = () => card.remove();
+                        card.appendChild(video);
+                    } else {
+                        const img = document.createElement('img');
+                        img.src = cleanPath;
+                        img.alt = 'Galería Chai-itto';
+                        // Immediately remove non-existent 404 image files
+                        img.onerror = () => card.remove();
+                        img.onclick = () => openOfertaModal('Galería Chai-itto', 'Salud con Té', [cleanPath], 'Galería', 0);
+                        card.appendChild(img);
+                    }
+
+                    container.appendChild(card);
                 });
             } catch (error) {
                 console.error("Error loading gallery:", error);
@@ -1179,7 +1209,6 @@
 
             if (headerEl) headerEl.classList.add('compact-header');
 
-            // Toggle dark styling specifically for contactanos page
             if (pageName === 'contactanos') {
                 container.classList.add('dark-section');
             } else {
