@@ -17,120 +17,125 @@
 </div>
 
 <script>
-(function() {
-    async function loadAccesoriosCatalog() {
-        const grid = document.getElementById('accesorios-grid');
-        const loader = document.getElementById('accesorios-loading');
-        const emptyState = document.getElementById('accesorios-empty');
+async function loadAccesoriosCatalog() {
+    const grid = document.getElementById('accesorios-grid');
+    const loader = document.getElementById('accesorios-loading');
+    const emptyState = document.getElementById('accesorios-empty');
 
-        if (!grid) return;
+    if (!grid) return;
 
-        try {
-            const res = await fetch('accesorios.json?v=' + new Date().getTime());
-            if (!res.ok) throw new Error('No se pudo cargar accesorios.json');
+    try {
+        const res = await fetch('accesorios.json?v=' + new Date().getTime());
+        if (!res.ok) throw new Error('No se pudo cargar accesorios.json');
 
-            const items = await res.json();
-            loader.style.display = 'none';
+        const items = await res.json();
+        if (loader) loader.style.display = 'none';
 
-            if (!items || items.length === 0) {
-                emptyState.style.display = 'block';
-                return;
-            }
+        if (!items || items.length === 0) {
+            if (emptyState) emptyState.style.display = 'block';
+            return;
+        }
 
-            grid.style.display = 'grid';
-            grid.innerHTML = '';
+        grid.style.display = 'grid';
+        grid.innerHTML = '';
 
-            items.forEach((item, index) => {
-                const card = document.createElement('div');
-                card.className = 'contact-card';
-                card.style.cssText = 'display: flex; flex-direction: column; justify-content: space-between; border: 1.5px solid rgba(229, 193, 88, 0.3); border-radius: 16px; padding: 20px; transition: transform 0.2s, box-shadow 0.2s;';
+        items.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'contact-card';
+            card.style.cssText = 'display: flex; flex-direction: column; justify-content: space-between; border: 1.5px solid rgba(229, 193, 88, 0.3); border-radius: 16px; padding: 20px;';
 
-                // Carousel image builder
-                let imageCarouselHtml = '';
-                if (item.images && item.images.length > 0) {
-                    const blurBg = item.blurPreview ? `background-image: url('${item.blurPreview}'); background-size: cover;` : 'background: #000;';
-                    const mainImg = item.images[0];
+            // Carousel image builder
+            let imageCarouselHtml = '';
+            if (item.images && item.images.length > 0) {
+                const blurBg = item.blurPreview ? `background-image: url('${item.blurPreview}'); background-size: cover;` : 'background: #000;';
+                const mainImg = item.images[0];
 
-                    imageCarouselHtml = `
-                        <div style="position: relative; width: 100%; height: 220px; border-radius: 12px; overflow: hidden; margin-bottom: 15px; ${blurBg}" id="acc-carousel-${index}">
-                            <img src="${mainImg}" alt="${item.name}" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer; transition: opacity 0.3s;" onclick="openImageModal('${mainImg}')" id="acc-img-main-${index}">
-                            ${item.images.length > 1 ? `
-                                <div style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.7); color: #FFF; font-size: 0.7em; padding: 4px 8px; border-radius: 12px; border: 1px solid var(--gold-accent);">
-                                    1 / ${item.images.length} <i class="fa-solid fa-images"></i>
-                                </div>
-                                <button onclick="prevAccImage(${index})" style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: var(--gold-accent); border: 1px solid var(--gold-accent); width: 28px; height: 28px; border-radius: 50%; cursor: pointer;"><i class="fa-solid fa-chevron-left"></i></button>
-                                <button onclick="nextAccImage(${index})" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: var(--gold-accent); border: 1px solid var(--gold-accent); width: 28px; height: 28px; border-radius: 50%; cursor: pointer;"><i class="fa-solid fa-chevron-right"></i></button>
-                            ` : ''}
-                        </div>
-                    `;
-                }
-
-                card.innerHTML = `
-                    <div>
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                            <span style="font-family: var(--font-heading); font-size: 0.7em; letter-spacing: 1.5px; color: var(--gold-accent); text-transform: uppercase;">#${item.num || (index + 1)}</span>
-                            <span style="font-size: 0.75em; color: #A3C4AF;"><i class="fa-solid fa-truck-fast"></i> Envío Nacional</span>
-                        </div>
-
-                        ${imageCarouselHtml}
-
-                        <h3 style="font-family: var(--font-title); color: #FFF; font-size: 1.3em; margin-bottom: 6px;">${item.name}</h3>
-                        <p style="color: #A3C4AF; font-size: 0.85em; line-height: 1.4; margin-bottom: 15px;">${item.descripcion || ''}</p>
-                    </div>
-
-                    <div>
-                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; background: rgba(0,0,0,0.3); padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(229,193,88,0.2);">
-                            <span style="font-size: 0.8em; color: #A3C4AF; font-family: var(--font-heading);">Precio:</span>
-                            <span style="font-size: 1.3em; font-weight: bold; color: var(--gold-accent);">$${item.precio} MXN</span>
-                        </div>
-
-                        <button onclick="openClipModal('${item.name}', ${item.precio})" class="buy-button" style="width: 100%; justify-content: center; padding: 12px; font-size: 0.85em;">
-                            <i class="fa-solid fa-bag-shopping"></i> Comprar / Ordenar
-                        </button>
+                imageCarouselHtml = `
+                    <div style="position: relative; width: 100%; height: 220px; border-radius: 12px; overflow: hidden; margin-bottom: 15px; ${blurBg}" id="acc-carousel-${index}">
+                        <img src="${mainImg}" alt="${item.name}" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer; transition: opacity 0.3s;" onclick="openImageModal('${mainImg}')" id="acc-img-main-${index}">
+                        ${item.images.length > 1 ? `
+                            <div style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.7); color: #FFF; font-size: 0.7em; padding: 4px 8px; border-radius: 12px; border: 1px solid var(--gold-accent);">
+                                <span id="acc-counter-${index}">1</span> / ${item.images.length} <i class="fa-solid fa-images"></i>
+                            </div>
+                            <button onclick="prevAccImage(${index})" style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: var(--gold-accent); border: 1px solid var(--gold-accent); width: 28px; height: 28px; border-radius: 50%; cursor: pointer;"><i class="fa-solid fa-chevron-left"></i></button>
+                            <button onclick="nextAccImage(${index})" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: var(--gold-accent); border: 1px solid var(--gold-accent); width: 28px; height: 28px; border-radius: 50%; cursor: pointer;"><i class="fa-solid fa-chevron-right"></i></button>
+                        ` : ''}
                     </div>
                 `;
+            }
 
-                // Attach image index state for multi-image items
-                if (item.images && item.images.length > 1) {
-                    card.dataset.images = JSON.stringify(item.images);
-                    card.dataset.currentIndex = 0;
-                }
+            card.innerHTML = `
+                <div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span style="font-family: var(--font-heading); font-size: 0.7em; letter-spacing: 1.5px; color: var(--gold-accent); text-transform: uppercase;">#${item.num || (index + 1)}</span>
+                        <span style="font-size: 0.75em; color: #A3C4AF;"><i class="fa-solid fa-truck-fast"></i> Envío Nacional</span>
+                    </div>
 
-                grid.appendChild(card);
-            });
+                    ${imageCarouselHtml}
 
-        } catch (err) {
-            console.warn('Catalog load error:', err);
-            loader.style.display = 'none';
-            emptyState.style.display = 'block';
-        }
+                    <h3 style="font-family: var(--font-title); color: #FFF; font-size: 1.3em; margin-bottom: 6px;">${item.name}</h3>
+                    <p style="color: #A3C4AF; font-size: 0.85em; line-height: 1.4; margin-bottom: 15px;">${item.descripcion || ''}</p>
+                </div>
+
+                <div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; background: rgba(0,0,0,0.3); padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(229,193,88,0.2);">
+                        <span style="font-size: 0.8em; color: #A3C4AF; font-family: var(--font-heading);">Precio:</span>
+                        <span style="font-size: 1.3em; font-weight: bold; color: var(--gold-accent);">$${item.precio} MXN</span>
+                    </div>
+
+                    <button onclick="openClipModal('${item.name}', ${item.precio})" class="buy-button" style="width: 100%; justify-content: center; padding: 12px; font-size: 0.85em;">
+                        <i class="fa-solid fa-bag-shopping"></i> Comprar / Ordenar
+                    </button>
+                </div>
+            `;
+
+            if (item.images && item.images.length > 1) {
+                card.dataset.images = JSON.stringify(item.images);
+                card.dataset.currentIndex = "0";
+            }
+
+            grid.appendChild(card);
+        });
+
+    } catch (err) {
+        console.warn('Accesorios load error:', err);
+        if (loader) loader.style.display = 'none';
+        if (emptyState) emptyState.style.display = 'block';
     }
+}
 
-    // Multi-image navigation
-    window.nextAccImage = function(cardIndex) {
-        const grid = document.getElementById('accesorios-grid');
-        const card = grid.children[cardIndex];
-        const images = JSON.parse(card.dataset.images);
-        let curr = parseInt(card.dataset.currentIndex);
-        curr = (curr + 1) % images.length;
-        card.dataset.currentIndex = curr;
-        
-        const img = document.getElementById(`acc-img-main-${cardIndex}`);
-        img.src = images[curr];
-    };
+function nextAccImage(cardIndex) {
+    const grid = document.getElementById('accesorios-grid');
+    const card = grid.children[cardIndex];
+    if (!card || !card.dataset.images) return;
+    
+    const images = JSON.parse(card.dataset.images);
+    let curr = parseInt(card.dataset.currentIndex || 0);
+    curr = (curr + 1) % images.length;
+    card.dataset.currentIndex = curr.toString();
+    
+    const img = document.getElementById(`acc-img-main-${cardIndex}`);
+    const counter = document.getElementById(`acc-counter-${cardIndex}`);
+    if (img) img.src = images[curr];
+    if (counter) counter.textContent = curr + 1;
+}
 
-    window.prevAccImage = function(cardIndex) {
-        const grid = document.getElementById('accesorios-grid');
-        const card = grid.children[cardIndex];
-        const images = JSON.parse(card.dataset.images);
-        let curr = parseInt(card.dataset.currentIndex);
-        curr = (curr - 1 + images.length) % images.length;
-        card.dataset.currentIndex = curr;
-        
-        const img = document.getElementById(`acc-img-main-${cardIndex}`);
-        img.src = images[curr];
-    };
+function prevAccImage(cardIndex) {
+    const grid = document.getElementById('accesorios-grid');
+    const card = grid.children[cardIndex];
+    if (!card || !card.dataset.images) return;
+    
+    const images = JSON.parse(card.dataset.images);
+    let curr = parseInt(card.dataset.currentIndex || 0);
+    curr = (curr - 1 + images.length) % images.length;
+    card.dataset.currentIndex = curr.toString();
+    
+    const img = document.getElementById(`acc-img-main-${cardIndex}`);
+    const counter = document.getElementById(`acc-counter-${cardIndex}`);
+    if (img) img.src = images[curr];
+    if (counter) counter.textContent = curr + 1;
+}
 
-    loadAccesoriosCatalog();
-})();
+// Trigger load immediately
+loadAccesoriosCatalog();
 </script>
