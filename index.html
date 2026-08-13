@@ -341,11 +341,11 @@
 
         /* GALLERY RIBBON GRID STYLING */
         #gallery-dynamic-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 18px;
-            margin-top: 20px;
-            width: 100%;
+            display: grid !important;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+            gap: 20px !important;
+            margin-top: 20px !important;
+            width: 100% !important;
         }
 
         /* --- UNIFIED COLLECTION TABS --- */
@@ -1114,10 +1114,21 @@
             if (imgElement) imgElement.src = `menu/page-${currentMenuPage}.webp`;
         }
 
-        // ROBUST GALLERY RIBBON LOADER
+        // ROBUST & FLEXIBLE GALLERY RIBBON LOADER
         async function loadGalleryRibbon() {
-            const container = document.getElementById('gallery-dynamic-container');
-            if (!container) return;
+            let container = document.getElementById('gallery-dynamic-container');
+            
+            // If container is missing in sections/galeria.html, create it on the fly!
+            if (!container) {
+                const mainSection = document.querySelector('#dynamic-content-area .story-card') || document.getElementById('dynamic-content-area');
+                if (mainSection) {
+                    container = document.createElement('div');
+                    container.id = 'gallery-dynamic-container';
+                    mainSection.appendChild(container);
+                } else {
+                    return;
+                }
+            }
 
             try {
                 const response = await fetch('galeria.json?v=' + Date.now());
@@ -1125,13 +1136,18 @@
 
                 let galleryData = await response.json();
                 
-                // Ensure data is array format
-                let galleryImages = Array.isArray(galleryData) ? galleryData : (Object.values(galleryData)[0] || []);
+                // Parse any JSON structure safely
+                let galleryImages = [];
+                if (Array.isArray(galleryData)) {
+                    galleryImages = galleryData;
+                } else if (typeof galleryData === 'object' && galleryData !== null) {
+                    galleryImages = galleryData.images || galleryData.galeria || Object.values(galleryData);
+                }
                 
                 container.innerHTML = '';
 
                 galleryImages.forEach(imgSrc => {
-                    const cleanPath = typeof imgSrc === 'string' ? imgSrc : (imgSrc.src || imgSrc.image || '');
+                    const cleanPath = typeof imgSrc === 'string' ? imgSrc : (imgSrc.src || imgSrc.image || imgSrc.url || '');
                     if (!cleanPath) return;
 
                     const img = document.createElement('img');
@@ -1188,7 +1204,7 @@
                 } else if (pageName === 'ofertas') {
                     loadOfertasGrid();
                 } else if (pageName === 'galeria') {
-                    loadGalleryRibbon();
+                    setTimeout(loadGalleryRibbon, 100);
                 } else if (pageName === 'menu') {
                     updateMenuDisplay();
                 }
