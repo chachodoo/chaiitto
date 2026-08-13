@@ -19,8 +19,8 @@
 
     <style>
         :root {
-            --emerald-dark: #030D07;
-            --emerald-card: #0E2C1D;
+            --emerald-dark: #0E2C1D;
+            --emerald-card: #123825;
             --emerald-light: #16402B;
             --gold-accent: #F5D061;
             --gold-glow: #FFF4A3;
@@ -42,7 +42,7 @@
             color: var(--text-light);
             margin: 0;
             padding: 0;
-            background-image: radial-gradient(circle at 50% 10%, #0F3522 0%, #030D07 80%);
+            background-image: radial-gradient(circle at 50% 10%, #16402B 0%, #071C12 100%);
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -107,9 +107,9 @@
         header {
             text-align: center;
             padding: 25px 15px 22px;
-            background: linear-gradient(180deg, rgba(0,0,0,0.85) 0%, rgba(3,13,7,0) 100%);
-            border-bottom: 1px solid rgba(245, 208, 97, 0.4);
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
+            background: linear-gradient(180deg, rgba(7, 28, 18, 0.95) 0%, rgba(14, 44, 29, 0) 100%);
+            border-bottom: 1px solid rgba(245, 208, 97, 0.35);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
             position: relative;
         }
         
@@ -164,20 +164,6 @@
             padding: 0 10px;
         }
 
-        .header-trust-bar {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.72em;
-            color: var(--gold-accent);
-            background: rgba(0,0,0,0.5);
-            padding: 4px 12px;
-            border-radius: 15px;
-            border: 1px solid rgba(245, 208, 97, 0.3);
-            margin-top: 8px;
-            letter-spacing: 0.5px;
-        }
-
         /* --- MAIN NAVIGATION --- */
         nav.main-nav {
             margin-top: 15px;
@@ -222,7 +208,7 @@
         }
 
         .story-card {
-            background: rgba(16, 38, 25, 0.95);
+            background: rgba(18, 56, 37, 0.95);
             border: 2px solid rgba(229, 193, 88, 0.35);
             border-radius: 20px;
             padding: clamp(20px, 4vw, 40px) clamp(15px, 4vw, 30px);
@@ -263,7 +249,7 @@
         }
 
         .tab-btn {
-            background: rgba(16, 38, 25, 0.85);
+            background: rgba(18, 56, 37, 0.85);
             border: 1.5px solid rgba(229, 193, 88, 0.5);
             color: var(--gold-accent);
             font-family: var(--font-title);
@@ -304,11 +290,11 @@
 
         /* --- HIGH-CONTRAST PRODUCT CARDS --- */
         .product-card {
-            background: linear-gradient(145deg, #0E2C1D 0%, #081C13 100%);
+            background: linear-gradient(145deg, #123825 0%, #0A2417 100%);
             border: 1.5px solid var(--gold-border);
             border-radius: 16px;
             padding: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -318,13 +304,13 @@
         .product-card:hover {
             transform: translateY(-5px);
             border-color: var(--gold-glow);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8), 0 0 20px rgba(245, 208, 97, 0.35);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 20px rgba(245, 208, 97, 0.35);
         }
 
         .product-img-box {
             width: 100%;
             height: 140px;
-            background: rgba(0, 0, 0, 0.45);
+            background: rgba(0, 0, 0, 0.35);
             border: 1px solid rgba(245, 208, 97, 0.3);
             border-radius: 10px;
             margin-bottom: 12px;
@@ -362,12 +348,12 @@
 
         .price-section {
             display: flex;
-            background: rgba(0, 0, 0, 0.55);
+            background: rgba(0, 0, 0, 0.45);
             border-radius: 10px;
             padding: 8px 10px;
             margin-bottom: 12px;
             border: 1px solid rgba(245, 208, 97, 0.4);
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.5);
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.3);
         }
 
         .price-option { text-align: center; flex: 1; }
@@ -460,7 +446,7 @@
 
         /* --- FOOTER --- */
         footer {
-            background-color: #030A05;
+            background-color: #071C12;
             text-align: center;
             padding: 30px 15px;
             border-top: 2px solid var(--gold-accent);
@@ -481,7 +467,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(16, 38, 25, 0.7);
+            background: rgba(18, 56, 37, 0.7);
             border: 1px solid rgba(229, 193, 88, 0.3);
             border-radius: 20px;
             padding: 4px 14px;
@@ -507,7 +493,7 @@
         }
 
         .oferta-card {
-            background: rgba(16, 38, 25, 0.95);
+            background: rgba(18, 56, 37, 0.95);
             border: 1.5px solid var(--gold-accent);
             border-radius: 16px;
             padding: 14px;
@@ -532,7 +518,7 @@
             height: 180px;
             border-radius: 10px;
             overflow: hidden;
-            background: rgba(0,0,0,0.4);
+            background: rgba(0,0,0,0.3);
             border: 1px solid rgba(229, 193, 88, 0.2);
         }
 
@@ -665,7 +651,7 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(16, 38, 25, 0.8);
+            background: rgba(18, 56, 37, 0.8);
             color: var(--gold-accent);
             border: 1px solid var(--gold-accent);
             width: 44px;
@@ -701,13 +687,6 @@
         </div>
         <div class="slogan-hero">Salud con Té</div>
         <div class="location-badge">San Pedro Cholula, Puebla &bull; Desde 2021</div>
-        
-        <!-- HEADER TRUST LOCK BADGE -->
-        <div>
-            <span class="header-trust-bar">
-                <i class="fa-solid fa-lock" style="color: var(--gold-accent);"></i> Compra 100% Segura &bull; Encriptación SSL de 256 bits
-            </span>
-        </div>
 
         <nav class="main-nav">
             <button class="nav-btn active" data-page="inicio" onclick="switchPage('inicio')"><i class="fa-solid fa-house"></i> Inicio</button>
