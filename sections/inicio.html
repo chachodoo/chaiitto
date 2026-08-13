@@ -1,14 +1,15 @@
 <div class="story-card">
     <h1 class="story-title">Nuestra Historia</h1>
     <div class="story-subtitle">Cinco Años Compartiendo la Cultura del Té</div>
-    <div class="story-grid">
+    <div class="story-grid" style="display: flex; flex-direction: column; gap: 25px;">
         <div class="story-text">
             <p>En el corazón histórico de <strong>San Pedro Cholula, Puebla</strong>, nació en <strong>2021</strong> una visión: reconectar a México con el bienestar ancestral a través de cada taza.</p>
-            <p>Durante los últimos <strong>5 años</strong>, nos hemos dedicado apasionadamente a servir a clientes de todo el Mundo. Creemos que la salud y el deleite van de la mano; de ahí nuestra promesa eterna: <strong style="color: var(--gold-accent);">"Salud con Té"</strong>.</p>
+            <p>Durante los últimos <strong>5 años</strong>, nos hemos dedicado apasionadamente a servir a clientes de todo el Mundo. Creemos que la salud y el deleite van de la mano; de ahí nuestra promesa eterna: <strong style="color: var(--gold-accent, #B8860B);">"Salud con Té"</strong>.</p>
             <p>Cada una de nuestras mezclas es una obra de arte diseñada para nutrir tu cuerpo, serenar tu mente y despertar tus sentidos.</p>
         </div>
 
-        <div class="story-stats">
+        <!-- 4 CARDS FORCED INTO A SINGLE ROW ON DESKTOP -->
+        <div class="story-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; width: 100%; margin-top: 15px;">
             <div class="stat-box">
                 <div class="stat-number">120+</div>
                 <div class="stat-label">Mezclas de Té y Tisanas</div>
