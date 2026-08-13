@@ -228,6 +228,64 @@
             font-size: clamp(0.85em, 2.5vw, 1em);
         }
 
+        /* ---------------------------------------------------- */
+        /* --- EXCLUSIVE DARK STYLING FOR CONTACTANOS PAGE --- */
+        /* ---------------------------------------------------- */
+        #dynamic-content-area.dark-section .story-card,
+        #dynamic-content-area.dark-section .contact-card,
+        #dynamic-content-area.dark-section .contact-container {
+            background: linear-gradient(145deg, #0B2317 0%, #04120A 100%) !important;
+            border: 2px solid var(--gold-border) !important;
+            color: #F2F8F4 !important;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        #dynamic-content-area.dark-section h1,
+        #dynamic-content-area.dark-section h2,
+        #dynamic-content-area.dark-section h3,
+        #dynamic-content-area.dark-section .story-title,
+        #dynamic-content-area.dark-section .contact-title {
+            color: #F5D061 !important;
+            text-shadow: 0 2px 12px rgba(245, 208, 97, 0.3) !important;
+        }
+
+        #dynamic-content-area.dark-section p,
+        #dynamic-content-area.dark-section label,
+        #dynamic-content-area.dark-section span,
+        #dynamic-content-area.dark-section .story-subtitle {
+            color: #D1EAD8 !important;
+        }
+
+        #dynamic-content-area.dark-section input,
+        #dynamic-content-area.dark-section textarea,
+        #dynamic-content-area.dark-section select {
+            background: rgba(0, 0, 0, 0.5) !important;
+            border: 1px solid var(--gold-border) !important;
+            color: #FFFFFF !important;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        #dynamic-content-area.dark-section input::placeholder,
+        #dynamic-content-area.dark-section textarea::placeholder {
+            color: rgba(209, 234, 216, 0.6) !important;
+        }
+
+        #dynamic-content-area.dark-section button[type="submit"],
+        #dynamic-content-area.dark-section .contact-btn {
+            background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%) !important;
+            color: #030D07 !important;
+            font-weight: 800 !important;
+            border: none !important;
+            box-shadow: 0 4px 15px rgba(245, 208, 97, 0.4) !important;
+        }
+
+        #dynamic-content-area.dark-section button[type="submit"]:hover,
+        #dynamic-content-area.dark-section .contact-btn:hover {
+            background: linear-gradient(135deg, #FFF4A3 0%, #F5D061 100%) !important;
+            transform: translateY(-2px) !important;
+        }
+
         /* 2x2 GRID FOR INICIO HIGHLIGHT BOXES (2 LEFT, 2 RIGHT) */
         .stats-grid, .features-grid, .boxes-grid {
             display: grid;
@@ -1084,6 +1142,13 @@
             if (!container) return;
 
             if (headerEl) headerEl.classList.add('compact-header');
+
+            // Toggle dark styling specifically for contactanos page
+            if (pageName === 'contactanos') {
+                container.classList.add('dark-section');
+            } else {
+                container.classList.remove('dark-section');
+            }
 
             try {
                 const response = await fetch(`sections/${pageName}.html`);
