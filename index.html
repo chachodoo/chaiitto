@@ -1,14 +1,48 @@
-         <div class="oferta-modal-viewer">
--                <button id="modal-prev-btn" class="modal-arrow prev" onclick="changeModalImage(-1)"><i class="fa-solid fa-chevron-left"></i></button>
--                <img id="modal-img" src="logo.png" alt="Zoom" decoding="async">
--                <button id="modal-next-btn" class="modal-arrow next" onclick="changeModalImage(1)"><i class="fa-solid fa-chevron-right"></i></button>
-+                <img id="modal-img" src="logo.png" alt="Zoom" decoding="async">
-             </div>
-+
-+            <!-- Moved arrows outside the viewer to prevent clipping on small screens -->
-+            <button id="modal-prev-btn" class="modal-arrow prev" aria-label="Anterior" title="Anterior" onclick="changeModalImage(-1)" tabindex="0" role="button">
-+                <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
-+            </button>
-+            <button id="modal-next-btn" class="modal-arrow next" aria-label="Siguiente" title="Siguiente" onclick="changeModalImage(1)" tabindex="0" role="button">
-+                <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
-+            </button>
+        .modal-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2000;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 2px solid var(--gold-border);
+            background: linear-gradient(135deg, rgba(45,90,39,0.95), rgba(74,124,54,0.95));
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 12px 34px rgba(0,0,0,0.32);
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+            font-size: 1.2em;
+        }
+
+        /* left/right placement (inside modal padding) */
+        .modal-arrow.prev { left: 12px; }
+        .modal-arrow.next { right: 12px; }
+
+        /* hover & focus */
+        .modal-arrow:hover,
+        .modal-arrow:focus {
+            transform: translateY(-50%) scale(1.03);
+            box-shadow: 0 18px 44px rgba(0,0,0,0.38);
+            outline: none;
+        }
+        .modal-arrow:focus {
+            box-shadow: 0 0 0 4px rgba(212,175,55,0.16), 0 18px 44px rgba(0,0,0,0.38);
+        }
+
+        /* Slightly smaller but still touch-friendly on narrow devices */
+        @media (max-width: 550px) {
+            .modal-arrow {
+                width: 48px;
+                height: 48px;
+                font-size: 1.05em;
+            }
+            .modal-arrow.prev { left: 8px; }
+            .modal-arrow.next { right: 8px; }
+        }
+
+        /* Keep viewer overflow hidden so images remain cropped */
+        .oferta-modal-viewer { overflow: hidden; border-radius: 10px; }
