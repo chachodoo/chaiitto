@@ -862,6 +862,62 @@
         header.compact-header { padding: 10px 15px; }
         header.compact-header .logo-main { width: clamp(120px, 35vw, 170px) !important; }
         header.compact-header .slogan-hero, header.compact-header .location-badge { display: none !important; }
+    
+        /* --- BULLETPROOF MOBILE MENU CONTROLS FIX --- */
+.menu-nav-bar {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    gap: 4px !important;
+    box-sizing: border-box !important;
+    margin-bottom: 12px !important;
+}
+
+.menu-control-btn {
+    background: linear-gradient(135deg, #2D5A27 0%, #4A7C36 100%) !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    border-radius: 20px !important;
+    padding: 8px 12px !important;
+    font-family: var(--font-heading) !important;
+    font-size: 0.75em !important;
+    font-weight: 700 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 5px !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    min-width: auto !important;
+    max-width: 90px !important;
+}
+
+#menu-page-indicator {
+    font-family: var(--font-heading) !important;
+    font-size: 1.05em !important;
+    font-weight: 800 !important;
+    color: var(--matcha-deep) !important;
+    text-align: center !important;
+    flex: 1 1 auto !important;
+    white-space: nowrap !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    padding: 0 4px !important;
+}
+
+@media (max-width: 480px) {
+    .menu-control-btn {
+        padding: 6px 8px !important;
+        font-size: 0.7em !important;
+        max-width: 80px !important;
+    }
+    #menu-page-indicator {
+        font-size: 0.9em !important;
+    }
+}
     </style>
 </head>
 <body>
