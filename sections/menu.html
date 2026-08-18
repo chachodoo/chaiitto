@@ -1,45 +1,45 @@
-<div class="story-card" style="padding-left: 8px !important; padding-right: 8px !important;">
-    <h1 class="story-title"><i class="fa-solid fa-book-open"></i> Menú Sucursal Cholula</h1>
-    <div class="story-subtitle">Explora nuestra carta completa de tés, café orgánico, bebidas y repostería artesanal</div>
+<div class="story-card" style="padding: 15px 10px !important; box-sizing: border-box !important;">
+    <h1 class="story-title" style="margin-bottom: 5px;"><i class="fa-solid fa-book-open"></i> Menú Sucursal</h1>
+    <div class="story-subtitle" style="margin-bottom: 15px;">Cholula, Puebla</div>
 
-    <div class="menu-viewer-container" style="background: var(--matcha-card, #E7F0E8); border: 1.5px solid var(--gold-border, #D4AF37); border-radius: 16px; padding: 10px; width: 100%; box-sizing: border-box;">
+    <div class="menu-viewer-container" style="background: var(--matcha-card, #E7F0E8); border: 1.5px solid var(--gold-border, #D4AF37); border-radius: 14px; padding: 10px 8px; width: 100%; box-sizing: border-box;">
         
-        <!-- Top Control Bar -->
-        <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 10px; width: 100%; box-sizing: border-box;">
-            <button onclick="changeMenuPage(-1)" class="buy-button" style="padding: 6px 10px; font-size: 0.8em; flex: 1; max-width: 100px; justify-content: center;">
-                <i class="fa-solid fa-chevron-left"></i> <span>Atrás</span>
+        <!-- Isolated Navigation Header -->
+        <div class="menu-nav-bar">
+            <button onclick="changeMenuPage(-1)" class="menu-control-btn">
+                <i class="fa-solid fa-chevron-left"></i> Atrás
             </button>
             
-            <div id="menu-page-indicator" style="font-family: var(--font-heading); font-size: 1em; font-weight: 800; color: var(--matcha-deep, #2D5A27); text-align: center; flex: 2; white-space: nowrap;">
+            <div id="menu-page-indicator">
                 1 de 14
             </div>
             
-            <button onclick="changeMenuPage(1)" class="buy-button" style="padding: 6px 10px; font-size: 0.8em; flex: 1; max-width: 100px; justify-content: center;">
-                <span>Sig.</span> <i class="fa-solid fa-chevron-right"></i>
+            <button onclick="changeMenuPage(1)" class="menu-control-btn">
+                Sig. <i class="fa-solid fa-chevron-right"></i>
             </button>
         </div>
 
-        <!-- Image Container with Clickable Tap Zones for Touch / Mobile -->
-        <div style="position: relative; width: 100%; background: #FFFFFF; border-radius: 12px; overflow: hidden; border: 1px solid rgba(74, 124, 54, 0.2); box-shadow: 0 4px 12px rgba(0,0,0,0.05); display: flex; justify-content: center; align-items: center;">
+        <!-- Menu Viewer Image Container -->
+        <div style="position: relative; width: 100%; background: #FFFFFF; border-radius: 10px; overflow: hidden; border: 1px solid rgba(74, 124, 54, 0.2); display: flex; justify-content: center; align-items: center; box-sizing: border-box;">
             
-            <!-- Left Screen Tap Navigation -->
-            <div onclick="changeMenuPage(-1)" style="position: absolute; top: 0; left: 0; width: 25%; height: 100%; cursor: pointer; z-index: 5; display: flex; align-items: center; justify-content: flex-start; padding-left: 8px;">
-                <span style="background: rgba(45, 90, 39, 0.7); color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9em;">
+            <!-- Left Screen Tap Area -->
+            <div onclick="changeMenuPage(-1)" style="position: absolute; top: 0; left: 0; width: 25%; height: 100%; cursor: pointer; z-index: 5; display: flex; align-items: center; justify-content: flex-start; padding-left: 6px;">
+                <span style="background: rgba(45, 90, 39, 0.7); color: #FFF; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85em;">
                     <i class="fa-solid fa-chevron-left"></i>
                 </span>
             </div>
 
-            <!-- Main Menu Page Image -->
+            <!-- Main Menu Image -->
             <img id="menu-current-image" 
                  src="menu/page-1.webp" 
                  alt="Menú Chai-Itto" 
                  decoding="async" 
                  onerror="this.src=this.src.replace('.webp', '.png')"
-                 style="width: 100%; height: auto; display: block; border-radius: 8px;">
+                 style="width: 100%; height: auto; display: block; border-radius: 6px;">
 
-            <!-- Right Screen Tap Navigation -->
-            <div onclick="changeMenuPage(1)" style="position: absolute; top: 0; right: 0; width: 25%; height: 100%; cursor: pointer; z-index: 5; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px;">
-                <span style="background: rgba(45, 90, 39, 0.7); color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9em;">
+            <!-- Right Screen Tap Area -->
+            <div onclick="changeMenuPage(1)" style="position: absolute; top: 0; right: 0; width: 25%; height: 100%; cursor: pointer; z-index: 5; display: flex; align-items: center; justify-content: flex-end; padding-right: 6px;">
+                <span style="background: rgba(45, 90, 39, 0.7); color: #FFF; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85em;">
                     <i class="fa-solid fa-chevron-right"></i>
                 </span>
             </div>
