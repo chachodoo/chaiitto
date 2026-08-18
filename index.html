@@ -166,37 +166,77 @@
             padding: 0 10px;
         }
 
-        /* --- MAIN NAVIGATION --- */
-        nav.main-nav {
-            margin-top: 18px;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 8px 12px;
-            padding: 0 10px;
-        }
+        /* --- INDUSTRY STANDARD MAIN NAVIGATION --- */
+nav.main-nav {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    padding: 0 10px;
+}
 
-        .nav-btn {
-            background: transparent;
-            border: none;
-            font-family: var(--font-title);
-            font-style: italic;
-            color: var(--matcha-deep);
-            font-size: clamp(1.1em, 3.5vw, 1.3em);
-            font-weight: 700;
-            padding: 6px 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-bottom: 2px solid transparent;
-            white-space: nowrap;
-        }
+.nav-btn {
+    background: transparent;
+    border: 1.5px solid transparent;
+    font-family: var(--font-heading);
+    font-size: clamp(0.78em, 2.2vw, 0.9em);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--matcha-deep);
+    padding: 8px 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
 
-        .nav-btn.highlight-clearance { color: #C0392B; }
+.nav-btn:hover {
+    color: var(--matcha-accent);
+    background: rgba(74, 124, 54, 0.08);
+    transform: translateY(-1px);
+}
 
-        .nav-btn:hover, .nav-btn.active {
-            color: var(--gold-accent) !important;
-            border-bottom: 2px solid var(--gold-accent);
-        }
+.nav-btn.active {
+    background: var(--matcha-deep) !important;
+    color: #FFFFFF !important;
+    border-color: var(--matcha-deep) !important;
+    box-shadow: 0 4px 12px rgba(45, 90, 39, 0.25);
+}
+
+/* Ofertas / Sale Pill Badge */
+.nav-btn.nav-ofertas {
+    color: #A93226;
+}
+
+.nav-sale-badge {
+    background: #D9534F;
+    color: #FFFFFF;
+    font-size: 0.65em;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1;
+}
+
+.nav-btn.nav-ofertas.active {
+    background: #C0392B !important;
+    color: #FFFFFF !important;
+    border-color: #C0392B !important;
+}
+
+.nav-btn.nav-ofertas.active .nav-sale-badge {
+    background: #FFFFFF;
+    color: #C0392B;
+}
 
         /* --- DYNAMIC SECTION SHELL --- */
         #dynamic-content-area {
@@ -945,14 +985,16 @@
         <div class="location-badge">San Pedro Cholula, Puebla &bull; Desde 2021</div>
 
         <nav class="main-nav">
-            <button class="nav-btn active" data-page="inicio" onclick="switchPage('inicio')"><i class="fa-solid fa-house"></i> Inicio</button>
-            <button class="nav-btn" data-page="menu" onclick="switchPage('menu')"><i class="fa-solid fa-book-open"></i> Menú</button>
-            <button class="nav-btn" data-page="productos" onclick="switchPage('productos')"><i class="fa-solid fa-mug-hot"></i> Productos</button>
-            <button class="nav-btn" data-page="accesorios" onclick="switchPage('accesorios')"><i class="fa-solid fa-boxes-packing"></i> Accesorios</button>            
-            <button class="nav-btn highlight-clearance" data-page="ofertas" onclick="switchPage('ofertas')"><i class="fa-solid fa-fire"></i> Ofertas</button>
-            <button class="nav-btn" data-page="galeria" onclick="switchPage('galeria')"><i class="fa-solid fa-photo-film"></i> Galería</button>
-            <button class="nav-btn" data-page="contactanos" onclick="switchPage('contactanos')"><i class="fa-solid fa-location-dot"></i> Contáctanos</button>
-        </nav>
+    <button class="nav-btn active" data-page="inicio" onclick="switchPage('inicio')">Inicio</button>
+    <button class="nav-btn" data-page="menu" onclick="switchPage('menu')">Menú</button>
+    <button class="nav-btn" data-page="productos" onclick="switchPage('productos')">Productos</button>
+    <button class="nav-btn" data-page="accesorios" onclick="switchPage('accesorios')">Accesorios</button>
+    <button class="nav-btn nav-ofertas" data-page="ofertas" onclick="switchPage('ofertas')">
+        Ofertas <span class="nav-sale-badge">Hot</span>
+    </button>
+    <button class="nav-btn" data-page="galeria" onclick="switchPage('galeria')">Galería</button>
+    <button class="nav-btn" data-page="contactanos" onclick="switchPage('contactanos')">Contáctanos</button>
+</nav>
     </header>
 
     <!-- MAIN CONTAINER FOR DYNAMIC SECTION INJECTION -->
