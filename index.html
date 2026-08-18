@@ -1261,11 +1261,11 @@
         }
 
         function updateMenuDisplay() {
-            const imgElement = document.getElementById('menu-current-image');
-            const indicatorElement = document.getElementById('menu-page-indicator');
-            if (indicatorElement) indicatorElement.textContent = `${currentMenuPage} de ${totalMenuPages}`;
-            if (imgElement) imgElement.src = `menu/page-${currentMenuPage}.webp`;
-        }
+    const imgElement = document.getElementById('menu-current-image');
+    const indicatorElement = document.getElementById('menu-page-indicator');
+    if (indicatorElement) indicatorElement.textContent = `${currentMenuPage} de ${totalMenuPages}`;
+    if (imgElement) imgElement.src = `menu/page-${currentMenuPage}.webp`;
+}
 
         // UNCLIPPED CONTINUOUS GALLERY RIBBON FIRST -> ACCURATE YOUTUBE EMBED BELOW (NO INSTAGRAM)
         async function loadGalleryRibbon() {
