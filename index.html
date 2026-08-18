@@ -532,15 +532,7 @@ nav.main-nav {
             font-style: italic;
         }
 
-        /* --- PRODUCT GRID (3 PER ROW ON DESKTOP) --- */
-        #dynamic-content-area .product-grid {
-            display: grid !important;
-            grid-template-columns: repeat(3, 1fr) !important;
-            gap: 20px !important;
-        }
-
-        @media (max-width: 900px) { #dynamic-content-area .product-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 14px !important; } }
-        @media (max-width: 550px) { #dynamic-content-area .product-grid { grid-template-columns: 1fr !important; } }
+        
 
         /* --- PRODUCT CARDS --- */
         .product-card {
@@ -727,12 +719,42 @@ nav.main-nav {
             color: var(--matcha-deep);
         }
 
-        /* --- OFERTAS RESPONSIVE GRID & CARDS --- */
+       /* --- UNIFIED 4-COLUMN RESPONSIVE CATALOG GRID --- */
+        .catalog-grid,
+        #dynamic-content-area .product-grid,
         #dynamic-content-area .ofertas-track {
             display: grid !important;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)) !important;
-            gap: 20px !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 18px !important;
             width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        @media (max-width: 1200px) {
+            .catalog-grid,
+            #dynamic-content-area .product-grid,
+            #dynamic-content-area .ofertas-track {
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 16px !important;
+            }
+        }
+
+        @media (max-width: 850px) {
+            .catalog-grid,
+            #dynamic-content-area .product-grid,
+            #dynamic-content-area .ofertas-track {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 14px !important;
+            }
+        }
+
+        @media (max-width: 580px) {
+            .catalog-grid,
+            #dynamic-content-area .product-grid,
+            #dynamic-content-area .ofertas-track {
+                grid-template-columns: 1fr !important;
+                gap: 16px !important;
+            }
         }
 
         .oferta-card {
