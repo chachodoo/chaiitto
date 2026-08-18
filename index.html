@@ -1207,7 +1207,7 @@
         function updateMenuDisplay() {
             const imgElement = document.getElementById('menu-current-image');
             const indicatorElement = document.getElementById('menu-page-indicator');
-            if (indicatorElement) indicatorElement.textContent = `Página ${currentMenuPage} de ${totalMenuPages}`;
+            if (indicatorElement) indicatorElement.textContent = `${currentMenuPage} de ${totalMenuPages}`;
             if (imgElement) imgElement.src = `menu/page-${currentMenuPage}.webp`;
         }
 
