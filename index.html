@@ -1683,17 +1683,19 @@ nav.main-nav {
                         <div>
                             <div class="oferta-img-container">
                                 <img src="${coverImage}" alt="${item.name || 'Accesorio'}">
-                                <div class="oferta-badge" style="background: var(--matcha-deep);">
-                                    <span class="oferta-badge-tag" style="background: var(--gold-border); color: #000;">ACCESORIO</span>
-                                    <div class="oferta-price-special">$${price}</div>
-                                </div>
                             </div>
                             <h3 class="oferta-title">${titleText}</h3>
                             <p class="oferta-subtitle">${descText}</p>
                         </div>
-                        <button class="buy-button" onclick="event.stopPropagation(); addToCart('${safeName}', ${price})">
-                            <i class="fa-solid fa-cart-plus"></i> Agregar al Carrito
-                        </button>
+                        <div>
+                            <div class="card-price-row">
+                                <span class="price-current">$${price}</span>
+                                <span class="price-currency">MXN</span>
+                            </div>
+                            <button class="buy-button" onclick="event.stopPropagation(); addToCart('${safeName}', ${price})">
+                                <i class="fa-solid fa-cart-plus"></i> Agregar al Carrito
+                            </button>
+                        </div>
                     `;
                     track.appendChild(card);
                 });
@@ -1730,19 +1732,22 @@ nav.main-nav {
                     card.innerHTML = `
                         <div>
                             <div class="oferta-img-container">
+                                <span class="oferta-mini-pill">OFERTA</span>
                                 <img src="${coverImage}" alt="${item.name || 'Oferta'}">
-                                <div class="oferta-badge">
-                                    <span class="oferta-badge-tag">OFERTA</span>
-                                    <span class="oferta-price-original">$${orig}</span>
-                                    <div class="oferta-price-special">$${spec}</div>
-                                </div>
                             </div>
                             <h3 class="oferta-title">${titleText}</h3>
                             <p class="oferta-subtitle">${descText}</p>
                         </div>
-                        <button class="buy-button" onclick="event.stopPropagation(); addToCart('${safeName}', ${spec})">
-                            <i class="fa-solid fa-cart-plus"></i> Agregar al Carrito
-                        </button>
+                        <div>
+                            <div class="card-price-row">
+                                <span class="price-strike">$${orig}</span>
+                                <span class="price-current">$${spec}</span>
+                                <span class="price-currency">MXN</span>
+                            </div>
+                            <button class="buy-button" onclick="event.stopPropagation(); addToCart('${safeName}', ${spec})">
+                                <i class="fa-solid fa-cart-plus"></i> Agregar al Carrito
+                            </button>
+                        </div>
                     `;
                     track.appendChild(card);
                 });
