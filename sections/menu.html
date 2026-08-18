@@ -3,25 +3,34 @@
     <div class="story-subtitle">Explora nuestra carta completa de tés, café orgánico, bebidas y repostería artesanal</div>
 
     <!-- Interactive Menu Viewer -->
-    <div class="menu-viewer-container" style="background: rgba(0,0,0,0.3); border: 1px solid var(--gold-accent); border-radius: 12px; padding: 15px; text-align: center;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; color: var(--gold-accent); font-weight: bold;">
-            <button onclick="changeMenuPage(-1)" class="nav-btn" style="padding: 6px 14px; border: 1px solid var(--gold-accent); border-radius: 20px;"><i class="fa-solid fa-chevron-left"></i> Anterior</button>
-            <span id="menu-page-indicator" style="font-family: var(--font-heading); font-size: 1.1em;">Página 1 de 13</span>
-            <button onclick="changeMenuPage(1)" class="nav-btn" style="padding: 6px 14px; border: 1px solid var(--gold-accent); border-radius: 20px;">Siguiente <i class="fa-solid fa-chevron-right"></i></button>
+    <div class="menu-viewer-container" style="background: var(--matcha-card, #E7F0E8); border: 1.5px solid var(--gold-border, #D4AF37); border-radius: 16px; padding: clamp(10px, 3vw, 18px); text-align: center; width: 100%; box-sizing: border-box;">
+        
+        <!-- Responsive Header Navigation Bar (Fits Perfectly on All Screens) -->
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 15px; width: 100%; box-sizing: border-box;">
+            <button onclick="changeMenuPage(-1)" class="buy-button" style="padding: 8px 12px; font-size: clamp(0.75em, 2.8vw, 0.9em); white-space: nowrap; flex-shrink: 0; min-width: 0;">
+                <i class="fa-solid fa-chevron-left"></i> <span style="display: inline-block;">Anterior</span>
+            </button>
+            
+            <span id="menu-page-indicator" style="font-family: var(--font-heading); font-size: clamp(0.8em, 3.2vw, 1.1em); font-weight: 800; color: var(--matcha-deep, #2D5A27); text-align: center; flex: 1; min-width: 0; white-space: nowrap;">
+                Página 1 de 14
+            </span>
+            
+            <button onclick="changeMenuPage(1)" class="buy-button" style="padding: 8px 12px; font-size: clamp(0.75em, 2.8vw, 0.9em); white-space: nowrap; flex-shrink: 0; min-width: 0;">
+                <span style="display: inline-block;">Siguiente</span> <i class="fa-solid fa-chevron-right"></i>
+            </button>
         </div>
 
-        <!-- Main Image Display with Instant Loader -->
-        <div style="position: relative; min-height: 400px; display: flex; align-items: center; justify-content: center; background: #111; border-radius: 8px; overflow: hidden; border: 1px solid rgba(229, 193, 88, 0.2);">
-            <div id="menu-loader" style="display: none; position: absolute; color: var(--gold-accent); font-size: 1.5em; z-index: 2;">
+        <!-- Main Image Display with Responsive Centering & Aspect Ratio Protection -->
+        <div style="position: relative; min-height: 350px; display: flex; align-items: center; justify-content: center; background: #FFFFFF; border-radius: 12px; overflow: hidden; border: 1px solid rgba(74, 124, 54, 0.2); box-shadow: 0 4px 12px rgba(0,0,0,0.05); width: 100%; box-sizing: border-box;">
+            <div id="menu-loader" style="display: none; position: absolute; color: var(--matcha-deep, #2D5A27); font-size: 1.5em; z-index: 2;">
                 <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
             </div>
             <img id="menu-current-image" 
                  src="menu/page-1.webp" 
                  alt="Página del Menú Chai-Itto" 
                  decoding="async" 
-                 style="max-width: 100%; height: auto; border-radius: 4px; transition: opacity 0.15s ease;"
-                 onload="handleMenuImageLoaded()"
-                 onerror="handleMenuImageError()">
+                 onerror="this.src=this.src.replace('.webp', '.png')"
+                 style="max-width: 100%; height: auto; display: block; border-radius: 8px; transition: opacity 0.15s ease;">
         </div>
     </div>
 </div>
