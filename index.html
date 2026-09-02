@@ -118,11 +118,10 @@
 
 /* --- PREMIUM CENTERED & DROPDOWN HEADER --- */
 header {
-  position: sticky;
-  top: 0;
+  position: relative; /* This un-sticks the header so it scrolls away normally */
   z-index: 1000;
   display: flex;
-  flex-direction: column; /* Stacks logo on top, menu on bottom for desktop */
+  flex-direction: column; 
   align-items: center;
   padding: 15px 40px 10px 40px;
   background: rgba(244, 248, 243, 0.92);
@@ -213,13 +212,22 @@ nav.main-nav {
     position: relative; /* Un-sticks on mobile so it doesn't take up screen space */
   }
   
-  .header-top-row {
-    justify-content: space-between; /* Pushes logo left, hamburger right */
+.header-top-row {
+    position: relative;
+    justify-content: center; 
+    width: 100%;
+    min-height: 60px;
   }
   
   .logo-main { height: 60px; }
   
-  .hamburger-btn { display: block; }
+  .hamburger-btn { 
+    display: block; 
+    position: absolute;
+    right: 0; 
+    top: 50%;
+    transform: translateY(-50%); 
+  }
   
   nav.main-nav {
     display: none; /* Hides menu by default */
@@ -1075,7 +1083,6 @@ header.compact-header .slogan-hero, header.compact-header .location-badge { disp
   <div class="header-top-row">
     <div class="logo-wrapper">
       <!-- Added a placeholder span just to balance the flexbox on mobile -->
-      <span style="width: 30px; display: inline-block;" class="desktop-hide"></span>
       <img src="logo.png" alt="Logo Chai-itto" class="logo-main" onclick="switchPage('inicio')">
     </div>
     <!-- Mobile Hamburger Menu Button -->
