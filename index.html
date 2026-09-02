@@ -998,9 +998,13 @@ nav.main-nav {
         .modal-arrow.next { right: 10px; }
 
         header.compact-header { padding: 10px 15px; }
-        header.compact-header .logo-main { width: clamp(120px, 35vw, 170px) !important; }
-        header.compact-header .slogan-hero, header.compact-header .location-badge { display: none !important; }
-    
+header.compact-header .logo-main { 
+  width: clamp(120px, 35vw, 170px) !important; 
+  height: auto !important; /* This stops the stretching */
+  object-fit: contain !important;
+}
+header.compact-header .slogan-hero, header.compact-header .location-badge { display: none !important; }
+
         /* --- BULLETPROOF MOBILE MENU CONTROLS FIX --- */
 .menu-nav-bar {
     display: flex !important;
@@ -1233,7 +1237,12 @@ nav.main-nav {
         let selectedFrascoPrice = 0;
         let selectedSobrePrice = 0;
         let chosenPresentation = 'Frasco';
-
+// TOGGLE MOBILE HAMBURGER MENU
+function toggleMobileMenu() {
+  const nav = document.getElementById('main-nav-menu');
+  if (nav) nav.classList.toggle('active');
+}
+        
         // GLOBAL CART SYSTEM
         let cart = JSON.parse(localStorage.getItem('chaiitto_cart')) || [];
 
@@ -1523,6 +1532,8 @@ nav.main-nav {
         }
 
         async function switchPage(pageName) {
+            const mobileNav = document.getElementById('main-nav-menu');
+            if (mobileNav) mobileNav.classList.remove('active');
             const container = document.getElementById('dynamic-content-area');
             const headerEl = document.querySelector('header');
             if (!container) return;
