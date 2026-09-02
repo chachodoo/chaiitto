@@ -90,45 +90,42 @@
         height: 56px !important;
     }
 
-    /* --- PREMIUM FLOATING VIP BADGE --- */
-#floating-vip-btn {
+    /* --- PERFECT SYMMETRY WHATSAPP BUTTON --- */
+#floating-whatsapp-btn {
   position: fixed;
   top: 22px;
-  left: 25px; 
-  background: linear-gradient(135deg, #2D5A27 0%, #4A7C36 100%);
+  left: 25px; /* Mirrors the cart perfectly on the left */
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); 
   color: #FFFFFF;
-  border-radius: 30px; 
+  border-radius: 50%; /* Perfect circle */
   border: 2px solid var(--gold-border);
+  text-decoration: none;
   cursor: pointer;
   z-index: 9999;
-  box-shadow: 0 6px 20px rgba(45, 90, 39, 0.35);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 18px;
-  gap: 8px;
-  font-family: var(--font-heading);
-  font-size: 0.85em;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  padding: 0;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
 }
 
-#floating-vip-btn:hover {
-  transform: scale(1.05) translateY(-2px);
-  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4); 
+#floating-whatsapp-btn:hover {
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5);
 }
 
-/* Mobile Placement: Bottom Left */
+/* Mobile Placement: Bottom Left to mirror the Cart */
 @media (max-width: 768px) {
-  #floating-vip-btn {
+  #floating-whatsapp-btn {
     top: auto !important;
     bottom: 22px !important;
     left: 20px !important;
-    padding: 10px 16px;
-    font-size: 0.8em;
+    width: 56px !important;
+    height: 56px !important;
   }
-}
 }
 
         #floating-cart-btn:hover {
@@ -1122,11 +1119,10 @@ header.compact-header .slogan-hero, header.compact-header .location-badge { disp
     <span id="cart-count-badge">0</span>
   </button>
 
-  <!-- PREMIUM FLOATING VIP BADGE -->
-  <button id="floating-vip-btn" onclick="switchPage('vip')" aria-label="Club VIP">
-    <i class="fa-solid fa-crown" style="color: #F5D061;"></i>
-    CLUB VIP
-  </button>
+<!-- PERFECT SYMMETRY WHATSAPP BUTTON -->
+  <a id="floating-whatsapp-btn" href="https://wa.me/522218415466" target="_blank" aria-label="Chat en WhatsApp">
+    <i class="fa-brands fa-whatsapp fa-xl"></i>
+  </a>
 
    <!-- INDUSTRY STANDARD FLOATING CART BUTTON -->
 <button id="floating-cart-btn" onclick="toggleCartDrawer()" aria-label="Ver Carrito de Compras">
