@@ -246,6 +246,28 @@ nav.main-nav {
   background: #D9534F; color: #FFFFFF; font-size: 0.65em; font-weight: 800;
   padding: 2px 6px; border-radius: 10px; text-transform: uppercase; vertical-align: super;
 }
+/* --- PREMIUM VIP NAV TAB & BADGE --- */
+.nav-btn.nav-vip {
+  color: var(--gold-accent);
+  font-weight: 800;
+}
+
+.nav-btn.nav-vip:hover {
+  color: #D4AF37 !important;
+}
+
+.nav-vip-badge {
+  background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%);
+  color: #1C3317; 
+  font-size: 0.65em;
+  padding: 3px 6px;
+  border-radius: 10px;
+  vertical-align: super;
+  margin-left: 3px;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4); 
+}
+        
+        
 
 /* --- MOBILE HAMBURGER RESPONSIVENESS --- */
 @media (max-width: 992px) {
@@ -1151,7 +1173,10 @@ header.compact-header .slogan-hero, header.compact-header .location-badge { disp
       Ofertas <span class="nav-sale-badge">Hot</span>
     </button>
     <button class="nav-btn" data-page="galeria" onclick="switchPage('galeria')">Galería</button>
-    <button class="nav-btn" data-page="contactanos" onclick="switchPage('contactanos')">Contáctanos</button>
+    <button class="nav-btn nav-vip" data-page="vip" onclick="switchPage('vip')">
+      CLUB VIP <span class="nav-vip-badge"><i class="fa-solid fa-crown"></i></span>
+    </button>
+      <button class="nav-btn" data-page="contactanos" onclick="switchPage('contactanos')">Contáctanos</button>
   </nav>
 </header>
 
