@@ -111,103 +111,133 @@
     box-shadow: 0 2px 6px rgba(0,0,0,0.25);
 }
 
-        /* --- HEADER & HERO BRANDING --- */
-        header {
-            text-align: center;
-            padding: 25px 15px 22px;
-            background: linear-gradient(180deg, #E2ECE3 0%, rgba(244, 248, 243, 0) 100%);
-            border-bottom: 2px solid rgba(212, 175, 55, 0.4);
-            position: relative;
-        }
-        
-        .logo-wrapper {
-            display: inline-block;
-            max-width: 100%;
-        }
+/* --- PREMIUM GLASSMORPHISM HEADER --- */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+  background: rgba(244, 248, 243, 0.85); /* Matcha background, slightly transparent */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+  transition: all 0.3s ease;
+}
 
-        .logo-main {
-            width: clamp(220px, 80vw, 380px);
-            height: auto;
-            display: block;
-            margin: 0 auto;
-            cursor: pointer;
-            filter: drop-shadow(0 4px 12px rgba(45, 90, 39, 0.25));
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease-in-out;
-            animation: spinOnce 1.2s cubic-bezier(0.25, 1, 0.5, 1);
-        }
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
 
-        @keyframes spinOnce {
-            0% { transform: rotate(0deg) scale(0.8); opacity: 0; }
-            100% { transform: rotate(360deg) scale(1); opacity: 1; }
-        }
+.logo-wrapper { display: flex; align-items: center; }
 
-        .logo-wrapper:hover .logo-main {
-            transform: scale(1.1) translateY(-4px) !important;
-            filter: drop-shadow(0 6px 20px rgba(74, 124, 54, 0.4)) !important;
-        }
+.logo-main {
+  width: clamp(100px, 12vw, 150px); /* Scaled down for inline layout */
+  height: auto;
+  cursor: pointer;
+  filter: drop-shadow(0 4px 12px rgba(45, 90, 39, 0.15));
+  transition: transform 0.4s ease;
+}
 
-        .slogan-hero {
-            font-family: var(--font-title);
-            color: var(--matcha-deep);
-            font-size: clamp(1.8em, 6vw, 3.2em);
-            font-weight: 900;
-            font-style: italic;
-            letter-spacing: 1.5px;
-            margin: 5px 0;
-            text-shadow: 0 2px 10px rgba(74, 124, 54, 0.15);
-        }
+.logo-main:hover { transform: scale(1.05); }
 
-        .location-badge {
-            font-family: var(--font-heading);
-            font-size: clamp(0.7em, 2.5vw, 0.85em);
-            letter-spacing: 2px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            padding: 0 10px;
-        }
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
 
-        /* --- INDUSTRY STANDARD MAIN NAVIGATION --- */
+.slogan-hero {
+  font-family: var(--font-title);
+  color: var(--matcha-deep);
+  font-size: clamp(1.2em, 2vw, 1.5em);
+  font-weight: 900;
+  font-style: italic;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.location-badge {
+  font-family: var(--font-heading);
+  font-size: 0.65em;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  padding: 0;
+  margin-top: 4px;
+}
+
+/* --- SLEEK INLINE NAVIGATION --- */
 nav.main-nav {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 6px 10px;
-    padding: 0 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 22px;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-btn {
-    background: transparent;
-    border: 1.5px solid transparent;
-    font-family: var(--font-heading);
-    font-size: clamp(0.78em, 2.2vw, 0.9em);
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--matcha-deep);
-    padding: 8px 16px;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    white-space: nowrap;
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+  background: transparent;
+  border: none;
+  font-family: var(--font-heading);
+  font-size: 0.9em;
+  font-weight: 700;
+  color: var(--matcha-deep);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 5px 0;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  position: relative;
 }
 
-.nav-btn:hover {
-    color: var(--matcha-accent);
-    background: rgba(74, 124, 54, 0.08);
-    transform: translateY(-1px);
+/* Elegant gold underline on hover and active */
+.nav-btn::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--gold-accent);
+  transition: width 0.3s ease;
 }
 
-.nav-btn.active {
-    background: var(--matcha-deep) !important;
-    color: #FFFFFF !important;
-    border-color: var(--matcha-deep) !important;
-    box-shadow: 0 4px 12px rgba(45, 90, 39, 0.25);
+.nav-btn:hover, .nav-btn.active {
+  color: var(--matcha-accent) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.nav-btn:hover::after, .nav-btn.active::after {
+  width: 100%;
+}
+
+.nav-sale-badge {
+  background: #D9534F;
+  color: #FFFFFF;
+  font-size: 0.6em;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 10px;
+  margin-left: 5px;
+  vertical-align: super;
+}
+
+/* Mobile Responsiveness for Header */
+@media (max-width: 992px) {
+  header { flex-direction: column; padding: 15px; gap: 15px; }
+  .header-left { flex-direction: column; text-align: center; }
+  .brand-text { text-align: center; }
+  nav.main-nav { justify-content: center; flex-wrap: wrap; gap: 15px; }
 }
 
 /* Ofertas / Sale Pill Badge */
@@ -1037,28 +1067,31 @@ nav.main-nav {
 </button>
 
     <header>
-        <div class="logo-wrapper">
-            <img src="logo.png" alt="Logo Chai-itto" class="logo-main" onclick="switchPage('inicio')">
-        </div>
-        <div class="slogan-hero">Salud con Té</div>
-        <div class="location-badge">San Pedro Cholula, Puebla &bull; Desde 2021</div>
+  <!-- Left Side: Logo and Text -->
+  <div class="header-left">
+    <div class="logo-wrapper">
+      <img src="logo.png" alt="Logo Chai-itto" class="logo-main" onclick="switchPage('inicio')">
+    </div>
+    <div class="brand-text">
+      <div class="slogan-hero">Salud con Té</div>
+      <div class="location-badge">San Pedro Cholula &bull; Desde 2021</div>
+    </div>
+  </div>
 
-        <nav class="main-nav">
+  <!-- Right Side: Navigation Buttons -->
+  <nav class="main-nav">
     <button class="nav-btn active" data-page="inicio" onclick="switchPage('inicio')">Inicio</button>
     <button class="nav-btn" data-page="menu" onclick="switchPage('menu')">Menú</button>
     <button class="nav-btn" data-page="productos" onclick="switchPage('productos')">Productos</button>
     <button class="nav-btn" data-page="accesorios" onclick="switchPage('accesorios')">Accesorios</button>
     <button class="nav-btn nav-ofertas" data-page="ofertas" onclick="switchPage('ofertas')">
-        Ofertas <span class="nav-sale-badge">Hot</span>
+      Ofertas <span class="nav-sale-badge">Hot</span>
     </button>
     <button class="nav-btn" data-page="galeria" onclick="switchPage('galeria')">Galería</button>
-    
-    <!-- New VIP Button -->
     <button class="nav-btn" data-page="vip" onclick="switchPage('vip')">VIP</button>
-    
     <button class="nav-btn" data-page="contactanos" onclick="switchPage('contactanos')">Contáctanos</button>
-</nav>
-    </header>
+  </nav>
+</header>
 
     <!-- MAIN CONTAINER FOR DYNAMIC SECTION INJECTION -->
     <main id="dynamic-content-area"></main>
