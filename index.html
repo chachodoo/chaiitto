@@ -79,27 +79,27 @@
     50% { box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5); }
     100% { box-shadow: 0 6px 18px rgba(74, 124, 54, 0.3); }
 }
-
 /* Mobile Thumb Zone: Places the FAB at the bottom right corner */
 @media (max-width: 768px) {
-    #floating-cart-btn {
-        top: auto !important;
-        bottom: 22px !important;
-        right: 20px !important;
-        width: 56px !important;
-        height: 56px !important;
-    }
+  #floating-cart-btn {
+    top: auto !important;
+    bottom: 22px !important;
+    right: 20px !important;
+    width: 56px !important;
+    height: 56px !important;
+  }
+} /* <--- THIS IS THE LIFESAVING BRACKET THAT WAS MISSING! */
 
-    /* --- PERFECT SYMMETRY WHATSAPP BUTTON --- */
+/* --- PERFECT SYMMETRY WHATSAPP BUTTON --- */
 #floating-whatsapp-btn {
   position: fixed;
   top: 22px;
-  left: 25px; /* Mirrors the cart perfectly on the left */
+  left: 25px;
   width: 52px;
   height: 52px;
-  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); 
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
   color: #FFFFFF;
-  border-radius: 50%; /* Perfect circle */
+  border-radius: 50%;
   border: 2px solid var(--gold-border);
   text-decoration: none;
   cursor: pointer;
@@ -127,6 +127,7 @@
     height: 56px !important;
   }
 }
+
 
         #floating-cart-btn:hover {
     transform: scale(1.1) translateY(-2px);
@@ -1113,22 +1114,18 @@ header.compact-header .slogan-hero, header.compact-header .location-badge { disp
 </head>
 <body>
 
-    <!-- INDUSTRY STANDARD FLOATING CART BUTTON -->
+    <!-- PERFECT SYMMETRY WHATSAPP BUTTON -->
+  <a id="floating-whatsapp-btn" href="https://wa.me/522218415466" target="_blank" aria-label="Chat en WhatsApp">
+    <i class="fa-brands fa-whatsapp fa-xl"></i>
+  </a>
+
+  <!-- INDUSTRY STANDARD FLOATING CART BUTTON -->
   <button id="floating-cart-btn" onclick="toggleCartDrawer()" aria-label="Ver Carrito de Compras">
     <i class="fa-solid fa-cart-shopping fa-lg"></i>
     <span id="cart-count-badge">0</span>
   </button>
 
-<!-- PERFECT SYMMETRY WHATSAPP BUTTON -->
-  <a id="floating-whatsapp-btn" href="https://wa.me/522218415466" target="_blank" aria-label="Chat en WhatsApp">
-    <i class="fa-brands fa-whatsapp fa-xl"></i>
-  </a>
-
-   <!-- INDUSTRY STANDARD FLOATING CART BUTTON -->
-<button id="floating-cart-btn" onclick="toggleCartDrawer()" aria-label="Ver Carrito de Compras">
-    <i class="fa-solid fa-cart-shopping fa-lg"></i>
-    <span id="cart-count-badge">0</span>
-</button>
+    
 
     <header>
   <!-- Top Row: VIP (Left), Logo (Center), Menu (Right) -->
