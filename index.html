@@ -237,34 +237,53 @@ nav.main-nav {
   vertical-align: super;
 }
 
-/* Mobile Responsiveness for Header */
+/* Mobile Responsiveness for Header (Strictly Side-by-Side) */
 @media (max-width: 992px) {
   header { 
-    position: relative; /* Un-sticks the header on mobile so it scrolls away normally */
-    flex-direction: column; 
-    padding: 12px 15px; 
-    gap: 10px; 
+    display: flex !important;
+    flex-direction: row !important; 
+    flex-wrap: nowrap !important; 
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 10px 15px !important; 
+    position: relative !important; 
   }
+  
   .header-left { 
-    flex-direction: column; 
-    text-align: center; 
+    flex: 0 0 auto !important; 
+    margin-right: 15px !important;
   }
+  
+  .logo-main {
+    width: 70px !important; 
+    height: auto !important;
+  }
+  
   .brand-text { 
-    display: none; /* Hides the slogan on mobile to save vertical space */
+    display: none !important; 
   }
+  
   nav.main-nav { 
-    justify-content: flex-start; 
-    flex-wrap: nowrap; /* Forces buttons into a single line */
-    overflow-x: auto; /* Allows horizontal swiping */
-    width: 100%;
-    padding-bottom: 5px;
-    -webkit-overflow-scrolling: touch; /* Smooth swiping on iOS */
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important; 
+    overflow-x: auto !important; 
+    flex: 1 1 auto !important; 
+    max-width: calc(100vw - 120px) !important; 
+    padding-bottom: 5px !important;
+    -webkit-overflow-scrolling: touch !important; 
+    margin: 0 !important;
+    gap: 0 !important;
   }
+  
   .nav-btn {
-    white-space: nowrap; /* Prevents button text from breaking to two lines */
-    font-size: 0.85em;
+    white-space: nowrap !important; 
+    font-size: 0.85em !important;
+    margin-right: 15px !important; 
   }
 }
+        
 /* Ofertas / Sale Pill Badge */
 .nav-btn.nav-ofertas {
     color: #A93226;
