@@ -47,6 +47,11 @@
             overflow-x: hidden;
         }
 
+        /* Custom 3-Column Grid for Reviews */
+.reviews-grid { grid-template-columns: repeat(3, 1fr) !important; }
+@media (max-width: 992px) { .reviews-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+@media (max-width: 768px) { .reviews-grid { grid-template-columns: 1fr !important; } }
+
         /* --- INDUSTRY STANDARD FLOATING CART BUTTON --- */
 #floating-cart-btn {
     position: fixed;
@@ -234,12 +239,32 @@ nav.main-nav {
 
 /* Mobile Responsiveness for Header */
 @media (max-width: 992px) {
-  header { flex-direction: column; padding: 15px; gap: 15px; }
-  .header-left { flex-direction: column; text-align: center; }
-  .brand-text { text-align: center; }
-  nav.main-nav { justify-content: center; flex-wrap: wrap; gap: 15px; }
+  header { 
+    position: relative; /* Un-sticks the header on mobile so it scrolls away normally */
+    flex-direction: column; 
+    padding: 12px 15px; 
+    gap: 10px; 
+  }
+  .header-left { 
+    flex-direction: column; 
+    text-align: center; 
+  }
+  .brand-text { 
+    display: none; /* Hides the slogan on mobile to save vertical space */
+  }
+  nav.main-nav { 
+    justify-content: flex-start; 
+    flex-wrap: nowrap; /* Forces buttons into a single line */
+    overflow-x: auto; /* Allows horizontal swiping */
+    width: 100%;
+    padding-bottom: 5px;
+    -webkit-overflow-scrolling: touch; /* Smooth swiping on iOS */
+  }
+  .nav-btn {
+    white-space: nowrap; /* Prevents button text from breaking to two lines */
+    font-size: 0.85em;
+  }
 }
-
 /* Ofertas / Sale Pill Badge */
 .nav-btn.nav-ofertas {
     color: #A93226;
