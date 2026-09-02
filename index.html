@@ -89,6 +89,46 @@
         width: 56px !important;
         height: 56px !important;
     }
+
+    /* --- PREMIUM FLOATING VIP BADGE --- */
+#floating-vip-btn {
+  position: fixed;
+  top: 22px;
+  left: 25px; 
+  background: linear-gradient(135deg, #2D5A27 0%, #4A7C36 100%);
+  color: #FFFFFF;
+  border-radius: 30px; 
+  border: 2px solid var(--gold-border);
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 6px 20px rgba(45, 90, 39, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  gap: 8px;
+  font-family: var(--font-heading);
+  font-size: 0.85em;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+#floating-vip-btn:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4); 
+}
+
+/* Mobile Placement: Bottom Left */
+@media (max-width: 768px) {
+  #floating-vip-btn {
+    top: auto !important;
+    bottom: 22px !important;
+    left: 20px !important;
+    padding: 10px 16px;
+    font-size: 0.8em;
+  }
+}
 }
 
         #floating-cart-btn:hover {
@@ -141,22 +181,7 @@ header {
 }
 
 /* VIP Crown Button for both PC and Mobile */
-.left-action-btn { 
-  position: absolute;
-  left: 0; 
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent;
-  border: none;
-  color: var(--gold-accent); 
-  font-size: 1.8em; 
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
 
-.left-action-btn:hover {
-  transform: translateY(-50%) scale(1.1); /* Nice hover effect on PC */
-}
 
 .logo-main {
   height: 85px; /* Larger, commanding logo for desktop */
@@ -1091,6 +1116,18 @@ header.compact-header .slogan-hero, header.compact-header .location-badge { disp
 </head>
 <body>
 
+    <!-- INDUSTRY STANDARD FLOATING CART BUTTON -->
+  <button id="floating-cart-btn" onclick="toggleCartDrawer()" aria-label="Ver Carrito de Compras">
+    <i class="fa-solid fa-cart-shopping fa-lg"></i>
+    <span id="cart-count-badge">0</span>
+  </button>
+
+  <!-- PREMIUM FLOATING VIP BADGE -->
+  <button id="floating-vip-btn" onclick="switchPage('vip')" aria-label="Club VIP">
+    <i class="fa-solid fa-crown" style="color: #F5D061;"></i>
+    CLUB VIP
+  </button>
+
    <!-- INDUSTRY STANDARD FLOATING CART BUTTON -->
 <button id="floating-cart-btn" onclick="toggleCartDrawer()" aria-label="Ver Carrito de Compras">
     <i class="fa-solid fa-cart-shopping fa-lg"></i>
@@ -1100,10 +1137,6 @@ header.compact-header .slogan-hero, header.compact-header .location-badge { disp
     <header>
   <!-- Top Row: VIP (Left), Logo (Center), Menu (Right) -->
   <div class="header-top-row">
-    <!-- VIP Crown Button (Visible everywhere) -->
-    <button class="left-action-btn" onclick="switchPage('vip')" aria-label="VIP">
-      <i class="fa-solid fa-crown"></i>
-    </button>
 
     <div class="logo-wrapper">
       <img src="logo.png" alt="Logo Chai-itto" class="logo-main" onclick="switchPage('inicio')">
