@@ -1,39 +1,134 @@
-<div class="story-card"> 
-  <h1 class="story-title">Nuestra Historia</h1> 
-  <div class="story-subtitle">Cinco Años Compartiendo la Cultura del Té</div> 
+<!-- 1. HERO BANNER: The Grand Entrance -->
+<div style="position: relative; width: 100%; border-radius: 20px; overflow: hidden; margin-bottom: 30px; background: linear-gradient(135deg, #2D5A27 0%, #4A7C36 100%); box-shadow: 0 10px 25px rgba(45, 90, 39, 0.2);">
+  <div style="padding: clamp(40px, 8vw, 80px) 20px; text-align: center; color: white;">
+    <h1 style="font-family: var(--font-title); font-size: clamp(2.5em, 6vw, 4em); margin: 0 0 15px 0; font-style: italic; text-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+      El Té Verdadero Ha Llegado
+    </h1>
+    <p style="font-family: var(--font-body); font-size: clamp(1em, 2.5vw, 1.2em); font-weight: 300; margin: 0 auto 30px auto; max-width: 600px; letter-spacing: 1px; line-height: 1.5;">
+      Dejamos atrás las bolsitas comerciales de 2 pesos. Bienvenido a la auténtica cultura de la hoja suelta en Cholula.
+    </p>
+    <button onclick="switchPage('menu')" class="buy-button" style="margin: 0 auto; padding: 14px 32px; font-size: 1.1em; background: #FFFFFF !important; color: var(--matcha-deep) !important; border: 2px solid #FFFFFF !important;">
+      Explorar el Menú <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i>
+    </button>
+  </div>
+</div>
 
-  <!-- Wrapper using block display so the text is on top and stats are on bottom --> 
-  <div style="display: flex; flex-direction: column; gap: 30px; width: 100%;"> 
+<!-- 2. THE STORY: Emotional Hook & Stats -->
+<div class="story-card" style="margin-bottom: 40px;">
+  <h2 class="story-title">Nuestra Historia</h2>
+  <div class="story-subtitle">Cómo nació Chaiitto</div>
 
-    <div style="width: 100%; text-align: center;">
-      <img src="historia.jfif" alt="La historia de cómo nació Chaiitto en Cholula" style="max-width: 100%; height: auto; border-radius: 8px;">
+  <!-- Infographic Placement -->
+  <div style="width: 100%; text-align: center; margin-bottom: 35px;">
+    <!-- Asegúrate de enlazar la imagen generada correcta aquí -->
+    <img src="ruta/a/tu/infografia-4-paneles.jpg" alt="La frustración que inspiró a Chaiitto" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.08);">
+  </div>
+
+  <!-- Re-engineered Stats -->
+  <div class="story-stats">
+    <div class="stat-box">
+      <div class="stat-number">120+</div>
+      <div class="stat-label">Mezclas de Té y Tisanas</div>
     </div>
+    <div class="stat-box">
+      <div class="stat-number">5</div>
+      <div class="stat-label">Años de Tradición (2021-2026)</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number" style="color: var(--gold-accent);"><i class="fa-solid fa-leaf"></i></div>
+      <div class="stat-label">100% Hoja Suelta Auténtica</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number" style="color: var(--gold-accent);"><i class="fa-solid fa-location-dot"></i></div>
+      <div class="stat-label">Cholula, Puebla</div>
+    </div>
+  </div>
+</div>
 
-    <div class="story-text" style="width: 100%; text-align: center; max-width: 900px; margin: 0 auto;"> 
-      <!-- Nota: Asegúrate de pegar tus párrafos completos aquí si GitHub cortó el texto original -->
-      <p>En el corazón histórico de <strong>San Pedro Cholula, Puebla</strong>, nació en <strong>2021</strong> una visión: reconectar a México con el bienestar ancestral a través de cada taza.</p> 
-      <p>Durante los últimos <strong>5 años</strong>, nos hemos dedicado apasionadamente a servir a clientes de todo el Mundo. Creemos que la salud y el deleite van de la mano; de ahí nuestro compromiso con la calidad.</p> 
-      <p>Cada una de nuestras mezclas es una obra de arte diseñada para nutrir tu cuerpo, serenar tu mente y despertar tus sentidos.</p> 
-    </div> 
+<!-- 3. PRODUCT TEASER: Bridge to Sales -->
+<div style="margin-bottom: 40px;">
+  <h2 class="collection-name-title">Para Empezar</h2>
+  <div class="story-subtitle" style="margin-top: -15px;">Nuestras mezclas más queridas</div>
 
-    <!-- 4 CARDS FORCED IN 1 ROW ACROSS FULL WIDTH --> 
-    <div class="story-stats"> 
-      <div class="stat-box"> 
-        <div class="stat-number">120+</div> 
-        <div class="stat-label">Mezclas de Té y Tisanas</div> 
-      </div> 
-      <div class="stat-box"> 
-        <div class="stat-number">5</div> 
-        <div class="stat-label">Años de Tradición (2021-2026)</div> 
-      </div> 
-      <div class="stat-box"> 
-        <div class="stat-number">Nacional</div> 
-        <div class="stat-label">e Internacional</div> 
-      </div> 
-      <div class="stat-box"> 
-        <div class="stat-number">Cholula</div> 
-        <div class="stat-label">Puebla, México</div> 
-      </div> 
-    </div> 
-  </div> 
+  <!-- Reusing your existing catalog grid CSS for a seamless look -->
+  <div class="catalog-grid">
+    <div class="product-card" onclick="switchPage('productos')">
+      <div>
+        <div class="product-img-box"><img src="frasco.webp" alt="Masala Chai Original" onerror="this.src='logo.png'"></div>
+        <h3 class="product-name">Masala Chai Original</h3>
+        <p class="product-ingredients">Té negro, canela, cardamomo, jengibre y clavo.</p>
+      </div>
+      <div>
+        <button class="request-link-btn" style="margin-bottom: 0; background: var(--matcha-bg); color: var(--matcha-deep);">Descubrir <i class="fa-solid fa-eye"></i></button>
+      </div>
+    </div>
+    
+    <div class="product-card" onclick="switchPage('productos')">
+      <div>
+        <div class="product-img-box"><img src="frasco.webp" alt="Té Verde Sencha" onerror="this.src='logo.png'"></div>
+        <h3 class="product-name">Té Verde Sencha</h3>
+        <p class="product-ingredients">Hojas de té verde japonés de alta pureza.</p>
+      </div>
+      <div>
+        <button class="request-link-btn" style="margin-bottom: 0; background: var(--matcha-bg); color: var(--matcha-deep);">Descubrir <i class="fa-solid fa-eye"></i></button>
+      </div>
+    </div>
+    
+    <div class="product-card" onclick="switchPage('productos')">
+      <div>
+        <div class="product-img-box"><img src="frasco.webp" alt="Tisana Fresa Kiwi" onerror="this.src='logo.png'"></div>
+        <h3 class="product-name">Tisana Fresa Kiwi</h3>
+        <p class="product-ingredients">Fresa, kiwi, manzana y flor de jamaica natural.</p>
+      </div>
+      <div>
+        <button class="request-link-btn" style="margin-bottom: 0; background: var(--matcha-bg); color: var(--matcha-deep);">Descubrir <i class="fa-solid fa-eye"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 4. SOCIAL PROOF: Validating the Story with Real Google Reviews -->
+<div class="story-card" style="background: var(--matcha-bg); border-color: rgba(74, 124, 54, 0.2);">
+  <div style="text-align: center; margin-bottom: 15px;">
+    <h2 class="story-title" style="font-size: clamp(1.8em, 4vw, 2.4em); margin-bottom: 5px;">Lo que dicen en Cholula</h2>
+    <div style="font-family: var(--font-body); font-size: 0.9em; color: var(--text-muted); font-weight: 600;">
+      <i class="fa-brands fa-google" style="color: #4285F4; margin-right: 5px;"></i> Reseñas reales de nuestros clientes
+    </div>
+  </div>
+  
+  <div class="story-stats" style="grid-template-columns: repeat(3, 1fr) !important; margin-top: 25px;">
+    
+    <!-- Review 1 -->
+    <div class="stat-box" style="background: #FFFFFF; align-items: flex-start; text-align: left; padding: 25px; border: 1px solid rgba(212, 175, 55, 0.3);">
+      <div style="color: #F4B400; margin-bottom: 12px; font-size: 0.9em;">
+        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+      </div>
+      <p style="font-size: 0.9em; font-style: italic; margin: 0 0 15px 0; color: var(--text-dark); line-height: 1.5;">
+        "Increíble lugar para estar relajado y llenarse de conocimiento... fue acogedor y lindo de su parte, ¡gracias! También probamos la bebida de blue matcha, todo lindo en este local."
+      </p>
+      <div style="font-weight: 800; font-size: 0.85em; color: var(--matcha-deep); font-family: var(--font-heading);">- Reseña en Google Maps</div>
+    </div>
+    
+    <!-- Review 2 -->
+    <div class="stat-box" style="background: #FFFFFF; align-items: flex-start; text-align: left; padding: 25px; border: 1px solid rgba(212, 175, 55, 0.3);">
+      <div style="color: #F4B400; margin-bottom: 12px; font-size: 0.9em;">
+        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+      </div>
+      <p style="font-size: 0.9em; font-style: italic; margin: 0 0 15px 0; color: var(--text-dark); line-height: 1.5;">
+        "Muy amable y servicial, si no conoces de tés te guía y te ayuda a elegir uno. No solo es un lugar donde ir a tomar té, es toda una experiencia de té."
+      </p>
+      <div style="font-weight: 800; font-size: 0.85em; color: var(--matcha-deep); font-family: var(--font-heading);">- Reseña en Google Maps</div>
+    </div>
+    
+    <!-- Review 3 -->
+    <div class="stat-box" style="background: #FFFFFF; align-items: flex-start; text-align: left; padding: 25px; border: 1px solid rgba(212, 175, 55, 0.3);">
+      <div style="color: #F4B400; margin-bottom: 12px; font-size: 0.9em;">
+        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+      </div>
+      <p style="font-size: 0.9em; font-style: italic; margin: 0 0 15px 0; color: var(--text-dark); line-height: 1.5;">
+        "Espectacular✨ Jamás había probado tal calidad de infusiones, la variedad es impresionante. Qué maravilla tener esta propuesta gastronómica aquí en Cholula."
+      </p>
+      <div style="font-weight: 800; font-size: 0.85em; color: var(--matcha-deep); font-family: var(--font-heading);">- Reseña en Google Maps</div>
+    </div>
+    
+  </div>
 </div>
