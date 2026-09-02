@@ -116,34 +116,33 @@
     box-shadow: 0 2px 6px rgba(0,0,0,0.25);
 }
 
-/* --- PREMIUM GLASSMORPHISM HEADER --- */
+/* --- PREMIUM CENTERED & DROPDOWN HEADER --- */
 header {
   position: sticky;
   top: 0;
   z-index: 1000;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column; /* Stacks logo on top, menu on bottom for desktop */
   align-items: center;
-  padding: 12px 40px;
-  background: rgba(244, 248, 243, 0.85); /* Matcha background, slightly transparent */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  padding: 15px 40px 10px 40px;
+  background: rgba(244, 248, 243, 0.92);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
   border-bottom: 1px solid rgba(212, 175, 55, 0.3);
   transition: all 0.3s ease;
 }
 
-.header-left {
+.header-top-row {
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 15px;
+  width: 100%;
 }
 
-.logo-wrapper { display: flex; align-items: center; }
-
 .logo-main {
-  width: clamp(100px, 12vw, 150px); /* Scaled down for inline layout */
-  height: auto;
+  height: 85px; /* Larger, commanding logo for desktop */
+  width: auto;
   cursor: pointer;
   filter: drop-shadow(0 4px 12px rgba(45, 90, 39, 0.15));
   transition: transform 0.4s ease;
@@ -151,59 +150,41 @@ header {
 
 .logo-main:hover { transform: scale(1.05); }
 
-.brand-text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: left;
-}
-
-.slogan-hero {
-  font-family: var(--font-title);
+/* Hide the hamburger button on computer screens */
+.hamburger-btn {
+  display: none;
+  background: transparent;
+  border: none;
   color: var(--matcha-deep);
-  font-size: clamp(1.2em, 2vw, 1.5em);
-  font-weight: 900;
-  font-style: italic;
-  margin: 0;
-  line-height: 1.1;
+  font-size: 1.8em;
+  cursor: pointer;
 }
 
-.location-badge {
-  font-family: var(--font-heading);
-  font-size: 0.65em;
-  letter-spacing: 1px;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  padding: 0;
-  margin-top: 4px;
-}
-
-/* --- SLEEK INLINE NAVIGATION --- */
+/* --- CENTERED DESKTOP MENU --- */
 nav.main-nav {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-  gap: 22px;
-  margin: 0;
-  padding: 0;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-top: 15px;
+  width: 100%;
 }
 
 .nav-btn {
   background: transparent;
   border: none;
   font-family: var(--font-heading);
-  font-size: 0.9em;
+  font-size: 0.95em;
   font-weight: 700;
   color: var(--matcha-deep);
   text-transform: uppercase;
   letter-spacing: 1px;
   padding: 5px 0;
   cursor: pointer;
-  transition: color 0.3s ease;
   position: relative;
 }
 
-/* Elegant gold underline on hover and active */
 .nav-btn::after {
   content: '';
   position: absolute;
@@ -215,73 +196,48 @@ nav.main-nav {
   transition: width 0.3s ease;
 }
 
-.nav-btn:hover, .nav-btn.active {
-  color: var(--matcha-accent) !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
-}
+.nav-btn:hover::after, .nav-btn.active::after { width: 100%; }
+.nav-btn:hover, .nav-btn.active { color: var(--matcha-accent) !important; }
 
-.nav-btn:hover::after, .nav-btn.active::after {
-  width: 100%;
-}
-
+/* Ofertas / Sale Pill Badge */
+.nav-btn.nav-ofertas { color: #A93226; }
 .nav-sale-badge {
-  background: #D9534F;
-  color: #FFFFFF;
-  font-size: 0.6em;
-  font-weight: 800;
-  padding: 2px 6px;
-  border-radius: 10px;
-  margin-left: 5px;
-  vertical-align: super;
+  background: #D9534F; color: #FFFFFF; font-size: 0.65em; font-weight: 800;
+  padding: 2px 6px; border-radius: 10px; text-transform: uppercase; vertical-align: super;
 }
 
-/* Mobile Responsiveness for Header (Strictly Side-by-Side) */
+/* --- MOBILE HAMBURGER RESPONSIVENESS --- */
 @media (max-width: 992px) {
-  header { 
-    display: flex !important;
-    flex-direction: row !important; 
-    flex-wrap: nowrap !important; 
-    justify-content: space-between !important;
-    align-items: center !important;
-    padding: 10px 15px !important; 
-    position: relative !important; 
+  header {
+    padding: 10px 20px;
+    position: relative; /* Un-sticks on mobile so it doesn't take up screen space */
   }
   
-  .header-left { 
-    flex: 0 0 auto !important; 
-    margin-right: 15px !important;
+  .header-top-row {
+    justify-content: space-between; /* Pushes logo left, hamburger right */
   }
   
-  .logo-main {
-    width: 70px !important; 
-    height: auto !important;
+  .logo-main { height: 60px; }
+  
+  .hamburger-btn { display: block; }
+  
+  nav.main-nav {
+    display: none; /* Hides menu by default */
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 20px;
+    padding-bottom: 10px;
   }
   
-  .brand-text { 
-    display: none !important; 
+  nav.main-nav.active {
+    display: flex; /* Shows menu when toggled */
+    animation: fadeInDown 0.3s ease forwards;
   }
-  
-  nav.main-nav { 
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    justify-content: flex-start !important; 
-    overflow-x: auto !important; 
-    flex: 1 1 auto !important; 
-    max-width: calc(100vw - 120px) !important; 
-    padding-bottom: 5px !important;
-    -webkit-overflow-scrolling: touch !important; 
-    margin: 0 !important;
-    gap: 0 !important;
-  }
-  
-  .nav-btn {
-    white-space: nowrap !important; 
-    font-size: 0.85em !important;
-    margin-right: 15px !important; 
-  }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
         
 /* Ofertas / Sale Pill Badge */
@@ -1111,19 +1067,21 @@ nav.main-nav {
 </button>
 
     <header>
-  <!-- Left Side: Logo and Text -->
-  <div class="header-left">
+  <!-- Top Row: Logo (Center on PC, Left on Mobile) & Hamburger Button -->
+  <div class="header-top-row">
     <div class="logo-wrapper">
+      <!-- Added a placeholder span just to balance the flexbox on mobile -->
+      <span style="width: 30px; display: inline-block;" class="desktop-hide"></span>
       <img src="logo.png" alt="Logo Chai-itto" class="logo-main" onclick="switchPage('inicio')">
     </div>
-    <div class="brand-text">
-      <div class="slogan-hero">Salud con Té</div>
-      <div class="location-badge">San Pedro Cholula &bull; Desde 2021</div>
-    </div>
+    <!-- Mobile Hamburger Menu Button -->
+    <button class="hamburger-btn" onclick="toggleMobileMenu()">
+      <i class="fa-solid fa-bars"></i>
+    </button>
   </div>
 
-  <!-- Right Side: Navigation Buttons -->
-  <nav class="main-nav">
+  <!-- Bottom Row: Nav Links (Centered on PC, Dropdown on Mobile) -->
+  <nav class="main-nav" id="main-nav-menu">
     <button class="nav-btn active" data-page="inicio" onclick="switchPage('inicio')">Inicio</button>
     <button class="nav-btn" data-page="menu" onclick="switchPage('menu')">Menú</button>
     <button class="nav-btn" data-page="productos" onclick="switchPage('productos')">Productos</button>
