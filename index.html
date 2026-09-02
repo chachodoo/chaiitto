@@ -137,6 +137,25 @@ header {
   justify-content: center;
   align-items: center;
   width: 100%;
+  position: relative; /* Added so the left button stays pinned */
+}
+
+/* VIP Crown Button for both PC and Mobile */
+.left-action-btn { 
+  position: absolute;
+  left: 0; 
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: var(--gold-accent); 
+  font-size: 1.8em; 
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.left-action-btn:hover {
+  transform: translateY(-50%) scale(1.1); /* Nice hover effect on PC */
 }
 
 .logo-main {
@@ -227,7 +246,7 @@ nav.main-nav {
     right: 0; 
     top: 50%;
     transform: translateY(-50%); 
-  }
+  } 
   
   nav.main-nav {
     display: none; /* Hides menu by default */
@@ -1079,19 +1098,24 @@ header.compact-header .slogan-hero, header.compact-header .location-badge { disp
 </button>
 
     <header>
-  <!-- Top Row: Logo (Center on PC, Left on Mobile) & Hamburger Button -->
+  <!-- Top Row: VIP (Left), Logo (Center), Menu (Right) -->
   <div class="header-top-row">
+    <!-- VIP Crown Button (Visible everywhere) -->
+    <button class="left-action-btn" onclick="switchPage('vip')" aria-label="VIP">
+      <i class="fa-solid fa-crown"></i>
+    </button>
+
     <div class="logo-wrapper">
-      <!-- Added a placeholder span just to balance the flexbox on mobile -->
       <img src="logo.png" alt="Logo Chai-itto" class="logo-main" onclick="switchPage('inicio')">
     </div>
-    <!-- Mobile Hamburger Menu Button -->
-    <button class="hamburger-btn" onclick="toggleMobileMenu()">
+
+    <!-- Mobile Hamburger Menu Button (Hidden on PC) -->
+    <button class="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Menú">
       <i class="fa-solid fa-bars"></i>
     </button>
   </div>
 
-  <!-- Bottom Row: Nav Links (Centered on PC, Dropdown on Mobile) -->
+  <!-- Bottom Row: Clean 7-Item Menu (No VIP text tab) -->
   <nav class="main-nav" id="main-nav-menu">
     <button class="nav-btn active" data-page="inicio" onclick="switchPage('inicio')">Inicio</button>
     <button class="nav-btn" data-page="menu" onclick="switchPage('menu')">Menú</button>
@@ -1101,7 +1125,6 @@ header.compact-header .slogan-hero, header.compact-header .location-badge { disp
       Ofertas <span class="nav-sale-badge">Hot</span>
     </button>
     <button class="nav-btn" data-page="galeria" onclick="switchPage('galeria')">Galería</button>
-    <button class="nav-btn" data-page="vip" onclick="switchPage('vip')">VIP</button>
     <button class="nav-btn" data-page="contactanos" onclick="switchPage('contactanos')">Contáctanos</button>
   </nav>
 </header>
