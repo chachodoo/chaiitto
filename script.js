@@ -359,6 +359,7 @@ function toggleMobileMenu() {
 
         function selectCollection(colName) {
             const targetNorm = normalizeStr(colName);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             
             // Highlight active tab button
             document.querySelectorAll('.tab-btn').forEach(btn => {
