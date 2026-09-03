@@ -136,3 +136,8 @@
     ]
   }
 ]
+
+<div class="shipping-box" style="background: rgba(74, 124, 54, 0.05); border: 1px solid rgba(74, 124, 54, 0.2); border-radius: 12px; padding: 15px 20px; margin-top: 30px; margin-bottom: 20px; max-width: 800px; margin-left: auto; margin-right: auto; text-align: center; font-size: 0.9em; line-height: 1.5;">
+    <i class="fa-solid fa-truck-fast fa-2x" style="color: var(--matcha-deep); margin-bottom: 10px;"></i>
+    <p style="margin: 0; color: var(--text-dark);"><strong>Política de Envíos Chai-itto:</strong> Las degustaciones en <em>taza</em> son exclusivas para nuestra sucursal física en Cholula. Para envíos a todo México, comercializamos nuestros <em>frascos</em> y <em>sobres</em>. Tu pedido se envía inmediatamente tras confirmar tu pago y llega de 3 a 5 días hábiles.</p>
+</div>
