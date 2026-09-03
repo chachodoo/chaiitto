@@ -1,21 +1,33 @@
-<div class="collections-bar">
-    <button class="tab-btn active" onclick="selectCollection('BIENESTAR')">BIENESTAR</button>
-    <button class="tab-btn" onclick="selectCollection('CHAI LOVER')">CHAI LOVER</button>
-    <button class="tab-btn" onclick="selectCollection('BLUE MAGIC')">BLUE MAGIC</button>
-    <button class="tab-btn" onclick="selectCollection('VIAJES CON TÉ')">VIAJES CON TÉ</button>
-    <button class="tab-btn" onclick="selectCollection('NOCTURNA')">NOCTURNA</button>
-    <button class="tab-btn" onclick="selectCollection('ESPECIAL')">ESPECIAL</button>
-    <button class="tab-btn" onclick="selectCollection('WOW')">WOW</button>
-    <button class="tab-btn" onclick="selectCollection('QUIERO MATCHA')">QUIERO MATCHA</button>
+<div class="dashboard-layout">
+    
+    <!-- THE 20% LEFT SIDEBAR: NUESTRAS COLECCIONES -->
+    <aside class="sidebar-menu">
+        <h2 class="collection-name-title" style="font-size: 1.4em; text-align: left; margin-top: 0; margin-bottom: 15px;">Nuestras Colecciones</h2>
+        <div class="collections-bar" style="flex-direction: column; align-items: flex-start; padding: 0;">
+            <button class="tab-btn active" onclick="selectCollection('BIENESTAR')" style="width: 100%; text-align: left;">BIENESTAR</button>
+            <button class="tab-btn" onclick="selectCollection('CHAI LOVER')" style="width: 100%; text-align: left;">CHAI LOVER</button>
+            <button class="tab-btn" onclick="selectCollection('BLUE MAGIC')" style="width: 100%; text-align: left;">BLUE MAGIC</button>
+            <button class="tab-btn" onclick="selectCollection('VIAJES CON TÉ')" style="width: 100%; text-align: left;">VIAJES CON TÉ</button>
+            <button class="tab-btn" onclick="selectCollection('NOCTURNA')" style="width: 100%; text-align: left;">NOCTURNA</button>
+            <button class="tab-btn" onclick="selectCollection('ESPECIAL')" style="width: 100%; text-align: left;">ESPECIAL</button>
+            <button class="tab-btn" onclick="selectCollection('WOW')" style="width: 100%; text-align: left;">WOW</button>
+            <button class="tab-btn" onclick="selectCollection('QUIERO MATCHA')" style="width: 100%; text-align: left;">QUIERO MATCHA</button>
+        </div>
+    </aside>
+
+    <!-- THE 80% RIGHT SIDE: PRODUCT GRID -->
+    <div class="dashboard-content">
+        <div class="collection-banner">
+            <h2 id="current-collection-title" class="collection-name-title" style="margin-top: 0; text-align: left;">BIENESTAR</h2>
+        </div>
+        
+        <div id="products-container" class="products-grid">
+            <!-- Products dynamic display -->
+        </div>
+    </div>
+    
 </div>
 
-<div class="collection-banner" style="display: none;">
-    <h2 id="current-collection-title" class="collection-name-title">BIENESTAR</h2>
-</div>
-
-<div id="products-container" class="catalog-grid">
-    <!-- Products dynamic display -->
-</div>
 <script>
     if (typeof selectCollection === 'function') {
         selectCollection('BIENESTAR');
