@@ -392,42 +392,71 @@ function toggleMobileMenu() {
             list = list || [];
 
             if (list.length > 0) {
-                list.forEach(prod => {
-                    const imageSrc = prod.image || prod.imagen || 'logo.png';
-                    const numLabel = prod.num ? `<span class="product-number">${prod.num}.</span> ` : '';
-                    
-                    // Support frasco, sobre, taza price tags from products.json
-                    const frascoPrice = Number(prod.frasco) || 0;
-                    let sobrePrice = Number(prod.sobre) || (frascoPrice > 0 ? frascoPrice - 45 : 0);
-                    const isShippable = frascoPrice > 0 || sobrePrice > 0;
+             list.forEach(prod => {
+            // 1. Force the beautiful jar image for all products
+            const imageSrc = 'assets/frasco.webp'; 
+            
+            // 2. Green bold number
+            const numLabel = prod.num ? `<span style="color: var(--matcha-deep); font-weight: 900; font-size: 1.2em; margin-right: 8px;">${prod.num}.</span>` : '';
 
-                    let frascoHtml = frascoPrice > 0 ? `<div class="price-option"><span class="price-label">Frasco</span><div class="price-value frasco">$${frascoPrice}</div><span class="badge-frasco"><i class="fa-solid fa-truck-fast"></i> Para Envío</span></div>` : '';
-                    let sobreHtml = sobrePrice > 0 ? `<div class="price-option"><span class="price-label">Sobre</span><div class="price-value frasco">$${sobrePrice}</div><span class="badge-frasco"><i class="fa-solid fa-truck-fast"></i> Para Envío</span></div>` : '';
+            // Keep your existing pricing logic
+            const frascoPrice = Number(prod.frasco) || 0;
+            let sobrePrice = Number(prod.sobre) || (frascoPrice > 0 ? frascoPrice - 45 : 0);
+            const isShippable = frascoPrice > 0 || sobrePrice > 0;
 
-                    const safeName = (prod.name || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            // 3. Premium Box Design for Frasco (Soft Green)
+            let frascoHtml = frascoPrice > 0 ? `
+                <div style="background: rgba(74, 124, 54, 0.08); border: 1px solid var(--matcha-deep); border-radius: 8px; padding: 10px; flex: 1; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                    <span style="display: block; font-size: 0.75em; font-weight: 800; color: var(--matcha-deep); letter-spacing: 1px;">FRASCO</span>
+                    <span style="font-size: 1.1em; font-weight: 900; color: var(--text-dark); display: block; margin: 4px 0;">$${frascoPrice}</span>
+                    <span style="display: block; font-size: 0.7em; color: var(--matcha-deep);"><i class="fa-solid fa-truck-fast"></i> Para Envío</span>
+                </div>` : '';
+                
+            // 4. Premium Box Design for Sobre (Crisp White)
+            let sobreHtml = sobrePrice > 0 ? `
+                <div style="background: #ffffff; border: 1px solid #e0dcd3; border-radius: 8px; padding: 10px; flex: 1; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                    <span style="display: block; font-size: 0.75em; font-weight: 800; color: #8c7b65; letter-spacing: 1px;">SOBRE</span>
+                    <span style="font-size: 1.1em; font-weight: 900; color: var(--text-dark); display: block; margin: 4px 0;">$${sobrePrice}</span>
+                    <span style="display: block; font-size: 0.7em; color: #8c7b65;"><i class="fa-solid fa-truck-fast"></i> Para Envío</span>
+                </div>` : '';
 
-                    let buttonHtml = isShippable ? `
-                        <button onclick="handleProductSelect('${safeName}', ${frascoPrice}, ${sobrePrice})" class="buy-button">
-                            <i class="fa-solid fa-cart-plus"></i> Agregar al Carrito
-                        </button>` : `
-                        <button onclick="switchPage('menu')" class="buy-button" style="background: rgba(45, 90, 39, 0.9); border: 1px solid var(--gold-border); color: #FFFFFF;">
-                            <i class="fa-solid fa-book-open"></i> Ver en Menú
-                        </button>`;
+            const safeName = (prod.name || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
 
-                    const card = document.createElement('div');
-                    card.className = 'product-card';
-                    card.innerHTML = `
-                        <div>
-                            <div class="product-img-box"><img src="${imageSrc}" alt="${prod.name || ''}" onerror="this.src='logo.png'"></div>
-                            <h3 class="product-name">${numLabel}${prod.name || ''}</h3>
-                            <p class="product-ingredients">${prod.ingredients || ''}</p>
-                        </div>
-                        <div>
-                            <div class="price-section" style="display: flex; justify-content: space-around;">${frascoHtml}${sobreHtml}</div>
-                            ${buttonHtml}
-                        </div>`;
-                    container.appendChild(card);
-                });
+            let buttonHtml = isShippable ? `
+                <button onclick="handleProductSelect('${safeName}', ${frascoPrice}, ${sobrePrice})" style="width: 100%; padding: 12px; background: var(--matcha-deep); color: #fff; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 15px; transition: opacity 0.2s;">
+                    <i class="fa-solid fa-cart-shopping"></i> Agregar al Carrito
+                </button>` : `
+                <button onclick="switchPage('menu')" style="width: 100%; padding: 12px; background: rgba(45, 90, 39, 0.9); color: #fff; border: 1px solid var(--gold-border); border-radius: 25px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 15px; transition: opacity 0.2s;">
+                    <i class="fa-solid fa-book-open"></i> Ver en Menú
+                </button>`;
+
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            // Apply the clean layout to the card
+            card.style.cssText = 'background: #fff; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; height: 100%; border: 1px solid #f0f0f0; transition: transform 0.2s ease;';
+            
+            // Add slight hover float effect
+            card.onmouseover = function() { this.style.transform = 'translateY(-5px)'; };
+            card.onmouseout = function() { this.style.transform = 'translateY(0)'; };
+
+            card.innerHTML = `
+                <div>
+                    <img src="${imageSrc}" alt="${prod.name || ''}" style="width: 100%; max-width: 180px; height: auto; object-fit: contain; margin: 0 auto 15px auto; display: block; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));">
+                    <h3 style="font-size: 1.1em; margin-bottom: 10px; color: var(--text-dark); display: flex; align-items: center; justify-content: center; text-transform: uppercase;">
+                        ${numLabel} ${prod.name || ''}
+                    </h3>
+                    <p style="font-size: 0.85em; color: #666; margin-bottom: 20px; line-height: 1.4; min-height: 40px;">${prod.ingredients || ''}</p>
+                </div>
+                <div>
+                    <div style="display: flex; gap: 10px; justify-content: center; width: 100%;">
+                        ${frascoHtml}
+                        ${sobreHtml}
+                    </div>
+                    ${buttonHtml}
+                </div>`;
+                
+            container.appendChild(card);
+        });   
             } else {
                 container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px; color: var(--text-muted);">Próximamente agregando productos a <strong>${colName}</strong>...</div>`;
             }
