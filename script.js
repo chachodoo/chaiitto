@@ -656,17 +656,22 @@ function toggleMobileMenu() {
 
         window.addEventListener('hashchange', handleHashNavigation);
 
-// --- AUTO-SCROLL TO MENU CATEGORY ---
+// --- SMART AUTO-SCROLL TO MENU CATEGORY ---
 function goToMenuCategory(categoryId) {
-  // 1. Open the Menu page first
+  // 1. Tell the website to open the menu
   switchPage('menu');
   
-  // 2. Wait a split second for the page to load, then scroll down
-  setTimeout(() => {
+  // 2. Keep checking every 100 milliseconds until the menu finishes loading
+  let attempts = 0;
+  let scrollInterval = setInterval(() => {
+    attempts++;
     const categorySection = document.getElementById(categoryId);
+    
+    // If it finds the section, scroll to it and stop checking!
     if (categorySection) {
-      // Adjusts for your header so the title doesn't get hidden under it
-      const headerOffset = 120; 
+      clearInterval(scrollInterval); // Stop checking
+      
+      const headerOffset = 120; // Leaves room so your top header doesn't cover the title
       const elementPosition = categorySection.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
       
@@ -674,8 +679,12 @@ function goToMenuCategory(categoryId) {
         top: offsetPosition,
         behavior: "smooth"
       });
-    } else {
-      console.log("Could not find category ID: " + categoryId);
     }
-  }, 150); // 150 milliseconds delay
+    
+    // If it takes more than 2 seconds (20 attempts), stop trying so it doesn't loop forever
+    if (attempts > 20) {
+      clearInterval(scrollInterval);
+      console.log("Could not find the ID: " + categoryId + " on the menu page.");
+    }
+  }, 100);
 }
