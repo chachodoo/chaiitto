@@ -656,35 +656,32 @@ function toggleMobileMenu() {
 
         window.addEventListener('hashchange', handleHashNavigation);
 
-// --- SMART AUTO-SCROLL TO MENU CATEGORY ---
-function goToMenuCategory(categoryId) {
-  // 1. Tell the website to open the menu
+// --- JUMP TO SPECIFIC MENU PAGE ---
+function jumpToMenuCollection(pageNum) {
+  // 1. Open the Menu section
   switchPage('menu');
   
-  // 2. Keep checking every 100 milliseconds until the menu finishes loading
-  let attempts = 0;
-  let scrollInterval = setInterval(() => {
-    attempts++;
-    const categorySection = document.getElementById(categoryId);
-    
-    // If it finds the section, scroll to it and stop checking!
-    if (categorySection) {
-      clearInterval(scrollInterval); // Stop checking
-      
-      const headerOffset = 120; // Leaves room so your top header doesn't cover the title
-      const elementPosition = categorySection.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
+  // 2. Wait a split second for the page to load, then flip to the right image
+  setTimeout(() => {
+    // Update any global page tracking variable if you have one
+    if (typeof currentMenuPage !== 'undefined') {
+      currentMenuPage = pageNum;
     }
     
-    // If it takes more than 2 seconds (20 attempts), stop trying so it doesn't loop forever
-    if (attempts > 20) {
-      clearInterval(scrollInterval);
-      console.log("Could not find the ID: " + categoryId + " on the menu page.");
+    // Change the image to the correct page
+    const menuImg = document.getElementById('menu-current-image');
+    if (menuImg) {
+      menuImg.src = 'menu/page-' + pageNum + '.webp';
     }
-  }, 100);
+    
+    // Update the "1 / 14" text counter at the bottom
+    const indicator = document.getElementById('menu-page-indicator');
+    if (indicator) {
+      indicator.innerText = pageNum + ' / 14';
+    }
+    
+    // Scroll smoothly to the top of the menu so they can see the image
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    
+  }, 150);
 }
