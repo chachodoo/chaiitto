@@ -170,6 +170,51 @@ header {
   transition: all 0.3s ease;
 }
 
+ /* --- HEADER COMPASS LAYOUT (Up, Down, Left, Right) --- */
+.header-square-layout {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr; 
+  grid-template-rows: auto auto auto;  
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+  margin: 15px auto;
+  text-align: center;
+}
+
+.stat-up      { grid-column: 2; grid-row: 1; margin-bottom: 15px; }
+.stat-left    { grid-column: 1; grid-row: 2; justify-self: end; padding-right: 25px; }
+.logo-wrapper { grid-column: 2; grid-row: 2; }
+.stat-right   { grid-column: 3; grid-row: 2; justify-self: start; padding-left: 25px; }
+.stat-down    { grid-column: 2; grid-row: 3; margin-top: 15px; }
+
+.header-stat {
+  color: var(--gold-accent);
+  font-family: var(--font-heading);
+  font-size: 0.95em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.header-stat i {
+  color: #2D5A27; 
+  margin-right: 5px;
+}
+
+@media (max-width: 768px) {
+  .header-square-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 10px;
+  }
+  .stat-up      { grid-column: 1; grid-row: 1; margin: 0; }
+  .logo-wrapper { grid-column: 1; grid-row: 2; }
+  .stat-left    { grid-column: 1; grid-row: 3; justify-self: center; padding: 0; }
+  .stat-right   { grid-column: 1; grid-row: 4; justify-self: center; padding: 0; }
+  .stat-down    { grid-column: 1; grid-row: 5; margin: 0; }
+}       
+        
+
 .header-top-row {
   display: flex;
   justify-content: center;
@@ -1151,11 +1196,24 @@ header.compact-header .slogan-hero, header.compact-header .location-badge { disp
 
     <header>
   <!-- Top Row: VIP (Left), Logo (Center), Menu (Right) -->
-  <div class="header-top-row">
-
+  <div class="header-square-layout">
+    <!-- UP -->
+    <div class="header-stat stat-up"><strong>120+</strong> Mezclas de Té</div>
+    
+    <!-- LEFT -->
+    <div class="header-stat stat-left"><strong>5</strong> Años (2021-2026)</div>
+    
+    <!-- CENTER LOGO -->
     <div class="logo-wrapper">
       <img src="logo.png" alt="Logo Chai-itto" class="logo-main" onclick="switchPage('inicio')">
     </div>
+    
+    <!-- RIGHT -->
+    <div class="header-stat stat-right"><i class="fa-solid fa-leaf"></i> 100% Hoja Suelta</div>
+    
+    <!-- DOWN -->
+    <div class="header-stat stat-down"><i class="fa-solid fa-location-dot"></i> Cholula, Puebla</div>
+  </div>
 
     <!-- Mobile Hamburger Menu Button (Hidden on PC) -->
     <button class="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Menú">
