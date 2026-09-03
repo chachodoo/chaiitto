@@ -663,11 +663,6 @@ function jumpToMenuCollection(pageNum) {
   
   // 2. Wait a split second for the page to load, then flip to the right image
   setTimeout(() => {
-    // Update any global page tracking variable if you have one
-    if (typeof currentMenuPage !== 'undefined') {
-      currentMenuPage = pageNum;
-    }
-    
     // Change the image to the correct page
     const menuImg = document.getElementById('menu-current-image');
     if (menuImg) {
