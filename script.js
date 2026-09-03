@@ -401,7 +401,7 @@ function toggleMobileMenu() {
             const isShippable = frascoPrice > 0 || sobrePrice > 0;
             const safeName = (prod.name || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
 
-            // 1-CLICK BUTTON: FRASCO (Soft Green)
+            // 1-CLICK BUTTON: FRASCO (Soft Green Background, Green Border, Green Text)
             let frascoHtml = frascoPrice > 0 ? `
                 <button onclick="addToCart('${safeName}', ${frascoPrice}, 'Frasco')" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 4px 10px rgba(74, 124, 54, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';" style="background: rgba(74, 124, 54, 0.08); border: 1px solid var(--matcha-deep); border-radius: 8px; padding: 12px 5px; flex: 1; text-align: center; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;">
                     <span style="font-size: 0.75em; font-weight: 800; color: var(--matcha-deep); letter-spacing: 1px;">FRASCO</span>
@@ -409,12 +409,12 @@ function toggleMobileMenu() {
                     <span style="font-size: 0.85em; color: var(--matcha-deep); font-weight: bold;"><i class="fa-solid fa-cart-plus"></i> Añadir</span>
                 </button>` : '';
                 
-            // 1-CLICK BUTTON: SOBRE (Sleek Silver)
+            // 1-CLICK BUTTON: SOBRE (Silver Background, but EXACTLY matches Frasco Border & Text)
             let sobreHtml = sobrePrice > 0 ? `
-                <button onclick="addToCart('${safeName}', ${sobrePrice}, 'Sobre')" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 4px 10px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';" style="background: linear-gradient(145deg, #ffffff, #e5e7eb); border: 1px solid #d1d5db; border-radius: 8px; padding: 12px 5px; flex: 1; text-align: center; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;">
-                    <span style="font-size: 0.75em; font-weight: 800; color: #6b7280; letter-spacing: 1px;">SOBRE</span>
+                <button onclick="addToCart('${safeName}', ${sobrePrice}, 'Sobre')" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 4px 10px rgba(74, 124, 54, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';" style="background: linear-gradient(145deg, #ffffff, #e5e7eb); border: 1px solid var(--matcha-deep); border-radius: 8px; padding: 12px 5px; flex: 1; text-align: center; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;">
+                    <span style="font-size: 0.75em; font-weight: 800; color: var(--matcha-deep); letter-spacing: 1px;">SOBRE</span>
                     <span style="font-size: 1.15em; font-weight: 900; color: var(--text-dark); margin: 2px 0;">$${sobrePrice}</span>
-                    <span style="font-size: 0.85em; color: #6b7280; font-weight: bold;"><i class="fa-solid fa-cart-plus"></i> Añadir</span>
+                    <span style="font-size: 0.85em; color: var(--matcha-deep); font-weight: bold;"><i class="fa-solid fa-cart-plus"></i> Añadir</span>
                 </button>` : '';
 
             // FALLBACK: If it's not shippable, just show the menu button
