@@ -8,18 +8,22 @@
             <i class="fa-solid fa-chevron-right" onclick="changeMenuPage(1)" style="cursor: pointer; padding: 4px; font-size: 1.1em;"></i>
         </div>
 
-        <!-- Left Tap Zone -->
-        <div onclick="changeMenuPage(-1)" style="position: absolute; top: 0; left: 0; width: 35%; height: 100%; cursor: pointer; z-index: 5;"></div>
-
-        <!-- Main Menu Image -->
-        <img id="menu-current-image" 
-             src="menu/page-1.webp" 
-             alt="Menú Chai-Itto" 
-             decoding="async" 
-             onerror="this.src=this.src.replace('.webp', '.png')"
-             style="width: 100%; height: auto; display: block; border-radius: 8px;">
-
-        <!-- Right Tap Zone -->
-        <div onclick="changeMenuPage(1)" style="position: absolute; top: 0; right: 0; width: 35%; height: 100%; cursor: pointer; z-index: 5;"></div>
+<!-- Left Tap Zone (With Enterprise UI Arrow) -->
+    <div onclick="changeMenuPage(-1)" style="position: absolute; top: 0; left: 0; width: 35%; height: 100%; cursor: pointer; z-index: 5; display: flex; align-items: center; justify-content: flex-start; padding-left: 4%;">
+      <div style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(4px); color: #1C3317; border-radius: 50%; width: 48px; height: 48px; font-size: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.6); transition: all 0.2s ease;">
+        <i class="fa-solid fa-chevron-left"></i>
+      </div>
     </div>
+
+    <!-- Main Menu Image -->
+    <img id="menu-current-image" src="menu/page-1.webp" alt="Menú Chai-Itto" decoding="async" onerror="this.src=this.src.replace('.webp', '.png')" style="width: 100%; height: auto; display: block; border-radius: 8px;">
+
+    <!-- Right Tap Zone (With Enterprise UI Arrow) -->
+    <div onclick="changeMenuPage(1)" style="position: absolute; top: 0; right: 0; width: 35%; height: 100%; cursor: pointer; z-index: 5; display: flex; align-items: center; justify-content: flex-end; padding-right: 4%;">
+      <div style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(4px); color: #1C3317; border-radius: 50%; width: 48px; height: 48px; font-size: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.6); transition: all 0.2s ease;">
+        <i class="fa-solid fa-chevron-right"></i>
+      </div>
+    </div>
+
+  </div>
 </div>
