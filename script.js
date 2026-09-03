@@ -655,3 +655,27 @@ function toggleMobileMenu() {
         });
 
         window.addEventListener('hashchange', handleHashNavigation);
+
+// --- AUTO-SCROLL TO MENU CATEGORY ---
+function goToMenuCategory(categoryId) {
+  // 1. Open the Menu page first
+  switchPage('menu');
+  
+  // 2. Wait a split second for the page to load, then scroll down
+  setTimeout(() => {
+    const categorySection = document.getElementById(categoryId);
+    if (categorySection) {
+      // Adjusts for your header so the title doesn't get hidden under it
+      const headerOffset = 120; 
+      const elementPosition = categorySection.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    } else {
+      console.log("Could not find category ID: " + categoryId);
+    }
+  }, 150); // 150 milliseconds delay
+}
