@@ -47,11 +47,20 @@
             overflow-x: hidden;
         }
 
-        /* Custom 3-Column Grid for Reviews */
-.reviews-grid { grid-template-columns: repeat(3, 1fr) !important; }
-@media (max-width: 992px) { .reviews-grid { grid-template-columns: repeat(2, 1fr) !important; } }
-@media (max-width: 768px) { .reviews-grid { grid-template-columns: 1fr !important; } }
-
+/* Custom 3-Column Grid for Reviews */
+.reviews-grid {
+  display: grid !important;
+  width: 100% !important;
+  gap: 24px !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  align-items: stretch !important;
+}
+@media (max-width: 992px) {
+  .reviews-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 768px) {
+  .reviews-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
+}
         /* --- INDUSTRY STANDARD FLOATING CART BUTTON --- */
 #floating-cart-btn {
     position: fixed;
