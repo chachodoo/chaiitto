@@ -393,51 +393,43 @@ function toggleMobileMenu() {
 
             if (list.length > 0) {
              list.forEach(prod => {
-            // 1. Fix image path (removed 'assets/') and added fallback
             const imageSrc = 'frasco.webp'; 
-            
-            // 2. Green bold number
             const numLabel = prod.num ? `<span style="color: var(--matcha-deep); font-weight: 900; font-size: 1.2em; margin-right: 8px;">${prod.num}.</span>` : '';
 
-            // Keep your existing pricing logic
             const frascoPrice = Number(prod.frasco) || 0;
             let sobrePrice = Number(prod.sobre) || (frascoPrice > 0 ? frascoPrice - 45 : 0);
             const isShippable = frascoPrice > 0 || sobrePrice > 0;
-
-            // 3. Premium Box Design for Frasco WITH HOVER FLOAT
-            let frascoHtml = frascoPrice > 0 ? `
-                <div onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)';" style="background: rgba(74, 124, 54, 0.08); border: 1px solid var(--matcha-deep); border-radius: 8px; padding: 10px; flex: 1; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); transition: all 0.2s ease; cursor: default;">
-                    <span style="display: block; font-size: 0.75em; font-weight: 800; color: var(--matcha-deep); letter-spacing: 1px;">FRASCO</span>
-                    <span style="font-size: 1.1em; font-weight: 900; color: var(--text-dark); display: block; margin: 4px 0;">$${frascoPrice}</span>
-                    <span style="display: block; font-size: 0.7em; color: var(--matcha-deep);"><i class="fa-solid fa-truck-fast"></i> Para Envío</span>
-                </div>` : '';
-                
-            // 4. Premium Box Design for Sobre WITH HOVER FLOAT
-            let sobreHtml = sobrePrice > 0 ? `
-                <div onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)';" style="background: #ffffff; border: 1px solid #e0dcd3; border-radius: 8px; padding: 10px; flex: 1; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); transition: all 0.2s ease; cursor: default;">
-                    <span style="display: block; font-size: 0.75em; font-weight: 800; color: #8c7b65; letter-spacing: 1px;">SOBRE</span>
-                    <span style="font-size: 1.1em; font-weight: 900; color: var(--text-dark); display: block; margin: 4px 0;">$${sobrePrice}</span>
-                    <span style="display: block; font-size: 0.7em; color: #8c7b65;"><i class="fa-solid fa-truck-fast"></i> Para Envío</span>
-                </div>` : '';
-
             const safeName = (prod.name || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
 
-            let buttonHtml = isShippable ? `
-                <button onclick="handleProductSelect('${safeName}', ${frascoPrice}, ${sobrePrice})" style="width: 100%; padding: 12px; background: var(--matcha-deep); color: #fff; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 15px; transition: opacity 0.2s;">
-                    <i class="fa-solid fa-cart-shopping"></i> Agregar al Carrito
-                </button>` : `
-                <button onclick="switchPage('menu')" style="width: 100%; padding: 12px; background: rgba(45, 90, 39, 0.9); color: #fff; border: 1px solid var(--gold-border); border-radius: 25px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 15px; transition: opacity 0.2s;">
+            // 1-CLICK BUTTON: FRASCO (Soft Green)
+            let frascoHtml = frascoPrice > 0 ? `
+                <button onclick="addToCart('${safeName}', ${frascoPrice}, 'Frasco')" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 4px 10px rgba(74, 124, 54, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';" style="background: rgba(74, 124, 54, 0.08); border: 1px solid var(--matcha-deep); border-radius: 8px; padding: 12px 5px; flex: 1; text-align: center; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;">
+                    <span style="font-size: 0.75em; font-weight: 800; color: var(--matcha-deep); letter-spacing: 1px;">FRASCO</span>
+                    <span style="font-size: 1.15em; font-weight: 900; color: var(--text-dark); margin: 2px 0;">$${frascoPrice}</span>
+                    <span style="font-size: 0.85em; color: var(--matcha-deep); font-weight: bold;"><i class="fa-solid fa-cart-plus"></i> Añadir</span>
+                </button>` : '';
+                
+            // 1-CLICK BUTTON: SOBRE (Sleek Silver)
+            let sobreHtml = sobrePrice > 0 ? `
+                <button onclick="addToCart('${safeName}', ${sobrePrice}, 'Sobre')" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 4px 10px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';" style="background: linear-gradient(145deg, #ffffff, #e5e7eb); border: 1px solid #d1d5db; border-radius: 8px; padding: 12px 5px; flex: 1; text-align: center; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;">
+                    <span style="font-size: 0.75em; font-weight: 800; color: #6b7280; letter-spacing: 1px;">SOBRE</span>
+                    <span style="font-size: 1.15em; font-weight: 900; color: var(--text-dark); margin: 2px 0;">$${sobrePrice}</span>
+                    <span style="font-size: 0.85em; color: #6b7280; font-weight: bold;"><i class="fa-solid fa-cart-plus"></i> Añadir</span>
+                </button>` : '';
+
+            // FALLBACK: If it's not shippable, just show the menu button
+            let fallbackHtml = !isShippable ? `
+                <button onclick="switchPage('menu')" style="width: 100%; padding: 12px; background: rgba(45, 90, 39, 0.9); color: #fff; border: 1px solid var(--gold-border); border-radius: 25px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: opacity 0.2s;">
                     <i class="fa-solid fa-book-open"></i> Ver en Menú
-                </button>`;
+                </button>` : '';
 
             const card = document.createElement('div');
             card.className = 'product-card';
-            // Apply the clean layout to the card
-            card.style.cssText = 'background: #fff; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; height: 100%; border: 1px solid #f0f0f0; transition: transform 0.2s ease;';
             
-            // Add slight hover float effect for the whole card
-            card.onmouseover = function() { this.style.transform = 'translateY(-5px)'; };
-            card.onmouseout = function() { this.style.transform = 'translateY(0)'; };
+            // Clean card body with smooth hover effect
+            card.style.cssText = 'background: #fff; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; height: 100%; border: 1px solid #f0f0f0; transition: transform 0.2s ease, box-shadow 0.2s ease;';
+            card.onmouseover = function() { this.style.transform = 'translateY(-3px)'; this.style.boxShadow = '0 8px 20px rgba(0,0,0,0.08)'; };
+            card.onmouseout = function() { this.style.transform = 'translateY(0)'; this.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)'; };
 
             card.innerHTML = `
                 <div>
@@ -447,12 +439,10 @@ function toggleMobileMenu() {
                     </h3>
                     <p style="font-size: 0.85em; color: #666; margin-bottom: 20px; line-height: 1.4; min-height: 40px;">${prod.ingredients || ''}</p>
                 </div>
-                <div>
-                    <div style="display: flex; gap: 10px; justify-content: center; width: 100%;">
-                        ${frascoHtml}
-                        ${sobreHtml}
-                    </div>
-                    ${buttonHtml}
+                <div style="display: flex; gap: 10px; justify-content: center; width: 100%; margin-top: auto;">
+                    ${frascoHtml}
+                    ${sobreHtml}
+                    ${fallbackHtml}
                 </div>`;
                 
             container.appendChild(card);
