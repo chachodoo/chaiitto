@@ -279,12 +279,21 @@ nav.main-nav {
   display: none;
 }
 
-/* When hovered or clicked, they fill with green */
-.nav-btn:hover, .nav-btn.active {
-  background: var(--matcha-deep);
+/* ACTIVE STATE (You Are Here) - Solid, grounded, and deep */
+.nav-btn.active {
+  background: var(--matcha-deep) !important;
   color: #FFFFFF !important;
-  border-color: var(--matcha-deep);
-  box-shadow: 0 6px 15px rgba(45, 90, 39, 0.2);
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.4) !important;
+  border-color: var(--matcha-deep) !important;
+}
+
+/* HOVER STATE (Mouse is over it) - Lighter, floating, and inviting */
+.nav-btn:hover {
+  background: #3A702F !important;
+  color: #FFFFFF !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15) !important;
+  border-color: #3A702F !important;
 }
 
 /* Ofertas / Sale Pill Badge */
