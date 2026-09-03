@@ -23,47 +23,38 @@
   </div>
 </div>
 
-<!-- 3. PRODUCT TEASER: Bridge to Sales -->
-<div style="margin-bottom: 40px;">
-  <h2 class="collection-name-title">Para Empezar</h2>
-  <div class="story-subtitle" style="margin-top: -15px;">Nuestras mezclas más queridas</div>
+<!-- 3. PRODUCT TEASER (REAL PRODUCTS) -->
+<section class="product-teaser-section">
+  <h2 class="section-title">Descubre Nuestros Favoritos</h2>
+  <div class="teaser-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px;">
 
-  <!-- Reusing your existing catalog grid CSS for a seamless look -->
-  <div class="catalog-grid">
-    <div class="product-card" onclick="switchPage('productos')">
-      <div>
-        <div class="product-img-box"><img src="frasco.webp" alt="Masala Chai Original" onerror="this.src='logo.png'"></div>
-        <h3 class="product-name">Masala Chai Original</h3>
-        <p class="product-ingredients">Té negro, canela, cardamomo, jengibre y clavo.</p>
-      </div>
-      <div>
-        <button class="request-link-btn" style="margin-bottom: 0; background: var(--matcha-bg); color: var(--matcha-deep);">Descubrir <i class="fa-solid fa-eye"></i></button>
-      </div>
+    <!-- 1. CHAI LOVER -->
+    <div class="teaser-card" style="text-align: center; padding: 20px; background: #fff; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+      <img src="frasco.webp" alt="Masala Chai" style="width: 100%; max-width: 200px; border-radius: 10px;">
+      <h3 style="color: var(--matcha-deep); margin: 15px 0 10px;">Masala Chai</h3>
+      <p style="font-size: 0.9em; margin-bottom: 20px;">Té negro, vainilla y jengibre. La tradición pura de nuestra colección Chai Lover.</p>
+      <button class="nav-btn" onclick="switchPage('menu')">Descubrir</button>
     </div>
-    
-    <div class="product-card" onclick="switchPage('productos')">
-      <div>
-        <div class="product-img-box"><img src="frasco.webp" alt="Té Verde Sencha" onerror="this.src='logo.png'"></div>
-        <h3 class="product-name">Té Verde Sencha</h3>
-        <p class="product-ingredients">Hojas de té verde japonés de alta pureza.</p>
-      </div>
-      <div>
-        <button class="request-link-btn" style="margin-bottom: 0; background: var(--matcha-bg); color: var(--matcha-deep);">Descubrir <i class="fa-solid fa-eye"></i></button>
-      </div>
+
+    <!-- 2. BIENESTAR -->
+    <div class="teaser-card" style="text-align: center; padding: 20px; background: #fff; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+      <img src="frasco.webp" alt="Té Bienestar" style="width: 100%; max-width: 200px; border-radius: 10px;">
+      <h3 style="color: var(--matcha-deep); margin: 15px 0 10px;">Té Bienestar</h3>
+      <p style="font-size: 0.9em; margin-bottom: 20px;">Anís, caléndula, hoja de zarza, hinojo, baya de saúco, girasol y jamaica.</p>
+      <button class="nav-btn" onclick="switchPage('menu')">Descubrir</button>
     </div>
-    
-    <div class="product-card" onclick="switchPage('productos')">
-      <div>
-        <div class="product-img-box"><img src="frasco.webp" alt="Tisana Fresa Kiwi" onerror="this.src='logo.png'"></div>
-        <h3 class="product-name">Tisana Fresa Kiwi</h3>
-        <p class="product-ingredients">Fresa, kiwi, manzana y flor de jamaica natural.</p>
-      </div>
-      <div>
-        <button class="request-link-btn" style="margin-bottom: 0; background: var(--matcha-bg); color: var(--matcha-deep);">Descubrir <i class="fa-solid fa-eye"></i></button>
-      </div>
+
+    <!-- 3. WOW -->
+    <div class="teaser-card" style="text-align: center; padding: 20px; background: #fff; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+      <img src="frasco.webp" alt="Frutos Mágicos" style="width: 100%; max-width: 200px; border-radius: 10px;">
+      <h3 style="color: var(--matcha-deep); margin: 15px 0 10px;">Frutos Mágicos</h3>
+      <p style="font-size: 0.9em; margin-bottom: 20px;">Grosella, flor de granada, fresa, frambuesa, coco, betabel, manzana y espino amarillo.</p>
+      <button class="nav-btn" onclick="switchPage('menu')">Descubrir</button>
     </div>
+
   </div>
-</div>
+</section>
+
 <!-- 4. SOCIAL PROOF: Validating the Story with Real Google Reviews -->
 <div class="story-card" style="background: var(--matcha-bg); border-color: rgba(74, 124, 54, 0.2);">
   <div style="text-align: center; margin-bottom: 15px;">
