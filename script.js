@@ -663,6 +663,9 @@ function jumpToMenuCollection(pageNum) {
   
   // 2. Wait a split second for the page to load, then flip to the right image
   setTimeout(() => {
+    // Tell the flipbook's "brain" which page we are on now
+    currentMenuPage = pageNum;
+    
     // Change the image to the correct page
     const menuImg = document.getElementById('menu-current-image');
     if (menuImg) {
