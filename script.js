@@ -393,8 +393,8 @@ function toggleMobileMenu() {
 
             if (list.length > 0) {
              list.forEach(prod => {
-            // 1. Force the beautiful jar image for all products
-            const imageSrc = 'assets/frasco.webp'; 
+            // 1. Fix image path (removed 'assets/') and added fallback
+            const imageSrc = 'frasco.webp'; 
             
             // 2. Green bold number
             const numLabel = prod.num ? `<span style="color: var(--matcha-deep); font-weight: 900; font-size: 1.2em; margin-right: 8px;">${prod.num}.</span>` : '';
@@ -404,17 +404,17 @@ function toggleMobileMenu() {
             let sobrePrice = Number(prod.sobre) || (frascoPrice > 0 ? frascoPrice - 45 : 0);
             const isShippable = frascoPrice > 0 || sobrePrice > 0;
 
-            // 3. Premium Box Design for Frasco (Soft Green)
+            // 3. Premium Box Design for Frasco WITH HOVER FLOAT
             let frascoHtml = frascoPrice > 0 ? `
-                <div style="background: rgba(74, 124, 54, 0.08); border: 1px solid var(--matcha-deep); border-radius: 8px; padding: 10px; flex: 1; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                <div onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)';" style="background: rgba(74, 124, 54, 0.08); border: 1px solid var(--matcha-deep); border-radius: 8px; padding: 10px; flex: 1; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); transition: all 0.2s ease; cursor: default;">
                     <span style="display: block; font-size: 0.75em; font-weight: 800; color: var(--matcha-deep); letter-spacing: 1px;">FRASCO</span>
                     <span style="font-size: 1.1em; font-weight: 900; color: var(--text-dark); display: block; margin: 4px 0;">$${frascoPrice}</span>
                     <span style="display: block; font-size: 0.7em; color: var(--matcha-deep);"><i class="fa-solid fa-truck-fast"></i> Para Envío</span>
                 </div>` : '';
                 
-            // 4. Premium Box Design for Sobre (Crisp White)
+            // 4. Premium Box Design for Sobre WITH HOVER FLOAT
             let sobreHtml = sobrePrice > 0 ? `
-                <div style="background: #ffffff; border: 1px solid #e0dcd3; border-radius: 8px; padding: 10px; flex: 1; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                <div onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)';" style="background: #ffffff; border: 1px solid #e0dcd3; border-radius: 8px; padding: 10px; flex: 1; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); transition: all 0.2s ease; cursor: default;">
                     <span style="display: block; font-size: 0.75em; font-weight: 800; color: #8c7b65; letter-spacing: 1px;">SOBRE</span>
                     <span style="font-size: 1.1em; font-weight: 900; color: var(--text-dark); display: block; margin: 4px 0;">$${sobrePrice}</span>
                     <span style="display: block; font-size: 0.7em; color: #8c7b65;"><i class="fa-solid fa-truck-fast"></i> Para Envío</span>
@@ -435,13 +435,13 @@ function toggleMobileMenu() {
             // Apply the clean layout to the card
             card.style.cssText = 'background: #fff; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; height: 100%; border: 1px solid #f0f0f0; transition: transform 0.2s ease;';
             
-            // Add slight hover float effect
+            // Add slight hover float effect for the whole card
             card.onmouseover = function() { this.style.transform = 'translateY(-5px)'; };
             card.onmouseout = function() { this.style.transform = 'translateY(0)'; };
 
             card.innerHTML = `
                 <div>
-                    <img src="${imageSrc}" alt="${prod.name || ''}" style="width: 100%; max-width: 180px; height: auto; object-fit: contain; margin: 0 auto 15px auto; display: block; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));">
+                    <img src="${imageSrc}" onerror="this.src='logo.png'" alt="${prod.name || ''}" style="width: 100%; max-width: 180px; height: auto; object-fit: contain; margin: 0 auto 15px auto; display: block; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));">
                     <h3 style="font-size: 1.1em; margin-bottom: 10px; color: var(--text-dark); display: flex; align-items: center; justify-content: center; text-transform: uppercase;">
                         ${numLabel} ${prod.name || ''}
                     </h3>
@@ -456,7 +456,7 @@ function toggleMobileMenu() {
                 </div>`;
                 
             container.appendChild(card);
-        });   
+        });
             } else {
                 container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px; color: var(--text-muted);">Próximamente agregando productos a <strong>${colName}</strong>...</div>`;
             }
