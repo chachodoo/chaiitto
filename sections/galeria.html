@@ -5,43 +5,65 @@
     <!-- 1. RIBBON WRAPPER ON TOP -->
     <div class="gallery-ribbon-wrapper" style="overflow: hidden; width: 100%; margin-top: 15px;">
         
-        <!-- INLINE CSS FOR SPEED, UNIFORMITY, AND SIZING -->
         <style>
             @keyframes scrollGalleryRibbon {
                 0% { transform: translateX(0); }
                 100% { transform: translateX(-50%); }
             }
             
-            /* THIS FORCES EVERY ITEM TO BE EXACTLY IDENTICAL */
             .gallery-item-card {
                 flex-shrink: 0;
-                height: 220px; /* Locks the exact height for all images/videos */
-                width: 220px;  /* Locks the width for perfect, uniform squares */
+                height: 220px; 
+                width: 220px;  
                 border-radius: 12px;
                 overflow: hidden;
                 box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-                cursor: pointer;
+                cursor: zoom-in; /* Changed to a magnifying glass so it's obvious it zooms! */
+                background: #F4F7F5;
             }
             
             .gallery-item-card img, .gallery-item-card video {
                 height: 100%;
                 width: 100%;
-                object-fit: cover; /* Crops the images cleanly so they never stretch or distort */
+                object-fit: contain; /* The ENTIRE image is visible without clipping! */
                 display: block;
             }
         </style>
         
-        <!-- SPEED SLOWED DOWN TO 120s -->
-        <div id="gallery-dynamic-container" style="display: flex; gap: 15px; width: max-content; animation: scrollGalleryRibbon 120s linear infinite;">
+        <div id="gallery-dynamic-container" style="display: flex; gap: 15px; width: max-content; animation: scrollGalleryRibbon 90s linear infinite;">
             <!-- Dynamic gallery cards injected from galeria.json by JavaScript -->
         </div>
     </div>
 
-    <!-- 2. EXACT YOUTUBE PLAYLIST EMBED (Margin reduced to 10px to close the huge gap!) -->
+    <!-- 2. EXACT YOUTUBE PLAYLIST EMBED -->
     <div class="youtube-gallery-section" style="margin-top: 10px; margin-bottom: 20px;">
         <h3 style="color: var(--matcha-deep); font-family: var(--font-title); margin: 10px 0 15px 0; text-align: center;">Videos y Experiencias</h3>
         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 16px; border: 2px solid var(--gold-border); box-shadow: 0 6px 18px rgba(0,0,0,0.1);">
             <iframe src="https://www.youtube.com/embed/videoseries?list=PL8F14rO99by_JkM37mGinv9CrfOjnBvfB" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
         </div>
+    </div>
+</div>
+
+<!-- LIGHTBOX ZOOM MODAL (PUTTING THIS BACK SO CLICKING ACTUALLY WORKS!) -->
+<div id="oferta-modal" class="oferta-modal" onclick="closeOfertaModalOnBackdrop(event)">
+    <div class="oferta-modal-content">
+        <span class="oferta-modal-close" onclick="closeOfertaModal()">&times;</span>
+        
+        <h3 class="oferta-title" style="font-size: 1.3em; margin: 5px 0;"></h3>
+        <p class="oferta-subtitle" style="margin-bottom: 5px;"></p>
+
+        <div class="oferta-modal-viewer">
+            <button class="modal-arrow prev" onclick="changeModalImage(-1)">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            
+            <img src="logo.png" alt="Zoom Galería" decoding="async">
+            
+            <button class="modal-arrow next" onclick="changeModalImage(1)">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <div class="modal-counter" style="color: #A3C4AF; font-size: 0.85em; margin-bottom: 12px;"></div>
     </div>
 </div>
