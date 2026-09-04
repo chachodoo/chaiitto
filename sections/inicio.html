@@ -7,6 +7,8 @@
     width: 100%;
     margin-top: 10px;
   }
+  
+  /* FIX: Independent Scrolling Sidebar */
   .sidebar-menu {
     flex: 0 0 250px;
     position: sticky;
@@ -14,7 +16,24 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    /* New rules to fix the freeze: */
+    max-height: calc(100vh - 40px); 
+    overflow-y: auto; 
+    padding-right: 8px; /* Breathing room for the scrollbar */
   }
+
+  /* Elegant minimal scrollbar for the sidebar */
+  .sidebar-menu::-webkit-scrollbar {
+    width: 5px;
+  }
+  .sidebar-menu::-webkit-scrollbar-thumb {
+    background: rgba(45, 90, 39, 0.2);
+    border-radius: 10px;
+  }
+  .sidebar-menu::-webkit-scrollbar-thumb:hover {
+    background: rgba(45, 90, 39, 0.4);
+  }
+
   .dashboard-content {
     flex: 1;
     min-width: 0; 
@@ -31,7 +50,13 @@
   /* Responsive Mobile/Tablet Rules */
   @media (max-width: 992px) {
     .dashboard-layout { flex-direction: column; }
-    .sidebar-menu { flex: none; width: 100%; position: static; }
+    .sidebar-menu { 
+        flex: none; 
+        width: 100%; 
+        position: static; 
+        max-height: none; /* Turn off scrolling on mobile */
+        overflow-y: visible;
+    }
     .strict-3-grid { grid-template-columns: repeat(2, 1fr) !important; }
   }
   @media (max-width: 550px) {
