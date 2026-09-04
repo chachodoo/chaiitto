@@ -263,7 +263,6 @@ async function fetchProducts() {
     }
 }
 
-async function switchPage(pageName) {
     async function switchPage(pageName) {
     // 1. THE ULTIMATE BLUR NUKE
     document.body.style.overflow = 'auto';
