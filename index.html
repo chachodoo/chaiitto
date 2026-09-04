@@ -622,12 +622,10 @@
             }
         };
 
-        // Initialize state on page load
+        // Initialize state on page load instantly to prevent the blink
         window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                const hash = window.location.hash.replace('#', '').replace('-page', '') || 'inicio';
-                window.switchPage(hash);
-            }, 100);
+            const hash = window.location.hash.replace('#', '').replace('-page', '') || 'inicio';
+            window.switchPage(hash);
         });
     </script>
 </body>
