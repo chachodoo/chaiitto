@@ -662,6 +662,12 @@
             const hash = window.location.hash.replace('#', '').replace('-page', '') || 'inicio';
             window.switchPage(hash);
         });
+        // Listen for URL changes and switch pages automatically
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.replace('#', '').replace('-page', '') || 'inicio';
+            window.switchPage(hash);
+        });
+        
     </script>
 </body>
 </html>
