@@ -1,3 +1,54 @@
+<style>
+  /* 20/80 Layout Rules */
+  .dashboard-layout {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 10px;
+  }
+  .sidebar-menu {
+    flex: 0 0 250px;
+    position: sticky;
+    top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .dashboard-content {
+    flex: 1;
+    min-width: 0; /* Prevents flex blowout */
+  }
+  
+  /* 3-Column Jar Grid Rules */
+  .strict-3-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 20px !important;
+    width: 100% !important;
+  }
+
+  /* Responsive Mobile/Tablet Rules */
+  @media (max-width: 992px) {
+    .dashboard-layout {
+      flex-direction: column;
+    }
+    .sidebar-menu {
+      flex: none;
+      width: 100%;
+      position: static;
+    }
+    .strict-3-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+  @media (max-width: 550px) {
+    .strict-3-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>
+
 <div class="dashboard-layout">
 
   <!-- ==========================================
