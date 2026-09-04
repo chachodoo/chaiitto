@@ -632,18 +632,20 @@ window.addEventListener('hashchange', handleHashNavigation);
 
 // --- JUMP TO SPECIFIC MENU PAGE ---
 function jumpToMenuCollection(pageNum) {
-  switchPage('menu');
+  currentMenuPage = pageNum;
   
-  setTimeout(() => {
-    currentMenuPage = pageNum;
+  const updateMenuImage = () => {
     const menuImg = document.getElementById('menu-current-image');
     if (menuImg) menuImg.src = 'menu/page-' + pageNum + '.webp';
     
     const indicator = document.getElementById('menu-page-indicator');
     if (indicator) indicator.innerText = pageNum + ' / 14';
-    
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, 150);
+  };
+
+  updateMenuImage();
+  switchPage('menu');
+  updateMenuImage();
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 // ENTERPRISE GALLERY SCROLL LOGIC
