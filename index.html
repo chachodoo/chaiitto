@@ -551,21 +551,36 @@
     <!-- MAIN SCRIPT -->
     <script src="script.js"></script>
 
-    <!-- UI TOGGLE SCRIPT (Hides double logo, shows top Hero on Inicio) -->
+    <!-- UI TOGGLE SCRIPT & MOBILE MENU LOGIC -->
     <script>
         const originalSwitchPage = window.switchPage;
         window.switchPage = async function(pageName) {
             if (originalSwitchPage) await originalSwitchPage(pageName);
             
             const topHero = document.getElementById('master-hero-banner');
-            const navLogo = document.getElementById('header-logo-container');
+            // FIX: Only target the logo wrapper, NOT the whole container that holds the hamburger!
+            const smallLogo = document.querySelector('.logo-wrapper'); 
+            const mobileMenu = document.getElementById('main-nav-menu');
             
             if (pageName === 'inicio') {
                 if (topHero) topHero.style.display = 'flex';
-                if (navLogo) navLogo.style.display = 'none';
+                if (smallLogo) smallLogo.style.display = 'none';
             } else {
                 if (topHero) topHero.style.display = 'none';
-                if (navLogo) navLogo.style.display = 'grid'; // Brings small logo back on other pages
+                if (smallLogo) smallLogo.style.display = 'flex'; 
+            }
+
+            // ENTERPRISE UX: Auto-close the mobile menu when the user clicks a link
+            if (window.innerWidth <= 992 && mobileMenu && mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+            }
+        };
+
+        // HAMBURGER BUTTON FUNCTION
+        window.toggleMobileMenu = function() {
+            const mobileMenu = document.getElementById('main-nav-menu');
+            if (mobileMenu) {
+                mobileMenu.classList.toggle('active');
             }
         };
 
