@@ -195,7 +195,7 @@ function updateMenuDisplay() {
     if (imgElement) imgElement.src = `menu/page-${currentMenuPage}.webp`;
 }
 
-// SAFE GALLERY RENDERER 
+// ENTERPRISE GALLERY RENDERER
 async function loadGalleryRibbon() {
     let container = document.getElementById('gallery-dynamic-container');
     if (!container) return;
@@ -206,67 +206,46 @@ async function loadGalleryRibbon() {
 
         let galleryData = await response.json();
         let galleryItems = [];
-        
+
         if (Array.isArray(galleryData)) {
             galleryItems = galleryData;
         } else if (typeof galleryData === 'object' && galleryData !== null) {
             galleryItems = galleryData.images || galleryData.galeria || galleryData.items || Object.values(galleryData);
         }
 
-        container.innerHTML = ''; // Clear loading state if any
+        container.innerHTML = ''; 
 
-        // Dynamic Aspect-Ratio Card Node Generator
-        const createCardNode = (cleanPath) => {
+        // No more duplicating! Just cleanly rendering your actual items.
+        galleryItems.forEach(item => {
+            const cleanPath = typeof item === 'string' ? item : (item.src || item.image || item.url || item.file || '');
+            if (!cleanPath) return;
+
             const isVideo = cleanPath.toLowerCase().endsWith('.mp4') || cleanPath.toLowerCase().endsWith('.webm');
-            
             const card = document.createElement('div');
             card.className = 'gallery-item-card';
 
             if (isVideo) {
                 const video = document.createElement('video');
                 video.src = cleanPath;
-                video.autoplay = true;
-                video.loop = true;
-                video.muted = true; 
-                video.defaultMuted = true;
-                video.volume = 0;
-                video.playsInline = true;
-                video.preload = 'auto';
-                video.onerror = () => card.remove();
+                video.autoplay = true; video.loop = true; video.muted = true; video.playsInline = true;
+                video.onerror = () => { card.style.display = 'none'; };
                 
-                // Click video to toggle mute/unmute audio
-                video.onclick = (e) => {
-                    e.stopPropagation();
-                    video.muted = !video.muted;
-                    video.volume = video.muted ? 0 : 1;
-                };
                 card.appendChild(video);
+                
+                // Allow users to tap a video to hear the sound
+                card.onclick = () => { video.muted = !video.muted; };
+                card.style.cursor = 'pointer';
             } else {
                 const img = document.createElement('img');
                 img.src = cleanPath;
                 img.alt = 'Galería Chai-itto';
-                img.onerror = () => card.remove();
+                img.onerror = () => { card.style.display = 'none'; };
                 
-                // Wire it to our bulletproof popup modal!
-                img.onclick = () => openOfertaModal('Galería Chai-itto', 'Salud con Té', [cleanPath], 'Galería', 0);
                 card.appendChild(img);
+                // No click event needed! Users just scroll and enjoy the lifestyle shots.
             }
-            return card;
-        };
-
-        // Render original list
-        galleryItems.forEach(item => {
-            const cleanPath = typeof item === 'string' ? item : (item.src || item.image || item.url || item.file || '');
-            if (cleanPath) container.appendChild(createCardNode(cleanPath));
+            container.appendChild(card);
         });
-
-        // Duplicate valid nodes once rendered for seamless infinite marquee loop
-        setTimeout(() => {
-            const validCards = Array.from(container.children);
-            validCards.forEach(cardNode => {
-                container.appendChild(cardNode.cloneNode(true));
-            });
-        }, 300);
 
     } catch (error) {
         console.error("Error loading gallery:", error);
