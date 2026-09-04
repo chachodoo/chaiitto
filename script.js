@@ -264,17 +264,20 @@ async function fetchProducts() {
 }
 
 async function switchPage(pageName) {
-    // 1. KILL ALL BLURS, OVERLAYS, AND UNLOCK SCREEN
+    async function switchPage(pageName) {
+    // 1. THE ULTIMATE BLUR NUKE
     document.body.style.overflow = 'auto';
+    document.body.className = ''; // Strips any body-level blur classes
     
-    // Hide any leftover backdrops (like cart or modals) that might cause the blur
-    const backdrops = document.querySelectorAll('[id*="backdrop"], [class*="backdrop"], [class*="overlay"]');
-    backdrops.forEach(el => el.style.display = 'none');
+    // Properly close specific modals by removing their 'active' class
+    document.querySelectorAll('.oferta-modal, #checkout-modal, #main-nav-menu').forEach(el => {
+        if (el) el.classList.remove('active');
+    });
 
-    // 2. CLOSE MOBILE NAV
-    const mobileNav = document.getElementById('main-nav-menu');
-    if (mobileNav) mobileNav.classList.remove('active');
-    
+    // Hard-hide the cart drawer
+    const cartDrawer = document.getElementById('cart-drawer-backdrop');
+    if (cartDrawer) cartDrawer.style.display = 'none';
+
     const container = document.getElementById('dynamic-content-area');
     const headerEl = document.querySelector('header');
     if (!container) return;
