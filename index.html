@@ -32,7 +32,18 @@
             --font-body: 'Montserrat', sans-serif;
         }
 
-        * { box-sizing: border-box; }
+        * { 
+            box-sizing: border-box; 
+            -webkit-tap-highlight-color: transparent; 
+        }
+
+        #dynamic-content-area {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
 
         body {
             font-family: var(--font-body);
@@ -662,14 +673,21 @@
             }
         };
 
-        // Initialize state on page load instantly to prevent the blink
+// Initialize state on page load instantly to prevent the blink
         window.addEventListener('DOMContentLoaded', () => {
             const hash = window.location.hash.replace('#', '').replace('-page', '') || 'inicio';
             window.switchPage(hash);
         });
+
         // Listen for URL changes and switch pages automatically
         window.addEventListener('hashchange', () => {
             const hash = window.location.hash.replace('#', '').replace('-page', '') || 'inicio';
+
+            // Prevent flipbook from reloading mid-flip if turning pages updates the URL
+            if (hash.startsWith('menu') && document.getElementById('master-hero-banner')?.style.display === 'none') {
+                return;
+            }
+
             window.switchPage(hash);
         });
         
