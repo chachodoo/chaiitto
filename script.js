@@ -580,10 +580,9 @@ function openOfertaModal(title, subtitle, imageArray, prodName, price) {
     currentModalImages = imageArray && imageArray.length > 0 ? imageArray : ['logo.png'];
     currentModalIndex = 0;
 
+    // 1. Open the photo galleries
     const modals = document.querySelectorAll('.oferta-modal');
-    
     modals.forEach(modal => {
-        // Smart search for both IDs (old) and Classes (new)
         const titleEl = modal.querySelector('#modal-title, .oferta-title');
         if (titleEl) titleEl.textContent = title;
 
@@ -602,6 +601,13 @@ function openOfertaModal(title, subtitle, imageArray, prodName, price) {
     document.querySelectorAll('#modal-counter, .modal-counter').forEach(el => {
         el.textContent = `1 / ${currentModalImages.length}`;
     });
+
+    // 2. ASSASSINATE THE BAD MODAL: If the old Frasco/Sobre popup accidentally tried to open, instantly kill it and hide it forever!
+    const badModal = document.getElementById('checkout-modal');
+    if (badModal) {
+        badModal.classList.remove('active');
+        badModal.style.display = 'none';
+    }
 }
 
 function changeModalImage(direction) {
