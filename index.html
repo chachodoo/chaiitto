@@ -209,7 +209,7 @@
 
         /* --- HEADER & NAVIGATION --- */
         header {
-            position: relative; z-index: 1000; display: flex; flex-direction: column; align-items: center;
+            position: sticky; top: 0; z-index: 1000; display: flex; flex-direction: column; align-items: center;
             padding: 15px 40px 10px 40px; background: rgba(244, 248, 243, 0.92);
             backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05); border-bottom: 1px solid rgba(212, 175, 55, 0.3);
@@ -416,31 +416,6 @@
         <span id="cart-count-badge">0</span>
     </button>
 
-    <!-- 1. THE NEW MASTER HERO BANNER (Top of the screen, controlled by JS) -->
-    <div id="master-hero-banner">
-        <h1 style="font-family: var(--font-title); font-size: clamp(2.2em, 5vw, 3.5em); margin: 0; font-style: italic; text-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-            El Té Verdadero Ha Llegado
-        </h1>
-        
-        <img src="logo.png" alt="Chaiitto Logo" style="width: 100%; max-width: 160px; height: auto; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2)); margin: 5px 0;">
-        
-        <p style="font-family: var(--font-body); font-size: clamp(1em, 2vw, 1.15em); font-weight: 300; margin: 0; max-width: 700px; letter-spacing: 1px; line-height: 1.5;">
-            Dejamos atrás las bolsitas comerciales. Bienvenido a la auténtica cultura del Té de hoja suelta en México.
-        </p>
-      
-        <div class="trust-bar-hero">
-            <div style="color: #ffffff; font-weight: 700; font-size: 0.95em; display: flex; align-items: center; gap: 8px;">
-                <i class="fa-solid fa-mug-hot" style="color: var(--gold-accent); font-size: 1.3em;"></i> 120+ Mezclas de Té
-            </div>
-            <div style="color: #ffffff; font-weight: 700; font-size: 0.95em; display: flex; align-items: center; gap: 8px;">
-                <i class="fa-solid fa-leaf" style="color: #ffffff; font-size: 1.3em;"></i> 100% Hoja Suelta
-            </div>
-            <div style="color: #ffffff; font-weight: 700; font-size: 0.95em; display: flex; align-items: center; gap: 8px;">
-                <i class="fa-solid fa-award" style="color: var(--gold-accent); font-size: 1.3em;"></i> 5 Años (2021-2026)
-            </div>
-        </div>
-    </div>
-
     <!-- 2. THE MAIN NAVIGATION HEADER -->
     <header id="main-master-header">
         <!-- Logo Wrapper (Toggled by JS) -->
@@ -467,6 +442,32 @@
             <button class="nav-btn" data-page="contactanos" onclick="switchPage('contactanos')">Contáctanos</button>
         </nav>
     </header>
+    <!-- 1. THE NEW MASTER HERO BANNER (Top of the screen, controlled by JS) -->
+    <div id="master-hero-banner">
+        <h1 style="font-family: var(--font-title); font-size: clamp(2.2em, 5vw, 3.5em); margin: 0; font-style: italic; text-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+            El Té Verdadero Ha Llegado
+        </h1>
+        
+        <img src="logo.png" alt="Chaiitto Logo" style="width: 100%; max-width: 160px; height: auto; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2)); margin: 5px 0;">
+        
+        <p style="font-family: var(--font-body); font-size: clamp(1em, 2vw, 1.15em); font-weight: 300; margin: 0; max-width: 700px; letter-spacing: 1px; line-height: 1.5;">
+            Dejamos atrás las bolsitas comerciales. Bienvenido a la auténtica cultura del Té de hoja suelta en México.
+        </p>
+      
+        <div class="trust-bar-hero">
+            <div style="color: #ffffff; font-weight: 700; font-size: 0.95em; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-mug-hot" style="color: var(--gold-accent); font-size: 1.3em;"></i> 120+ Mezclas de Té
+            </div>
+            <div style="color: #ffffff; font-weight: 700; font-size: 0.95em; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-leaf" style="color: #ffffff; font-size: 1.3em;"></i> 100% Hoja Suelta
+            </div>
+            <div style="color: #ffffff; font-weight: 700; font-size: 0.95em; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-award" style="color: var(--gold-accent); font-size: 1.3em;"></i> 5 Años (2021-2026)
+            </div>
+        </div>
+    </div>
+
+    
 
     <main id="dynamic-content-area"></main>
 
