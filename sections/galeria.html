@@ -2,68 +2,66 @@
     <h1 class="story-title"><i class="fa-solid fa-camera-retro" style="color: var(--gold-accent);"></i> Galería Chai-itto</h1>
     <div class="story-subtitle">Momentos, Té y Tradición</div>
 
-    <!-- 1. RIBBON WRAPPER ON TOP -->
-    <div class="gallery-ribbon-wrapper" style="overflow: hidden; width: 100%; margin-top: 15px;">
+    <!-- 1. ENTERPRISE SWIPEABLE ROW -->
+    <div class="gallery-enterprise-wrapper" style="width: 100%; margin-top: 20px;">
         
         <style>
-            @keyframes scrollGalleryRibbon {
-                0% { transform: translateX(0); }
-                100% { transform: translateX(-50%); }
+            /* NATIVE HORIZONTAL SCROLLING WITH SNAP */
+            .enterprise-scroll-row {
+                display: flex;
+                gap: 15px;
+                overflow-x: auto;
+                padding-bottom: 15px; /* Adds space so the scrollbar doesn't cover images */
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch; /* Butter-smooth swiping on iPhones */
+                
+                /* Firefox scrollbar styling */
+                scrollbar-width: thin; 
+                scrollbar-color: #A3C4AF #f0f0f0;
             }
             
+            /* Chrome/Safari scrollbar styling */
+            .enterprise-scroll-row::-webkit-scrollbar {
+                height: 8px;
+            }
+            .enterprise-scroll-row::-webkit-scrollbar-track {
+                background: #f0f0f0;
+                border-radius: 10px;
+            }
+            .enterprise-scroll-row::-webkit-scrollbar-thumb {
+                background-color: #A3C4AF; /* Your Matcha Light color */
+                border-radius: 10px;
+            }
+
             .gallery-item-card {
-                flex-shrink: 0;
-                height: 220px; 
-                width: 220px;  
+                flex: 0 0 auto; /* Prevents cards from squishing together */
+                width: 250px;
+                height: 250px;
                 border-radius: 12px;
                 overflow: hidden;
                 box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-                cursor: zoom-in; /* Changed to a magnifying glass so it's obvious it zooms! */
+                scroll-snap-align: start; /* Snaps perfectly to the left edge! */
                 background: #F4F7F5;
             }
             
             .gallery-item-card img, .gallery-item-card video {
-                height: 100%;
                 width: 100%;
-                object-fit: contain; /* The ENTIRE image is visible without clipping! */
+                height: 100%;
+                object-fit: contain; 
                 display: block;
             }
         </style>
         
-        <div id="gallery-dynamic-container" style="display: flex; gap: 15px; width: max-content; animation: scrollGalleryRibbon 90s linear infinite;">
-            <!-- Dynamic gallery cards injected from galeria.json by JavaScript -->
+        <div id="gallery-dynamic-container" class="enterprise-scroll-row">
+            <!-- Dynamic gallery cards injected safely by JavaScript -->
         </div>
     </div>
 
     <!-- 2. EXACT YOUTUBE PLAYLIST EMBED -->
-    <div class="youtube-gallery-section" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="youtube-gallery-section" style="margin-top: 15px; margin-bottom: 20px;">
         <h3 style="color: var(--matcha-deep); font-family: var(--font-title); margin: 10px 0 15px 0; text-align: center;">Videos y Experiencias</h3>
         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 16px; border: 2px solid var(--gold-border); box-shadow: 0 6px 18px rgba(0,0,0,0.1);">
             <iframe src="https://www.youtube.com/embed/videoseries?list=PL8F14rO99by_JkM37mGinv9CrfOjnBvfB" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
         </div>
-    </div>
-</div>
-
-<!-- LIGHTBOX ZOOM MODAL (PUTTING THIS BACK SO CLICKING ACTUALLY WORKS!) -->
-<div id="oferta-modal" class="oferta-modal" onclick="closeOfertaModalOnBackdrop(event)">
-    <div class="oferta-modal-content">
-        <span class="oferta-modal-close" onclick="closeOfertaModal()">&times;</span>
-        
-        <h3 class="oferta-title" style="font-size: 1.3em; margin: 5px 0;"></h3>
-        <p class="oferta-subtitle" style="margin-bottom: 5px;"></p>
-
-        <div class="oferta-modal-viewer">
-            <button class="modal-arrow prev" onclick="changeModalImage(-1)">
-                <i class="fa-solid fa-chevron-left"></i>
-            </button>
-            
-            <img src="logo.png" alt="Zoom Galería" decoding="async">
-            
-            <button class="modal-arrow next" onclick="changeModalImage(1)">
-                <i class="fa-solid fa-chevron-right"></i>
-            </button>
-        </div>
-
-        <div class="modal-counter" style="color: #A3C4AF; font-size: 0.85em; margin-bottom: 12px;"></div>
     </div>
 </div>
