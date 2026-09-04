@@ -11,7 +11,6 @@
                 gap: 5px; 
                 overflow-x: auto;
                 padding-bottom: 15px; 
-                /* Removed the scroll-snap rule that was fighting the arrows! */
                 -webkit-overflow-scrolling: touch; 
                 scrollbar-width: thin; 
                 scrollbar-color: #A3C4AF #f0f0f0;
@@ -63,35 +62,6 @@
             .gallery-nav-left { left: -10px; }
             .gallery-nav-right { right: -10px; }
         </style>
-
-        <!-- BULLETPROOF CIRCULAR NAVIGATION LOGIC -->
-        <script>
-            function scrollGallery(direction) {
-                const container = document.getElementById('gallery-dynamic-container');
-                if (!container) return;
-                
-                // Exactly 370px (Scrolls exactly two 180px images + gaps at a time)
-                const scrollAmount = 370; 
-                
-                // Math.ceil fixes the fractional pixel bug so it ALWAYS detects the end!
-                const maxScroll = container.scrollWidth - container.clientWidth;
-                const currentScroll = Math.ceil(container.scrollLeft);
-
-                if (direction === 'right') {
-                    if (currentScroll >= maxScroll - 10) {
-                        container.scrollTo({ left: 0, behavior: 'smooth' }); // Loop to start
-                    } else {
-                        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-                    }
-                } else if (direction === 'left') {
-                    if (currentScroll <= 10) {
-                        container.scrollTo({ left: maxScroll, behavior: 'smooth' }); // Loop to end
-                    } else {
-                        container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-                    }
-                }
-            }
-        </script>
         
         <button class="gallery-nav-btn gallery-nav-left" onclick="scrollGallery('left')">
             <i class="fa-solid fa-chevron-left"></i>
