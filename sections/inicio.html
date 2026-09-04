@@ -1,204 +1,23 @@
-<style>
-  /* 1. HERO & TRUST BAR STYLING */
-  .hero-container {
-    position: relative;
-    width: 100%;
-    border-radius: 20px;
-    overflow: hidden;
-    margin-top: 0px;
-    background: linear-gradient(135deg, #2D5A27 0%, #4A7C36 100%);
-    box-shadow: 0 10px 25px rgba(45, 90, 39, 0.2);
-    padding: clamp(30px, 5vw, 40px) 15px 20px 15px;
-    text-align: center;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 25px;
-  }
-
-  .trust-bar-hero {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 15px 20px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    width: 100%;
-    max-width: 900px;
-    margin-top: 15px;
-    gap: 15px;
-  }
-
-  /* 2. 20/80 MASTER LAYOUT */
-  .inicio-layout {
-    display: flex;
-    gap: 30px;
-    align-items: flex-start;
-    width: 100%;
-  }
-  
-  .inicio-sidebar {
-    flex: 0 0 250px;
-    position: sticky;
-    top: 90px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .inicio-main {
-    flex: 1;
-    min-width: 0;
-  }
-
-  /* 3. SIDEBAR NAVIGATION (White-to-Green Pills) */
-  .sidebar-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  
-  .sidebar-nav h3 {
-    color: var(--matcha-deep); 
-    font-size: 1.1em; 
-    margin-bottom: 5px; 
-    border-bottom: 2px solid var(--gold-accent); 
-    padding-bottom: 10px; 
-    font-weight: 800; 
-    text-transform: uppercase;
-  }
-
-  .sidebar-link {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 20px;
-    background: #ffffff;
-    color: var(--matcha-deep);
-    border: 1px solid rgba(45, 90, 39, 0.2);
-    border-radius: 25px;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 0.9em;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-  }
-  
-  .sidebar-link:hover {
-    background: var(--matcha-deep);
-    color: #ffffff;
-    border-color: var(--matcha-deep);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(45, 90, 39, 0.2);
-  }
-  
-  .sidebar-link:hover i {
-    color: #ffffff !important;
-  }
-
-  .sidebar-promo {
-    background: linear-gradient(135deg, var(--gold-accent) 0%, #D4AF37 100%);
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-    color: #fff;
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
-  }
-
-  /* Teaser Grid (3 columns for perfect spacing) */
-  .strict-3-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-top: 30px;
-  }
-
-  /* Responsive Rules */
-  @media (max-width: 900px) {
-    .inicio-layout {
-      flex-direction: column;
-    }
-    .inicio-sidebar {
-      flex: none;
-      width: 100%;
-      position: static;
-    }
-    .strict-3-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  @media (max-width: 500px) {
-    .strict-3-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
-
-<!-- ==========================================
-     1. HERO BANNER (100% Width) 
-     ========================================== -->
-<div class="hero-container">
-  <h1 style="font-family: var(--font-title); font-size: clamp(2.2em, 5vw, 3.5em); margin: 0; font-style: italic; text-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-    El Té Verdadero Ha Llegado
-  </h1>
-  
-  <!-- LOGO INSIDE HERO -->
-  <img src="logo.png" alt="Chaiitto Logo" style="width: 100%; max-width: 160px; height: auto; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2)); margin: 5px 0;">
-  
-  <p style="font-family: var(--font-body); font-size: clamp(1em, 2vw, 1.15em); font-weight: 300; margin: 0; max-width: 700px; letter-spacing: 1px; line-height: 1.5;">
-    Dejamos atrás las bolsitas comerciales. Bienvenido a la auténtica cultura del Té de hoja suelta en México.
-  </p>
-
-  <!-- TRUST BAR -->
-  <div class="trust-bar-hero">
-    <div style="color: #ffffff; font-weight: 700; font-size: 0.95em; display: flex; align-items: center; gap: 8px;">
-      <i class="fa-solid fa-mug-hot" style="color: var(--gold-accent); font-size: 1.3em;"></i> 120+ Mezclas de Té
-    </div>
-    <div style="color: #ffffff; font-weight: 700; font-size: 0.95em; display: flex; align-items: center; gap: 8px;">
-      <i class="fa-solid fa-leaf" style="color: #ffffff; font-size: 1.3em;"></i> 100% Hoja Suelta
-    </div>
-    <div style="color: #ffffff; font-weight: 700; font-size: 0.95em; display: flex; align-items: center; gap: 8px;">
-      <i class="fa-solid fa-award" style="color: var(--gold-accent); font-size: 1.3em;"></i> 5 Años (2021-2026)
-    </div>
-  </div>
-</div>
-
-<!-- ==========================================
-     2. THE 20/80 SPLIT LAYOUT 
-     ========================================== -->
-<div class="inicio-layout">
+<div class="dashboard-layout">
 
   <!-- 20% LEFT SIDEBAR -->
-  <aside class="inicio-sidebar">
-    
-    <!-- MENU TABS ARE BACK IN THE SIDEBAR! -->
+  <aside class="sidebar-menu">
     <div class="sidebar-nav">
-      <h3 style="color: var(--matcha-deep); font-size: 1.1em; margin-bottom: 5px; border-bottom: 2px solid var(--gold-accent); padding-bottom: 10px; font-weight: 800; text-transform: uppercase;">
-        Explorar Menú
-      </h3>
+      <h3>Explorar Menú</h3>
       <a href="#" onclick="switchPage('menu'); return false;" class="sidebar-link">
-        <span><i class="fa-solid fa-leaf" style="color: var(--matcha-deep); width: 25px; transition: color 0.2s;"></i> Té Bienestar</span>
-        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc; transition: color 0.2s;"></i>
+        <i class="fa-solid fa-leaf" style="color: var(--matcha-deep); width: 25px; transition: color 0.2s; text-align: center;"></i> Té Bienestar
       </a>
       <a href="#" onclick="switchPage('menu'); return false;" class="sidebar-link">
-        <span><i class="fa-solid fa-mug-hot" style="color: var(--matcha-deep); width: 25px; transition: color 0.2s;"></i> Chai Lover</span>
-        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc; transition: color 0.2s;"></i>
+        <i class="fa-solid fa-mug-hot" style="color: var(--matcha-deep); width: 25px; transition: color 0.2s; text-align: center;"></i> Chai Lover
       </a>
       <a href="#" onclick="switchPage('menu'); return false;" class="sidebar-link">
-        <span><i class="fa-solid fa-droplet" style="color: #4285F4; width: 25px; transition: color 0.2s;"></i> Blue Magic</span>
-        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc; transition: color 0.2s;"></i>
+        <i class="fa-solid fa-droplet" style="color: #4285F4; width: 25px; transition: color 0.2s; text-align: center;"></i> Blue Magic
       </a>
       <a href="#" onclick="switchPage('menu'); return false;" class="sidebar-link">
-        <span><i class="fa-solid fa-plane" style="color: var(--matcha-deep); width: 25px; transition: color 0.2s;"></i> Viajes con Té</span>
-        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc; transition: color 0.2s;"></i>
+        <i class="fa-solid fa-plane" style="color: var(--matcha-deep); width: 25px; transition: color 0.2s; text-align: center;"></i> Viajes con Té
       </a>
       <a href="#" onclick="switchPage('menu'); return false;" class="sidebar-link">
-        <span><i class="fa-solid fa-moon" style="color: #1a237e; width: 25px; transition: color 0.2s;"></i> Nocturna</span>
-        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc; transition: color 0.2s;"></i>
+        <i class="fa-solid fa-moon" style="color: #1a237e; width: 25px; transition: color 0.2s; text-align: center;"></i> Nocturna
       </a>
     </div>
 
@@ -210,13 +29,12 @@
   </aside>
 
   <!-- 80% RIGHT MAIN CONTENT -->
-  <main class="inicio-main">
+  <main class="dashboard-content">
     
     <!-- THE STORY -->
     <div class="story-card" style="margin-bottom: 15px; padding: 15px 20px 5px 20px;">
       <h2 class="story-title" style="margin-bottom: 2px; font-size: 1.5em;">Nuestra Historia</h2>
       <div class="story-subtitle" style="margin-bottom: 10px; font-size: 0.9em;">Cómo nació Chaiitto</div>
-
       <div style="width: 100%; text-align: center; margin-bottom: 5px;">
         <img src="historia.jfif" alt="La frustración que inspiró a Chaiitto" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.08);">
       </div>
@@ -224,61 +42,61 @@
 
     <!-- PRODUCT TEASER (3 COLUMNS) -->
     <section class="product-teaser-section">
-      <h2 class="section-title">Explora Nuestras Colecciones</h2>
+      <h2 class="collection-name-title" style="font-size: 1.8em; margin: 25px 0 15px 0;">Explora Nuestras Colecciones</h2>
       
-      <div class="teaser-grid strict-3-grid">
-        <div class="teaser-card" style="text-align: center; padding: 15px; background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between;">
+      <div class="strict-3-grid">
+        <div class="teaser-card product-card">
           <div>
-            <img src="frasco.webp" alt="2. Té Bienestar" style="width: 100%; max-width: 120px; border-radius: 8px; margin: 0 auto;">
-            <h3 style="color: var(--matcha-deep); margin: 10px 0 5px; font-size: 1.1em;">2. Té Bienestar</h3>
-            <p style="font-size: 0.8em; margin-bottom: 15px; line-height: 1.3;">Anís, caléndula, hoja de zarza, hinojo, baya de saúco, girasol, jamaica.</p>
+            <div class="product-img-box"><img src="frasco.webp" alt="2. Té Bienestar"></div>
+            <h3 class="product-name">2. Té Bienestar</h3>
+            <p class="product-ingredients">Anís, caléndula, hoja de zarza, hinojo, baya de saúco, girasol, jamaica.</p>
           </div>
-          <button class="nav-btn" style="padding: 6px 15px; font-size: 0.75em;" onclick="jumpToMenuCollection(1)">Ver Colección</button>
+          <button class="nav-btn" style="width: 100%; padding: 8px 15px;" onclick="jumpToMenuCollection(1)">Ver Colección</button>
         </div>
 
-        <div class="teaser-card" style="text-align: center; padding: 15px; background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="teaser-card product-card">
           <div>
-            <img src="frasco.webp" alt="20. Masala Chai" style="width: 100%; max-width: 120px; border-radius: 8px; margin: 0 auto;">
-            <h3 style="color: var(--matcha-deep); margin: 10px 0 5px; font-size: 1.1em;">20. Masala Chai</h3>
-            <p style="font-size: 0.8em; margin-bottom: 15px; line-height: 1.3;">Té negro, vainilla, jengibre. Tradición pura Chai Lover.</p>
+            <div class="product-img-box"><img src="frasco.webp" alt="20. Masala Chai"></div>
+            <h3 class="product-name">20. Masala Chai</h3>
+            <p class="product-ingredients">Té negro, vainilla, jengibre. Tradición pura Chai Lover.</p>
           </div>
-          <button class="nav-btn" style="padding: 6px 15px; font-size: 0.75em;" onclick="jumpToMenuCollection(2)">Ver Colección</button>
+          <button class="nav-btn" style="width: 100%; padding: 8px 15px;" onclick="jumpToMenuCollection(2)">Ver Colección</button>
         </div>
 
-        <div class="teaser-card" style="text-align: center; padding: 15px; background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="teaser-card product-card">
           <div>
-            <img src="frasco.webp" alt="28. Blue Magic" style="width: 100%; max-width: 120px; border-radius: 8px; margin: 0 auto;">
-            <h3 style="color: var(--matcha-deep); margin: 10px 0 5px; font-size: 1.1em;">28. Blue Magic</h3>
-            <p style="font-size: 0.8em; margin-bottom: 15px; line-height: 1.3;">Oolong, escaramujo, manzana, oro.</p>
+            <div class="product-img-box"><img src="frasco.webp" alt="28. Blue Magic"></div>
+            <h3 class="product-name">28. Blue Magic</h3>
+            <p class="product-ingredients">Oolong, escaramujo, manzana, oro.</p>
           </div>
-          <button class="nav-btn" style="padding: 6px 15px; font-size: 0.75em;" onclick="jumpToMenuCollection(3)">Ver Colección</button>
+          <button class="nav-btn" style="width: 100%; padding: 8px 15px;" onclick="jumpToMenuCollection(3)">Ver Colección</button>
         </div>
 
-        <div class="teaser-card" style="text-align: center; padding: 15px; background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="teaser-card product-card">
           <div>
-            <img src="frasco.webp" alt="34. Japón" style="width: 100%; max-width: 120px; border-radius: 8px; margin: 0 auto;">
-            <h3 style="color: var(--matcha-deep); margin: 10px 0 5px; font-size: 1.1em;">34. Japón</h3>
-            <p style="font-size: 0.8em; margin-bottom: 15px; line-height: 1.3;">Té Blanco, pétalos de rosa, betabel, cereza.</p>
+            <div class="product-img-box"><img src="frasco.webp" alt="34. Japón"></div>
+            <h3 class="product-name">34. Japón</h3>
+            <p class="product-ingredients">Té Blanco, pétalos de rosa, betabel, cereza.</p>
           </div>
-          <button class="nav-btn" style="padding: 6px 15px; font-size: 0.75em;" onclick="jumpToMenuCollection(4)">Ver Colección</button>
+          <button class="nav-btn" style="width: 100%; padding: 8px 15px;" onclick="jumpToMenuCollection(4)">Ver Colección</button>
         </div>
 
-        <div class="teaser-card" style="text-align: center; padding: 15px; background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="teaser-card product-card">
           <div>
-            <img src="frasco.webp" alt="47. Noche Dorada" style="width: 100%; max-width: 120px; border-radius: 8px; margin: 0 auto;">
-            <h3 style="color: var(--matcha-deep); margin: 10px 0 5px; font-size: 1.1em;">47. Noche Dorada</h3>
-            <p style="font-size: 0.8em; margin-bottom: 15px; line-height: 1.3;">Zacate limón, manzanilla, anís, rosas, clavo, golden milk.</p>
+            <div class="product-img-box"><img src="frasco.webp" alt="47. Noche Dorada"></div>
+            <h3 class="product-name">47. Noche Dorada</h3>
+            <p class="product-ingredients">Zacate limón, manzanilla, anís, rosas, clavo, golden milk.</p>
           </div>
-          <button class="nav-btn" style="padding: 6px 15px; font-size: 0.75em;" onclick="jumpToMenuCollection(5)">Ver Colección</button>
+          <button class="nav-btn" style="width: 100%; padding: 8px 15px;" onclick="jumpToMenuCollection(5)">Ver Colección</button>
         </div>
 
-        <div class="teaser-card" style="text-align: center; padding: 15px; background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="teaser-card product-card">
           <div>
-            <img src="frasco.webp" alt="70. Golden Milk" style="width: 100%; max-width: 120px; border-radius: 8px; margin: 0 auto;">
-            <h3 style="color: var(--matcha-deep); margin: 10px 0 5px; font-size: 1.1em;">70. Golden Milk</h3>
-            <p style="font-size: 0.8em; margin-bottom: 15px; line-height: 1.3;">Cúrcuma, canela, jengibre, cardamomo, clavo, pimienta negra.</p>
+            <div class="product-img-box"><img src="frasco.webp" alt="70. Golden Milk"></div>
+            <h3 class="product-name">70. Golden Milk</h3>
+            <p class="product-ingredients">Cúrcuma, canela, jengibre, cardamomo, clavo, pimienta negra.</p>
           </div>
-          <button class="nav-btn" style="padding: 6px 15px; font-size: 0.75em;" onclick="jumpToMenuCollection(6)">Ver Colección</button>
+          <button class="nav-btn" style="width: 100%; padding: 8px 15px;" onclick="jumpToMenuCollection(6)">Ver Colección</button>
         </div>
       </div>
     </section>
@@ -291,7 +109,7 @@
       </div>
 
       <div class="reviews-grid">
-        <div style="background: #FFFFFF; border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 16px; padding: 25px; box-shadow: 0 6px 18px rgba(45, 90, 39, 0.08); display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+        <div class="product-card" style="border: 1px solid rgba(212, 175, 55, 0.4);">
           <div>
             <div style="color: #F4B400; font-size: 1.2em; margin-bottom: 15px; letter-spacing: 2px;">
               <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -305,7 +123,7 @@
           </div>
         </div>
 
-        <div style="background: #FFFFFF; border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 16px; padding: 25px; box-shadow: 0 6px 18px rgba(45, 90, 39, 0.08); display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+        <div class="product-card" style="border: 1px solid rgba(212, 175, 55, 0.4);">
           <div>
             <div style="color: #F4B400; font-size: 1.2em; margin-bottom: 15px; letter-spacing: 2px;">
               <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
