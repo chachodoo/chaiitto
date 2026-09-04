@@ -263,8 +263,7 @@ async function fetchProducts() {
     }
 }
 
-    async function switchPage(pageName) {
-    // 1. THE ULTIMATE BLUR NUKE
+    async function switchPage(pageName, targetPage = 1) {
     document.body.style.overflow = 'auto';
     document.body.className = ''; // Strips any body-level blur classes
     
@@ -309,7 +308,7 @@ async function fetchProducts() {
         } else if (pageName === 'galeria') {
             setTimeout(loadGalleryRibbon, 100);
         } else if (pageName === 'menu') {
-            currentMenuPage = 1;
+            currentMenuPage = targetPage;
             updateMenuDisplay();
         }
 
@@ -632,20 +631,7 @@ window.addEventListener('hashchange', handleHashNavigation);
 
 // --- JUMP TO SPECIFIC MENU PAGE ---
 function jumpToMenuCollection(pageNum) {
-  currentMenuPage = pageNum;
-  
-  const updateMenuImage = () => {
-    const menuImg = document.getElementById('menu-current-image');
-    if (menuImg) menuImg.src = 'menu/page-' + pageNum + '.webp';
-    
-    const indicator = document.getElementById('menu-page-indicator');
-    if (indicator) indicator.innerText = pageNum + ' / 14';
-  };
-
-  updateMenuImage();
-  switchPage('menu');
-  updateMenuImage();
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  switchPage('menu', pageNum);
 }
 
 // ENTERPRISE GALLERY SCROLL LOGIC
