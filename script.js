@@ -195,30 +195,8 @@ function updateMenuDisplay() {
     if (imgElement) imgElement.src = `menu/page-${currentMenuPage}.webp`;
 }
 
-// UNCLIPPED CONTINUOUS GALLERY RIBBON FIRST -> ACCURATE YOUTUBE EMBED BELOW (NO INSTAGRAM)
+// SAFE GALLERY RENDERER 
 async function loadGalleryRibbon() {
-    let mainSection = document.querySelector('#dynamic-content-area .story-card') || document.getElementById('dynamic-content-area');
-    if (!mainSection) return;
-
-    // Enforce Ribbon ON TOP and YouTube PLAYLIST EMBED BELOW
-    mainSection.innerHTML = `
-        <h1 class="story-title">Galería Chai-itto</h1>
-        <p class="story-subtitle">Momentos, Té y Tradición</p>
-        
-        <!-- 1. RIBBON WRAPPER ON TOP -->
-        <div class="gallery-ribbon-wrapper">
-            <div id="gallery-dynamic-container"></div>
-        </div>
-
-        <!-- 2. EXACT YOUTUBE PLAYLIST EMBED BELOW RIBBON -->
-        <div class="youtube-gallery-section">
-            <h3 style="color: var(--matcha-deep); font-family: var(--font-title); margin: 25px 0 15px 0;">Videos y Experiencias</h3>
-            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 16px; border: 2px solid var(--gold-border); box-shadow: 0 6px 18px rgba(0,0,0,0.1);">
-                <iframe src="https://www.youtube.com/embed/videoseries?list=PL8F14rO99by_JkM37mGinv9CrfOjnBvfB" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
-            </div>
-        </div>
-    `;
-
     let container = document.getElementById('gallery-dynamic-container');
     if (!container) return;
 
@@ -227,13 +205,15 @@ async function loadGalleryRibbon() {
         if (!response.ok) return;
 
         let galleryData = await response.json();
-        
         let galleryItems = [];
+        
         if (Array.isArray(galleryData)) {
             galleryItems = galleryData;
         } else if (typeof galleryData === 'object' && galleryData !== null) {
             galleryItems = galleryData.images || galleryData.galeria || galleryData.items || Object.values(galleryData);
         }
+
+        container.innerHTML = ''; // Clear loading state if any
 
         // Dynamic Aspect-Ratio Card Node Generator
         const createCardNode = (cleanPath) => {
@@ -247,26 +227,27 @@ async function loadGalleryRibbon() {
                 video.src = cleanPath;
                 video.autoplay = true;
                 video.loop = true;
-                video.muted = true; // Auto-plays completely muted
+                video.muted = true; 
                 video.defaultMuted = true;
                 video.volume = 0;
                 video.playsInline = true;
                 video.preload = 'auto';
                 video.onerror = () => card.remove();
                 
-                // Click video to toggle mute/unmute audio on demand
+                // Click video to toggle mute/unmute audio
                 video.onclick = (e) => {
                     e.stopPropagation();
                     video.muted = !video.muted;
                     video.volume = video.muted ? 0 : 1;
                 };
-
                 card.appendChild(video);
             } else {
                 const img = document.createElement('img');
                 img.src = cleanPath;
                 img.alt = 'Galería Chai-itto';
                 img.onerror = () => card.remove();
+                
+                // Wire it to our bulletproof popup modal!
                 img.onclick = () => openOfertaModal('Galería Chai-itto', 'Salud con Té', [cleanPath], 'Galería', 0);
                 card.appendChild(img);
             }
@@ -291,6 +272,7 @@ async function loadGalleryRibbon() {
         console.error("Error loading gallery:", error);
     }
 }
+
 
 async function fetchProducts() {
     try {
