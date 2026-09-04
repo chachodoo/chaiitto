@@ -518,24 +518,24 @@ function toggleMobileMenu() {
                     const safeName = item.name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
 
                     const card = document.createElement('div');
-                    card.className = 'oferta-card';
+                    // Use the exact same product-card class as the jars!
+                    card.className = 'product-card'; 
                     card.onclick = () => openOfertaModal(titleText, descText, imageList, item.name, price);
 
                     card.innerHTML = `
                         <div>
-                            <div class="oferta-img-container">
+                            <div class="product-img-box">
                                 <img src="${coverImage}" alt="${item.name || 'Accesorio'}">
                             </div>
-                            <h3 class="oferta-title">${titleText}</h3>
-                            <p class="oferta-subtitle">${descText}</p>
+                            <h3 class="product-name">${titleText}</h3>
+                            <p class="product-ingredients">${descText}</p>
                         </div>
-                        <div>
-                            <div class="card-price-row">
-                                <span class="price-current">$${price}</span>
-                                <span class="price-currency">MXN</span>
-                            </div>
-                            <button class="buy-button" onclick="event.stopPropagation(); addToCart('${safeName}', ${price})">
-                                <i class="fa-solid fa-cart-plus"></i> Agregar al Carrito
+                        <div style="display: flex; gap: 10px; justify-content: center; width: 100%; margin-top: auto;">
+                            <!-- MATCHING SQUARE "AÑADIR" BUTTON -->
+                            <button onclick="event.stopPropagation(); addToCart('${safeName}', ${price})" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 4px 10px rgba(74, 124, 54, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';" style="background: rgba(74, 124, 54, 0.08); border: 1px solid var(--matcha-deep); border-radius: 8px; padding: 12px 5px; flex: 1; text-align: center; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;">
+                                <span style="font-size: 0.75em; font-weight: 800; color: var(--matcha-deep); letter-spacing: 1px;">COMPRAR</span>
+                                <span style="font-size: 1.15em; font-weight: 900; color: var(--text-dark); margin: 2px 0;">$${price}</span>
+                                <span style="font-size: 0.85em; color: var(--matcha-deep); font-weight: bold;"><i class="fa-solid fa-cart-plus"></i> Añadir</span>
                             </button>
                         </div>
                     `;
