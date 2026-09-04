@@ -641,39 +641,40 @@
 
     <!-- UI TOGGLE SCRIPT & MOBILE MENU LOGIC -->
     <script>
-        const originalSwitchPage = window.switchPage;
-        window.switchPage = async function(pageName) {
-            if (originalSwitchPage) await originalSwitchPage(pageName);
-            // Force the browser to scroll to the very top of the new page
-            window.scrollTo(0, 0);
-            // Clear any accidental text selection (the blue highlight)
-            if (window.getSelection) {
-            window.getSelection().removeAllRanges();
-            }
-            
-            const topHero = document.getElementById('master-hero-banner');
-            // FIX: Only target the logo wrapper, NOT the whole container that holds the hamburger!
-            const smallLogo = document.querySelector('.logo-wrapper'); 
-            const mobileMenu = document.getElementById('main-nav-menu');
-            
-            if (pageName === 'inicio') {
-                if (topHero) topHero.style.display = 'flex';
-                if (smallLogo) smallLogo.style.display = 'none';
-            } else {
-                if (topHero) topHero.style.display = 'none';
-                if (smallLogo) smallLogo.style.display = 'flex'; 
-            }
-
-        // ENTERPRISE UX: Auto-close the mobile menu when the user clicks a link
+   // BULLETPROOF CLOSE HELPER
+    window.closeMobileMenu = function() {
         const navMenu = document.getElementById('main-nav-menu');
         const hambIcon = document.querySelector('#floating-hamburger-btn i');
-        if (window.innerWidth <= 992 && navMenu && navMenu.classList.contains('active')) {
-            navMenu.classList.remove('active');
-            document.body.style.overflow = '';
-            if (hambIcon) {
-                hambIcon.classList.remove('fa-xmark');
-                hambIcon.classList.add('fa-bars');
-            }
+        if (navMenu) navMenu.classList.remove('active');
+        document.body.style.overflow = '';
+        if (hambIcon) {
+            hambIcon.classList.remove('fa-xmark');
+            hambIcon.classList.add('fa-bars');
+        }
+    };
+
+    const originalSwitchPage = window.switchPage;
+    window.switchPage = async function(pageName) {
+        // ALWAYS close menu and restore bars immediately when navigating
+        window.closeMobileMenu();
+
+        if (originalSwitchPage) await originalSwitchPage(pageName);
+
+        // Force scroll to top & clear text selection
+        window.scrollTo(0, 0);
+        if (window.getSelection) {
+            window.getSelection().removeAllRanges();
+        }
+
+        const topHero = document.getElementById('master-hero-banner');
+        const smallLogo = document.querySelector('.logo-wrapper');
+
+        if (pageName === 'inicio') {
+            if (topHero) topHero.style.display = 'flex';
+            if (smallLogo) smallLogo.style.display = 'none';
+        } else {
+            if (topHero) topHero.style.display = 'none';
+            if (smallLogo) smallLogo.style.display = 'flex';
         }
     };
 
