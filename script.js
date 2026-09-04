@@ -518,13 +518,14 @@ function toggleMobileMenu() {
                     const safeName = item.name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
 
                     const card = document.createElement('div');
-                    // Use the exact same product-card class as the jars!
-                    card.className = 'product-card'; 
-                    card.onclick = () => openOfertaModal(titleText, descText, imageList, item.name, price);
+                    card.className = 'product-card';
+                    
+                    // We removed the card.onclick here so the whole card isn't clickable
 
                     card.innerHTML = `
                         <div>
-                            <div class="product-img-box">
+                            <!-- We moved the click action ONLY to the image box -->
+                            <div class="product-img-box gallery-trigger" style="cursor: zoom-in;" title="Ver galería de fotos">
                                 <img src="${coverImage}" alt="${item.name || 'Accesorio'}">
                             </div>
                             <h3 class="product-name">${titleText}</h3>
@@ -539,6 +540,12 @@ function toggleMobileMenu() {
                             </button>
                         </div>
                     `;
+                    
+                    // Wire up the image box to open the gallery safely
+                    card.querySelector('.gallery-trigger').onclick = () => {
+                        openOfertaModal(titleText, descText, imageList, item.name, price);
+                    };
+
                     track.appendChild(card);
                 });
             } catch (error) {
@@ -608,15 +615,9 @@ function toggleMobileMenu() {
             document.getElementById('modal-title').textContent = title;
             document.getElementById('modal-subtitle').textContent = subtitle;
             
+            // FIX: Hide the redundant buy button so this acts purely as a gallery
             const buyBtn = document.getElementById('modal-buy-btn');
-            buyBtn.className = "buy-button";
-            buyBtn.innerHTML = `<i class="fa-solid fa-cart-plus"></i> Agregar al Carrito ($${price} MXN)`;
-
-            buyBtn.onclick = (e) => {
-                e.preventDefault();
-                closeOfertaModal();
-                addToCart(prodName, price);
-            };
+            if (buyBtn) buyBtn.style.display = "none";
 
             updateModalImageDisplay();
             modal.classList.add('active');
