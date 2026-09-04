@@ -264,8 +264,17 @@ async function fetchProducts() {
 }
 
 async function switchPage(pageName) {
+    // 1. KILL ALL BLURS, OVERLAYS, AND UNLOCK SCREEN
+    document.body.style.overflow = 'auto';
+    
+    // Hide any leftover backdrops (like cart or modals) that might cause the blur
+    const backdrops = document.querySelectorAll('[id*="backdrop"], [class*="backdrop"], [class*="overlay"]');
+    backdrops.forEach(el => el.style.display = 'none');
+
+    // 2. CLOSE MOBILE NAV
     const mobileNav = document.getElementById('main-nav-menu');
     if (mobileNav) mobileNav.classList.remove('active');
+    
     const container = document.getElementById('dynamic-content-area');
     const headerEl = document.querySelector('header');
     if (!container) return;
@@ -298,10 +307,13 @@ async function switchPage(pageName) {
         } else if (pageName === 'galeria') {
             setTimeout(loadGalleryRibbon, 100);
         } else if (pageName === 'menu') {
+            // If you have a variable tracking the current menu page (like currentPage = 1), 
+            // you would reset it right here before updateMenuDisplay() runs.
             updateMenuDisplay();
         }
 
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // 3. FORCE IMMEDIATE JUMP TO TOP (Removed 'smooth' so it doesn't get stuck)
+        window.scrollTo(0, 0);
 
     } catch (error) {
         console.error('Error loading page section:', error);
