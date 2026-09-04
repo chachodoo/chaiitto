@@ -1,43 +1,28 @@
 <div class="story-card">
-    <h1 class="story-title"><i class="fa-solid fa-photo-film"></i> Experiencia Chai-itto</h1>
-    <div class="story-subtitle">Momentos, Catas & Historias de Nuestros Clientes en Cholula</div>
-    
-    <p style="text-align: center; color: #D3E0D7; max-width: 750px; margin: 0 auto 25px; line-height: 1.6;">
-        Descubre cómo se vive la cultura del té en nuestra sucursal. Explora las vivencias de nuestros visitantes y conecta con nuestra comunidad.
-    </p>
+    <h1 class="story-title"><i class="fa-solid fa-camera-retro" style="color: var(--gold-accent);"></i> Galería Chai-itto</h1>
+    <div class="story-subtitle">Momentos, Té y Tradición</div>
 
-    <!-- INFINITE SCROLLING CUSTOMER MEDIA RIBBON -->
-    <div style="background: rgba(0,0,0,0.2); border-radius: 16px; padding: 15px; margin-bottom: 35px; text-align: center;">
-        <h3 style="color: var(--gold-accent); font-family: var(--font-title); margin-top: 0; font-size: 1.4em;">
-            <i class="fa-solid fa-camera-retro" style="color: var(--gold-accent); margin-right: 8px;"></i> Galería de Clientes Chai-itto
-        </h3>
-        <p style="color: #A3C4AF; font-size: 0.85em; margin-bottom: 10px;">Pasa el cursor o mantén presionado para pausar la galería</p>
-
-        <div class="ribbon-wrapper">
-            <div class="ribbon-track" id="dynamic-ribbon-track"></div>
-        </div>
-
-        <div style="margin-top: 15px;">
-            <a href="https://www.instagram.com/chaiittocholula/" target="_blank" rel="noopener noreferrer" class="insta-btn">
-                <i class="fa-brands fa-instagram fa-lg"></i> Síguenos en @chaiittocholula
-            </a>
+    <!-- 1. RIBBON WRAPPER ON TOP -->
+    <div class="gallery-ribbon-wrapper" style="overflow: hidden; width: 100%; margin-top: 20px; padding: 10px 0;">
+        
+        <!-- INLINE CSS TO FORCE THE SCROLL ANIMATION -->
+        <style>
+            @keyframes scrollGalleryRibbon {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+            }
+        </style>
+        
+        <div id="gallery-dynamic-container" style="display: flex; gap: 15px; width: max-content; animation: scrollGalleryRibbon 35s linear infinite;">
+            <!-- Dynamic gallery cards injected from galeria.json by JavaScript -->
         </div>
     </div>
 
-    <!-- YOUTUBE PLAYLIST SHOWCASE -->
-    <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--gold-accent); border-radius: 16px; padding: 20px;">
-        <h3 style="color: var(--gold-accent); font-family: var(--font-title); margin-top: 0; text-align: center; font-size: 1.4em;">
-            <i class="fa-brands fa-youtube" style="color: #FF0000; margin-right: 8px;"></i> Historias de Clientes en Sucursal
-        </h3>
-        
-        <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/videoseries?list=PL8F14rO99by_JkM37mGinv9CrfOjnBvfB" title="Chai-itto Clientes en Cholula" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-
-        <div style="text-align: center; margin-top: 15px;">
-            <a href="https://youtube.com/playlist?list=PL8F14rO99by_JkM37mGinv9CrfOjnBvfB" target="_blank" rel="noopener noreferrer" class="yt-btn">
-                <i class="fa-brands fa-youtube fa-lg"></i> Ver la Playlist Completa en YouTube
-            </a>
+    <!-- 2. EXACT YOUTUBE PLAYLIST EMBED BELOW RIBBON -->
+    <div class="youtube-gallery-section" style="margin-top: 40px; margin-bottom: 20px;">
+        <h3 style="color: var(--matcha-deep); font-family: var(--font-title); margin: 25px 0 15px 0; text-align: center;">Videos y Experiencias</h3>
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 16px; border: 2px solid var(--gold-border); box-shadow: 0 6px 18px rgba(0,0,0,0.1);">
+            <iframe src="https://www.youtube.com/embed/videoseries?list=PL8F14rO99by_JkM37mGinv9CrfOjnBvfB" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
         </div>
     </div>
 </div>
