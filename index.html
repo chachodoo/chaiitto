@@ -242,7 +242,11 @@
         .nav-vip-badge { background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%); color: #1C3317; font-size: 0.65em; padding: 3px 6px; border-radius: 10px; vertical-align: super; margin-left: 3px; box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4); }
 
         @media (max-width: 992px) {
-            header { padding: 5px 20px; }
+            header { 
+                padding: 5px 20px; 
+                backdrop-filter: none; 
+                -webkit-backdrop-filter: none; 
+            }
             .header-square-layout { grid-template-columns: 1fr; }
             .logo-main { height: 60px; }
             
