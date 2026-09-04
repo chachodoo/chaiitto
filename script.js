@@ -307,8 +307,7 @@ async function switchPage(pageName) {
         } else if (pageName === 'galeria') {
             setTimeout(loadGalleryRibbon, 100);
         } else if (pageName === 'menu') {
-            // If you have a variable tracking the current menu page (like currentPage = 1), 
-            // you would reset it right here before updateMenuDisplay() runs.
+            currentMenuPage = 1;
             updateMenuDisplay();
         }
 
