@@ -137,10 +137,33 @@
 
         @media (max-width: 900px) {
             .dashboard-layout, .inicio-layout { flex-direction: column; }
-            /* Add order: 2 to push the collections sidebar below the products! */
-            .sidebar-menu, .inicio-sidebar { flex: none; width: 100%; position: static; order: 2; margin-top: 20px; }
-            /* Add order: 1 to ensure the products load at the very top */
-            .dashboard-content, .inicio-main { order: 1; width: 100%; }
+            
+            /* 1. Put sidebar back on top */
+            .sidebar-menu, .inicio-sidebar { flex: none; width: 100%; position: static; order: 1; margin-top: 10px; }
+            .dashboard-content, .inicio-main { order: 2; width: 100%; }
+
+            /* 2. Turn the vertical sidebar into a swipeable horizontal row */
+            .collections-bar, .sidebar-nav {
+                flex-direction: row;
+                overflow-x: auto;
+                padding-bottom: 10px;
+                gap: 10px;
+                scrollbar-width: none; /* Hides scrollbar on Firefox */
+            }
+            .collections-bar::-webkit-scrollbar, .sidebar-nav::-webkit-scrollbar {
+                display: none; /* Hides scrollbar on Chrome/Safari */
+            }
+            
+            /* 3. Make the buttons fit side-by-side without squishing */
+            .tab-btn, .sidebar-link {
+                white-space: nowrap;
+                flex-shrink: 0;
+                width: auto;
+                padding: 8px 16px;
+            }
+            
+            /* Hide the "EXPLORAR COLECCIONES" title on mobile to save space */
+            .collections-bar h2, .sidebar-nav h3 { display: none; }
         }
 
         /* --- MASTER HERO BANNER --- */
