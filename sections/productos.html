@@ -1,129 +1,40 @@
-<style>
-  /* 20/80 Master Layout matching Inicio */
-  .dashboard-layout {
-    display: flex;
-    gap: 30px;
-    align-items: flex-start;
-    width: 100%;
-    margin-top: 20px;
-  }
-  
-  .sidebar-menu {
-    flex: 0 0 250px;
-    position: sticky;
-    top: 90px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .dashboard-content {
-    flex: 1;
-    min-width: 0;
-  }
-
-  /* White-to-Green Pill Sidebar Navigation */
-  .collections-bar {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  
-  .collections-bar h2 {
-    color: var(--matcha-deep); 
-    font-size: 1.1em; 
-    margin-bottom: 5px; 
-    border-bottom: 2px solid var(--gold-accent); 
-    padding-bottom: 10px; 
-    font-weight: 800; 
-    text-transform: uppercase;
-  }
-
-  .tab-btn {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 10px;
-    padding: 12px 20px;
-    background: #ffffff;
-    color: var(--matcha-deep);
-    border: 1px solid rgba(45, 90, 39, 0.2);
-    border-radius: 25px;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 0.9em;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-    width: 100%;
-    cursor: pointer;
-    font-family: var(--font-body);
-  }
-  
-  .tab-btn:hover {
-    background: var(--matcha-deep);
-    color: #ffffff;
-    border-color: var(--matcha-deep);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(45, 90, 39, 0.2);
-  }
-  
-  .tab-btn:hover i {
-    color: #ffffff !important;
-  }
-
-  /* ACTIVE STATE: Keeps the selected collection solid green */
-  .tab-btn.active {
-    background: var(--matcha-deep);
-    color: #ffffff;
-    border-color: var(--matcha-deep);
-    box-shadow: 0 4px 10px rgba(45, 90, 39, 0.2);
-  }
-  .tab-btn.active i {
-    color: #ffffff !important;
-  }
-
-  /* Responsive Rules */
-  @media (max-width: 900px) {
-    .dashboard-layout {
-      flex-direction: column;
-    }
-    .sidebar-menu {
-      flex: none;
-      width: 100%;
-      position: static;
-    }
-  }
-</style>
-
 <div class="dashboard-layout">
     
     <!-- THE 20% LEFT SIDEBAR: NUESTRAS COLECCIONES -->
     <aside class="sidebar-menu">
         <div class="collections-bar">
-            <h2>Nuestras Colecciones</h2>
-            <button class="tab-btn active" onclick="selectCollection('BIENESTAR')">
-                <i class="fa-solid fa-leaf" style="color: var(--matcha-deep); width: 25px; transition: color 0.2s; text-align: center;"></i> Bienestar
+            <h2>Colecciones</h2>
+            <button class="tab-btn active" onclick="selectCollection('BIENESTAR')" style="justify-content: space-between;">
+                <span><i class="fa-solid fa-leaf" style="color: var(--matcha-deep); width: 25px; transition: color 0.2s; text-align: center;"></i> Bienestar</span>
+                <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc; transition: color 0.2s;"></i>
             </button>
-            <button class="tab-btn" onclick="selectCollection('CHAI LOVER')">
-                <i class="fa-solid fa-mug-hot" style="color: var(--matcha-deep); width: 25px; transition: color 0.2s; text-align: center;"></i> Chai Lover
+            <button class="tab-btn" onclick="selectCollection('CHAI LOVER')" style="justify-content: space-between;">
+                <span><i class="fa-solid fa-mug-hot" style="color: var(--matcha-deep); width: 25px; transition: color 0.2s; text-align: center;"></i> Chai Lover</span>
+                <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc; transition: color 0.2s;"></i>
             </button>
-            <button class="tab-btn" onclick="selectCollection('BLUE MAGIC')">
-                <i class="fa-solid fa-droplet" style="color: #4285F4; width: 25px; transition: color 0.2s; text-align: center;"></i> Blue Magic
+            <button class="tab-btn" onclick="selectCollection('BLUE MAGIC')" style="justify-content: space-between;">
+                <span><i class="fa-solid fa-droplet" style="color: #4285F4; width: 25px; transition: color 0.2s; text-align: center;"></i> Blue Magic</span>
+                <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc; transition: color 0.2s;"></i>
             </button>
-            <button class="tab-btn" onclick="selectCollection('VIAJES CON TÉ')">
-                <i class="fa-solid fa-plane" style="color: var(--matcha-deep); width: 25px; transition: color 0.2s; text-align: center;"></i> Viajes con Té
+            <button class="tab-btn" onclick="selectCollection('VIAJES CON TÉ')" style="justify-content: space-between;">
+                <span><i class="fa-solid fa-plane" style="color: var(--matcha-deep); width: 25px; transition: color 0.2s; text-align: center;"></i> Viajes con Té</span>
+                <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc; transition: color 0.2s;"></i>
             </button>
-            <button class="tab-btn" onclick="selectCollection('NOCTURNA')">
-                <i class="fa-solid fa-moon" style="color: #1a237e; width: 25px; transition: color 0.2s; text-align: center;"></i> Nocturna
+            <button class="tab-btn" onclick="selectCollection('NOCTURNA')" style="justify-content: space-between;">
+                <span><i class="fa-solid fa-moon" style="color: #1a237e; width: 25px; transition: color 0.2s; text-align: center;"></i> Nocturna</span>
+                <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc; transition: color 0.2s;"></i>
             </button>
-            <button class="tab-btn" onclick="selectCollection('ESPECIAL')">
-                <i class="fa-solid fa-award" style="color: var(--gold-accent); width: 25px; transition: color 0.2s; text-align: center;"></i> Especial
+            <button class="tab-btn" onclick="selectCollection('ESPECIAL')" style="justify-content: space-between;">
+                <span><i class="fa-solid fa-award" style="color: var(--gold-accent); width: 25px; transition: color 0.2s; text-align: center;"></i> Especial</span>
+                <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc; transition: color 0.2s;"></i>
             </button>
-            <button class="tab-btn" onclick="selectCollection('WOW')">
-                <i class="fa-solid fa-star" style="color: var(--gold-accent); width: 25px; transition: color 0.2s; text-align: center;"></i> Wow
+            <button class="tab-btn" onclick="selectCollection('WOW')" style="justify-content: space-between;">
+                <span><i class="fa-solid fa-star" style="color: var(--gold-accent); width: 25px; transition: color 0.2s; text-align: center;"></i> Wow</span>
+                <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc; transition: color 0.2s;"></i>
             </button>
-            <button class="tab-btn" onclick="selectCollection('QUIERO MATCHA')">
-                <i class="fa-solid fa-bowl-rice" style="color: var(--matcha-deep); width: 25px; transition: color 0.2s; text-align: center;"></i> Quiero Matcha
+            <button class="tab-btn" onclick="selectCollection('QUIERO MATCHA')" style="justify-content: space-between;">
+                <span><i class="fa-solid fa-bowl-rice" style="color: var(--matcha-deep); width: 25px; transition: color 0.2s; text-align: center;"></i> Quiero Matcha</span>
+                <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc; transition: color 0.2s;"></i>
             </button>
         </div>
     </aside>
