@@ -2,45 +2,35 @@
     <h1 class="story-title"><i class="fa-solid fa-camera-retro" style="color: var(--gold-accent);"></i> Galería Chai-itto</h1>
     <div class="story-subtitle">Momentos, Té y Tradición</div>
 
-    <!-- 1. ENTERPRISE SWIPEABLE ROW -->
-    <div class="gallery-enterprise-wrapper" style="width: 100%; margin-top: 20px;">
+    <!-- 1. ENTERPRISE SWIPEABLE ROW WITH ARROWS -->
+    <!-- Added position:relative so the arrows can float on top of the edges -->
+    <div class="gallery-enterprise-wrapper" style="position: relative; width: 100%; margin-top: 20px;">
         
         <style>
-            /* NATIVE HORIZONTAL SCROLLING WITH SNAP */
             .enterprise-scroll-row {
                 display: flex;
-                gap: 15px;
+                gap: 5px; /* GAP REDUCED TO 5px */
                 overflow-x: auto;
-                padding-bottom: 15px; /* Adds space so the scrollbar doesn't cover images */
+                padding-bottom: 15px; 
                 scroll-snap-type: x mandatory;
-                -webkit-overflow-scrolling: touch; /* Butter-smooth swiping on iPhones */
-                
-                /* Firefox scrollbar styling */
+                -webkit-overflow-scrolling: touch; 
                 scrollbar-width: thin; 
                 scrollbar-color: #A3C4AF #f0f0f0;
+                scroll-behavior: smooth; /* Ensures clicking the arrows glides smoothly */
             }
             
-            /* Chrome/Safari scrollbar styling */
-            .enterprise-scroll-row::-webkit-scrollbar {
-                height: 8px;
-            }
-            .enterprise-scroll-row::-webkit-scrollbar-track {
-                background: #f0f0f0;
-                border-radius: 10px;
-            }
-            .enterprise-scroll-row::-webkit-scrollbar-thumb {
-                background-color: #A3C4AF; /* Your Matcha Light color */
-                border-radius: 10px;
-            }
+            .enterprise-scroll-row::-webkit-scrollbar { height: 8px; }
+            .enterprise-scroll-row::-webkit-scrollbar-track { background: #f0f0f0; border-radius: 10px; }
+            .enterprise-scroll-row::-webkit-scrollbar-thumb { background-color: #A3C4AF; border-radius: 10px; }
 
             .gallery-item-card {
-                flex: 0 0 auto; /* Prevents cards from squishing together */
-                width: 250px;
-                height: 250px;
-                border-radius: 12px;
+                flex: 0 0 auto; 
+                width: 180px; /* BOX SIZE REDUCED */
+                height: 180px; /* BOX SIZE REDUCED */
+                border-radius: 8px;
                 overflow: hidden;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-                scroll-snap-align: start; /* Snaps perfectly to the left edge! */
+                box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+                scroll-snap-align: start; 
                 background: #F4F7F5;
             }
             
@@ -50,11 +40,47 @@
                 object-fit: contain; 
                 display: block;
             }
+
+            /* FLOATING NAVIGATION ARROWS */
+            .gallery-nav-btn {
+                position: absolute;
+                top: 45%;
+                transform: translateY(-50%);
+                background: rgba(255, 255, 255, 0.95);
+                color: var(--matcha-deep);
+                border: 1px solid var(--gold-border);
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                z-index: 10;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+                transition: all 0.2s ease;
+            }
+            .gallery-nav-btn:hover {
+                background: var(--matcha-deep);
+                color: #fff;
+            }
+            .gallery-nav-left { left: -10px; }
+            .gallery-nav-right { right: -10px; }
         </style>
         
+        <!-- LEFT ARROW BUTTON -->
+        <button class="gallery-nav-btn gallery-nav-left" onclick="document.getElementById('gallery-dynamic-container').scrollBy({left: -300, behavior: 'smooth'})">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
         <div id="gallery-dynamic-container" class="enterprise-scroll-row">
             <!-- Dynamic gallery cards injected safely by JavaScript -->
         </div>
+
+        <!-- RIGHT ARROW BUTTON -->
+        <button class="gallery-nav-btn gallery-nav-right" onclick="document.getElementById('gallery-dynamic-container').scrollBy({left: 300, behavior: 'smooth'})">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
     </div>
 
     <!-- 2. EXACT YOUTUBE PLAYLIST EMBED -->
