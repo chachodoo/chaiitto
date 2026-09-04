@@ -664,19 +664,27 @@
                 if (smallLogo) smallLogo.style.display = 'flex'; 
             }
 
-            // ENTERPRISE UX: Auto-close the mobile menu when the user clicks a link
-            if (window.innerWidth <= 992 && mobileMenu && mobileMenu.classList.contains('active')) {
-                mobileMenu.classList.remove('active');
+        // ENTERPRISE UX: Auto-close the mobile menu when the user clicks a link
+        if (window.innerWidth <= 992 && mobileMenu && mobileMenu.classList.contains('active')) {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+            const hambIcon = document.querySelector('#floating-hamburger-btn i');
+            if (hambIcon) {
+                hambIcon.classList.remove('fa-xmark');
+                hambIcon.classList.add('fa-bars');
             }
+        }
         };
 
-        // HAMBURGER BUTTON FUNCTION
-        window.toggleMobileMenu = function() {
-            const mobileMenu = document.getElementById('main-nav-menu');
-            if (mobileMenu) {
-                mobileMenu.classList.toggle('active');
-            }
-        };
+// HAMBURGER BUTTON FUNCTION
+    window.toggleMobileMenu = function() {
+        const mobileMenu = document.getElementById('main-nav-menu');
+        if (mobileMenu) {
+            const isOpen = mobileMenu.classList.toggle('active');
+            // Freeze body scrolling when open, restore when closed
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        }
+    };
 
 // Initialize state on page load instantly to prevent the blink
         window.addEventListener('DOMContentLoaded', () => {
