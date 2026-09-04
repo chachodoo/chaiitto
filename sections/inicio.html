@@ -1,5 +1,5 @@
 <style>
-  /* 20/80 Layout Rules */
+  /* Bulletproof 20/80 Layout Rules */
   .dashboard-layout {
     display: flex;
     gap: 30px;
@@ -17,10 +17,10 @@
   }
   .dashboard-content {
     flex: 1;
-    min-width: 0; /* Prevents flex blowout */
+    min-width: 0; 
   }
   
-  /* 3-Column Jar Grid Rules */
+  /* Bulletproof 3-Column Jar Grid Rules */
   .strict-3-grid {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
@@ -30,73 +30,78 @@
 
   /* Responsive Mobile/Tablet Rules */
   @media (max-width: 992px) {
-    .dashboard-layout {
-      flex-direction: column;
-    }
-    .sidebar-menu {
-      flex: none;
-      width: 100%;
-      position: static;
-    }
-    .strict-3-grid {
-      grid-template-columns: repeat(2, 1fr) !important;
-    }
+    .dashboard-layout { flex-direction: column; }
+    .sidebar-menu { flex: none; width: 100%; position: static; }
+    .strict-3-grid { grid-template-columns: repeat(2, 1fr) !important; }
   }
   @media (max-width: 550px) {
-    .strict-3-grid {
-      grid-template-columns: 1fr !important;
-    }
+    .strict-3-grid { grid-template-columns: 1fr !important; }
   }
 </style>
 
 <div class="dashboard-layout">
 
   <!-- ==========================================
-       20% LEFT SIDEBAR (IDENTICAL ON INICIO & PRODUCTOS) 
-       ========================================== -->
- <!-- ==========================================
-       PRODUCTOS SIDEBAR (Strictly Shippable Collections) 
+       20% LEFT SIDEBAR: THE MENU GATEWAY
        ========================================== -->
   <aside class="sidebar-menu">
     <div class="collections-bar">
+      
       <h3 style="color: var(--matcha-deep); font-size: 1.1em; margin-bottom: 5px; border-bottom: 2px solid var(--gold-accent); padding-bottom: 10px; font-weight: 800; text-transform: uppercase;">
-        Colecciones
+        Menú Chai-itto
       </h3>
       
-      <button class="tab-btn active" onclick="selectCollection('BIENESTAR')" style="justify-content: space-between;">
+      <!-- ALL COLLECTIONS (Linking to Menu Pages) -->
+      <button class="tab-btn" onclick="jumpToMenuCollection(1)" style="justify-content: space-between;">
         <span><i class="fa-solid fa-leaf" style="color: var(--matcha-deep); width: 25px; text-align: center;"></i> Bienestar</span>
         <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
       </button>
 
-      <button class="tab-btn" onclick="selectCollection('CHAI LOVER')" style="justify-content: space-between;">
+      <button class="tab-btn" onclick="jumpToMenuCollection(2)" style="justify-content: space-between;">
         <span><i class="fa-solid fa-mug-hot" style="color: var(--matcha-deep); width: 25px; text-align: center;"></i> Chai Lover</span>
         <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
       </button>
 
-      <button class="tab-btn" onclick="selectCollection('BLUE MAGIC')" style="justify-content: space-between;">
+      <button class="tab-btn" onclick="jumpToMenuCollection(3)" style="justify-content: space-between;">
         <span><i class="fa-solid fa-droplet" style="color: #4285F4; width: 25px; text-align: center;"></i> Blue Magic</span>
         <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
       </button>
 
-      <button class="tab-btn" onclick="selectCollection('VIAJES CON TÉ')" style="justify-content: space-between;">
+      <button class="tab-btn" onclick="jumpToMenuCollection(4)" style="justify-content: space-between;">
         <span><i class="fa-solid fa-plane" style="color: var(--matcha-deep); width: 25px; text-align: center;"></i> Viajes con Té</span>
         <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
       </button>
 
-      <button class="tab-btn" onclick="selectCollection('NOCTURNA')" style="justify-content: space-between;">
+      <button class="tab-btn" onclick="jumpToMenuCollection(5)" style="justify-content: space-between;">
         <span><i class="fa-solid fa-moon" style="color: #1a237e; width: 25px; text-align: center;"></i> Nocturna</span>
         <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
       </button>
 
-      <button class="tab-btn" onclick="selectCollection('ESPECIAL')" style="justify-content: space-between;">
+      <button class="tab-btn" onclick="jumpToMenuCollection(6)" style="justify-content: space-between;">
         <span><i class="fa-solid fa-award" style="color: var(--gold-accent); width: 25px; text-align: center;"></i> Especial</span>
         <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
       </button>
 
-      <button class="tab-btn" onclick="selectCollection('WOW')" style="justify-content: space-between;">
+      <button class="tab-btn" onclick="jumpToMenuCollection(9)" style="justify-content: space-between;">
         <span><i class="fa-solid fa-star" style="color: var(--gold-accent); width: 25px; text-align: center;"></i> Wow</span>
         <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
       </button>
+
+      <button class="tab-btn" onclick="jumpToMenuCollection(14)" style="justify-content: space-between;">
+        <span><i class="fa-solid fa-bowl-rice" style="color: var(--matcha-deep); width: 25px; text-align: center;"></i> Quiero Matcha</span>
+        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
+      </button>
+
+      <!-- MAIN MENU BUTTON -->
+      <h3 style="color: var(--matcha-deep); font-size: 1.1em; margin: 15px 0 5px 0; border-bottom: 2px solid var(--gold-accent); padding-bottom: 10px; font-weight: 800; text-transform: uppercase;">
+        Menú Completo
+      </h3>
+      
+      <button class="tab-btn" onclick="switchPage('menu');" style="justify-content: space-between; background: var(--matcha-deep); color: white; border-color: var(--matcha-deep);">
+        <span><i class="fa-solid fa-book-open" style="color: white; width: 25px; text-align: center;"></i> Ver Menú Digital</span>
+        <i class="fa-solid fa-arrow-right" style="font-size: 0.7em; color: white;"></i>
+      </button>
+
     </div>
 
     <!-- Gold Shipping Promo -->
@@ -107,7 +112,9 @@
     </div>
   </aside>
 
-  <!-- 80% RIGHT MAIN CONTENT -->
+  <!-- ==========================================
+       80% RIGHT MAIN CONTENT 
+       ========================================== -->
   <main class="dashboard-content">
     
     <!-- THE STORY -->
@@ -130,7 +137,7 @@
             <h3 class="product-name">2. Té Bienestar</h3>
             <p class="product-ingredients">Anís, caléndula, hoja de zarza, hinojo, baya de saúco, girasol, jamaica.</p>
           </div>
-          <button class="nav-btn" style="width: 100%; padding: 8px 15px;" onclick="jumpToMenuCollection(1)">Ver Colección</button>
+          <button class="nav-btn" style="width: 100%; padding: 8px 15px;" onclick="jumpToMenuCollection(1)">Ver en Menú</button>
         </div>
 
         <div class="teaser-card product-card">
@@ -139,7 +146,7 @@
             <h3 class="product-name">20. Masala Chai</h3>
             <p class="product-ingredients">Té negro, vainilla, jengibre. Tradición pura Chai Lover.</p>
           </div>
-          <button class="nav-btn" style="width: 100%; padding: 8px 15px;" onclick="jumpToMenuCollection(2)">Ver Colección</button>
+          <button class="nav-btn" style="width: 100%; padding: 8px 15px;" onclick="jumpToMenuCollection(2)">Ver en Menú</button>
         </div>
 
         <div class="teaser-card product-card">
@@ -148,7 +155,7 @@
             <h3 class="product-name">28. Blue Magic</h3>
             <p class="product-ingredients">Oolong, escaramujo, manzana, oro.</p>
           </div>
-          <button class="nav-btn" style="width: 100%; padding: 8px 15px;" onclick="jumpToMenuCollection(3)">Ver Colección</button>
+          <button class="nav-btn" style="width: 100%; padding: 8px 15px;" onclick="jumpToMenuCollection(3)">Ver en Menú</button>
         </div>
 
         <div class="teaser-card product-card">
@@ -157,7 +164,7 @@
             <h3 class="product-name">34. Japón</h3>
             <p class="product-ingredients">Té Blanco, pétalos de rosa, betabel, cereza.</p>
           </div>
-          <button class="nav-btn" style="width: 100%; padding: 8px 15px;" onclick="jumpToMenuCollection(4)">Ver Colección</button>
+          <button class="nav-btn" style="width: 100%; padding: 8px 15px;" onclick="jumpToMenuCollection(4)">Ver en Menú</button>
         </div>
 
         <div class="teaser-card product-card">
@@ -166,7 +173,7 @@
             <h3 class="product-name">47. Noche Dorada</h3>
             <p class="product-ingredients">Zacate limón, manzanilla, anís, rosas, clavo, golden milk.</p>
           </div>
-          <button class="nav-btn" style="width: 100%; padding: 8px 15px;" onclick="jumpToMenuCollection(5)">Ver Colección</button>
+          <button class="nav-btn" style="width: 100%; padding: 8px 15px;" onclick="jumpToMenuCollection(5)">Ver en Menú</button>
         </div>
 
         <div class="teaser-card product-card">
@@ -175,7 +182,7 @@
             <h3 class="product-name">70. Golden Milk</h3>
             <p class="product-ingredients">Cúrcuma, canela, jengibre, cardamomo, clavo, pimienta negra.</p>
           </div>
-          <button class="nav-btn" style="width: 100%; padding: 8px 15px;" onclick="jumpToMenuCollection(6)">Ver Colección</button>
+          <button class="nav-btn" style="width: 100%; padding: 8px 15px;" onclick="jumpToMenuCollection(6)">Ver en Menú</button>
         </div>
       </div>
     </section>
