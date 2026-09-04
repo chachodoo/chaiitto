@@ -630,6 +630,10 @@
             if (originalSwitchPage) await originalSwitchPage(pageName);
             // Force the browser to scroll to the very top of the new page
             window.scrollTo(0, 0);
+            // Clear any accidental text selection (the blue highlight)
+            if (window.getSelection) {
+            window.getSelection().removeAllRanges();
+            }
             
             const topHero = document.getElementById('master-hero-banner');
             // FIX: Only target the logo wrapper, NOT the whole container that holds the hamburger!
