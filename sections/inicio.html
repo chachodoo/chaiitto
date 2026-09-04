@@ -76,10 +76,15 @@
   <aside class="sidebar-menu">
     <div class="collections-bar">
 
-      <!-- ALL COLLECTIONS -->
-      <h3 style="color: var(--matcha-deep); font-size: 1.1em; margin-bottom: 5px; border-bottom: 2px solid var(--gold-accent); padding-bottom: 10px; font-weight: 800; text-transform: uppercase;">
-        Explorar Colecciones
-      </h3>
+<!-- COLLECTIONS HEADER WITH MOBILE SWIPE HINT -->
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; border-bottom: 2px solid var(--gold-accent); padding-bottom: 8px;">
+            <span style="font-family: var(--font-heading); color: var(--matcha-deep); font-size: 1.05em; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
+                Explorar Colecciones
+            </span>
+            <span style="font-size: 0.78em; color: var(--text-muted); font-weight: 600; display: inline-flex; align-items: center; gap: 5px;">
+                Desliza <i class="fa-solid fa-arrow-right-long" style="color: var(--gold-accent);"></i>
+            </span>
+        </div>
       
       <button class="tab-btn" onclick="jumpToMenuCollection(1)" style="justify-content: space-between;">
         <span><i class="fa-solid fa-leaf" style="color: var(--matcha-deep); width: 25px; text-align: center;"></i> Bienestar</span>
