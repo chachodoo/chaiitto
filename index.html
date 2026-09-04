@@ -302,10 +302,10 @@
             /* Menu grows smoothly out of the hamburger button */
             nav.main-nav { 
                 display: none; flex-direction: column; gap: 15px; position: fixed; 
-                top: 75px; left: 20px; right: auto; width: 250px; background: #F4F8F3; 
+                top: 78px; left: auto; right: 20px; width: 250px; background: #F4F8F3; 
                 padding: 20px; border-radius: 16px; border: 2px solid var(--gold-border);
                 box-shadow: 0 15px 35px rgba(0,0,0,0.25); z-index: 10000; 
-                transform-origin: top left; /* Anchors the animation physically to the button */
+                transform-origin: top right; /* Perfectly connects the animation to the button */
             }
             nav.main-nav.active { display: flex; animation: popOutMenu 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards; }
         }
