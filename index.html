@@ -498,8 +498,8 @@
         <span id="cart-count-badge">0</span>
     </button>
 
-    <!-- NEW INDEPENDENT HAMBURGER -->
-    <button id="floating-hamburger-btn" class="hamburger-btn" onclick="toggleMobileMenu(); const icon = this.querySelector('i'); icon.classList.toggle('fa-bars'); icon.classList.toggle('fa-xmark');" aria-label="Menú">
+<!-- NEW INDEPENDENT HAMBURGER -->
+    <button id="floating-hamburger-btn" class="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Menú">
         <i class="fa-solid fa-bars"></i>
     </button>
 
@@ -665,24 +665,30 @@
             }
 
         // ENTERPRISE UX: Auto-close the mobile menu when the user clicks a link
-        if (window.innerWidth <= 992 && mobileMenu && mobileMenu.classList.contains('active')) {
-            mobileMenu.classList.remove('active');
+        const navMenu = document.getElementById('main-nav-menu');
+        const hambIcon = document.querySelector('#floating-hamburger-btn i');
+        if (window.innerWidth <= 992 && navMenu && navMenu.classList.contains('active')) {
+            navMenu.classList.remove('active');
             document.body.style.overflow = '';
-            const hambIcon = document.querySelector('#floating-hamburger-btn i');
             if (hambIcon) {
                 hambIcon.classList.remove('fa-xmark');
                 hambIcon.classList.add('fa-bars');
             }
         }
-        };
+    };
 
-// HAMBURGER BUTTON FUNCTION
+    // HAMBURGER BUTTON FUNCTION
     window.toggleMobileMenu = function() {
         const mobileMenu = document.getElementById('main-nav-menu');
-        if (mobileMenu) {
-            const isOpen = mobileMenu.classList.toggle('active');
-            // Freeze body scrolling when open, restore when closed
-            document.body.style.overflow = isOpen ? 'hidden' : '';
+        const hambIcon = document.querySelector('#floating-hamburger-btn i');
+        if (!mobileMenu) return;
+
+        const isOpen = mobileMenu.classList.toggle('active');
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+
+        if (hambIcon) {
+            hambIcon.classList.toggle('fa-bars', !isOpen);
+            hambIcon.classList.toggle('fa-xmark', isOpen);
         }
     };
 
