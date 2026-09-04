@@ -156,28 +156,53 @@
             .sidebar-menu, .inicio-sidebar { flex: none; width: 100%; position: static; order: 1; margin-top: 10px; }
             .dashboard-content, .inicio-main { order: 2; width: 100%; }
 
-            /* 2. Turn the vertical sidebar into a swipeable horizontal row */
-            .collections-bar, .sidebar-nav {
-                flex-direction: row;
-                overflow-x: auto;
-                padding-bottom: 10px;
-                gap: 10px;
-                scrollbar-width: none; /* Hides scrollbar on Firefox */
-            }
-            .collections-bar::-webkit-scrollbar, .sidebar-nav::-webkit-scrollbar {
-                display: none; /* Hides scrollbar on Chrome/Safari */
-            }
-            
-            /* 3. Make the buttons fit side-by-side without squishing */
-            .tab-btn, .sidebar-link {
-                white-space: nowrap;
-                flex-shrink: 0;
-                width: auto;
-                padding: 8px 16px;
-            }
-            
-            /* Hide the "EXPLORAR COLECCIONES" title on mobile to save space */
-            .collections-bar h2, .sidebar-nav h3 { display: none; }
+           /* 1. Stack the title on top and buttons below */
+    .sidebar-menu, .inicio-sidebar {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        margin: 15px 0 10px 0 !important;
+    }
+
+    /* 2. Style the Title cleanly ABOVE the buttons */
+    .sidebar-menu h2, .sidebar-menu h3,
+    .collections-bar h2, .sidebar-nav h3 {
+        display: block !important;
+        font-family: var(--font-heading) !important;
+        font-size: 0.8em !important;
+        letter-spacing: 1.5px !important;
+        color: var(--gold-accent) !important;
+        text-transform: uppercase !important;
+        margin: 0 0 10px 15px !important;
+        border: none !important;
+        padding: 0 !important;
+    }
+
+    /* 3. Enterprise Horizontal Scroll Track with "Peek" */
+    .collections-bar, .sidebar-nav {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+        gap: 10px !important;
+        padding: 4px 15px 12px 15px !important; /* Edge padding creates the peek cut */
+        margin: 0 !important;
+        scrollbar-width: none;
+    }
+    .collections-bar::-webkit-scrollbar, .sidebar-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* 4. Compact, elegant pill buttons */
+    .tab-btn, .sidebar-link {
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+        width: auto !important;
+        padding: 9px 18px !important;
+        font-size: 0.85em !important;
+        border-radius: 25px !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+    }
             /* Hide the Envíos promo box ONLY on mobile */
             .sidebar-promo { display: none; }
         }
