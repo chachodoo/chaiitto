@@ -58,8 +58,8 @@
             .story-card { order: 1; width: 100%; }
             .sidebar-menu { order: 2; flex: none; width: 100%; position: static; max-height: none; overflow-y: visible; margin: 15px 0; }
             .product-teaser-section { order: 3; width: 100%; }
-            .dashboard-content > div:last-of-type { order: 4; width: 100%; } /* The reviews section */
-
+            #home-reviews-section { order: 4; width: 100%; }
+            #home-branch-section { order: 5; width: 100%; }
             .strict-3-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
   @media (max-width: 550px) {
@@ -206,8 +206,7 @@
     </section>
 
     <!-- GOOGLE REVIEWS -->
-    <div style="width: 100%; margin-top: 40px; margin-bottom: 20px;">
-      <h2 style="text-align: center; font-family: var(--font-title); color: var(--matcha-deep); font-size: 2.2em; margin-bottom: 5px; font-style: italic;">Lo que dicen en Cholula</h2>
+      <div id="home-reviews-section" style="width: 100%; margin-top: 40px; margin-bottom: 20px;">      <h2 style="text-align: center; font-family: var(--font-title); color: var(--matcha-deep); font-size: 2.2em; margin-bottom: 5px; font-style: italic;">Lo que dicen en Cholula</h2>
       <div style="text-align: center; color: #4285F4; font-family: var(--font-body); font-weight: 700; margin-bottom: 30px; display: flex; align-items: center; justify-content: center; gap: 8px;">
         <i class="fa-brands fa-google fa-lg"></i> Reseñas reales de nuestros clientes
       </div>
@@ -263,41 +262,38 @@
     </div>
 
     <!-- SUCURSAL CHOLULA CARD -->
-<div class="story-card" style="margin-top: 25px; border: 2px solid var(--gold-border); background: #FFFFFF;">
-    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 8px;">
-        <span style="font-family: var(--font-heading); font-size: 0.8em; letter-spacing: 1.5px; color: var(--gold-accent); text-transform: uppercase; font-weight: 700;">
-            <i class="fa-solid fa-store"></i> Barra de Té
-        </span>
-        <span style="font-family: var(--font-heading); font-size: 0.8em; color: var(--matcha-deep); font-weight: 700;">San Pedro Cholula</span>
-    </div>
-
-    <h2 style="font-family: var(--font-title); color: var(--matcha-deep); margin: 0 0 12px 0; font-size: 1.8em; text-align: center; font-style: italic;">
-        Visítanos en Nuestra Sucursal
-    </h2>
-
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; align-items: center; margin-top: 15px;">
-        <div>
-            <p style="font-size: 0.9em; line-height: 1.6; color: var(--text-dark); margin-bottom: 15px;">
-                <i class="fa-solid fa-location-dot" style="color: var(--gold-accent); width: 20px;"></i> <strong>Ubicación:</strong> San Pedro Cholula, Puebla, México.<br>
-                <i class="fa-solid fa-clock" style="color: var(--gold-accent); width: 20px;"></i> <strong>Horarios:</strong>
-                <span style="display: block; padding-left: 24px; margin-top: 4px; font-size: 0.95em; color: var(--text-muted);">
-                    &bull; Lun – Jue, Dom: 1:00 PM – 9:00 PM<br>
-                    &bull; Viernes: 10:00 AM – 9:30 PM<br>
-                    &bull; Sábado: 1:00 PM – 9:30 PM
+        <div id="home-branch-section" style="margin-top: 25px; border: 2px solid var(--gold-border); background: #FFFFFF; border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.06);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 8px;">
+                <span style="font-family: var(--font-heading); font-size: 0.8em; letter-spacing: 1.5px; color: var(--gold-accent); text-transform: uppercase; font-weight: 700;">
+                    <i class="fa-solid fa-store"></i> Barra de Té
                 </span>
-            </p>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <a href="https://wa.me/522218415466" target="_blank" rel="noopener noreferrer" style="background: #25D366; color: #FFFFFF; text-decoration: none; padding: 9px 16px; border-radius: 20px; font-size: 0.85em; font-weight: 700; display: inline-flex; align-items: center; gap: 8px;">
-                    <i class="fa-brands fa-whatsapp fa-lg"></i> WhatsApp Sucursal
-                </a>
-                <a href="tel:+522218415466" style="background: var(--matcha-deep); color: #FFFFFF; text-decoration: none; padding: 9px 16px; border-radius: 20px; font-size: 0.85em; font-weight: 700; display: inline-flex; align-items: center; gap: 8px;">
-                    <i class="fa-solid fa-phone"></i> Llamar
-                </a>
+                <span style="font-family: var(--font-heading); font-size: 0.8em; color: var(--matcha-deep); font-weight: 700;">San Pedro Cholula</span>
+            </div>
+
+            <h2 style="font-family: var(--font-title); color: var(--matcha-deep); margin: 0 0 12px 0; font-size: 1.8em; text-align: center; font-style: italic;">
+                Visítanos en Nuestra Sucursal
+            </h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; align-items: center; margin-top: 15px;">
+                <div>
+                    <p style="font-size: 0.9em; line-height: 1.6; color: var(--text-dark); margin-bottom: 15px;">
+                        <i class="fa-solid fa-location-dot" style="color: var(--gold-accent); width: 20px;"></i> <strong>Ubicación:</strong> San Pedro Cholula, Puebla, México.<br>
+                        <i class="fa-solid fa-clock" style="color: var(--gold-accent); width: 20px;"></i> <strong>Horarios:</strong>
+                        <span style="display: block; padding-left: 24px; margin-top: 4px; font-size: 0.95em; color: var(--text-muted);">
+                            &bull; Lun – Jue, Dom: 1:00 PM – 9:00 PM<br>
+                            &bull; Viernes: 10:00 AM – 9:30 PM<br>
+                            &bull; Sábado: 1:00 PM – 9:30 PM
+                        </span>
+                    </p>
+                    <a href="tel:+522218415466" style="background: var(--matcha-deep); color: #FFFFFF; text-decoration: none; padding: 9px 18px; border-radius: 20px; font-size: 0.85em; font-weight: 700; display: inline-flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-phone"></i> Llamar a Sucursal
+                    </a>
+                </div>
+
+                <iframe style="width: 100%; height: 180px; border-radius: 12px; border: 1.5px solid var(--gold-border);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.923893608149!2d-98.30872202397193!3d19.062325082138135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfc7525aac3db7%3A0x5d6d23e1c43a6b59!2sCHAI-ITTO%20T%C3%89%2C%20CAF%C3%89%2C%20POSTRES%20ORGANIC!5e0!3m2!1ses-419!2smx!4v1700000000000!5m2!1ses-419!2smx" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
-
-        <iframe style="width: 100%; height: 180px; border-radius: 12px; border: 1.5px solid var(--gold-border);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.923893608149!2d-98.30872202397193!3d19.062325082138135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfc7525aac3db7%3A0x5d6d23e1c43a6b59!2sCHAI-ITTO%20T%C3%89%2C%20CAF%C3%89%2C%20POSTRES%20ORGANIC!5e0!3m2!1ses-419!2smx!4v1700000000000!5m2!1ses-419!2smx" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
+    </main>
 </div>
   
   </main>
