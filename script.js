@@ -632,3 +632,27 @@ function jumpToMenuCollection(pageNum) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, 150);
 }
+
+// ENTERPRISE GALLERY SCROLL LOGIC
+function scrollGallery(direction) {
+    const container = document.getElementById('gallery-dynamic-container');
+    if (!container) return;
+    
+    const scrollAmount = 370; 
+    const maxScroll = container.scrollWidth - container.clientWidth;
+    const currentScroll = Math.ceil(container.scrollLeft);
+
+    if (direction === 'right') {
+        if (currentScroll >= maxScroll - 10) {
+            container.scrollTo({ left: 0, behavior: 'smooth' }); 
+        } else {
+            container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+    } else if (direction === 'left') {
+        if (currentScroll <= 10) {
+            container.scrollTo({ left: maxScroll, behavior: 'smooth' }); 
+        } else {
+            container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        }
+    }
+}
