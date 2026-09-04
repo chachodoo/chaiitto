@@ -629,6 +629,8 @@
         const originalSwitchPage = window.switchPage;
         window.switchPage = async function(pageName) {
             if (originalSwitchPage) await originalSwitchPage(pageName);
+            // Force the browser to scroll to the very top of the new page
+            window.scrollTo(0, 0);
             
             const topHero = document.getElementById('master-hero-banner');
             // FIX: Only target the logo wrapper, NOT the whole container that holds the hamburger!
