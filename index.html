@@ -136,7 +136,10 @@
         }
 
         @media (max-width: 900px) {
-            .dashboard-layout, .inicio-layout { flex-direction: column; }
+            .dashboard-layout, .inicio-layout { 
+                display: flex; 
+                flex-direction: column; 
+            }
             
             /* 1. Put sidebar back on top */
             .sidebar-menu, .inicio-sidebar { flex: none; width: 100%; position: static; order: 1; margin-top: 10px; }
