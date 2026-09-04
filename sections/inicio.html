@@ -44,14 +44,27 @@
   <!-- ==========================================
        20% LEFT SIDEBAR: THE MENU GATEWAY
        ========================================== -->
+  <!-- ==========================================
+       20% LEFT SIDEBAR: THE MENU GATEWAY
+       ========================================== -->
   <aside class="sidebar-menu">
     <div class="collections-bar">
       
+      <!-- MAIN MENU BUTTON (MOVED TO TOP) -->
       <h3 style="color: var(--matcha-deep); font-size: 1.1em; margin-bottom: 5px; border-bottom: 2px solid var(--gold-accent); padding-bottom: 10px; font-weight: 800; text-transform: uppercase;">
-        Menú Chai-itto
+        Menú Completo
       </h3>
       
-      <!-- ALL COLLECTIONS (Linking to Menu Pages) -->
+      <button class="tab-btn" onclick="switchPage('menu');" style="justify-content: space-between; background: var(--matcha-deep); color: white; border-color: var(--matcha-deep); margin-bottom: 15px;">
+        <span><i class="fa-solid fa-book-open" style="color: white; width: 25px; text-align: center;"></i> Ver Menú Digital</span>
+        <i class="fa-solid fa-arrow-right" style="font-size: 0.7em; color: white;"></i>
+      </button>
+
+      <!-- ALL COLLECTIONS -->
+      <h3 style="color: var(--matcha-deep); font-size: 1.1em; margin-bottom: 5px; border-bottom: 2px solid var(--gold-accent); padding-bottom: 10px; font-weight: 800; text-transform: uppercase;">
+        Explorar Colecciones
+      </h3>
+      
       <button class="tab-btn" onclick="jumpToMenuCollection(1)" style="justify-content: space-between;">
         <span><i class="fa-solid fa-leaf" style="color: var(--matcha-deep); width: 25px; text-align: center;"></i> Bienestar</span>
         <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
@@ -90,16 +103,6 @@
       <button class="tab-btn" onclick="jumpToMenuCollection(14)" style="justify-content: space-between;">
         <span><i class="fa-solid fa-bowl-rice" style="color: var(--matcha-deep); width: 25px; text-align: center;"></i> Quiero Matcha</span>
         <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
-      </button>
-
-      <!-- MAIN MENU BUTTON -->
-      <h3 style="color: var(--matcha-deep); font-size: 1.1em; margin: 15px 0 5px 0; border-bottom: 2px solid var(--gold-accent); padding-bottom: 10px; font-weight: 800; text-transform: uppercase;">
-        Menú Completo
-      </h3>
-      
-      <button class="tab-btn" onclick="switchPage('menu');" style="justify-content: space-between; background: var(--matcha-deep); color: white; border-color: var(--matcha-deep);">
-        <span><i class="fa-solid fa-book-open" style="color: white; width: 25px; text-align: center;"></i> Ver Menú Digital</span>
-        <i class="fa-solid fa-arrow-right" style="font-size: 0.7em; color: white;"></i>
       </button>
 
     </div>
