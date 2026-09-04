@@ -499,7 +499,7 @@
     </button>
 
     <!-- NEW INDEPENDENT HAMBURGER -->
-    <button id="floating-hamburger-btn" class="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Menú">
+    <button id="floating-hamburger-btn" class="hamburger-btn" onclick="toggleMobileMenu(); const icon = this.querySelector('i'); icon.classList.toggle('fa-bars'); icon.classList.toggle('fa-xmark');" aria-label="Menú">
         <i class="fa-solid fa-bars"></i>
     </button>
 
