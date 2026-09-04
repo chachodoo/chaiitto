@@ -3,24 +3,43 @@
     <div class="story-subtitle">Momentos, Té y Tradición</div>
 
     <!-- 1. RIBBON WRAPPER ON TOP -->
-    <div class="gallery-ribbon-wrapper" style="overflow: hidden; width: 100%; margin-top: 20px; padding: 10px 0;">
+    <div class="gallery-ribbon-wrapper" style="overflow: hidden; width: 100%; margin-top: 15px;">
         
-        <!-- INLINE CSS TO FORCE THE SCROLL ANIMATION -->
+        <!-- INLINE CSS FOR SPEED, UNIFORMITY, AND SIZING -->
         <style>
             @keyframes scrollGalleryRibbon {
                 0% { transform: translateX(0); }
                 100% { transform: translateX(-50%); }
             }
+            
+            /* THIS FORCES EVERY ITEM TO BE EXACTLY IDENTICAL */
+            .gallery-item-card {
+                flex-shrink: 0;
+                height: 220px; /* Locks the exact height for all images/videos */
+                width: 220px;  /* Locks the width for perfect, uniform squares */
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                cursor: pointer;
+            }
+            
+            .gallery-item-card img, .gallery-item-card video {
+                height: 100%;
+                width: 100%;
+                object-fit: cover; /* Crops the images cleanly so they never stretch or distort */
+                display: block;
+            }
         </style>
         
-        <div id="gallery-dynamic-container" style="display: flex; gap: 15px; width: max-content; animation: scrollGalleryRibbon 35s linear infinite;">
+        <!-- SPEED SLOWED DOWN TO 120s -->
+        <div id="gallery-dynamic-container" style="display: flex; gap: 15px; width: max-content; animation: scrollGalleryRibbon 120s linear infinite;">
             <!-- Dynamic gallery cards injected from galeria.json by JavaScript -->
         </div>
     </div>
 
-    <!-- 2. EXACT YOUTUBE PLAYLIST EMBED BELOW RIBBON -->
-    <div class="youtube-gallery-section" style="margin-top: 40px; margin-bottom: 20px;">
-        <h3 style="color: var(--matcha-deep); font-family: var(--font-title); margin: 25px 0 15px 0; text-align: center;">Videos y Experiencias</h3>
+    <!-- 2. EXACT YOUTUBE PLAYLIST EMBED (Margin reduced to 10px to close the huge gap!) -->
+    <div class="youtube-gallery-section" style="margin-top: 10px; margin-bottom: 20px;">
+        <h3 style="color: var(--matcha-deep); font-family: var(--font-title); margin: 10px 0 15px 0; text-align: center;">Videos y Experiencias</h3>
         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 16px; border: 2px solid var(--gold-border); box-shadow: 0 6px 18px rgba(0,0,0,0.1);">
             <iframe src="https://www.youtube.com/embed/videoseries?list=PL8F14rO99by_JkM37mGinv9CrfOjnBvfB" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
         </div>
