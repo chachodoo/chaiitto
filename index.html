@@ -225,7 +225,7 @@
         .logo-main { height: 85px; width: auto; cursor: pointer; filter: drop-shadow(0 4px 12px rgba(45, 90, 39, 0.15)); transition: transform 0.4s ease; }
         .logo-main:hover { transform: scale(1.05); }
 
-        .hamburger-btn { display: none; background: transparent; border: none; color: var(--matcha-deep); font-size: 1.8em; cursor: pointer; }
+        .hamburger-btn { display: none; }
 
         nav.main-nav { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 25px; margin-top: 15px; width: 100%; }
         .nav-btn { background: #FFFFFF; border: 1.5px solid rgba(212, 175, 55, 0.4); border-radius: 25px; padding: 8px 16px; font-family: var(--font-heading); font-size: 0.85em; font-weight: 700; color: var(--matcha-deep); text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.04); }
@@ -242,11 +242,46 @@
         .nav-vip-badge { background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%); color: #1C3317; font-size: 0.65em; padding: 3px 6px; border-radius: 10px; vertical-align: super; margin-left: 3px; box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4); }
 
         @media (max-width: 992px) {
-            header { padding: 10px 20px; }
-            .header-square-layout { grid-template-columns: 1fr; position: relative; }
+            header { padding: 5px 20px; }
+            .header-square-layout { grid-template-columns: 1fr; }
             .logo-main { height: 60px; }
-            .hamburger-btn { display: block; position: absolute; right: 0; top: 50%; transform: translateY(-50%); } 
-            nav.main-nav { display: none; flex-direction: column; gap: 18px; margin-top: 20px; padding-bottom: 10px; }
+            
+            /* FLOATING HAMBURGER: Sits safely in the top right corner over the Hero Banner! */
+            .hamburger-btn { 
+                display: flex; 
+                position: fixed; 
+                top: 20px; 
+                right: 20px; 
+                width: 52px; 
+                height: 52px; 
+                background: #FFFFFF; 
+                border: 2px solid var(--gold-border); 
+                border-radius: 50%; 
+                color: var(--matcha-deep); 
+                font-size: 1.4em; 
+                cursor: pointer; 
+                z-index: 10001; 
+                align-items: center; 
+                justify-content: center;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
+            }
+            
+            /* Mobile menu drops down safely below the button */
+            nav.main-nav { 
+                display: none; 
+                flex-direction: column; 
+                gap: 15px; 
+                position: fixed; 
+                top: 80px; 
+                right: 20px; 
+                width: 250px; 
+                background: #F4F8F3; 
+                padding: 20px; 
+                border-radius: 16px;
+                border: 2px solid var(--gold-border);
+                box-shadow: 0 15px 35px rgba(0,0,0,0.25); 
+                z-index: 10000; 
+            }
             nav.main-nav.active { display: flex; animation: fadeInDown 0.3s ease forwards; }
         }
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
@@ -416,6 +451,31 @@
         <span id="cart-count-badge">0</span>
     </button>
 
+    <!-- 1. THE NEW MASTER HERO BANNER (Top of the screen, controlled by JS) -->
+    <div id="master-hero-banner">
+        <h1 style="font-family: var(--font-title); font-size: clamp(2.2em, 5vw, 3.5em); margin: 0; font-style: italic; text-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+            El Té Verdadero Ha Llegado
+        </h1>
+        
+        <img src="logo.png" alt="Chaiitto Logo" style="width: 100%; max-width: 160px; height: auto; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2)); margin: 5px 0;">
+        
+        <p style="font-family: var(--font-body); font-size: clamp(1em, 2vw, 1.15em); font-weight: 300; margin: 0; max-width: 700px; letter-spacing: 1px; line-height: 1.5;">
+            Dejamos atrás las bolsitas comerciales. Bienvenido a la auténtica cultura del Té de hoja suelta en México.
+        </p>
+      
+        <div class="trust-bar-hero">
+            <div style="color: #ffffff; font-weight: 700; font-size: 0.95em; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-mug-hot" style="color: var(--gold-accent); font-size: 1.3em;"></i> 120+ Mezclas de Té
+            </div>
+            <div style="color: #ffffff; font-weight: 700; font-size: 0.95em; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-leaf" style="color: #ffffff; font-size: 1.3em;"></i> 100% Hoja Suelta
+            </div>
+            <div style="color: #ffffff; font-weight: 700; font-size: 0.95em; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-award" style="color: var(--gold-accent); font-size: 1.3em;"></i> 5 Años (2021-2026)
+            </div>
+        </div>
+    </div>
+
     <!-- 2. THE MAIN NAVIGATION HEADER -->
     <header id="main-master-header">
         <!-- Logo Wrapper (Toggled by JS) -->
@@ -442,30 +502,7 @@
             <button class="nav-btn" data-page="contactanos" onclick="switchPage('contactanos')">Contáctanos</button>
         </nav>
     </header>
-    <!-- 1. THE NEW MASTER HERO BANNER (Top of the screen, controlled by JS) -->
-    <div id="master-hero-banner">
-        <h1 style="font-family: var(--font-title); font-size: clamp(2.2em, 5vw, 3.5em); margin: 0; font-style: italic; text-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-            El Té Verdadero Ha Llegado
-        </h1>
-        
-        <img src="logo.png" alt="Chaiitto Logo" style="width: 100%; max-width: 160px; height: auto; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2)); margin: 5px 0;">
-        
-        <p style="font-family: var(--font-body); font-size: clamp(1em, 2vw, 1.15em); font-weight: 300; margin: 0; max-width: 700px; letter-spacing: 1px; line-height: 1.5;">
-            Dejamos atrás las bolsitas comerciales. Bienvenido a la auténtica cultura del Té de hoja suelta en México.
-        </p>
-      
-        <div class="trust-bar-hero">
-            <div style="color: #ffffff; font-weight: 700; font-size: 0.95em; display: flex; align-items: center; gap: 8px;">
-                <i class="fa-solid fa-mug-hot" style="color: var(--gold-accent); font-size: 1.3em;"></i> 120+ Mezclas de Té
-            </div>
-            <div style="color: #ffffff; font-weight: 700; font-size: 0.95em; display: flex; align-items: center; gap: 8px;">
-                <i class="fa-solid fa-leaf" style="color: #ffffff; font-size: 1.3em;"></i> 100% Hoja Suelta
-            </div>
-            <div style="color: #ffffff; font-weight: 700; font-size: 0.95em; display: flex; align-items: center; gap: 8px;">
-                <i class="fa-solid fa-award" style="color: var(--gold-accent); font-size: 1.3em;"></i> 5 Años (2021-2026)
-            </div>
-        </div>
-    </div>
+    
 
     
 
