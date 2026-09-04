@@ -566,8 +566,10 @@ function toggleMobileMenu() {
                 track.innerHTML = '';
 
                 ofertasList.forEach(item => {
-                    const orig = item.precioOriginal;
-                    const spec = item.precioOferta;
+                    // Smart price detection: finds the final sale price and the original price
+                    const finalPrice = item.precioOferta || item.precio || 0;
+                    const oldPrice = (item.precioNormal || item.precio) > finalPrice ? (item.precioNormal || item.precio) : null;
+                    
                     const descText = item.descripcion || '';
                     const titleText = item.name ? `#${item.num}. ${item.name}` : `#${item.num}`;
                     const imageList = (item.images && item.images.length > 0) ? item.images : [item.image || 'logo.png'];
@@ -575,52 +577,52 @@ function toggleMobileMenu() {
                     const safeName = item.name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
 
                     const card = document.createElement('div');
-                    card.className = 'oferta-card';
-                    card.onclick = () => openOfertaModal(titleText, descText, imageList, item.name, spec);
+                    card.className = 'product-card';
+                    
+                    // Create the smart price display for the button
+                    let priceHTML = `<span style="font-size: 1.15em; font-weight: 900; color: var(--text-dark); margin: 2px 0;">$${finalPrice}</span>`;
+                    
+                    // If there is a discount, show the strikethrough price!
+                    if (oldPrice) {
+                        priceHTML = `
+                            <span style="font-size: 0.75em; text-decoration: line-through; color: #889C8B; margin-bottom: -4px;">$${oldPrice}</span>
+                            <span style="font-size: 1.15em; font-weight: 900; color: #D32F2F; margin: 2px 0;">$${finalPrice}</span>
+                        `;
+                    }
 
                     card.innerHTML = `
-                        <div>
-                            <div class="oferta-img-container">
-                                <span class="oferta-mini-pill">OFERTA</span>
+                        <div style="position: relative;">
+                            <!-- THE SURPRISE: FLOATING 'OFERTA' BADGE -->
+                            <div style="position: absolute; top: 10px; left: 10px; background: #D32F2F; color: white; padding: 4px 10px; border-radius: 20px; font-weight: 900; font-size: 0.7em; letter-spacing: 1px; z-index: 2; box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);">
+                                <i class="fa-solid fa-fire"></i> OFERTA
+                            </div>
+                            
+                            <div class="product-img-box gallery-trigger" style="cursor: zoom-in;" title="Ver galería de fotos">
                                 <img src="${coverImage}" alt="${item.name || 'Oferta'}">
                             </div>
-                            <h3 class="oferta-title">${titleText}</h3>
-                            <p class="oferta-subtitle">${descText}</p>
+                            <h3 class="product-name">${titleText}</h3>
+                            <p class="product-ingredients">${descText}</p>
                         </div>
-                        <div>
-                            <div class="card-price-row">
-                                <span class="price-strike">$${orig}</span>
-                                <span class="price-current">$${spec}</span>
-                                <span class="price-currency">MXN</span>
-                            </div>
-                            <button class="buy-button" onclick="event.stopPropagation(); addToCart('${safeName}', ${spec})">
-                                <i class="fa-solid fa-cart-plus"></i> Agregar al Carrito
+                        <div style="display: flex; gap: 10px; justify-content: center; width: 100%; margin-top: auto;">
+                            <!-- MATCHING SQUARE "AÑADIR" BUTTON -->
+                            <button onclick="event.stopPropagation(); addToCart('${safeName}', ${finalPrice})" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 4px 10px rgba(74, 124, 54, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';" style="background: rgba(74, 124, 54, 0.08); border: 1px solid var(--matcha-deep); border-radius: 8px; padding: 10px 5px; flex: 1; text-align: center; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;">
+                                <span style="font-size: 0.7em; font-weight: 800; color: var(--matcha-deep); letter-spacing: 1px;">COMPRAR</span>
+                                ${priceHTML}
+                                <span style="font-size: 0.85em; color: var(--matcha-deep); font-weight: bold;"><i class="fa-solid fa-cart-plus"></i> Añadir</span>
                             </button>
                         </div>
                     `;
+                    
+                    // Wire up the image box to open the gallery safely
+                    card.querySelector('.gallery-trigger').onclick = () => {
+                        openOfertaModal(titleText, descText, imageList, item.name, finalPrice);
+                    };
+
                     track.appendChild(card);
                 });
             } catch (error) {
                 console.error("Error loading ofertas.json:", error);
             }
-        }
-
-        function openOfertaModal(title, subtitle, imageArray, prodName, price) {
-            const modal = document.getElementById('oferta-modal');
-            if (!modal) return;
-
-            currentModalImages = imageArray;
-            currentModalIndex = 0;
-
-            document.getElementById('modal-title').textContent = title;
-            document.getElementById('modal-subtitle').textContent = subtitle;
-            
-            // FIX: Hide the redundant buy button so this acts purely as a gallery
-            const buyBtn = document.getElementById('modal-buy-btn');
-            if (buyBtn) buyBtn.style.display = "none";
-
-            updateModalImageDisplay();
-            modal.classList.add('active');
         }
 
         function updateModalImageDisplay() {
