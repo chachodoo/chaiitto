@@ -33,45 +33,7 @@
     gap: 15px;
   }
 
-  /* 2. 100% WIDTH HORIZONTAL MENU TABS */
-  .horizontal-menu {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    width: 100%;
-    margin-bottom: 30px;
-  }
-  
-  .horizontal-tab {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    background: #ffffff;
-    color: var(--matcha-deep);
-    border: 1px solid rgba(45, 90, 39, 0.2);
-    border-radius: 25px;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 0.95em;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-  }
-  
-  .horizontal-tab:hover {
-    background: var(--matcha-deep);
-    color: #ffffff;
-    border-color: var(--matcha-deep);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(45, 90, 39, 0.2);
-  }
-  
-  .horizontal-tab:hover i {
-    color: #ffffff !important;
-  }
-
-  /* 3. 20/80 MASTER LAYOUT */
+  /* 2. 20/80 MASTER LAYOUT */
   .inicio-layout {
     display: flex;
     gap: 30px;
@@ -91,6 +53,51 @@
   .inicio-main {
     flex: 1;
     min-width: 0;
+  }
+
+  /* 3. SIDEBAR NAVIGATION (White-to-Green Pills) */
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .sidebar-nav h3 {
+    color: var(--matcha-deep); 
+    font-size: 1.1em; 
+    margin-bottom: 5px; 
+    border-bottom: 2px solid var(--gold-accent); 
+    padding-bottom: 10px; 
+    font-weight: 800; 
+    text-transform: uppercase;
+  }
+
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: #ffffff;
+    color: var(--matcha-deep);
+    border: 1px solid rgba(45, 90, 39, 0.2);
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9em;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+  }
+  
+  .sidebar-link:hover {
+    background: var(--matcha-deep);
+    color: #ffffff;
+    border-color: var(--matcha-deep);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(45, 90, 39, 0.2);
+  }
+  
+  .sidebar-link:hover i {
+    color: #ffffff !important;
   }
 
   .sidebar-promo {
@@ -146,7 +153,7 @@
     Dejamos atrás las bolsitas comerciales. Bienvenido a la auténtica cultura del Té de hoja suelta en México.
   </p>
 
-  <!-- TRUST BAR (Now living inside the green hero box!) -->
+  <!-- TRUST BAR -->
   <div class="trust-bar-hero">
     <div style="color: #ffffff; font-weight: 700; font-size: 0.95em; display: flex; align-items: center; gap: 8px;">
       <i class="fa-solid fa-mug-hot" style="color: var(--gold-accent); font-size: 1.3em;"></i> 120+ Mezclas de Té
@@ -161,33 +168,40 @@
 </div>
 
 <!-- ==========================================
-     2. HORIZONTAL MENU TABS (100% Width) 
-     ========================================== -->
-<div class="horizontal-menu">
-  <a href="#" onclick="switchPage('menu'); return false;" class="horizontal-tab">
-    <i class="fa-solid fa-leaf" style="color: var(--matcha-deep); transition: color 0.2s;"></i> Té Bienestar
-  </a>
-  <a href="#" onclick="switchPage('menu'); return false;" class="horizontal-tab">
-    <i class="fa-solid fa-mug-hot" style="color: var(--matcha-deep); transition: color 0.2s;"></i> Chai Lover
-  </a>
-  <a href="#" onclick="switchPage('menu'); return false;" class="horizontal-tab">
-    <i class="fa-solid fa-droplet" style="color: #4285F4; transition: color 0.2s;"></i> Blue Magic
-  </a>
-  <a href="#" onclick="switchPage('menu'); return false;" class="horizontal-tab">
-    <i class="fa-solid fa-plane" style="color: var(--matcha-deep); transition: color 0.2s;"></i> Viajes con Té
-  </a>
-  <a href="#" onclick="switchPage('menu'); return false;" class="horizontal-tab">
-    <i class="fa-solid fa-moon" style="color: #1a237e; transition: color 0.2s;"></i> Nocturna
-  </a>
-</div>
-
-<!-- ==========================================
-     3. THE 20/80 SPLIT LAYOUT 
+     2. THE 20/80 SPLIT LAYOUT 
      ========================================== -->
 <div class="inicio-layout">
 
   <!-- 20% LEFT SIDEBAR -->
   <aside class="inicio-sidebar">
+    
+    <!-- MENU TABS ARE BACK IN THE SIDEBAR! -->
+    <div class="sidebar-nav">
+      <h3 style="color: var(--matcha-deep); font-size: 1.1em; margin-bottom: 5px; border-bottom: 2px solid var(--gold-accent); padding-bottom: 10px; font-weight: 800; text-transform: uppercase;">
+        Explorar Menú
+      </h3>
+      <a href="#" onclick="switchPage('menu'); return false;" class="sidebar-link">
+        <span><i class="fa-solid fa-leaf" style="color: var(--matcha-deep); width: 25px; transition: color 0.2s;"></i> Té Bienestar</span>
+        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc; transition: color 0.2s;"></i>
+      </a>
+      <a href="#" onclick="switchPage('menu'); return false;" class="sidebar-link">
+        <span><i class="fa-solid fa-mug-hot" style="color: var(--matcha-deep); width: 25px; transition: color 0.2s;"></i> Chai Lover</span>
+        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc; transition: color 0.2s;"></i>
+      </a>
+      <a href="#" onclick="switchPage('menu'); return false;" class="sidebar-link">
+        <span><i class="fa-solid fa-droplet" style="color: #4285F4; width: 25px; transition: color 0.2s;"></i> Blue Magic</span>
+        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc; transition: color 0.2s;"></i>
+      </a>
+      <a href="#" onclick="switchPage('menu'); return false;" class="sidebar-link">
+        <span><i class="fa-solid fa-plane" style="color: var(--matcha-deep); width: 25px; transition: color 0.2s;"></i> Viajes con Té</span>
+        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc; transition: color 0.2s;"></i>
+      </a>
+      <a href="#" onclick="switchPage('menu'); return false;" class="sidebar-link">
+        <span><i class="fa-solid fa-moon" style="color: #1a237e; width: 25px; transition: color 0.2s;"></i> Nocturna</span>
+        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc; transition: color 0.2s;"></i>
+      </a>
+    </div>
+
     <div class="sidebar-promo">
       <i class="fa-solid fa-truck-fast" style="font-size: 2em; margin-bottom: 10px;"></i>
       <h4 style="margin: 0 0 5px 0; font-size: 1.1em; font-weight: 800;">Envíos a todo México</h4>
