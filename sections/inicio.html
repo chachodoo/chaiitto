@@ -54,13 +54,18 @@
   <!-- ==========================================
        20% LEFT SIDEBAR (IDENTICAL ON INICIO & PRODUCTOS) 
        ========================================== -->
+  <!-- ==========================================
+       INICIO SIDEBAR (Shows Shippable + Store Menu)
+       ========================================== -->
   <aside class="sidebar-menu">
     <div class="collections-bar">
+      
+      <!-- SHIPPABLE COLLECTIONS -->
       <h3 style="color: var(--matcha-deep); font-size: 1.1em; margin-bottom: 5px; border-bottom: 2px solid var(--gold-accent); padding-bottom: 10px; font-weight: 800; text-transform: uppercase;">
-        Colecciones
+        Para Envío
       </h3>
       
-      <button class="tab-btn active" onclick="switchPage('productos'); setTimeout(() => selectCollection('BIENESTAR'), 100);" style="justify-content: space-between;">
+      <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('BIENESTAR'), 100);" style="justify-content: space-between;">
         <span><i class="fa-solid fa-leaf" style="color: var(--matcha-deep); width: 25px; text-align: center;"></i> Bienestar</span>
         <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
       </button>
@@ -99,6 +104,17 @@
         <span><i class="fa-solid fa-bowl-rice" style="color: var(--matcha-deep); width: 25px; text-align: center;"></i> Quiero Matcha</span>
         <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
       </button>
+
+      <!-- IN-STORE MENU BUTTON -->
+      <h3 style="color: var(--matcha-deep); font-size: 1.1em; margin: 15px 0 5px 0; border-bottom: 2px solid var(--gold-accent); padding-bottom: 10px; font-weight: 800; text-transform: uppercase;">
+        En Sucursal
+      </h3>
+      
+      <button class="tab-btn" onclick="switchPage('menu');" style="justify-content: space-between; background: var(--matcha-deep); color: white; border-color: var(--matcha-deep);">
+        <span><i class="fa-solid fa-book-open" style="color: white; width: 25px; text-align: center;"></i> Ver Menú Digital</span>
+        <i class="fa-solid fa-arrow-right" style="font-size: 0.7em; color: white;"></i>
+      </button>
+
     </div>
 
     <!-- Gold Shipping Promo -->
