@@ -48,17 +48,20 @@
   }
 
   /* Responsive Mobile/Tablet Rules */
-  @media (max-width: 992px) {
-    .dashboard-layout { flex-direction: column; }
-    .sidebar-menu { 
-        flex: none; 
-        width: 100%; 
-        position: static; 
-        max-height: none; /* Turn off scrolling on mobile */
-        overflow-y: visible;
-    }
-    .strict-3-grid { grid-template-columns: repeat(2, 1fr) !important; }
-  }
+        @media (max-width: 992px) {
+            .dashboard-layout { display: flex; flex-direction: column; }
+            
+            /* This magic rule unboxes the main content so we can mix it with the sidebar */
+            .dashboard-content { display: contents; } 
+            
+            /* Now we explicitly set the exact top-to-bottom order for mobile */
+            .story-card { order: 1; width: 100%; }
+            .sidebar-menu { order: 2; flex: none; width: 100%; position: static; max-height: none; overflow-y: visible; margin: 15px 0; }
+            .product-teaser-section { order: 3; width: 100%; }
+            .dashboard-content > div:last-of-type { order: 4; width: 100%; } /* The reviews section */
+
+            .strict-3-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
   @media (max-width: 550px) {
     .strict-3-grid { grid-template-columns: 1fr !important; }
   }
@@ -144,8 +147,7 @@
 
     <!-- PRODUCT TEASER (3 COLUMNS) -->
     <section class="product-teaser-section">
-      <h2 class="collection-name-title" style="font-size: 1.8em; margin: 25px 0 15px 0;">Explora Nuestras Colecciones</h2>
-      
+      <h2 class="collection-name-title" style="font-size: 1.8em; margin: 25px 0 15px 0;">Mezclas Destacadas</h2>      
       <div class="strict-3-grid">
         <div class="teaser-card product-card">
           <div>
