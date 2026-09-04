@@ -451,6 +451,11 @@
         <span id="cart-count-badge">0</span>
     </button>
 
+    <!-- NEW INDEPENDENT HAMBURGER -->
+    <button id="floating-hamburger-btn" class="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Menú">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
     <!-- 1. THE NEW MASTER HERO BANNER (Top of the screen, controlled by JS) -->
     <div id="master-hero-banner">
         <h1 style="font-family: var(--font-title); font-size: clamp(2.2em, 5vw, 3.5em); margin: 0; font-style: italic; text-shadow: 0 4px 15px rgba(0,0,0,0.3);">
@@ -483,9 +488,6 @@
             <div class="logo-wrapper">
                 <img src="logo.png" alt="Logo Chai-itto" class="logo-main" onclick="switchPage('inicio')">
             </div>
-            <button class="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Menú">
-                <i class="fa-solid fa-bars"></i>
-            </button>
         </div>
 
         <nav class="main-nav" id="main-nav-menu">
