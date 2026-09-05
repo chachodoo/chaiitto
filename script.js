@@ -263,7 +263,8 @@ async function fetchProducts() {
     }
 }
 
-        async function switchPage(pageName, targetPage = 1) {
+        async function switchPage(pageName, targetPage) {
+            if (!targetPage) targetPage = 1;
     if (pageName === 'menu') alert("Target page received begning of switchPage: " + targetPage);
     document.body.style.overflow = 'auto';
     document.body.className = ''; // Strips any body-level blur classes
