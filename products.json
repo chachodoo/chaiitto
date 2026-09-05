@@ -120,7 +120,8 @@
     {"num": "", "name": "Etiopía", "ingredients": "", "taza": 75, "frasco": ""},
     {"num": "", "name": "Libanés", "ingredients": "Puro o cardamomo.", "taza": 95, "frasco": ""},
     {"num": "", "name": "Turco", "ingredients": "Original, Pistacho, Rosas, Mastic.", "taza": 95, "frasco": ""}
-  ],"CHOCO LATTE": [
+  ],
+  "CHOCO LATTE": [
     {"num": "", "name": "Chocolate", "ingredients": "Taza 250 ml", "taza": 85, "frasco": ""},
     {"num": "", "name": "Cacao Puro", "ingredients": "Taza 250 ml", "taza": 75, "frasco": ""},
     {"num": "", "name": "Cacao Especiado", "ingredients": "Taza 250 ml", "taza": 95, "frasco": ""},
