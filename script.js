@@ -290,10 +290,16 @@ async function fetchProducts() {
 
     try {
         const response = await fetch(`sections/${pageName}.html`);
-        if (!response.ok) throw new Error(`Could not load section: ${pageName}`);
-        
-        const html = await response.text();
-        container.innerHTML = html;
+    if (!response.ok) throw new Error(`Could not load section: ${pageName}`);
+    let html = await response.text();
+
+    // If opening a specific collection, swap the image BEFORE it renders to prevent flashing Bienestar
+    if (pageName === 'menu' && targetPage > 1) {
+      html = html.replace(/page-1\.webp/g, `page-${targetPage}.webp`);
+      html = html.replace(/1\s*\/\s*14/g, `${targetPage} / 14`);
+    }
+
+    container.innerHTML = html;
 
         document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
         const activeBtn = document.querySelector(`.nav-btn[data-page="${pageName}"], .nav-btn[onclick*="${pageName}"]`);
