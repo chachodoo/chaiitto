@@ -1,24 +1,26 @@
 <style>
   /* ==========================================
-     BULLETPROOF 20/80 DESKTOP LAYOUT
+     10/90 DESKTOP LAYOUT (DEFAULT)
      ========================================== */
   .dashboard-layout {
     display: flex;
-    gap: 30px;
+    gap: 25px;
     align-items: flex-start;
     width: 100%;
     margin-top: 10px;
   }
-  
- .sidebar-menu {
-    flex: 0 0 165px;
+
+  /* 1. Sidebar Container: 195px keeps all labels on a single line */
+  .sidebar-menu {
+    flex: 0 0 195px;
+    width: 195px;
     position: sticky;
     top: 20px;
     display: flex;
     flex-direction: column;
-    max-height: calc(100vh - 40px); 
-    overflow-y: auto; 
-    padding-right: 8px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    padding-right: 4px;
   }
 
   .sidebar-menu::-webkit-scrollbar {
@@ -29,92 +31,15 @@
     border-radius: 10px;
   }
 
-  /* Desktop Only: Tighten stack and eliminate gap under COLECCIONES */
-  @media (min-width: 993px) {
-    .sidebar-menu .collections-title {
-      margin-bottom: 4px !important;
-      padding-bottom: 2px !important;
-    }
-    .sidebar-menu .collections-scroll-anchor {
-      display: none !important;
-    }
-    .sidebar-menu .collections-wrapper {
-      margin-top: 0 !important;
-      padding-top: 0 !important;
-    }
-    .sidebar-menu .collections-scroll-container {
-      gap: 3px !important;
-      margin: 0 !important;
-      padding: 0 !important;
-    }
-    .sidebar-menu .tab-btn {
-    margin: 0 !important;
-    padding: 7px 12px !important; /* Fatter cushion vertically */
-    font-size: 0.8rem !important;
-    line-height: 1.2 !important;
-    border-radius: 20px !important; /* Classic round pill shape */
-    height: auto !important;
-    min-height: 0 !important;
-  }
-  .dashboard-content {
-    flex: 1;
-    min-width: 0; 
-  }
-  
-  .strict-3-grid {
-    display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important;
-    gap: 14px !important;
-    width: 100% !important;
-  }
-
-  /* Compact Desktop Teaser Cards & Jars */
-  .product-teaser-section .product-card {
-    padding: 12px 10px !important;
-  }
-  .product-teaser-section .product-img-box {
-    height: 120px !important; /* Scaled down so jars look boutique */
-    margin-bottom: 8px !important;
-  }
-  .product-teaser-section .product-name {
-    font-size: 0.92rem !important;
-    margin-bottom: 4px !important;
-  }
-  .product-teaser-section .product-ingredients {
-    font-size: 0.76rem !important;
-    line-height: 1.35 !important;
-    min-height: 42px !important;
-    margin-bottom: 8px !important;
-  }
-
-  /* Compact Desktop Teaser Cards & Jars */
-  .product-teaser-section .product-card {
-    padding: 12px 10px !important;
-  }
-  .product-teaser-section .product-img-box {
-    height: 120px !important; /* Scaled down so jars look boutique */
-    margin-bottom: 8px !important;
-  }
-  .product-teaser-section .product-name {
-    font-size: 0.92rem !important;
-    margin-bottom: 4px !important;
-  }
-  .product-teaser-section .product-ingredients {
-    font-size: 0.76rem !important;
-    line-height: 1.35 !important;
-    min-height: 42px !important;
-    margin-bottom: 8px !important;
-  }
-
-  /* Desktop Collections Header: Zero Extra Gap */
-.collections-title {
+  /* 2. Collections Header */
+  .collections-title {
     font-size: 0.85rem;
     font-weight: 800;
     letter-spacing: 2px;
     color: var(--matcha-deep, #2D5A27);
     text-transform: uppercase;
     margin: 0 !important;
-    padding-bottom: 2px !important;
+    padding-bottom: 3px !important;
     border-bottom: 1.5px solid var(--gold-border, rgba(212, 175, 55, 0.35));
     display: block;
     width: 100%;
@@ -124,38 +49,78 @@
   .collections-wrapper {
     position: relative;
     width: 100%;
-    margin-top: 2px !important;
+    margin-top: 4px !important;
     padding: 0 !important;
   }
 
-  /* Desktop: Compact Vertical Stack */
   .collections-scroll-container {
     display: flex;
     flex-direction: column;
-    gap: 2px !important;
+    gap: 4px !important;
     width: 100%;
     margin: 0 !important;
     padding: 0 !important;
   }
 
+  /* 3. Uniform Pill Buttons: Equal 32px height, single-line text */
   .sidebar-menu .tab-btn {
     margin: 0 !important;
-    padding: 3px 8px !important;
-    height: auto !important;
-    min-height: 0 !important;
-    font-size: 0.75rem !important;
-    line-height: 1.15 !important;
-    border-radius: 8px !important;
+    padding: 6px 12px !important;
+    font-size: 0.78rem !important;
+    line-height: 1 !important;
+    white-space: nowrap !important; /* Stops text from wrapping into 2 lines */
+    border-radius: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    height: 32px !important; /* Locks all buttons to identical height */
+    box-sizing: border-box !important;
   }
 
-  /* Cue arrow hidden on desktop */
-  .scroll-cue-arrow {
-    display: none;
+  .sidebar-menu .tab-btn span {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    white-space: nowrap !important;
   }
 
-  /* Anchor hidden on desktop to remove ghost spacing */
+  .scroll-cue-arrow,
   .collections-scroll-anchor {
     display: none !important;
+  }
+
+  /* 4. Desktop Main Content */
+  .dashboard-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .strict-3-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 14px !important;
+    width: 100% !important;
+  }
+
+  .product-teaser-section .product-card {
+    padding: 12px 10px !important;
+  }
+
+  .product-teaser-section .product-img-box {
+    height: 120px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .product-teaser-section .product-name {
+    font-size: 0.92rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  .product-teaser-section .product-ingredients {
+    font-size: 0.76rem !important;
+    line-height: 1.35 !important;
+    min-height: 42px !important;
+    margin-bottom: 8px !important;
   }
   /* ==========================================
      MOBILE & TABLET OVERRIDES
