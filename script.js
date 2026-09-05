@@ -639,6 +639,7 @@ window.addEventListener('hashchange', handleHashNavigation);
 
 // --- JUMP TO SPECIFIC MENU PAGE ---
 function jumpToMenuCollection(pageNum) {
+    alert("Button sent from jumpToMenuCollection number: " + pageNum);
   switchPage('menu', pageNum);
 }
 
