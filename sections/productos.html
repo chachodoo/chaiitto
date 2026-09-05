@@ -1,6 +1,6 @@
 <style>
   /* =========================================
-     1. PRODUCT GRID: 4 DESKTOP / 2 MOBILE
+     1. DESKTOP: 4 CARDS PER ROW
      ========================================= */
   #products-container,
   .products-grid {
@@ -22,43 +22,13 @@
     object-fit: contain;
   }
 
-  @media (max-width: 992px) {
-    #products-container,
-    .products-grid {
-      grid-template-columns: repeat(2, 1fr) !important;
-      gap: 12px !important;
-    }
-  }
-
-  @media (max-width: 550px) {
-    #products-container,
-    .products-grid {
-      grid-template-columns: repeat(2, 1fr) !important;
-      gap: 10px !important;
-    }
-    #products-container .product-card,
-    .products-grid .product-card {
-      padding: 10px 8px !important;
-      border-radius: 14px !important;
-    }
-    #products-container .product-img-box,
-    #products-container img,
-    .products-grid .product-img-box,
-    .products-grid img {
-      max-height: 100px !important;
-    }
-  }
-
-  /* =========================================
-     2. DESKTOP SIDEBAR
-     ========================================= */
   .collections-title {
     color: var(--matcha-deep, #2d5a27);
     font-size: 1.05rem;
     font-weight: 800;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    margin: 0 0 12px 0;
+    margin: 0 0 10px 0;
     padding-bottom: 8px;
     border-bottom: 2px solid var(--gold-accent, #c5a059);
   }
@@ -71,72 +41,54 @@
   }
 
   /* =========================================
-     3. MOBILE & TABLET: 100% SPAN + FATTER PILLS
-     ========================================= */
-  /* =========================================
-     MOBILE: 3-4 PILLS VISIBLE + END INDICATOR
+     2. MOBILE: 100% EDGE-TO-EDGE SWIPE (NO INVISIBLE WALL)
      ========================================= */
   @media (max-width: 992px) {
-    .dashboard-layout {
-      display: flex !important;
-      flex-direction: column !important;
+    /* Knock down the desktop sidebar width constraints */
+    .dashboard-layout,
+    .dashboard-layout aside,
+    aside.sidebar-menu,
+    .sidebar-menu,
+    .collections-bar {
+      display: block !important;
       width: 100% !important;
-    }
-
-    .sidebar-menu {
-      width: 100% !important;
-      margin: 0 0 10px 0 !important;
+      max-width: 100% !important;
+      min-width: 100% !important;
+      margin: 0 !important;
       padding: 0 !important;
+      overflow: visible !important;
+      box-sizing: border-box !important;
     }
 
+    /* Colecciones header spans full width cleanly */
     .collections-title {
       display: block !important;
-      font-size: 0.82rem !important;
+      width: 100% !important;
+      font-size: 0.85rem !important;
       letter-spacing: 1.2px !important;
       text-transform: uppercase;
       color: var(--matcha-deep, #2d5a27);
-      margin: 0 0 6px 0 !important;
+      margin: 0 0 8px 0 !important;
       padding-bottom: 4px !important;
       border-bottom: 1.5px solid var(--gold-border, rgba(197, 160, 89, 0.3)) !important;
+      box-sizing: border-box !important;
     }
 
-    /* Container with right fade indicator */
-    .collections-bar {
-      position: relative !important;
-      width: 100% !important;
-    }
-
-    /* Right-side gradient fade with arrow cue */
-    .collections-bar::after {
-      content: '›' !important;
-      position: absolute;
-      right: 0;
-      top: 24px; /* Aligns with the pill row */
-      bottom: 6px;
-      width: 38px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      padding-right: 4px;
-      font-size: 1.4rem;
-      font-weight: 900;
-      color: var(--gold-accent, #c5a059);
-      background: linear-gradient(to right, transparent 0%, rgba(18, 26, 18, 0.95) 70%);
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    /* Unbroken horizontal track */
+    /* True 100% edge-to-edge scroll track */
     .collections-pills-track {
       display: flex !important;
       flex-direction: row !important;
       flex-wrap: nowrap !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 100% !important;
       overflow-x: auto !important;
+      overflow-y: hidden !important;
       -webkit-overflow-scrolling: touch !important;
       scrollbar-width: none !important;
-      width: 100% !important;
-      gap: 6px !important;
-      padding: 4px 40px 8px 0 !important; /* Extra 40px right padding so the last pill isn't hidden under the arrow */
+      box-sizing: border-box !important;
+      gap: 8px !important;
+      padding: 4px 0 12px 0 !important;
       margin: 0 !important;
     }
 
@@ -144,15 +96,15 @@
       display: none !important;
     }
 
-    /* Fatter (taller) & Narrower (snug) pills */
+    /* Fatter, snug touch chips */
     .collections-pills-track .tab-btn {
       flex: 0 0 auto !important;
       width: auto !important;
       white-space: nowrap !important;
-      padding: 10px 11px !important;      /* Taller vertical touch, narrow horizontal width */
-      font-size: 0.76rem !important;      /* Compact text allows 3 to 4 to fit */
+      padding: 10px 14px !important;
+      font-size: 0.82rem !important;
       font-weight: 700 !important;
-      border-radius: 20px !important;
+      border-radius: 22px !important;
       line-height: 1 !important;
       display: inline-flex !important;
       align-items: center !important;
@@ -161,6 +113,34 @@
 
     .collections-pills-track .tab-btn i {
       display: none !important;
+    }
+
+    /* Hide desktop promo box on mobile */
+    .sidebar-promo {
+      display: none !important;
+    }
+
+    /* Product Grid: 2 per row on mobile */
+    #products-container,
+    .products-grid {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 10px !important;
+      width: 100% !important;
+    }
+
+    #products-container .product-card,
+    .products-grid .product-card {
+      padding: 10px 8px !important;
+      border-radius: 14px !important;
+    }
+
+    #products-container .product-img-box,
+    #products-container img,
+    .products-grid .product-img-box,
+    .products-grid img {
+      max-height: 100px !important;
+      object-fit: contain;
     }
   }
 </style>
