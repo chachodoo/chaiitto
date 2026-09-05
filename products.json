@@ -134,11 +134,18 @@
     {"num": "", "name": "Mochi (Original, Ice)", "ingredients": "", "taza": 20, "frasco": ""},
     {"num": "", "name": "Pastel / Pay (Rebanada)", "ingredients": "", "taza": 69, "frasco": ""},
     {"num": "", "name": "Panqué", "ingredients": "", "taza": 65, "frasco": ""},
+    {"num": "", "name": "Tartaleta", "ingredients": "", "taza": 75, "frasco": ""},
+    {"num": "", "name": "Sfouf Vegano", "ingredients": "", "taza": 45, "frasco": ""},
     {"num": "", "name": "Choco Dubái Bocadito", "ingredients": "", "taza": 25, "frasco": ""},
     {"num": "", "name": "Choco Dubái Mini", "ingredients": "", "taza": 45, "frasco": ""},
     {"num": "", "name": "Choco Dubái Barra", "ingredients": "", "taza": 399, "frasco": ""},
     {"num": "", "name": "Galleta Matcha", "ingredients": "", "taza": 25, "frasco": ""},
-    {"num": "", "name": "Delicia Turca", "ingredients": "", "taza": 25, "frasco": ""}
+    {"num": "", "name": "Delicia Turca", "ingredients": "", "taza": 25, "frasco": ""},
+    {"num": "", "name": "Chocolate (Puro, Trufa)", "ingredients": "", "taza": 20, "frasco": ""},
+    {"num": "", "name": "Maamool", "ingredients": "", "taza": 29, "frasco": ""},
+    {"num": "", "name": "Maamool Gd", "ingredients": "", "taza": 39, "frasco": ""},
+    {"num": "", "name": "Baklawa", "ingredients": "", "taza": 35, "frasco": ""}
+    {"num": "", "name": "Sándwich Chaiitto Orgánico", "ingredients": "Queso Mozarella, Zaatar libanés (Tomillo seco, orégano, hisopo, zumaque, ajonjolí), aceite de olivo.", "taza": 125, "frasco": ""}
   ],
   "QUIERO MATCHA": [
   {"num": "", "name": "Matcha Pink Chai", "ingredients": "", "taza": 125, "frasco": ""},
