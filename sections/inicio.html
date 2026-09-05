@@ -77,14 +77,19 @@
     <div class="collections-bar">
 
 <!-- COLLECTIONS HEADER WITH MOBILE SWIPE HINT -->
-        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; border-bottom: 2px solid var(--gold-accent); padding-bottom: 8px;">
-            <span style="font-family: var(--font-heading); color: var(--matcha-deep); font-size: 1.05em; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
-                Explorar Colecciones
-            </span>
-            <span style="font-size: 0.78em; color: var(--text-muted); font-weight: 600; display: inline-flex; align-items: center; gap: 5px;">
-                Desliza <i class="fa-solid fa-arrow-right-long" style="color: var(--gold-accent);"></i>
-            </span>
-        </div>
+<div class="collections-header-wrapper">
+  <h3 class="collections-title">COLECCIONES</h3>
+</div>
+
+<!-- Your existing horizontal buttons container (ensure it has an ID or class for scrolling) -->
+<div class="collections-scroll-container" id="collections-slider">
+  <!-- Keep all your collection buttons here (Bienestar, Chai Lover, etc.) -->
+</div>
+
+<!-- Enterprise 3px mobile progress track -->
+<div class="collections-track" aria-hidden="true">
+  <div class="collections-thumb" id="collections-thumb"></div>
+</div>
       
       <button class="tab-btn" onclick="jumpToMenuCollection(1)" style="justify-content: space-between;">
         <span><i class="fa-solid fa-leaf" style="color: var(--matcha-deep); width: 25px; text-align: center;"></i> Bienestar</span>
