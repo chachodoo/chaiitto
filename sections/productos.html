@@ -1,5 +1,7 @@
 <style>
-  /* Desktop: 4 Cards per Row */
+  /* =========================================
+     1. PRODUCT GRID: 4 DESKTOP / 2 MOBILE
+     ========================================= */
   #products-container,
   .products-grid {
     display: grid !important;
@@ -8,7 +10,6 @@
     width: 100% !important;
   }
 
-  /* Compact Desktop Cards & Jars */
   #products-container .product-card,
   .products-grid .product-card {
     padding: 12px 10px !important;
@@ -21,7 +22,6 @@
     object-fit: contain;
   }
 
-  /* Tablet (under 992px): 2 Cards per Row */
   @media (max-width: 992px) {
     #products-container,
     .products-grid {
@@ -30,7 +30,6 @@
     }
   }
 
-  /* Mobile (under 550px): 2 Cards per Row */
   @media (max-width: 550px) {
     #products-container,
     .products-grid {
@@ -50,14 +49,16 @@
     }
   }
 
-  /* --- DESKTOP SIDEBAR COLLECTIONS --- */
-  .collections-header-title {
+  /* =========================================
+     2. DESKTOP SIDEBAR
+     ========================================= */
+  .collections-title {
     color: var(--matcha-deep, #2d5a27);
     font-size: 1.05rem;
     font-weight: 800;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    margin: 0 0 10px 0;
+    margin: 0 0 12px 0;
     padding-bottom: 8px;
     border-bottom: 2px solid var(--gold-accent, #c5a059);
   }
@@ -66,50 +67,62 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
+    width: 100%;
   }
 
-  /* --- MOBILE & TABLET: COMPACT "FILTER CHIPS" --- */
+  /* =========================================
+     3. MOBILE & TABLET: 100% SPAN + FATTER PILLS
+     ========================================= */
   @media (max-width: 992px) {
-    .collections-bar {
-      display: block !important;
+    .sidebar-menu {
       width: 100% !important;
-      margin-bottom: 12px !important;
+      margin-bottom: 15px !important;
     }
 
-    .collections-header-title {
-      font-size: 0.85rem !important;
-      margin-bottom: 8px !important;
-      padding-bottom: 4px !important;
+    /* Title sits 100% across the top on its own line */
+    .collections-title {
+      display: block !important;
+      width: 100% !important;
+      font-size: 0.9rem !important;
+      letter-spacing: 1.5px !important;
+      margin: 0 0 10px 0 !important;
+      padding-bottom: 6px !important;
       border-bottom: 1.5px solid var(--gold-border, rgba(197, 160, 89, 0.3)) !important;
     }
 
-    /* Horizontal scroll row */
+    /* Pills track takes 100% full screen width */
     .collections-pills-track {
+      display: flex !important;
       flex-direction: row !important;
+      width: 100% !important;
       overflow-x: auto !important;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
-      gap: 8px !important;
-      padding: 4px 0 8px 0 !important;
+      gap: 10px !important;
+      padding: 4px 2px 10px 2px !important;
     }
 
     .collections-pills-track::-webkit-scrollbar {
       display: none;
     }
 
-    /* Fatter, taller, compact text-only pills */
+    /* Fatter, taller, comfortable pills */
     .collections-pills-track .tab-btn {
       flex: 0 0 auto !important;
       width: auto !important;
       white-space: nowrap !important;
-      padding: 10px 16px !important;
-      font-size: 0.82rem !important;
+      padding: 13px 22px !important;      /* Fatter vertical & horizontal padding */
+      font-size: 0.95rem !important;      /* Clean legible text */
       font-weight: 700 !important;
-      border-radius: 20px !important;
+      border-radius: 28px !important;     /* Rounded pill shape */
+      line-height: 1 !important;
+      display: inline-flex !important;
+      align-items: center !important;
       justify-content: center !important;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12) !important;
     }
 
-    /* Hide category icon and chevron on mobile */
+    /* Hide icons & chevrons on mobile */
     .collections-pills-track .tab-btn i {
       display: none !important;
     }
@@ -119,50 +132,50 @@
 <div class="dashboard-layout">
   <!-- 20% LEFT SIDEBAR -->
   <aside class="sidebar-menu">
-    <div class="collections-bar">
-      <h3 class="collections-header-title">Colecciones</h3>
-      
-      <div class="collections-pills-track">
-        <button class="tab-btn active" onclick="switchPage('productos'); setTimeout(() => selectCollection('BIENESTAR'), 100);">
-          <span><i class="fa-solid fa-leaf" style="color: var(--matcha-deep); width: 22px; text-align: center;"></i> Bienestar</span>
-          <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
-        </button>
+    <!-- Title is cleanly isolated above the track -->
+    <h3 class="collections-title">Colecciones</h3>
+    
+    <!-- Track spans 100% width -->
+    <div class="collections-pills-track">
+      <button class="tab-btn active" onclick="switchPage('productos'); setTimeout(() => selectCollection('BIENESTAR'), 100);">
+        <span><i class="fa-solid fa-leaf" style="color: var(--matcha-deep); width: 22px; text-align: center;"></i> Bienestar</span>
+        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
+      </button>
 
-        <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('CHAI LOVER'), 100);">
-          <span><i class="fa-solid fa-mug-hot" style="color: var(--matcha-deep); width: 22px; text-align: center;"></i> Chai Lover</span>
-          <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
-        </button>
+      <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('CHAI LOVER'), 100);">
+        <span><i class="fa-solid fa-mug-hot" style="color: var(--matcha-deep); width: 22px; text-align: center;"></i> Chai Lover</span>
+        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
+      </button>
 
-        <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('BLUE MAGIC'), 100);">
-          <span><i class="fa-solid fa-droplet" style="color: #4285F4; width: 22px; text-align: center;"></i> Blue Magic</span>
-          <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
-        </button>
+      <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('BLUE MAGIC'), 100);">
+        <span><i class="fa-solid fa-droplet" style="color: #4285F4; width: 22px; text-align: center;"></i> Blue Magic</span>
+        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
+      </button>
 
-        <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('VIAJES CON TÉ'), 100);">
-          <span><i class="fa-solid fa-plane" style="color: var(--matcha-deep); width: 22px; text-align: center;"></i> Viajes con Té</span>
-          <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
-        </button>
+      <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('VIAJES CON TÉ'), 100);">
+        <span><i class="fa-solid fa-plane" style="color: var(--matcha-deep); width: 22px; text-align: center;"></i> Viajes con Té</span>
+        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
+      </button>
 
-        <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('NOCTURNA'), 100);">
-          <span><i class="fa-solid fa-moon" style="color: #1a237e; width: 22px; text-align: center;"></i> Nocturna</span>
-          <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
-        </button>
+      <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('NOCTURNA'), 100);">
+        <span><i class="fa-solid fa-moon" style="color: #1a237e; width: 22px; text-align: center;"></i> Nocturna</span>
+        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
+      </button>
 
-        <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('ESPECIAL'), 100);">
-          <span><i class="fa-solid fa-award" style="color: var(--gold-accent); width: 22px; text-align: center;"></i> Especial</span>
-          <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
-        </button>
+      <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('ESPECIAL'), 100);">
+        <span><i class="fa-solid fa-award" style="color: var(--gold-accent); width: 22px; text-align: center;"></i> Especial</span>
+        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
+      </button>
 
-        <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('WOW'), 100);">
-          <span><i class="fa-solid fa-star" style="color: var(--gold-accent); width: 22px; text-align: center;"></i> Wow</span>
-          <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
-        </button>
+      <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('WOW'), 100);">
+        <span><i class="fa-solid fa-star" style="color: var(--gold-accent); width: 22px; text-align: center;"></i> Wow</span>
+        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
+      </button>
 
-        <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('QUIERO MATCHA'), 100);">
-          <span><i class="fa-solid fa-bowl-rice" style="color: var(--matcha-deep); width: 22px; text-align: center;"></i> Quiero Matcha</span>
-          <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
-        </button>
-      </div>
+      <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('QUIERO MATCHA'), 100);">
+        <span><i class="fa-solid fa-bowl-rice" style="color: var(--matcha-deep); width: 22px; text-align: center;"></i> Quiero Matcha</span>
+        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
+      </button>
     </div>
 
     <!-- Gold Shipping Promo -->
