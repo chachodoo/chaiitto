@@ -1,20 +1,22 @@
 <style>
   /* =========================================
-     1. DESKTOP: 10% SIDEBAR / 90% PRODUCT GRID
+     1. DESKTOP (992px and up): 10% SIDEBAR / 90% GRID (5 JARS)
      ========================================= */
-  @media (min-width: 993px) {
+  @media (min-width: 992px) {
     .dashboard-layout {
       display: grid !important;
       grid-template-columns: 10% 90% !important;
       column-gap: 14px !important;
       align-items: start !important;
       width: 100% !important;
+      margin: 0 !important;
     }
 
     .sidebar-menu {
       width: 100% !important;
       padding: 0 !important;
       margin: 0 !important;
+      flex: none !important;
     }
 
     .collections-title {
@@ -55,47 +57,61 @@
       display: none !important;
     }
 
+    /* 5 Cards across on Desktop */
     #products-container,
     .products-grid {
       display: grid !important;
-      grid-template-columns: repeat(4, 1fr) !important;
-      gap: 14px !important;
+      grid-template-columns: repeat(5, 1fr) !important;
+      gap: 10px !important;
       width: 100% !important;
     }
 
     #products-container .product-card,
     .products-grid .product-card {
-      padding: 12px 10px !important;
+      padding: 10px 8px !important;
     }
 
     #products-container .product-img-box,
     #products-container img,
     .products-grid .product-img-box,
     .products-grid img {
-      max-height: 120px !important;
+      max-height: 105px !important;
       object-fit: contain;
     }
   }
 
   /* =========================================
-     2. MOBILE: BUBBLY PILLS + REAL SCROLL ARROW
+     2. MOBILE (under 992px): TRUE 100% EDGE-TO-EDGE
      ========================================= */
-  @media (max-width: 992px) {
+  @media (max-width: 991px) {
     .dashboard-layout {
-      display: block !important;
+      display: flex !important;
+      flex-direction: column !important;
       width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
     }
 
+    /* Overrides flex-basis: 260px from style.css */
     aside.sidebar-menu,
-    .sidebar-menu {
+    .sidebar-menu,
+    .collections-bar {
       display: block !important;
       width: 100% !important;
+      min-width: 100% !important;
+      max-width: 100% !important;
+      flex-basis: 100% !important;
+      flex-grow: 1 !important;
+      flex-shrink: 0 !important;
       margin: 0 0 12px 0 !important;
       padding: 0 !important;
+      box-sizing: border-box !important;
     }
 
     .collections-title {
       display: block !important;
+      width: 100% !important;
       font-size: 0.82rem !important;
       letter-spacing: 1.2px !important;
       text-transform: uppercase;
@@ -105,23 +121,28 @@
       border-bottom: 1.5px solid var(--gold-border, rgba(197, 160, 89, 0.3)) !important;
     }
 
+    /* Container fills 100% phone width */
     .collections-wrapper {
       position: relative !important;
       width: 100% !important;
-      display: flex !important;
-      align-items: center !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
     }
 
+    /* Full-bleed horizontal scroll */
     .collections-pills-track {
       display: flex !important;
       flex-direction: row !important;
       flex-wrap: nowrap !important;
+      width: 100% !important;
+      max-width: 100% !important;
       overflow-x: auto !important;
+      overflow-y: hidden !important;
       -webkit-overflow-scrolling: touch !important;
       scrollbar-width: none !important;
-      width: 100% !important;
+      box-sizing: border-box !important;
       gap: 8px !important;
-      padding: 6px 42px 12px 4px !important; /* Space on right so arrow doesn't cover last pill */
+      padding: 4px 44px 10px 0 !important;
       margin: 0 !important;
     }
 
@@ -129,20 +150,20 @@
       display: none !important;
     }
 
-    /* Fat & Bubbly Capsules */
+    /* Plump, fat pills */
     .collections-pills-track .tab-btn {
       flex: 0 0 auto !important;
       width: auto !important;
       white-space: nowrap !important;
-      padding: 12px 16px !important;
-      font-size: 0.84rem !important;
+      padding: 10px 14px !important;
+      font-size: 0.82rem !important;
       font-weight: 800 !important;
       border-radius: 9999px !important;
       line-height: 1 !important;
       display: inline-flex !important;
       align-items: center !important;
       justify-content: center !important;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.2) !important;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25) !important;
     }
 
     .collections-pills-track .tab-btn i,
@@ -150,25 +171,30 @@
       display: none !important;
     }
 
-    /* Floating Tap-to-Scroll Arrow */
+    /* Arrow pinned strictly to the far right screen edge */
     .mobile-scroll-arrow {
       position: absolute !important;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: var(--gold-accent, #c5a059);
-      color: #121a12;
-      border: none;
+      right: 0 !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      width: 32px !important;
+      height: 32px !important;
+      border-radius: 50% !important;
+      background: var(--gold-accent, #c5a059) !important;
+      color: #121a12 !important;
+      border: none !important;
       display: flex !important;
-      align-items: center;
-      justify-content: center;
-      box-shadow: -3px 0 8px rgba(0,0,0,0.3);
-      cursor: pointer;
-      z-index: 10;
-      font-size: 0.85rem;
+      align-items: center !important;
+      justify-content: center !important;
+      box-shadow: -3px 0 8px rgba(0, 0, 0, 0.4) !important;
+      cursor: pointer !important;
+      z-index: 30 !important;
+      font-size: 0.82rem !important;
+      padding: 0 !important;
+    }
+
+    .sidebar-promo {
+      display: none !important;
     }
 
     #products-container,
@@ -196,7 +222,6 @@
 </style>
 
 <div class="dashboard-layout">
-  <!-- SIDEBAR -->
   <aside class="sidebar-menu">
     <h3 class="collections-title">Colecciones</h3>
     
@@ -228,21 +253,19 @@
         </button>
       </div>
 
-      <!-- Functional mobile scroll button -->
-      <button class="mobile-scroll-arrow" aria-label="Ver más colecciones" onclick="document.getElementById('pillsTrack').scrollBy({left: 140, behavior: 'smooth'})">
+      <button type="button" class="mobile-scroll-arrow" aria-label="Ver más colecciones" onclick="document.getElementById('pillsTrack').scrollBy({left: 160, behavior: 'smooth'})">
         <i class="fa-solid fa-chevron-right"></i>
       </button>
     </div>
   </aside>
 
-  <!-- 90% PRODUCT GRID -->
   <main class="dashboard-content">
     <div class="collection-banner">
       <h2 id="current-collection-title" class="collection-name-title" style="margin-top: 0; text-align: left; color: var(--matcha-deep); font-size: 2em; border-bottom: 2px solid var(--gold-accent); padding-bottom: 10px; margin-bottom: 20px;">BIENESTAR</h2>
     </div>
     
     <div id="products-container" class="products-grid">
-      <!-- Injected via JavaScript -->
+      <!-- Injected via JS -->
     </div>
   </main>
 </div>
