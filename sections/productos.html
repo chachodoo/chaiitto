@@ -41,54 +41,57 @@
   }
 
   /* =========================================
-     2. MOBILE: 100% EDGE-TO-EDGE SWIPE (NO INVISIBLE WALL)
+     MOBILE: 100% FULL-WIDTH TRACK + FATTER PILLS
      ========================================= */
   @media (max-width: 992px) {
-    /* Knock down the desktop sidebar width constraints */
-    .dashboard-layout,
-    .dashboard-layout aside,
+    /* 1. Break the container out of the desktop sidebar constraint */
+    .dashboard-layout {
+      display: block !important;
+      width: 100% !important;
+    }
+
     aside.sidebar-menu,
-    .sidebar-menu,
+    .sidebar-menu {
+      display: block !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      flex: none !important;             /* Kills the flex-basis 260px lock */
+      margin: 0 0 14px 0 !important;
+      padding: 0 !important;
+    }
+
     .collections-bar {
       display: block !important;
       width: 100% !important;
       max-width: 100% !important;
-      min-width: 100% !important;
       margin: 0 !important;
       padding: 0 !important;
-      overflow: visible !important;
-      box-sizing: border-box !important;
     }
 
-    /* Colecciones header spans full width cleanly */
     .collections-title {
       display: block !important;
       width: 100% !important;
       font-size: 0.85rem !important;
-      letter-spacing: 1.2px !important;
+      letter-spacing: 1.5px !important;
       text-transform: uppercase;
       color: var(--matcha-deep, #2d5a27);
       margin: 0 0 8px 0 !important;
       padding-bottom: 4px !important;
       border-bottom: 1.5px solid var(--gold-border, rgba(197, 160, 89, 0.3)) !important;
-      box-sizing: border-box !important;
     }
 
-    /* True 100% edge-to-edge scroll track */
+    /* 2. Track spans full 100% edge-to-edge width */
     .collections-pills-track {
       display: flex !important;
       flex-direction: row !important;
       flex-wrap: nowrap !important;
       width: 100% !important;
       max-width: 100% !important;
-      min-width: 100% !important;
       overflow-x: auto !important;
-      overflow-y: hidden !important;
       -webkit-overflow-scrolling: touch !important;
       scrollbar-width: none !important;
-      box-sizing: border-box !important;
       gap: 8px !important;
-      padding: 4px 0 12px 0 !important;
+      padding: 4px 0 10px 0 !important;
       margin: 0 !important;
     }
 
@@ -96,31 +99,32 @@
       display: none !important;
     }
 
-    /* Fatter, snug touch chips */
+    /* 3. Fatter (taller height) + snug width so 3-4 fit */
     .collections-pills-track .tab-btn {
       flex: 0 0 auto !important;
       width: auto !important;
       white-space: nowrap !important;
-      padding: 10px 14px !important;
-      font-size: 0.82rem !important;
+      padding: 12px 14px !important;      /* Chunky touch height, tight side padding */
+      font-size: 0.8rem !important;       /* Clean size to allow 3-4 items across */
       font-weight: 700 !important;
-      border-radius: 22px !important;
+      border-radius: 24px !important;
       line-height: 1 !important;
       display: inline-flex !important;
       align-items: center !important;
       justify-content: center !important;
     }
 
+    /* Strip icons on mobile so pills hug text */
     .collections-pills-track .tab-btn i {
       display: none !important;
     }
 
-    /* Hide desktop promo box on mobile */
+    /* Hide desktop shipping promo on mobile */
     .sidebar-promo {
       display: none !important;
     }
 
-    /* Product Grid: 2 per row on mobile */
+    /* 2 cards per row on mobile */
     #products-container,
     .products-grid {
       display: grid !important;
