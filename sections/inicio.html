@@ -1,5 +1,7 @@
 <style>
-  /* Bulletproof 20/80 Layout Rules */
+  /* ==========================================
+     BULLETPROOF 20/80 DESKTOP LAYOUT
+     ========================================== */
   .dashboard-layout {
     display: flex;
     gap: 30px;
@@ -8,20 +10,17 @@
     margin-top: 10px;
   }
   
-  /* FIX: Independent Scrolling Sidebar */
   .sidebar-menu {
     flex: 0 0 250px;
     position: sticky;
     top: 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
     max-height: calc(100vh - 40px); 
     overflow-y: auto; 
     padding-right: 8px;
   }
 
-  /* Elegant minimal scrollbar for the sidebar */
   .sidebar-menu::-webkit-scrollbar {
     width: 5px;
   }
@@ -29,16 +28,12 @@
     background: rgba(45, 90, 39, 0.2);
     border-radius: 10px;
   }
-  .sidebar-menu::-webkit-scrollbar-thumb:hover {
-    background: rgba(45, 90, 39, 0.4);
-  }
 
   .dashboard-content {
     flex: 1;
     min-width: 0; 
   }
   
-  /* Bulletproof 3-Column Jar Grid Rules */
   .strict-3-grid {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
@@ -46,51 +41,80 @@
     width: 100% !important;
   }
 
-  /* Responsive Mobile/Tablet Rules */
-  @media (max-width: 992px) {
-    .dashboard-layout { display: flex; flex-direction: column; }
-    .dashboard-content { display: contents; } 
-    .story-card { order: 1; width: 100%; }
-    .sidebar-menu { order: 2; flex: none; width: 100%; position: static; max-height: none; overflow-y: visible; margin: 15px 0; }
-    .product-teaser-section { order: 3; width: 100%; }
-    #home-reviews-section { order: 4; width: 100%; }
-    #home-branch-section { order: 5; width: 100%; }
-    .strict-3-grid { grid-template-columns: repeat(2, 1fr) !important; }
-  }
-  @media (max-width: 550px) {
-    .strict-3-grid { grid-template-columns: 1fr !important; }
-  }
-
-  /* --- Clean Collections Header --- */
+  /* Desktop Collections Header: Natural Line, Zero Extra Gap */
   .collections-title {
     font-size: 0.85rem;
     font-weight: 800;
     letter-spacing: 2px;
     color: var(--matcha-deep, #2D5A27);
     text-transform: uppercase;
-    margin: 0 0 12px 0;
+    margin: 0;
+    padding-bottom: 6px;
+    border-bottom: 1.5px solid var(--gold-border, rgba(212, 175, 55, 0.35));
+    display: block;
+    width: 100%;
   }
 
-  /* Desktop Collections: clean vertical column */
+  .collections-wrapper {
+    position: relative;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  /* Desktop: Standard Vertical Stack */
   .collections-scroll-container {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    width: 100%;
   }
 
-  /* Hide track on desktop */
-  .collections-track {
+  /* Cue arrow hidden on desktop */
+  .scroll-cue-arrow {
     display: none;
   }
 
-  /* Mobile Scroll & Track Rules */
+  /* ==========================================
+     MOBILE & TABLET OVERRIDES
+     ========================================== */
   @media (max-width: 992px) {
+    .dashboard-layout { display: flex; flex-direction: column; }
+    .dashboard-content { display: contents; } 
+    .story-card { order: 1; width: 100%; }
+    
+    /* 1. Sidebar Container Reset (Zero Empty Void) */
+    .sidebar-menu { 
+      order: 2 !important; 
+      flex: none !important; 
+      width: 100% !important; 
+      position: static !important; 
+      max-height: none !important; 
+      height: auto !important; 
+      overflow: visible !important; 
+      margin: 10px 0 16px 0 !important; 
+      padding: 0 !important;
+      display: block !important;
+    }
+
+    /* 2. Mobile Title: Crisp & Direct */
+    .collections-title {
+      font-size: 0.82rem !important;
+      padding-bottom: 5px !important;
+    }
+
+    .collections-wrapper {
+      margin-top: 8px !important;
+    }
+
+    /* 3. Horizontal Scroll Container */
     .collections-scroll-container {
       display: flex !important;
       flex-direction: row !important;
-      gap: 10px !important;
+      flex-wrap: nowrap !important;
+      gap: 6px !important;
+      width: 100% !important;
       overflow-x: auto !important;
-      padding-bottom: 6px !important;
+      padding: 2px 28px 4px 2px !important; /* Right padding leaves room for arrow */
       scrollbar-width: none !important;
       -ms-overflow-style: none !important;
       -webkit-overflow-scrolling: touch !important;
@@ -98,107 +122,126 @@
     .collections-scroll-container::-webkit-scrollbar {
       display: none !important;
     }
+
+    /* 4. Compact Pills (Fit ~4 Across Screen) */
     .collections-scroll-container .tab-btn {
       flex: 0 0 auto !important;
+      width: auto !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 5px !important;
+      padding: 6px 11px !important;
+      font-size: 0.75rem !important; /* 12px clean text */
+      font-weight: 600 !important;
+      border-radius: 20px !important;
       white-space: nowrap !important;
     }
-
-    /* 3px Hairline Track */
-    .collections-track {
-      display: block !important;
-      width: 80px;
-      height: 3px;
-      background: rgba(45, 90, 39, 0.15);
-      border-radius: 3px;
-      margin: 8px auto 14px auto;
-      position: relative;
-      overflow: hidden;
+    .collections-scroll-container .tab-btn span {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 5px !important;
+    }
+    .collections-scroll-container .tab-btn i {
+      font-size: 0.85em !important;
+      width: auto !important;
+    }
+    /* Hide the trailing chevrons inside the pills */
+    .collections-scroll-container .tab-btn > i.fa-chevron-right {
+      display: none !important;
     }
 
-    /* Progress Pill */
-    .collections-thumb {
-      width: 28px;
-      height: 100%;
-      background: var(--matcha-deep, #2D5A27);
-      border-radius: 3px;
-      transform: translateX(0);
-      will-change: transform;
+    /* 5. Sleek Right Cue Arrow */
+    .scroll-cue-arrow {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      position: absolute !important;
+      right: 0 !important;
+      top: 0 !important;
+      bottom: 0 !important;
+      width: 26px !important;
+      background: linear-gradient(to right, transparent, var(--bg-cream, #FBF8F2) 65%) !important;
+      color: var(--gold-accent, #C59B27) !important;
+      font-size: 0.75em !important;
+      pointer-events: none !important;
     }
+
+    /* 6. Main Content Follows Immediately */
+    .product-teaser-section { order: 3; width: 100%; margin-top: 0 !important; }
+    #home-reviews-section { order: 4; width: 100%; }
+    #home-branch-section { order: 5; width: 100%; }
+    .strict-3-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  }
+
+  @media (max-width: 550px) {
+    .strict-3-grid { grid-template-columns: 1fr !important; }
   }
 </style>
 
 <div class="dashboard-layout">
 
   <!-- ==========================================
-       20% LEFT SIDEBAR: THE MENU GATEWAY
+       SIDEBAR / COLLECTIONS SECTION
        ========================================== -->
   <aside class="sidebar-menu">
-    <div class="collections-bar">
 
-      <div class="collections-header-wrapper">
-        <h3 class="collections-title">COLECCIONES</h3>
-      </div>
+    <!-- Clean Header with Natural Underline -->
+    <h3 class="collections-title">COLECCIONES</h3>
 
-      <!-- All buttons wrapped inside the scroll container -->
+    <!-- Scrollable Pills Wrapper -->
+    <div class="collections-wrapper">
       <div class="collections-scroll-container" id="collections-slider">
         <button class="tab-btn" onclick="jumpToMenuCollection(1)" style="justify-content: space-between;">
-          <span><i class="fa-solid fa-leaf" style="color: var(--matcha-deep); width: 25px; text-align: center;"></i> Bienestar</span>
+          <span><i class="fa-solid fa-leaf" style="color: var(--matcha-deep);"></i> Bienestar</span>
           <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
         </button>
 
         <button class="tab-btn" onclick="jumpToMenuCollection(2)" style="justify-content: space-between;">
-          <span><i class="fa-solid fa-mug-hot" style="color: var(--matcha-deep); width: 25px; text-align: center;"></i> Chai Lover</span>
+          <span><i class="fa-solid fa-mug-hot" style="color: var(--matcha-deep);"></i> Chai Lover</span>
           <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
         </button>
 
         <button class="tab-btn" onclick="jumpToMenuCollection(3)" style="justify-content: space-between;">
-          <span><i class="fa-solid fa-droplet" style="color: #4285F4; width: 25px; text-align: center;"></i> Blue Magic</span>
+          <span><i class="fa-solid fa-droplet" style="color: #4285F4;"></i> Blue Magic</span>
           <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
         </button>
 
         <button class="tab-btn" onclick="jumpToMenuCollection(4)" style="justify-content: space-between;">
-          <span><i class="fa-solid fa-plane" style="color: var(--matcha-deep); width: 25px; text-align: center;"></i> Viajes con Té</span>
+          <span><i class="fa-solid fa-plane" style="color: var(--matcha-deep);"></i> Viajes con Té</span>
           <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
         </button>
 
         <button class="tab-btn" onclick="jumpToMenuCollection(5)" style="justify-content: space-between;">
-          <span><i class="fa-solid fa-moon" style="color: #1a237e; width: 25px; text-align: center;"></i> Nocturna</span>
+          <span><i class="fa-solid fa-moon" style="color: #1a237e;"></i> Nocturna</span>
           <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
         </button>
 
         <button class="tab-btn" onclick="jumpToMenuCollection(6)" style="justify-content: space-between;">
-          <span><i class="fa-solid fa-award" style="color: var(--gold-accent); width: 25px; text-align: center;"></i> Especial</span>
+          <span><i class="fa-solid fa-award" style="color: var(--gold-accent);"></i> Especial</span>
           <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
         </button>
 
         <button class="tab-btn" onclick="jumpToMenuCollection(9)" style="justify-content: space-between;">
-          <span><i class="fa-solid fa-star" style="color: var(--gold-accent); width: 25px; text-align: center;"></i> Wow</span>
+          <span><i class="fa-solid fa-star" style="color: var(--gold-accent);"></i> Wow</span>
           <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
         </button>
 
         <button class="tab-btn" onclick="jumpToMenuCollection(14)" style="justify-content: space-between;">
-          <span><i class="fa-solid fa-bowl-rice" style="color: var(--matcha-deep); width: 25px; text-align: center;"></i> Quiero Matcha</span>
+          <span><i class="fa-solid fa-bowl-rice" style="color: var(--matcha-deep);"></i> Quiero Matcha</span>
           <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
         </button>
       </div>
 
-      <!-- Enterprise 3px mobile progress track placed underneath -->
-      <div class="collections-track" aria-hidden="true">
-        <div class="collections-thumb" id="collections-thumb"></div>
+      <!-- Cue Arrow Indicating More Items to Swipe -->
+      <div class="scroll-cue-arrow" aria-hidden="true">
+        <i class="fa-solid fa-chevron-right"></i>
       </div>
-
     </div>
 
-    <!-- Gold Shipping Promo -->
-    <div class="sidebar-promo" style="margin-top: 10px;">
-      <i class="fa-solid fa-truck-fast" style="font-size: 2em; margin-bottom: 10px;"></i>
-      <h4 style="margin: 0 0 5px 0; font-size: 1.1em; font-weight: 800;">Envíos a todo México</h4>
-      <p style="font-size: 0.85em; margin: 0; line-height: 1.4; font-weight: 500;">La auténtica experiencia Chaiitto directo a tu puerta.</p>
-    </div>
   </aside>
 
   <!-- ==========================================
-       80% RIGHT MAIN CONTENT 
+       MAIN CONTENT 
        ========================================== -->
   <main class="dashboard-content">
     
@@ -211,7 +254,7 @@
       </div>
     </div>
 
-    <!-- PRODUCT TEASER (3 COLUMNS) -->
+    <!-- PRODUCT TEASER -->
     <section class="product-teaser-section">
       <h2 class="collection-name-title" style="font-size: 1.8em; margin: 25px 0 15px 0;">Mezclas Destacadas</h2>      
       <div class="strict-3-grid">
@@ -323,7 +366,7 @@
       </div>
 
       <div style="text-align: center; margin-top: 22px;">
-        <a href="https://www.google.com/maps/place/CHAI-ITTO+T%C3%89,+CAF%C3%89,+POSTRES+ORGANIC/data=!4m2!3m1!1s0x85cfc7525aac3db7:0x5d6d23e1c43a6b59?sa=X&ved=1t:242&hl=es-419&ictx=111" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; background: #FFFFFF; color: var(--matcha-deep); border: 1.5px solid var(--gold-border); border-radius: 25px; padding: 10px 22px; font-family: var(--font-heading); font-size: 0.85em; font-weight: 700; text-decoration: none; box-shadow: 0 3px 10px rgba(0,0,0,0.06); transition: all 0.2s ease;">
+        <a href="url?id=80" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; background: #FFFFFF; color: var(--matcha-deep); border: 1.5px solid var(--gold-border); border-radius: 25px; padding: 10px 22px; font-family: var(--font-heading); font-size: 0.85em; font-weight: 700; text-decoration: none; box-shadow: 0 3px 10px rgba(0,0,0,0.06); transition: all 0.2s ease;">
           <i class="fa-brands fa-google" style="color: #4285F4;"></i> Ver todas las opiniones en Google Maps <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.85em; color: var(--gold-accent);"></i>
         </a>
       </div>
