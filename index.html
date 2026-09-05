@@ -513,6 +513,62 @@
     </style>
 </head>
 <body>
+    <!-- TEA SHOP STYLE TOP ANNOUNCEMENT RIBBON -->
+<div class="top-ribbon">
+  <div class="top-ribbon-track">
+    <span><i class="fa-solid fa-truck-fast"></i> <strong>Envíos a todo México:</strong> Frascos y sobres (3 a 5 días hábiles)</span>
+    <span class="ribbon-dot">•</span>
+    <span><i class="fa-solid fa-mug-hot"></i> Degustación en taza exclusiva en sucursal Cholula</span>
+    <span class="ribbon-dot">•</span>
+    <span><i class="fa-solid fa-leaf"></i> 100% Ingredientes Naturales y Orgánicos</span>
+  </div>
+</div>
+
+<style>
+  .top-ribbon {
+    width: 100%;
+    background: #b57a38; /* Warm Tea Shop copper-gold tone */
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    padding: 7px 12px;
+    text-align: center;
+    position: relative;
+    z-index: 9999;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+
+  .top-ribbon-track {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .top-ribbon-track span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .ribbon-dot {
+    opacity: 0.6;
+    font-size: 0.9em;
+  }
+
+  @media (max-width: 768px) {
+    .top-ribbon {
+      font-size: 0.72rem;
+      padding: 6px 8px;
+    }
+    .ribbon-dot,
+    .top-ribbon-track span:nth-child(3) {
+      display: none; /* Keeps mobile single-line and razor-clean */
+    }
+  }
+</style>
 
     <a id="floating-whatsapp-btn" href="https://wa.me/522218415466" target="_blank" aria-label="Chat en WhatsApp">
         <i class="fa-brands fa-whatsapp fa-xl"></i>
