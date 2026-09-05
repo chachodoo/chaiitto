@@ -111,6 +111,35 @@
     {"num": "98", "name": "NAVIDAD", "ingredients": "Moras, Grosellas, Zarzamora, Fresa, Ruibarbo, Baya de saúco, Jamaica, Manzana.", "taza": 99, "frasco": 295},
     {"num": "99", "name": "BANANA SPLIT", "ingredients": "Plátano, Cereza negra, Piña, Uvas, Jamaica.", "taza": 99, "frasco": 295}
   ],
+  "CAFÉ": [
+    {"num": "", "name": "Americano", "ingredients": "Cafe classico Italiano", "taza": 49, "frasco": ""},
+    {"num": "", "name": "Capuccino", "ingredients": "Espresso, leche, espuma de leche", "taza": 69, "frasco": ""},
+    {"num": "", "name": "Italiano", "ingredients": "Vainilla, Chocolate, Avellana, Canela.", "taza": 75, "frasco": ""},
+    {"num": "", "name": "Mokaccino", "ingredients": "Espresso, chocolate, leche", "taza": 75, "frasco": ""},
+    {"num": "", "name": "Francés", "ingredients": "", "taza": 75, "frasco": ""},
+    {"num": "", "name": "Etiopía", "ingredients": "", "taza": 75, "frasco": ""},
+    {"num": "", "name": "Libanés", "ingredients": "Puro o cardamomo.", "taza": 95, "frasco": ""},
+    {"num": "", "name": "Turco", "ingredients": "Original, Pistacho, Rosas, Mastic.", "taza": 95, "frasco": ""}
+  ],"CHOCO LATTE": [
+    {"num": "", "name": "Chocolate", "ingredients": "Taza 250 ml", "taza": 85, "frasco": ""},
+    {"num": "", "name": "Cacao Puro", "ingredients": "Taza 250 ml", "taza": 75, "frasco": ""},
+    {"num": "", "name": "Cacao Especiado", "ingredients": "Taza 250 ml", "taza": 95, "frasco": ""},
+    {"num": "", "name": "Golden Milk Latte", "ingredients": "Taza 350 ml", "taza": 95, "frasco": ""},
+    {"num": "", "name": "Taro Latte", "ingredients": "Taza 350 ml", "taza": 95, "frasco": ""},
+    {"num": "", "name": "Pumpkin Spice Latte", "ingredients": "Taza 350 ml", "taza": 95, "frasco": ""}
+  ],
+  "TENTACIONES": [
+    {"num": "", "name": "Brownie", "ingredients": "", "taza": 45, "frasco": ""},
+    {"num": "", "name": "Brownie con Helado", "ingredients": "", "taza": 59, "frasco": ""},
+    {"num": "", "name": "Mochi (Original, Ice)", "ingredients": "", "taza": 20, "frasco": ""},
+    {"num": "", "name": "Pastel / Pay (Rebanada)", "ingredients": "", "taza": 69, "frasco": ""},
+    {"num": "", "name": "Panqué", "ingredients": "", "taza": 65, "frasco": ""},
+    {"num": "", "name": "Choco Dubái Bocadito", "ingredients": "", "taza": 25, "frasco": ""},
+    {"num": "", "name": "Choco Dubái Mini", "ingredients": "", "taza": 45, "frasco": ""},
+    {"num": "", "name": "Choco Dubái Barra", "ingredients": "", "taza": 399, "frasco": ""},
+    {"num": "", "name": "Galleta Matcha", "ingredients": "", "taza": 25, "frasco": ""},
+    {"num": "", "name": "Delicia Turca", "ingredients": "", "taza": 25, "frasco": ""}
+  ],
   "QUIERO MATCHA": [
   {"num": "", "name": "Matcha Pink Chai", "ingredients": "", "taza": 125, "frasco": ""},
   {"num": "", "name": "Matcha Chai", "ingredients": "", "taza": 125, "frasco": ""},
