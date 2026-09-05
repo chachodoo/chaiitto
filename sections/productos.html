@@ -73,56 +73,92 @@
   /* =========================================
      3. MOBILE & TABLET: 100% SPAN + FATTER PILLS
      ========================================= */
+  /* =========================================
+     MOBILE: 3-4 PILLS VISIBLE + END INDICATOR
+     ========================================= */
   @media (max-width: 992px) {
-    .sidebar-menu {
+    .dashboard-layout {
+      display: flex !important;
+      flex-direction: column !important;
       width: 100% !important;
-      margin-bottom: 15px !important;
     }
 
-    /* Title sits 100% across the top on its own line */
+    .sidebar-menu {
+      width: 100% !important;
+      margin: 0 0 10px 0 !important;
+      padding: 0 !important;
+    }
+
     .collections-title {
       display: block !important;
-      width: 100% !important;
-      font-size: 0.9rem !important;
-      letter-spacing: 1.5px !important;
-      margin: 0 0 10px 0 !important;
-      padding-bottom: 6px !important;
+      font-size: 0.82rem !important;
+      letter-spacing: 1.2px !important;
+      text-transform: uppercase;
+      color: var(--matcha-deep, #2d5a27);
+      margin: 0 0 6px 0 !important;
+      padding-bottom: 4px !important;
       border-bottom: 1.5px solid var(--gold-border, rgba(197, 160, 89, 0.3)) !important;
     }
 
-    /* Pills track takes 100% full screen width */
+    /* Container with right fade indicator */
+    .collections-bar {
+      position: relative !important;
+      width: 100% !important;
+    }
+
+    /* Right-side gradient fade with arrow cue */
+    .collections-bar::after {
+      content: '›' !important;
+      position: absolute;
+      right: 0;
+      top: 24px; /* Aligns with the pill row */
+      bottom: 6px;
+      width: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 4px;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--gold-accent, #c5a059);
+      background: linear-gradient(to right, transparent 0%, rgba(18, 26, 18, 0.95) 70%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Unbroken horizontal track */
     .collections-pills-track {
       display: flex !important;
       flex-direction: row !important;
-      width: 100% !important;
+      flex-wrap: nowrap !important;
       overflow-x: auto !important;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      gap: 10px !important;
-      padding: 4px 2px 10px 2px !important;
+      -webkit-overflow-scrolling: touch !important;
+      scrollbar-width: none !important;
+      width: 100% !important;
+      gap: 6px !important;
+      padding: 4px 40px 8px 0 !important; /* Extra 40px right padding so the last pill isn't hidden under the arrow */
+      margin: 0 !important;
     }
 
     .collections-pills-track::-webkit-scrollbar {
-      display: none;
+      display: none !important;
     }
 
-    /* Fatter, taller, comfortable pills */
+    /* Fatter (taller) & Narrower (snug) pills */
     .collections-pills-track .tab-btn {
       flex: 0 0 auto !important;
       width: auto !important;
       white-space: nowrap !important;
-      padding: 13px 22px !important;      /* Fatter vertical & horizontal padding */
-      font-size: 0.95rem !important;      /* Clean legible text */
+      padding: 10px 11px !important;      /* Taller vertical touch, narrow horizontal width */
+      font-size: 0.76rem !important;      /* Compact text allows 3 to 4 to fit */
       font-weight: 700 !important;
-      border-radius: 28px !important;     /* Rounded pill shape */
+      border-radius: 20px !important;
       line-height: 1 !important;
       display: inline-flex !important;
       align-items: center !important;
       justify-content: center !important;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12) !important;
     }
 
-    /* Hide icons & chevrons on mobile */
     .collections-pills-track .tab-btn i {
       display: none !important;
     }
