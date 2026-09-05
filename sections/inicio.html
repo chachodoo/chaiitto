@@ -43,17 +43,18 @@
 
   /* Desktop Collections Header: Natural Line, Zero Extra Gap */
   .collections-title {
-    font-size: 0.85rem;
-    font-weight: 800;
-    letter-spacing: 2px;
-    color: var(--matcha-deep, #2D5A27);
-    text-transform: uppercase;
-    margin: 0;
-    padding-bottom: 6px;
-    border-bottom: 1.5px solid var(--gold-border, rgba(212, 175, 55, 0.35));
-    display: block;
-    width: 100%;
-  }
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--matcha-deep, #2D5A27);
+  text-transform: uppercase;
+  margin: 0;
+  padding-bottom: 6px;
+  border-bottom: 1.5px solid var(--gold-border, rgba(212, 175, 55, 0.35));
+  display: block;
+  width: 100%;
+  scroll-margin-top: 80px; /* Prevents text from slamming into the screen ceiling */
+}
 
   .collections-wrapper {
     position: relative;
