@@ -81,39 +81,46 @@
     margin-bottom: 8px !important;
   }
 
-  /* Desktop Collections Header: Natural Line, Zero Extra Gap */
-  .collections-title {
+  /* Desktop Collections Header: Zero Extra Gap */
+.collections-title {
   font-size: 0.85rem;
   font-weight: 800;
   letter-spacing: 2px;
   color: var(--matcha-deep, #2D5A27);
   text-transform: uppercase;
-  margin: 0;
-  padding-bottom: 6px;
+  margin: 0 !important;
+  padding-bottom: 2px !important;
   border-bottom: 1.5px solid var(--gold-border, rgba(212, 175, 55, 0.35));
   display: block;
   width: 100%;
-  scroll-margin-top: 80px; /* Prevents text from slamming into the screen ceiling */
+  scroll-margin-top: 80px;
 }
 
-  .collections-wrapper {
-    position: relative;
-    width: 100%;
-    margin-top: 8px;
-  }
+.collections-wrapper {
+  position: relative;
+  width: 100%;
+  margin-top: 3px !important;
+  padding: 0 !important;
+}
 
-  /* Desktop: Standard Vertical Stack */
-  .collections-scroll-container {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    width: 100%;
-  }
+/* Desktop: Ultra-Compact Vertical Stack */
+.collections-scroll-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2px !important;
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+}
 
-  .sidebar-menu .tab-btn {
-  padding: 5px 10px !important;
-  font-size: 0.8rem !important;
-  min-height: unset !important;
+.sidebar-menu .tab-btn {
+  margin: 0 !important;
+  padding: 3px 8px !important;
+  height: auto !important;
+  min-height: 0 !important;
+  font-size: 0.75rem !important;
+  line-height: 1.15 !important;
+  border-radius: 8px !important;
 }
 
   /* Cue arrow hidden on desktop */
