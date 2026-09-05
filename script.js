@@ -318,7 +318,6 @@ async function fetchProducts() {
             setTimeout(loadGalleryRibbon, 100);
         } else if (pageName === 'menu') {
             currentMenuPage = targetPage;
-            alert("Target page received: at end of switchPAge " + targetPage);
             updateMenuDisplay();
         }
 
