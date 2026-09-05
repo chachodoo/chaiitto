@@ -1,5 +1,6 @@
 <style>
   /* Desktop: 4 Cards per Row */
+  #products-container,
   .products-grid {
     display: grid !important;
     grid-template-columns: repeat(4, 1fr) !important;
@@ -8,9 +9,12 @@
   }
 
   /* Compact Desktop Cards & Jars */
+  #products-container .product-card,
   .products-grid .product-card {
     padding: 12px 10px !important;
   }
+  #products-container .product-img-box,
+  #products-container img,
   .products-grid .product-img-box,
   .products-grid img {
     max-height: 120px !important;
@@ -19,6 +23,7 @@
 
   /* Tablet (under 992px): 2 Cards per Row */
   @media (max-width: 992px) {
+    #products-container,
     .products-grid {
       grid-template-columns: repeat(2, 1fr) !important;
       gap: 12px !important;
@@ -27,20 +32,26 @@
 
   /* Mobile (under 550px): 2 Cards per Row */
   @media (max-width: 550px) {
+    #products-container,
     .products-grid {
       grid-template-columns: repeat(2, 1fr) !important;
       gap: 10px !important;
     }
+    #products-container .product-card,
     .products-grid .product-card {
       padding: 10px 8px !important;
       border-radius: 14px !important;
     }
+    #products-container .product-img-box,
+    #products-container img,
     .products-grid .product-img-box,
     .products-grid img {
       max-height: 100px !important;
     }
   }
 </style>
+
+
 <div class="dashboard-layout">
     
    <!-- ==========================================
