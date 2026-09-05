@@ -41,31 +41,30 @@
   }
 
   /* =========================================
-     MOBILE: 100% FULL-WIDTH TRACK + FATTER PILLS
+     BUBBLY, FAT MOBILE PILLS (NO ICONS, NO OVERLAYS)
      ========================================= */
   @media (max-width: 992px) {
-    /* 1. Break the container out of the desktop sidebar constraint */
     .dashboard-layout {
       display: block !important;
       width: 100% !important;
     }
 
     aside.sidebar-menu,
-    .sidebar-menu {
-      display: block !important;
-      width: 100% !important;
-      max-width: 100% !important;
-      flex: none !important;             /* Kills the flex-basis 260px lock */
-      margin: 0 0 14px 0 !important;
-      padding: 0 !important;
-    }
-
+    .sidebar-menu,
     .collections-bar {
       display: block !important;
       width: 100% !important;
       max-width: 100% !important;
-      margin: 0 !important;
+      flex: none !important;
+      margin: 0 0 12px 0 !important;
       padding: 0 !important;
+    }
+
+    /* Remove any leftover overlay arrows/gradients */
+    .collections-bar::after,
+    .collections-pills-track::after {
+      display: none !important;
+      content: none !important;
     }
 
     .collections-title {
@@ -74,24 +73,23 @@
       font-size: 0.85rem !important;
       letter-spacing: 1.5px !important;
       text-transform: uppercase;
-      color: var(--matcha-deep, #2d5a27);
+      color: var(--gold-accent, #c5a059) !important;
       margin: 0 0 8px 0 !important;
       padding-bottom: 4px !important;
       border-bottom: 1.5px solid var(--gold-border, rgba(197, 160, 89, 0.3)) !important;
     }
 
-    /* 2. Track spans full 100% edge-to-edge width */
+    /* Clean 100% edge-to-edge swipe row */
     .collections-pills-track {
       display: flex !important;
       flex-direction: row !important;
       flex-wrap: nowrap !important;
       width: 100% !important;
-      max-width: 100% !important;
       overflow-x: auto !important;
       -webkit-overflow-scrolling: touch !important;
       scrollbar-width: none !important;
-      gap: 8px !important;
-      padding: 4px 0 10px 0 !important;
+      gap: 10px !important;
+      padding: 6px 4px 14px 4px !important;
       margin: 0 !important;
     }
 
@@ -99,52 +97,31 @@
       display: none !important;
     }
 
-    /* 3. Fatter (taller height) + snug width so 3-4 fit */
+    /* Chunky, Bubbly Pills */
     .collections-pills-track .tab-btn {
       flex: 0 0 auto !important;
       width: auto !important;
       white-space: nowrap !important;
-      padding: 12px 14px !important;      /* Chunky touch height, tight side padding */
-      font-size: 0.8rem !important;       /* Clean size to allow 3-4 items across */
-      font-weight: 700 !important;
-      border-radius: 24px !important;
+      padding: 13px 18px !important;           /* Plump, fat vertical touch height */
+      font-size: 0.86rem !important;
+      font-weight: 800 !important;
+      border-radius: 9999px !important;        /* Pure bubble capsule shape */
       line-height: 1 !important;
       display: inline-flex !important;
       align-items: center !important;
       justify-content: center !important;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25) !important; /* Soft elevation bubble feel */
     }
 
-    /* Strip icons on mobile so pills hug text */
-    .collections-pills-track .tab-btn i {
+    /* Eradicates icons completely (both FontAwesome <i> and injected <svg>) */
+    .collections-pills-track .tab-btn i,
+    .collections-pills-track .tab-btn svg {
       display: none !important;
     }
 
-    /* Hide desktop shipping promo on mobile */
+    /* Hide desktop-only promo box */
     .sidebar-promo {
       display: none !important;
-    }
-
-    /* 2 cards per row on mobile */
-    #products-container,
-    .products-grid {
-      display: grid !important;
-      grid-template-columns: repeat(2, 1fr) !important;
-      gap: 10px !important;
-      width: 100% !important;
-    }
-
-    #products-container .product-card,
-    .products-grid .product-card {
-      padding: 10px 8px !important;
-      border-radius: 14px !important;
-    }
-
-    #products-container .product-img-box,
-    #products-container img,
-    .products-grid .product-img-box,
-    .products-grid img {
-      max-height: 100px !important;
-      object-fit: contain;
     }
   }
 </style>
