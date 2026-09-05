@@ -1,6 +1,6 @@
 <style>
   /* =========================================
-     1. DESKTOP (992px and up): 10% SIDEBAR / 90% GRID (5 JARS)
+     1. DESKTOP (992px and up): 10% / 90% (5 JARS)
      ========================================= */
   @media (min-width: 992px) {
     .dashboard-layout {
@@ -81,29 +81,25 @@
   }
 
   /* =========================================
-     2. MOBILE (under 992px): TRUE 100% EDGE-TO-EDGE
+     2. MOBILE: ZERO HORIZONTAL OVERFLOW
      ========================================= */
   @media (max-width: 991px) {
+    /* Prevent the page from blowing out wider than the phone screen */
     .dashboard-layout {
-      display: flex !important;
-      flex-direction: column !important;
-      width: 100% !important;
-      max-width: 100% !important;
-      margin: 0 !important;
-      padding: 0 !important;
-    }
-
-    /* Overrides flex-basis: 260px from style.css */
-    aside.sidebar-menu,
-    .sidebar-menu,
-    .collections-bar {
       display: block !important;
       width: 100% !important;
-      min-width: 100% !important;
       max-width: 100% !important;
-      flex-basis: 100% !important;
-      flex-grow: 1 !important;
-      flex-shrink: 0 !important;
+      overflow-x: hidden !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      box-sizing: border-box !important;
+    }
+
+    aside.sidebar-menu,
+    .sidebar-menu {
+      display: block !important;
+      width: 100% !important;
+      max-width: 100% !important;
       margin: 0 0 12px 0 !important;
       padding: 0 !important;
       box-sizing: border-box !important;
@@ -121,15 +117,16 @@
       border-bottom: 1.5px solid var(--gold-border, rgba(197, 160, 89, 0.3)) !important;
     }
 
-    /* Container fills 100% phone width */
+    /* Track Wrapper spans 100% phone width */
     .collections-wrapper {
       position: relative !important;
+      display: block !important;
       width: 100% !important;
       max-width: 100% !important;
       box-sizing: border-box !important;
     }
 
-    /* Full-bleed horizontal scroll */
+    /* Swiping Track */
     .collections-pills-track {
       display: flex !important;
       flex-direction: row !important;
@@ -142,7 +139,7 @@
       scrollbar-width: none !important;
       box-sizing: border-box !important;
       gap: 8px !important;
-      padding: 4px 44px 10px 0 !important;
+      padding: 4px 44px 10px 0 !important; /* Clearance on right for the arrow */
       margin: 0 !important;
     }
 
@@ -150,7 +147,7 @@
       display: none !important;
     }
 
-    /* Plump, fat pills */
+    /* Fat Bubbly Capsule Buttons */
     .collections-pills-track .tab-btn {
       flex: 0 0 auto !important;
       width: auto !important;
@@ -171,7 +168,7 @@
       display: none !important;
     }
 
-    /* Arrow pinned strictly to the far right screen edge */
+    /* Arrow pinned strictly to the true right edge */
     .mobile-scroll-arrow {
       position: absolute !important;
       right: 0 !important;
@@ -197,17 +194,23 @@
       display: none !important;
     }
 
+    /* 2 Jars per row: minmax(0, 1fr) prevents cards from blowing out screen width */
     #products-container,
     .products-grid {
       display: grid !important;
-      grid-template-columns: repeat(2, 1fr) !important;
-      gap: 10px !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 8px !important;
       width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
     }
 
     #products-container .product-card,
     .products-grid .product-card {
-      padding: 10px 8px !important;
+      width: 100% !important;
+      min-width: 0 !important;
+      box-sizing: border-box !important;
+      padding: 10px 6px !important;
       border-radius: 14px !important;
     }
 
@@ -215,13 +218,21 @@
     #products-container img,
     .products-grid .product-img-box,
     .products-grid img {
-      max-height: 100px !important;
+      max-height: 95px !important;
       object-fit: contain;
+    }
+
+    /* Ensure purchase buttons fit inside the 2-column mobile card */
+    .product-card .btn-add,
+    .product-card button {
+      font-size: 0.72rem !important;
+      padding: 6px 3px !important;
     }
   }
 </style>
 
 <div class="dashboard-layout">
+  <!-- SIDEBAR (Desktop 10% / Mobile Full-Bleed Track) -->
   <aside class="sidebar-menu">
     <h3 class="collections-title">Colecciones</h3>
     
@@ -253,19 +264,21 @@
         </button>
       </div>
 
+      <!-- Functional Tap-to-Scroll Arrow -->
       <button type="button" class="mobile-scroll-arrow" aria-label="Ver más colecciones" onclick="document.getElementById('pillsTrack').scrollBy({left: 160, behavior: 'smooth'})">
         <i class="fa-solid fa-chevron-right"></i>
       </button>
     </div>
   </aside>
 
+  <!-- 90% DESKTOP / 100% MOBILE GRID -->
   <main class="dashboard-content">
     <div class="collection-banner">
       <h2 id="current-collection-title" class="collection-name-title" style="margin-top: 0; text-align: left; color: var(--matcha-deep); font-size: 2em; border-bottom: 2px solid var(--gold-accent); padding-bottom: 10px; margin-bottom: 20px;">BIENESTAR</h2>
     </div>
     
     <div id="products-container" class="products-grid">
-      <!-- Injected via JS -->
+      <!-- Dynamic Products Injected via JS -->
     </div>
   </main>
 </div>
