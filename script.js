@@ -284,13 +284,7 @@ async function fetchProducts() {
     if (!container) return;
 
     if (headerEl) headerEl.classList.add('compact-header');
-
-    if (pageName === 'contactanos') {
-        container.classList.add('dark-section');
-    } else {
-        container.classList.remove('dark-section');
-    }
-
+    container.classList.remove('dark-section');
     try {
         const response = await fetch(`sections/${pageName}.html`);
     if (!response.ok) throw new Error(`Could not load section: ${pageName}`);
@@ -323,6 +317,17 @@ async function fetchProducts() {
 
         // 3. FORCE IMMEDIATE JUMP TO TOP (Removed 'smooth' so it doesn't get stuck)
         window.scrollTo(0, 0);
+        // Smooth glide back to Collections if flagged
+    if (pageName === 'inicio' && window.shouldScrollToCollections) {
+        window.shouldScrollToCollections = false;
+        setTimeout(() => {
+            const anchor = document.getElementById('colecciones-anchor');
+            if (anchor) {
+                anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 150);
+    }
+        
 
     } catch (error) {
         console.error('Error loading page section:', error);
@@ -638,10 +643,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 window.addEventListener('hashchange', handleHashNavigation);
 
-// --- JUMP TO SPECIFIC MENU PAGE ---
+// --- JUMP TO MENU FROM A COLLECTION ---
 function jumpToMenuCollection(pageNum) {
   window.targetMenuPage = pageNum;
+  window.shouldScrollToCollections = true;
   switchPage('menu');
+}
+
+// --- 1-TAP RETURN TO COLLECTIONS ---
+function returnToCollections() {
+  window.shouldScrollToCollections = true;
+  switchPage('inicio');
 }
 
 // ENTERPRISE GALLERY SCROLL LOGIC
@@ -667,3 +679,5 @@ function scrollGallery(direction) {
         }
     }
 }
+
+
