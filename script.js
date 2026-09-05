@@ -264,10 +264,10 @@ async function fetchProducts() {
 }
 
         async function switchPage(pageName, targetPage) {
-                alert("Target page received begning of switchPage: " + targetPage);
+                alert("Target page received begning of switchPage: " pageName + " " + targetPage);
 
             if (!targetPage) targetPage = 1;
-    alert("Target page received begning of switchPage after assignment: " + targetPage);
+                alert("Target page received begning of switchPage: " pageName + " " + targetPage);
     document.body.style.overflow = 'auto';
     document.body.className = ''; // Strips any body-level blur classes
     
@@ -642,7 +642,7 @@ window.addEventListener('hashchange', handleHashNavigation);
 
 // --- JUMP TO SPECIFIC MENU PAGE ---
 function jumpToMenuCollection(pageNum) {
-    alert("Button sent from jumpToMenuCollection number: " + pageNum);
+    alert("Button sent from jumpToMenuCollection before calling switchPage" + pageNum);
   switchPage('menu', pageNum);
 }
 
