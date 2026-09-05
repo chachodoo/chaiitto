@@ -263,7 +263,8 @@ async function fetchProducts() {
     }
 }
 
-    async function switchPage(pageName, targetPage = 1) {
+        async function switchPage(pageName, targetPage = 1) {
+    if (pageName === 'menu') alert("Target page received begning of switchPage: " + targetPage);
     document.body.style.overflow = 'auto';
     document.body.className = ''; // Strips any body-level blur classes
     
@@ -315,6 +316,7 @@ async function fetchProducts() {
             setTimeout(loadGalleryRibbon, 100);
         } else if (pageName === 'menu') {
             currentMenuPage = targetPage;
+            alert("Target page received: at end of switchPAge " + targetPage);
             updateMenuDisplay();
         }
 
