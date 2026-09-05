@@ -75,6 +75,13 @@
     display: none;
   }
 
+  /* Invisible Scroll Offset Anchor */
+  .collections-scroll-anchor {
+    display: block;
+    height: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
   /* ==========================================
      MOBILE & TABLET OVERRIDES
      ========================================== */
@@ -82,13 +89,23 @@
     .dashboard-layout { display: flex; flex-direction: column; }
     .dashboard-content { display: contents; } 
     .story-card { order: 1; width: 100%; }
+    /* Mobile Offset: forces landing position 120px down, clear of hamburger */
+    /* Mobile Offset: pins the scroll target exactly 120px above the sidebar */
+    .collections-scroll-anchor {
+      position: absolute !important;
+      top: -120px !important;
+      left: 0 !important;
+      width: 1px !important;
+      height: 1px !important;
+      visibility: hidden !important;
+    }
     
-    /* 1. Sidebar Container Reset (Zero Empty Void) */
+    /* 1. Sidebar Container Reset */
     .sidebar-menu { 
       order: 2 !important; 
       flex: none !important; 
       width: 100% !important; 
-      position: static !important; 
+      position: relative !important; /* Changed from static to relative */
       max-height: none !important; 
       height: auto !important; 
       overflow: visible !important; 
@@ -186,8 +203,11 @@
        ========================================== -->
   <aside class="sidebar-menu">
 
+    <!-- 120px Clearance Anchor to clear the floating hamburger -->
+    <div id="colecciones-anchor" class="collections-scroll-anchor"></div>
+
     <!-- Clean Header with Natural Underline -->
-    <h3 class="collections-title" id="colecciones-anchor">COLECCIONES</h3>
+    <h3 class="collections-title">COLECCIONES</h3>
     <!-- Scrollable Pills Wrapper -->
     <div class="collections-wrapper">
       <div class="collections-scroll-container" id="collections-slider">
