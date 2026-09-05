@@ -264,10 +264,10 @@ async function fetchProducts() {
 }
 
         async function switchPage(pageName, targetPage) {
-                alert("Target page received begning of switchPage: " pageName + " " + targetPage);
+                alert("Target page received begning of switchPage: " + pageName + " " + targetPage);
 
             if (!targetPage) targetPage = 1;
-                alert("Target page received begning of switchPage: " pageName + " " + targetPage);
+                alert("Target page received begning of switchPage: " + pageName + " " + targetPage);
     document.body.style.overflow = 'auto';
     document.body.className = ''; // Strips any body-level blur classes
     
