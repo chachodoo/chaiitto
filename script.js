@@ -263,15 +263,14 @@ async function fetchProducts() {
     }
 }
 
-        async function switchPage(pageName, targetPage) {
-                alert("Target page received begning of switchPage: " + pageName + " " + targetPage);
+        async function switchPage(pageName) {
+            const targetPage = window.targetMenuPage || 1;
+            window.targetMenuPage = null; // Tears up the ticket immediately
 
-            if (!targetPage) targetPage = 1;
-                alert("Target page received begning of switchPage: " + pageName + " " + targetPage);
-    document.body.style.overflow = 'auto';
-    document.body.className = ''; // Strips any body-level blur classes
+            document.body.style.overflow = 'auto';
+            document.body.className = ''; // Strips any body-level blur classes
     
-    // Properly close specific modals by removing their 'active' class
+            // Properly close specific modals by removing their 'active' class
     document.querySelectorAll('.oferta-modal, #checkout-modal, #main-nav-menu').forEach(el => {
         if (el) el.classList.remove('active');
     });
@@ -642,8 +641,8 @@ window.addEventListener('hashchange', handleHashNavigation);
 
 // --- JUMP TO SPECIFIC MENU PAGE ---
 function jumpToMenuCollection(pageNum) {
-    alert("Button sent from jumpToMenuCollection before calling switchPage" + pageNum);
-  switchPage('menu', pageNum);
+  window.targetMenuPage = pageNum;
+  switchPage('menu');
 }
 
 // ENTERPRISE GALLERY SCROLL LOGIC
