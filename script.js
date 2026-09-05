@@ -318,15 +318,18 @@ async function fetchProducts() {
         // 3. FORCE IMMEDIATE JUMP TO TOP (Removed 'smooth' so it doesn't get stuck)
         window.scrollTo(0, 0);
         // Smooth glide back to Collections if flagged
-    if (pageName === 'inicio' && window.shouldScrollToCollections) {
-        window.shouldScrollToCollections = false;
-        setTimeout(() => {
-            const anchor = document.getElementById('colecciones-anchor');
-            if (anchor) {
-                anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }, 150);
-    }
+    // Smooth glide back to Collections if flagged
+if (pageName === 'inicio' && window.shouldScrollToCollections) {
+    window.shouldScrollToCollections = false;
+    setTimeout(() => {
+        const anchor = document.getElementById('colecciones-anchor');
+        if (anchor) {
+            const headerOffset = 85; // Keeps title 85px below the screen top
+            const targetY = anchor.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+            window.scrollTo({ top: targetY, behavior: 'smooth' });
+        }
+    }, 150);
+}
         
 
     } catch (error) {
