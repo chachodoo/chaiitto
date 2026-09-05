@@ -16,10 +16,9 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    /* New rules to fix the freeze: */
     max-height: calc(100vh - 40px); 
     overflow-y: auto; 
-    padding-right: 8px; /* Breathing room for the scrollbar */
+    padding-right: 8px;
   }
 
   /* Elegant minimal scrollbar for the sidebar */
@@ -48,88 +47,145 @@
   }
 
   /* Responsive Mobile/Tablet Rules */
-        @media (max-width: 992px) {
-            .dashboard-layout { display: flex; flex-direction: column; }
-            
-            /* This magic rule unboxes the main content so we can mix it with the sidebar */
-            .dashboard-content { display: contents; } 
-            
-            /* Now we explicitly set the exact top-to-bottom order for mobile */
-            .story-card { order: 1; width: 100%; }
-            .sidebar-menu { order: 2; flex: none; width: 100%; position: static; max-height: none; overflow-y: visible; margin: 15px 0; }
-            .product-teaser-section { order: 3; width: 100%; }
-            #home-reviews-section { order: 4; width: 100%; }
-            #home-branch-section { order: 5; width: 100%; }
-            .strict-3-grid { grid-template-columns: repeat(2, 1fr) !important; }
-        }
+  @media (max-width: 992px) {
+    .dashboard-layout { display: flex; flex-direction: column; }
+    .dashboard-content { display: contents; } 
+    .story-card { order: 1; width: 100%; }
+    .sidebar-menu { order: 2; flex: none; width: 100%; position: static; max-height: none; overflow-y: visible; margin: 15px 0; }
+    .product-teaser-section { order: 3; width: 100%; }
+    #home-reviews-section { order: 4; width: 100%; }
+    #home-branch-section { order: 5; width: 100%; }
+    .strict-3-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  }
   @media (max-width: 550px) {
     .strict-3-grid { grid-template-columns: 1fr !important; }
+  }
+
+  /* --- Clean Collections Header --- */
+  .collections-title {
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--matcha-deep, #2D5A27);
+    text-transform: uppercase;
+    margin: 0 0 12px 0;
+  }
+
+  /* Desktop Collections: clean vertical column */
+  .collections-scroll-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* Hide track on desktop */
+  .collections-track {
+    display: none;
+  }
+
+  /* Mobile Scroll & Track Rules */
+  @media (max-width: 992px) {
+    .collections-scroll-container {
+      display: flex !important;
+      flex-direction: row !important;
+      gap: 10px !important;
+      overflow-x: auto !important;
+      padding-bottom: 6px !important;
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+    .collections-scroll-container::-webkit-scrollbar {
+      display: none !important;
+    }
+    .collections-scroll-container .tab-btn {
+      flex: 0 0 auto !important;
+      white-space: nowrap !important;
+    }
+
+    /* 3px Hairline Track */
+    .collections-track {
+      display: block !important;
+      width: 80px;
+      height: 3px;
+      background: rgba(45, 90, 39, 0.15);
+      border-radius: 3px;
+      margin: 8px auto 14px auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Progress Pill */
+    .collections-thumb {
+      width: 28px;
+      height: 100%;
+      background: var(--matcha-deep, #2D5A27);
+      border-radius: 3px;
+      transform: translateX(0);
+      will-change: transform;
+    }
   }
 </style>
 
 <div class="dashboard-layout">
 
-  
   <!-- ==========================================
        20% LEFT SIDEBAR: THE MENU GATEWAY
        ========================================== -->
   <aside class="sidebar-menu">
     <div class="collections-bar">
 
-<!-- COLLECTIONS HEADER WITH MOBILE SWIPE HINT -->
-<div class="collections-header-wrapper">
-  <h3 class="collections-title">COLECCIONES</h3>
-</div>
+      <div class="collections-header-wrapper">
+        <h3 class="collections-title">COLECCIONES</h3>
+      </div>
 
-<!-- Your existing horizontal buttons container (ensure it has an ID or class for scrolling) -->
-<div class="collections-scroll-container" id="collections-slider">
-  <!-- Keep all your collection buttons here (Bienestar, Chai Lover, etc.) -->
-</div>
+      <!-- All buttons wrapped inside the scroll container -->
+      <div class="collections-scroll-container" id="collections-slider">
+        <button class="tab-btn" onclick="jumpToMenuCollection(1)" style="justify-content: space-between;">
+          <span><i class="fa-solid fa-leaf" style="color: var(--matcha-deep); width: 25px; text-align: center;"></i> Bienestar</span>
+          <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
+        </button>
 
-<!-- Enterprise 3px mobile progress track -->
-<div class="collections-track" aria-hidden="true">
-  <div class="collections-thumb" id="collections-thumb"></div>
-</div>
-      
-      <button class="tab-btn" onclick="jumpToMenuCollection(1)" style="justify-content: space-between;">
-        <span><i class="fa-solid fa-leaf" style="color: var(--matcha-deep); width: 25px; text-align: center;"></i> Bienestar</span>
-        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
-      </button>
+        <button class="tab-btn" onclick="jumpToMenuCollection(2)" style="justify-content: space-between;">
+          <span><i class="fa-solid fa-mug-hot" style="color: var(--matcha-deep); width: 25px; text-align: center;"></i> Chai Lover</span>
+          <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
+        </button>
 
-      <button class="tab-btn" onclick="jumpToMenuCollection(2)" style="justify-content: space-between;">
-        <span><i class="fa-solid fa-mug-hot" style="color: var(--matcha-deep); width: 25px; text-align: center;"></i> Chai Lover</span>
-        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
-      </button>
+        <button class="tab-btn" onclick="jumpToMenuCollection(3)" style="justify-content: space-between;">
+          <span><i class="fa-solid fa-droplet" style="color: #4285F4; width: 25px; text-align: center;"></i> Blue Magic</span>
+          <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
+        </button>
 
-      <button class="tab-btn" onclick="jumpToMenuCollection(3)" style="justify-content: space-between;">
-        <span><i class="fa-solid fa-droplet" style="color: #4285F4; width: 25px; text-align: center;"></i> Blue Magic</span>
-        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
-      </button>
+        <button class="tab-btn" onclick="jumpToMenuCollection(4)" style="justify-content: space-between;">
+          <span><i class="fa-solid fa-plane" style="color: var(--matcha-deep); width: 25px; text-align: center;"></i> Viajes con Té</span>
+          <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
+        </button>
 
-      <button class="tab-btn" onclick="jumpToMenuCollection(4)" style="justify-content: space-between;">
-        <span><i class="fa-solid fa-plane" style="color: var(--matcha-deep); width: 25px; text-align: center;"></i> Viajes con Té</span>
-        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
-      </button>
+        <button class="tab-btn" onclick="jumpToMenuCollection(5)" style="justify-content: space-between;">
+          <span><i class="fa-solid fa-moon" style="color: #1a237e; width: 25px; text-align: center;"></i> Nocturna</span>
+          <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
+        </button>
 
-      <button class="tab-btn" onclick="jumpToMenuCollection(5)" style="justify-content: space-between;">
-        <span><i class="fa-solid fa-moon" style="color: #1a237e; width: 25px; text-align: center;"></i> Nocturna</span>
-        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
-      </button>
+        <button class="tab-btn" onclick="jumpToMenuCollection(6)" style="justify-content: space-between;">
+          <span><i class="fa-solid fa-award" style="color: var(--gold-accent); width: 25px; text-align: center;"></i> Especial</span>
+          <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
+        </button>
 
-      <button class="tab-btn" onclick="jumpToMenuCollection(6)" style="justify-content: space-between;">
-        <span><i class="fa-solid fa-award" style="color: var(--gold-accent); width: 25px; text-align: center;"></i> Especial</span>
-        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
-      </button>
+        <button class="tab-btn" onclick="jumpToMenuCollection(9)" style="justify-content: space-between;">
+          <span><i class="fa-solid fa-star" style="color: var(--gold-accent); width: 25px; text-align: center;"></i> Wow</span>
+          <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
+        </button>
 
-      <button class="tab-btn" onclick="jumpToMenuCollection(9)" style="justify-content: space-between;">
-        <span><i class="fa-solid fa-star" style="color: var(--gold-accent); width: 25px; text-align: center;"></i> Wow</span>
-        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
-      </button>
+        <button class="tab-btn" onclick="jumpToMenuCollection(14)" style="justify-content: space-between;">
+          <span><i class="fa-solid fa-bowl-rice" style="color: var(--matcha-deep); width: 25px; text-align: center;"></i> Quiero Matcha</span>
+          <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
+        </button>
+      </div>
 
-      <button class="tab-btn" onclick="jumpToMenuCollection(14)" style="justify-content: space-between;">
-        <span><i class="fa-solid fa-bowl-rice" style="color: var(--matcha-deep); width: 25px; text-align: center;"></i> Quiero Matcha</span>
-        <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
-      </button>
+      <!-- Enterprise 3px mobile progress track placed underneath -->
+      <div class="collections-track" aria-hidden="true">
+        <div class="collections-thumb" id="collections-thumb"></div>
+      </div>
 
     </div>
 
@@ -216,14 +272,13 @@
     </section>
 
     <!-- GOOGLE REVIEWS -->
-      <div id="home-reviews-section" style="width: 100%; margin-top: 40px; margin-bottom: 20px;">      <h2 style="text-align: center; font-family: var(--font-title); color: var(--matcha-deep); font-size: 2.2em; margin-bottom: 5px; font-style: italic;">Lo que dicen en Cholula</h2>
+    <div id="home-reviews-section" style="width: 100%; margin-top: 40px; margin-bottom: 20px;">
+      <h2 style="text-align: center; font-family: var(--font-title); color: var(--matcha-deep); font-size: 2.2em; margin-bottom: 5px; font-style: italic;">Lo que dicen en Cholula</h2>
       <div style="text-align: center; color: #4285F4; font-family: var(--font-body); font-weight: 700; margin-bottom: 30px; display: flex; align-items: center; justify-content: center; gap: 8px;">
         <i class="fa-brands fa-google fa-lg"></i> Reseñas reales de nuestros clientes
       </div>
 
       <div class="reviews-grid">
-        
-        <!-- Review 1 -->
         <div class="product-card" style="border: 1px solid rgba(212, 175, 55, 0.4);">
           <div>
             <div style="color: #F4B400; font-size: 1.2em; margin-bottom: 15px; letter-spacing: 2px;">
@@ -238,7 +293,6 @@
           </div>
         </div>
 
-        <!-- Review 2 -->
         <div class="product-card" style="border: 1px solid rgba(212, 175, 55, 0.4);">
           <div>
             <div style="color: #F4B400; font-size: 1.2em; margin-bottom: 15px; letter-spacing: 2px;">
@@ -253,7 +307,6 @@
           </div>
         </div>
 
-        <!-- Review 3 (Added back!) -->
         <div class="product-card" style="border: 1px solid rgba(212, 175, 55, 0.4);">
           <div>
             <div style="color: #F4B400; font-size: 1.2em; margin-bottom: 15px; letter-spacing: 2px;">
@@ -267,49 +320,48 @@
             - Reseña en Google Maps
           </div>
         </div>
-
       </div>
-        <!-- GOOGLE MAPS REVIEWS LINK -->
-            <div style="text-align: center; margin-top: 22px;">
-                <a href="https://www.google.com/maps/place/CHAI-ITTO+T%C3%89,+CAF%C3%89,+POSTRES+ORGANIC/data=!4m2!3m1!1s0x85cfc7525aac3db7:0x5d6d23e1c43a6b59?sa=X&ved=1t:242&hl=es-419&ictx=111" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; background: #FFFFFF; color: var(--matcha-deep); border: 1.5px solid var(--gold-border); border-radius: 25px; padding: 10px 22px; font-family: var(--font-heading); font-size: 0.85em; font-weight: 700; text-decoration: none; box-shadow: 0 3px 10px rgba(0,0,0,0.06); transition: all 0.2s ease;">
-                    <i class="fa-brands fa-google" style="color: #4285F4;"></i> Ver todas las opiniones en Google Maps <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.85em; color: var(--gold-accent);"></i>
-                </a>
-            </div>
+
+      <div style="text-align: center; margin-top: 22px;">
+        <a href="https://www.google.com/maps/place/CHAI-ITTO+T%C3%89,+CAF%C3%89,+POSTRES+ORGANIC/data=!4m2!3m1!1s0x85cfc7525aac3db7:0x5d6d23e1c43a6b59?sa=X&ved=1t:242&hl=es-419&ictx=111" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; background: #FFFFFF; color: var(--matcha-deep); border: 1.5px solid var(--gold-border); border-radius: 25px; padding: 10px 22px; font-family: var(--font-heading); font-size: 0.85em; font-weight: 700; text-decoration: none; box-shadow: 0 3px 10px rgba(0,0,0,0.06); transition: all 0.2s ease;">
+          <i class="fa-brands fa-google" style="color: #4285F4;"></i> Ver todas las opiniones en Google Maps <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.85em; color: var(--gold-accent);"></i>
+        </a>
+      </div>
     </div>
 
     <!-- SUCURSAL CHOLULA CARD -->
-        <div id="home-branch-section" style="margin-top: 25px; border: 2px solid var(--gold-border); background: #FFFFFF; border-radius: 12px; padding: 18px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.06);">
-            <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 8px;">
-                <span style="font-family: var(--font-heading); font-size: clamp(0.68em, 2.8vw, 0.8em); letter-spacing: 1px; color: var(--gold-accent); text-transform: uppercase; font-weight: 700; white-space: nowrap;">
-                    <i class="fa-solid fa-store"></i> Casa de Té
-                </span>
-                <span style="font-family: var(--font-heading); font-size: clamp(0.68em, 2.8vw, 0.8em); color: var(--matcha-deep); font-weight: 700; white-space: nowrap;">
-                    San Pedro Cholula
-                </span>
-            </div>
+    <div id="home-branch-section" style="margin-top: 25px; border: 2px solid var(--gold-border); background: #FFFFFF; border-radius: 12px; padding: 18px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.06);">
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 8px;">
+        <span style="font-family: var(--font-heading); font-size: clamp(0.68em, 2.8vw, 0.8em); letter-spacing: 1px; color: var(--gold-accent); text-transform: uppercase; font-weight: 700; white-space: nowrap;">
+          <i class="fa-solid fa-store"></i> Casa de Té
+        </span>
+        <span style="font-family: var(--font-heading); font-size: clamp(0.68em, 2.8vw, 0.8em); color: var(--matcha-deep); font-weight: 700; white-space: nowrap;">
+          San Pedro Cholula
+        </span>
+      </div>
 
-            <h2 style="font-family: var(--font-title); color: var(--matcha-deep); margin: 0 0 12px 0; font-size: clamp(1.25em, 4.5vw, 1.8em); text-align: center; font-style: italic;">
-                Visítanos en Nuestra Sucursal
-            </h2>
+      <h2 style="font-family: var(--font-title); color: var(--matcha-deep); margin: 0 0 12px 0; font-size: clamp(1.25em, 4.5vw, 1.8em); text-align: center; font-style: italic;">
+        Visítanos en Nuestra Sucursal
+      </h2>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 15px; align-items: center; margin-top: 15px;">
-                <div>
-                    <p style="font-size: 0.9em; line-height: 1.6; color: var(--text-dark); margin-bottom: 15px;">
-                        <i class="fa-solid fa-location-dot" style="color: var(--gold-accent); width: 20px;"></i> <strong>Ubicación:</strong> San Pedro Cholula, Puebla, México.<br>
-                        <i class="fa-solid fa-clock" style="color: var(--gold-accent); width: 20px;"></i> <strong>Horarios:</strong>
-                        <span style="display: block; padding-left: 24px; margin-top: 4px; font-size: 0.95em; color: var(--text-muted);">
-                            &bull; Lun – Jue, Dom: 1:00 PM – 9:00 PM<br>
-                            &bull; Viernes: 10:00 AM – 9:30 PM<br>
-                            &bull; Sábado: 1:00 PM – 9:30 PM
-                        </span>
-                    </p>
-                    <a href="tel:+522218415466" style="background: var(--matcha-deep); color: #FFFFFF; text-decoration: none; padding: 9px 18px; border-radius: 20px; font-size: 0.85em; font-weight: 700; display: inline-flex; align-items: center; gap: 8px;">
-                        <i class="fa-solid fa-phone"></i> Llamar a Sucursal
-                    </a>
-                </div>
-
-                <iframe style="width: 100%; height: 180px; border-radius: 12px; border: 1.5px solid var(--gold-border);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.923893608149!2d-98.30872202397193!3d19.062325082138135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfc7525aac3db7%3A0x5d6d23e1c43a6b59!2sCHAI-ITTO%20T%C3%89%2C%20CAF%C3%89%2C%20POSTRES%20ORGANIC!5e0!3m2!1ses-419!2smx!4v1700000000000!5m2!1ses-419!2smx" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 15px; align-items: center; margin-top: 15px;">
+        <div>
+          <p style="font-size: 0.9em; line-height: 1.6; color: var(--text-dark); margin-bottom: 15px;">
+            <i class="fa-solid fa-location-dot" style="color: var(--gold-accent); width: 20px;"></i> <strong>Ubicación:</strong> San Pedro Cholula, Puebla, México.<br>
+            <i class="fa-solid fa-clock" style="color: var(--gold-accent); width: 20px;"></i> <strong>Horarios:</strong>
+            <span style="display: block; padding-left: 24px; margin-top: 4px; font-size: 0.95em; color: var(--text-muted);">
+              &bull; Lun – Jue, Dom: 1:00 PM – 9:00 PM<br>
+              &bull; Viernes: 10:00 AM – 9:30 PM<br>
+              &bull; Sábado: 1:00 PM – 9:30 PM
+            </span>
+          </p>
+          <a href="tel:+522218415466" style="background: var(--matcha-deep); color: #FFFFFF; text-decoration: none; padding: 9px 18px; border-radius: 20px; font-size: 0.85em; font-weight: 700; display: inline-flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-phone"></i> Llamar a Sucursal
+          </a>
         </div>
-    </main>
+
+        <iframe style="width: 100%; height: 180px; border-radius: 12px; border: 1.5px solid var(--gold-border);" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.923893608149!2d-98.30872202397193!3d19.062325082138135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfc7525aac3db7%3A0x5d6d23e1c43a6b59!2sCHAI-ITTO%20T%C3%89%2C%20CAF%C3%89%2C%20POSTRES%20ORGANIC!5e0!3m2!1ses-419!2smx!4v1700000000000!5m2!1ses-419!2smx" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </main>
 </div>
