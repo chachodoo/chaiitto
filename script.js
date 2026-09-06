@@ -504,6 +504,9 @@ let bazarList = [];
 let currentBazarItem = null;
 let currentBazarImgIdx = 0;
 
+/* ===================================================
+   BAZAR VIP AUTHENTICATION & EXPIRATION CHECK
+   =================================================== */
 async function verifyVipPin() {
     const input = document.getElementById('vip-pin-input');
     const errorEl = document.getElementById('vip-pin-error');
@@ -517,17 +520,43 @@ async function verifyVipPin() {
 
     try {
         const res = await fetch('bazarpins.json?t=' + Date.now());
-        const validPins = await res.json();
+        const pinData = await res.json();
 
-        if (Array.isArray(validPins) && validPins.includes(enteredPin)) {
-            sessionStorage.setItem('chai_vip_auth', 'true');
-            errorEl.textContent = '';
+        // Support both object { pin, expires } and plain string pins
+        const record = Array.isArray(pinData) 
+            ? pinData.find(item => (typeof item === 'object' ? item.pin : item) === enteredPin)
+            : null;
+
+        if (!record) {
+            errorEl.textContent = 'Clave no válida o no encontrada.';
             input.value = '';
-            showUnlockedBazar();
-        } else {
-            errorEl.textContent = 'Clave no válida o inactiva.';
-            input.value = '';
+            return;
         }
+
+        // Check expiration date if present (format: YYYY-MM-DD)
+        if (typeof record === 'object' && record.expires) {
+            const expiryDate = new Date(record.expires + 'T23:59:59');
+            const now = new Date();
+
+            if (now > expiryDate) {
+                errorEl.textContent = 'Tu membresía VIP ha vencido. Renueva tu acceso.';
+                input.value = '';
+                return;
+            }
+        }
+
+        // Store active session and expiry time
+        sessionStorage.setItem('chai_vip_auth', 'true');
+        if (typeof record === 'object' && record.expires) {
+            sessionStorage.setItem('chai_vip_expiry', record.expires);
+        } else {
+            sessionStorage.removeItem('chai_vip_expiry');
+        }
+
+        errorEl.textContent = '';
+        input.value = '';
+        showUnlockedBazar();
+
     } catch (err) {
         console.error('Error validando PIN:', err);
         errorEl.textContent = 'Error de conexión. Intenta de nuevo.';
@@ -544,6 +573,7 @@ function showUnlockedBazar() {
 
 function lockBazarVIP() {
     sessionStorage.removeItem('chai_vip_auth');
+    sessionStorage.removeItem('chai_vip_expiry');
     const lockBox = document.getElementById('bazar-vip-lock');
     const contentBox = document.getElementById('bazar-vip-content');
     if (lockBox) lockBox.style.display = 'block';
@@ -551,7 +581,14 @@ function lockBazarVIP() {
 }
 
 async function loadBazarGrid() {
-    if (sessionStorage.getItem('chai_vip_auth') === 'true') {
+    const isAuth = sessionStorage.getItem('chai_vip_auth') === 'true';
+    const storedExpiry = sessionStorage.getItem('chai_vip_expiry');
+
+    if (isAuth) {
+        if (storedExpiry && new Date() > new Date(storedExpiry + 'T23:59:59')) {
+            lockBazarVIP();
+            return;
+        }
         showUnlockedBazar();
     } else {
         lockBazarVIP();
