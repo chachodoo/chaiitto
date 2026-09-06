@@ -455,7 +455,9 @@ async function loadAccesoriosGrid() {
         track.innerHTML = '';
 
         accesoriosList.forEach(item => {
-            const price = item.precio || item.precioOferta || 0;
+            const isSale = item.precioOferta !== null && item.precioOferta !== undefined && item.precioOferta > 0;
+            const price = isSale ? item.precioOferta : (item.precio || 0);
+            const originalPrice = item.precio || 0;            
             const descText = item.descripcion || '';
             const titleText = item.name ? `#${item.num}. ${item.name}` : `#${item.num}`;
             const imageList = (item.images && item.images.length > 0) ? item.images : [item.image || 'logo.png'];
@@ -464,9 +466,11 @@ async function loadAccesoriosGrid() {
 
             const card = document.createElement('div');
             card.className = 'product-card';
+            card.style.position = 'relative';
 
             card.innerHTML = `
                 <div>
+                    ${isSale ? '<span class="badge-oferta">OFERTA</span>' : ''}
                     <div class="product-img-box gallery-trigger" style="cursor: zoom-in;" title="Ver galería de fotos">
                         <img src="${coverImage}" alt="${item.name || 'Accesorio'}">
                     </div>
@@ -476,7 +480,9 @@ async function loadAccesoriosGrid() {
                 <div style="display: flex; gap: 10px; justify-content: center; width: 100%; margin-top: auto;">
                     <button onclick="event.stopPropagation(); addToCart('${safeName}', ${price})" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 4px 10px rgba(74, 124, 54, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';" style="background: rgba(74, 124, 54, 0.08); border: 1px solid var(--matcha-deep); border-radius: 8px; padding: 12px 5px; flex: 1; text-align: center; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;">
                         <span style="font-size: 0.75em; font-weight: 800; color: var(--matcha-deep); letter-spacing: 1px;">COMPRAR</span>
-                        <span style="font-size: 1.15em; font-weight: 900; color: var(--text-dark); margin: 2px 0;">$${price}</span>
+                        <span style="font-size: 1.15em; font-weight: 900; color: var(--text-dark); margin: 2px 0;">
+                            ${isSale ? `<span style="font-size: 0.75em; text-decoration: line-through; color: #888; margin-right: 4px; font-weight: 400;">$${originalPrice}</span>` : ''}$${price}
+                        </span>
                         <span style="font-size: 0.85em; color: var(--matcha-deep); font-weight: bold;"><i class="fa-solid fa-cart-plus"></i> Añadir</span>
                     </button>
                 </div>
