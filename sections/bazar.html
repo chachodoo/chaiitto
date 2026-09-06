@@ -1,46 +1,77 @@
 <style>
-  /* ==========================================
-     FULL-WIDTH BAZAR GRID (NO SIDEBAR)
-     ========================================== */
+  /* Lock Gate Box */
+  .vip-gate-wrapper {
+    max-width: 480px;
+    margin: 40px auto;
+    background: #FFFFFF;
+    border: 2px solid var(--gold-border, #D4AF37);
+    border-radius: 20px;
+    padding: 35px 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(45, 90, 39, 0.1);
+  }
+
+  .vip-icon-shield {
+    width: 65px;
+    height: 65px;
+    background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.7rem;
+    color: #1C3317;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
+  }
+
+  .vip-pin-input {
+    letter-spacing: 6px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    width: 220px;
+    padding: 10px;
+    border: 2px solid var(--gold-border, #D4AF37);
+    border-radius: 12px;
+    background: #FAFDF9;
+    color: var(--matcha-deep, #2D5A27);
+    margin: 15px auto;
+    display: block;
+    outline: none;
+  }
+
+  .vip-pin-input:focus {
+    border-color: var(--matcha-deep, #2D5A27);
+    box-shadow: 0 0 10px rgba(45, 90, 39, 0.2);
+  }
+
+  /* Catalog Grid (hidden until PIN is verified) */
+  #bazar-vip-content {
+    display: none;
+  }
+
   #bazar-dynamic-track {
     display: grid !important;
-    grid-template-columns: repeat(6, 1fr) !important; /* 6 per row on desktop */
+    grid-template-columns: repeat(6, 1fr) !important;
     gap: 14px !important;
     width: 100% !important;
     margin-top: 20px;
   }
 
-  /* Intermediate screen scaling */
   @media (max-width: 1280px) {
-    #bazar-dynamic-track {
-      grid-template-columns: repeat(4, 1fr) !important;
-    }
+    #bazar-dynamic-track { grid-template-columns: repeat(4, 1fr) !important; }
   }
-
   @media (max-width: 900px) {
-    #bazar-dynamic-track {
-      grid-template-columns: repeat(3, 1fr) !important;
-    }
+    #bazar-dynamic-track { grid-template-columns: repeat(3, 1fr) !important; }
   }
-
-  /* Mobile: 2 per row */
   @media (max-width: 600px) {
-    #bazar-dynamic-track {
-      grid-template-columns: repeat(2, 1fr) !important;
-      gap: 10px !important;
-    }
-    #bazar-dynamic-track .product-card {
-      padding: 10px 8px !important;
-    }
-    #bazar-dynamic-track .product-img-box {
-      height: 110px !important;
-    }
-    #bazar-dynamic-track .product-name {
-      font-size: 0.88rem !important;
-    }
+    #bazar-dynamic-track { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
+    #bazar-dynamic-track .product-card { padding: 10px 8px !important; }
+    #bazar-dynamic-track .product-img-box { height: 110px !important; }
+    #bazar-dynamic-track .product-name { font-size: 0.88rem !important; }
   }
 
-  /* Fiery Red Badge for discounted Bazar items */
   .badge-oferta {
     position: absolute;
     top: 8px;
@@ -57,30 +88,62 @@
   }
 </style>
 
-<div class="story-card">
-    <h1 class="story-title"><i class="fa-solid fa-crown" style="color: var(--gold-accent);"></i> Bazar VIP</h1>
-    <div class="story-subtitle">Selección Exclusiva • Artículos Selectos de Edición Limitada</div>
+<!-- LOCKED STATE: PIN GATE -->
+<div id="bazar-vip-lock" class="vip-gate-wrapper">
+  <div class="vip-icon-shield">
+    <i class="fa-solid fa-crown"></i>
+  </div>
+  <h2 style="font-family: var(--font-heading); color: var(--matcha-deep, #2D5A27); margin: 0 0 8px 0;">BAZAR VIP</h2>
+  <p style="color: var(--text-muted, #666); font-size: 0.9rem; margin-bottom: 20px;">
+    Acceso exclusivo para miembros registrados. Ingresa tu clave para consultar la selección.
+  </p>
 
-    <!-- RESPONSIVE BAZAR GRID CONTAINER -->
-    <div class="catalog-grid" id="bazar-dynamic-track">
-        <!-- Dynamic cards injected from bazar.json -->
-    </div>
+  <input type="password" id="vip-pin-input" class="vip-pin-input" maxlength="12" placeholder="•••••••" onkeydown="if(event.key==='Enter') verifyVipPin();">
+  
+  <div id="vip-pin-error" style="color: #D9534F; font-size: 0.85rem; font-weight: 700; min-height: 20px; margin-bottom: 12px;"></div>
+
+  <button onclick="verifyVipPin()" class="nav-btn" style="width: 100%; max-width: 220px; margin: 0 auto 15px auto; padding: 12px; background: var(--matcha-deep, #2D5A27); color: #FFF; font-weight: bold; border-radius: 10px; cursor: pointer;">
+    <i class="fa-solid fa-lock-open"></i> Desbloquear
+  </button>
+
+  <div>
+    <a href="https://wa.me/522212061234?text=Hola%20Chai-itto,%20me%20gustar%C3%ADa%20solicitar%20mi%20clave%20de%20acceso%20para%20el%20Bazar%20VIP" 
+       target="_blank" 
+       style="font-size: 0.82rem; color: var(--gold-accent, #AA7C11); text-decoration: none; font-weight: 600;">
+      ¿No tienes tu clave? Solicítala por WhatsApp
+    </a>
+  </div>
 </div>
 
-<!-- LIGHTBOX ZOOM MODAL -->
+<!-- UNLOCKED STATE: VIP SHOWCASE -->
+<div id="bazar-vip-content" class="story-card">
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 8px;">
+    <h1 class="story-title" style="margin: 0; text-align: left;"><i class="fa-solid fa-crown" style="color: var(--gold-accent);"></i> Bazar VIP</h1>
+    <button onclick="lockBazarVIP()" style="background: transparent; border: 1px solid #AAA; color: #666; border-radius: 15px; padding: 5px 12px; font-size: 0.75rem; cursor: pointer;">
+      <i class="fa-solid fa-lock"></i> Cerrar sesión VIP
+    </button>
+  </div>
+  <div class="story-subtitle" style="text-align: left;">Selección Exclusiva • Artículos Selectos de Edición Limitada</div>
+
+  <div class="catalog-grid" id="bazar-dynamic-track"></div>
+</div>
+
+<!-- LIGHTBOX MODAL -->
 <div id="bazar-modal" class="oferta-modal" onclick="closeBazarModalOnBackdrop(event)">
-    <div class="oferta-modal-content">
-        <span class="oferta-modal-close" onclick="closeBazarModal()">&times;</span>
-        <h3 id="bazar-modal-title" class="oferta-title" style="font-size: 1.3em; margin: 5px 0;"></h3>
-        <p id="bazar-modal-subtitle" class="oferta-subtitle" style="margin-bottom: 5px;"></p>
-        
-        <div class="oferta-modal-viewer">
-            <button id="bazar-modal-prev-btn" class="modal-arrow prev" onclick="changeBazarModalImage(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-            <img id="bazar-modal-img" src="logo.png" alt="Zoom Bazar" decoding="async">
-            <button id="bazar-modal-next-btn" class="modal-arrow next" onclick="changeBazarModalImage(1)"><i class="fa-solid fa-chevron-right"></i></button>
-        </div>
-        
-        <div id="bazar-modal-counter" style="color: #A3C4AF; font-size: 0.85em; margin-bottom: 12px;"></div>
-        <a id="bazar-modal-buy-btn" href="#" target="_blank" rel="noopener noreferrer" class="oferta-buy-btn" style="width: 100%; max-width: 300px; padding: 12px;"><i class="fa-brands fa-whatsapp fa-lg"></i> Comprar en Bazar</a>
+  <div class="oferta-modal-content">
+    <span class="oferta-modal-close" onclick="closeBazarModal()">&times;</span>
+    <h3 id="bazar-modal-title" class="oferta-title" style="font-size: 1.3em; margin: 5px 0;"></h3>
+    <p id="bazar-modal-subtitle" class="oferta-subtitle" style="margin-bottom: 5px;"></p>
+    
+    <div class="oferta-modal-viewer">
+      <button id="bazar-modal-prev-btn" class="modal-arrow prev" onclick="changeBazarModalImage(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+      <img id="bazar-modal-img" src="logo.png" alt="Zoom Bazar" decoding="async">
+      <button id="bazar-modal-next-btn" class="modal-arrow next" onclick="changeBazarModalImage(1)"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
+    
+    <div id="bazar-modal-counter" style="color: #A3C4AF; font-size: 0.85em; margin-bottom: 12px;"></div>
+    <a id="bazar-modal-buy-btn" href="#" target="_blank" rel="noopener noreferrer" class="oferta-buy-btn" style="width: 100%; max-width: 300px; padding: 12px;">
+      <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar en Bazar
+    </a>
+  </div>
 </div>
