@@ -139,16 +139,17 @@
     .dashboard-layout { display: flex; flex-direction: column; }
     .dashboard-content { display: contents; } 
     .story-card { order: 1; width: 100%; }
-    /* Mobile Offset: forces landing position 120px down, clear of hamburger */
     /* Mobile Offset: pins the scroll target exactly 120px above the sidebar */
     .collections-scroll-anchor {
-      position: absolute !important;
-      top: -120px !important;
-      left: 0 !important;
-      width: 1px !important;
-      height: 1px !important;
-      visibility: hidden !important;
-    }
+  display: block !important;
+  position: absolute !important;
+  top: -120px !important;
+  left: 0 !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
     
     /* 1. Sidebar Container Reset */
     .sidebar-menu { 
