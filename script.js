@@ -306,8 +306,8 @@ async function fetchProducts() {
             selectCollection('BIENESTAR');
         } else if (pageName === 'accesorios') {
             loadAccesoriosGrid();
-        } else if (pageName === 'ofertas') {
-            loadOfertasGrid();
+        } else if (pageName === 'bazar') {
+            loadBazarGrid();
         } else if (pageName === 'galeria') {
             setTimeout(loadGalleryRibbon, 100);
         } else if (pageName === 'menu') {
@@ -499,70 +499,125 @@ async function loadAccesoriosGrid() {
     }
 }
 
-/* --- OFERTAS RENDERER --- */
-async function loadOfertasGrid() {
-    const track = document.getElementById('ofertas-dynamic-track');
+/* --- BAZAR RENDERER --- */
+let bazarList = [];
+let currentBazarItem = null;
+let currentBazarImgIdx = 0;
+
+async function loadBazarGrid() {
+    const track = document.getElementById('bazar-dynamic-track');
     if (!track) return;
 
     try {
-        const response = await fetch('ofertas.json?v=' + Date.now());
-        if (!response.ok) throw new Error('Could not load ofertas.json');
-
-        const ofertasList = await response.json();
+        const response = await fetch('bazar.json');
+        bazarList = await response.json();
         track.innerHTML = '';
 
-        ofertasList.forEach(item => {
-            const finalPrice = item.precioOferta || item.precio || 0;
-            const oldPrice = (item.precioNormal || item.precio) > finalPrice ? (item.precioNormal || item.precio) : null;
-            
-            const descText = item.descripcion || '';
-            const titleText = item.name ? `#${item.num}. ${item.name}` : `#${item.num}`;
-            const imageList = (item.images && item.images.length > 0) ? item.images : [item.image || 'logo.png'];
-            const coverImage = imageList[0];
-            const safeName = item.name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+        if (!bazarList || bazarList.length === 0) {
+            track.innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; color: var(--text-muted);">
+                    <i class="fa-solid fa-crown" style="font-size: 2.5rem; color: var(--gold-accent); margin-bottom: 15px; display: block;"></i>
+                    <h3 style="font-family: var(--font-heading); color: var(--matcha-deep); margin-bottom: 8px;">Próximamente en Bazar VIP</h3>
+                    <p style="font-size: 0.95rem;">Estamos seleccionando piezas únicas y colecciones especiales. ¡Vuelve pronto!</p>
+                </div>
+            `;
+            return;
+        }
+
+        bazarList.forEach((item, index) => {
+            const isSale = item.precioOferta !== null && item.precioOferta !== undefined && item.precioOferta > 0;
+            const price = isSale ? item.precioOferta : (item.precio || 0);
+            const originalPrice = item.precio || 0;
+            const coverImage = (item.images && item.images.length > 0) ? item.images[0] : (item.image || 'logo.png');
 
             const card = document.createElement('div');
             card.className = 'product-card';
-            
-            let priceHTML = `<span style="font-size: 1.15em; font-weight: 900; color: var(--text-dark); margin: 2px 0;">$${finalPrice}</span>`;
-            
-            if (oldPrice) {
-                priceHTML = `
-                    <span style="font-size: 0.75em; text-decoration: line-through; color: #889C8B; margin-bottom: -4px;">$${oldPrice}</span>
-                    <span style="font-size: 1.15em; font-weight: 900; color: #D32F2F; margin: 2px 0;">$${finalPrice}</span>
-                `;
-            }
+            card.style.position = 'relative';
 
             card.innerHTML = `
-                <div style="position: relative;">
-                    <div style="position: absolute; top: 10px; left: 10px; background: #D32F2F; color: white; padding: 4px 10px; border-radius: 20px; font-weight: 900; font-size: 0.7em; letter-spacing: 1px; z-index: 2; box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);">
-                        <i class="fa-solid fa-fire"></i> OFERTA
+                <div>
+                    ${isSale ? '<span class="badge-oferta">OFERTA</span>' : ''}
+                    <div class="product-img-box gallery-trigger" style="cursor: zoom-in;" title="Ver fotos" onclick="openBazarModal(${index})">
+                        <img src="${coverImage}" alt="${item.name || 'Bazar'}" loading="lazy">
                     </div>
-                    
-                    <div class="product-img-box gallery-trigger" style="cursor: zoom-in;" title="Ver galería de fotos">
-                        <img src="${coverImage}" alt="${item.name || 'Oferta'}">
-                    </div>
-                    <h3 class="product-name">${titleText}</h3>
-                    <p class="product-ingredients">${descText}</p>
+                    <div class="product-name" style="margin-top: 8px;">${item.name || 'Artículo Bazar'}</div>
+                    <div class="product-ingredients" style="font-size: 0.78rem; min-height: 32px;">${item.descripcion || ''}</div>
                 </div>
-                <div style="display: flex; gap: 10px; justify-content: center; width: 100%; margin-top: auto;">
-                    <button onclick="event.stopPropagation(); addToCart('${safeName}', ${finalPrice})" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 4px 10px rgba(74, 124, 54, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';" style="background: rgba(74, 124, 54, 0.08); border: 1px solid var(--matcha-deep); border-radius: 8px; padding: 10px 5px; flex: 1; text-align: center; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;">
-                        <span style="font-size: 0.7em; font-weight: 800; color: var(--matcha-deep); letter-spacing: 1px;">COMPRAR</span>
-                        ${priceHTML}
-                        <span style="font-size: 0.85em; color: var(--matcha-deep); font-weight: bold;"><i class="fa-solid fa-cart-plus"></i> Añadir</span>
+                <div>
+                    <button class="buy-button buy-now" style="margin-top: 8px;" onclick="openBazarModal(${index})">
+                        <span style="font-size: 0.75rem; letter-spacing: 0.5px;">VER DETALLE</span>
+                        <span style="font-size: 1.1em; font-weight: 900; margin: 2px 0;">
+                            ${isSale ? `<span style="font-size: 0.75em; text-decoration: line-through; color: #888; margin-right: 4px; font-weight: 400;">$${originalPrice}</span>` : ''}$${price}
+                        </span>
+                        <span style="font-size: 0.7rem; opacity: 0.85;">Pieza VIP</span>
                     </button>
                 </div>
             `;
-            
-            card.querySelector('.gallery-trigger').onclick = () => {
-                openOfertaModal(titleText, descText, imageList, item.name, finalPrice);
-            };
-
             track.appendChild(card);
         });
     } catch (error) {
-        console.error("Error loading ofertas.json:", error);
+        console.error('Error cargando bazar.json:', error);
     }
+}
+
+/* Modal Functions for Bazar VIP */
+function openBazarModal(index) {
+    currentBazarItem = bazarList[index];
+    if (!currentBazarItem) return;
+    currentBazarImgIdx = 0;
+
+    const modal = document.getElementById('bazar-modal');
+    if (!modal) return;
+
+    document.getElementById('bazar-modal-title').textContent = currentBazarItem.name || 'Pieza Bazar';
+    document.getElementById('bazar-modal-subtitle').textContent = currentBazarItem.descripcion || '';
+    
+    const isSale = currentBazarItem.precioOferta !== null && currentBazarItem.precioOferta !== undefined && currentBazarItem.precioOferta > 0;
+    const finalPrice = isSale ? currentBazarItem.precioOferta : (currentBazarItem.precio || 0);
+    const buyBtn = document.getElementById('bazar-modal-buy-btn');
+    if (buyBtn) {
+        buyBtn.href = `https://wa.me/522212061234?text=${encodeURIComponent('Hola Chai-itto, me interesa apartar la pieza de Bazar: ' + (currentBazarItem.name || '') + ' ($' + finalPrice + ' MXN)')}`;
+    }
+
+    updateBazarModalImage();
+    modal.classList.add('active');
+}
+
+function updateBazarModalImage() {
+    if (!currentBazarItem) return;
+    const images = currentBazarItem.images || [currentBazarItem.image || 'logo.png'];
+    const imgEl = document.getElementById('bazar-modal-img');
+    const counterEl = document.getElementById('bazar-modal-counter');
+    const prevBtn = document.getElementById('bazar-modal-prev-btn');
+    const nextBtn = document.getElementById('bazar-modal-next-btn');
+
+    imgEl.src = images[currentBazarImgIdx];
+    counterEl.textContent = `${currentBazarImgIdx + 1} / ${images.length}`;
+
+    if (images.length <= 1) {
+        if (prevBtn) prevBtn.style.display = 'none';
+        if (nextBtn) nextBtn.style.display = 'none';
+    } else {
+        if (prevBtn) prevBtn.style.display = 'flex';
+        if (nextBtn) nextBtn.style.display = 'flex';
+    }
+}
+
+function changeBazarModalImage(dir) {
+    if (!currentBazarItem) return;
+    const images = currentBazarItem.images || [];
+    if (images.length <= 1) return;
+    currentBazarImgIdx = (currentBazarImgIdx + dir + images.length) % images.length;
+    updateBazarModalImage();
+}
+
+function closeBazarModal() {
+    const modal = document.getElementById('bazar-modal');
+    if (modal) modal.classList.remove('active');
+}
+
+function closeBazarModalOnBackdrop(e) {
+    if (e.target.id === 'bazar-modal') closeBazarModal();
 }
 
 
