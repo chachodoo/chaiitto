@@ -1,0 +1,86 @@
+<style>
+  /* ==========================================
+     FULL-WIDTH BAZAR GRID (NO SIDEBAR)
+     ========================================== */
+  #bazar-dynamic-track {
+    display: grid !important;
+    grid-template-columns: repeat(6, 1fr) !important; /* 6 per row on desktop */
+    gap: 14px !important;
+    width: 100% !important;
+    margin-top: 20px;
+  }
+
+  /* Intermediate screen scaling */
+  @media (max-width: 1280px) {
+    #bazar-dynamic-track {
+      grid-template-columns: repeat(4, 1fr) !important;
+    }
+  }
+
+  @media (max-width: 900px) {
+    #bazar-dynamic-track {
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
+  }
+
+  /* Mobile: 2 per row */
+  @media (max-width: 600px) {
+    #bazar-dynamic-track {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 10px !important;
+    }
+    #bazar-dynamic-track .product-card {
+      padding: 10px 8px !important;
+    }
+    #bazar-dynamic-track .product-img-box {
+      height: 110px !important;
+    }
+    #bazar-dynamic-track .product-name {
+      font-size: 0.88rem !important;
+    }
+  }
+
+  /* Fiery Red Badge for discounted Bazar items */
+  .badge-oferta {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: linear-gradient(135deg, #FF1E27 0%, #D60000 100%);
+    color: #FFFFFF;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(255, 30, 39, 0.45);
+    z-index: 2;
+  }
+</style>
+
+<div class="story-card">
+    <h1 class="story-title"><i class="fa-solid fa-crown" style="color: var(--gold-accent);"></i> Bazar VIP</h1>
+    <div class="story-subtitle">Curaduría Especial • Piezas Únicas y Variedades</div>
+
+    <!-- RESPONSIVE BAZAR GRID CONTAINER -->
+    <div class="catalog-grid" id="bazar-dynamic-track">
+        <!-- Dynamic cards injected from bazar.json -->
+    </div>
+</div>
+
+<!-- LIGHTBOX ZOOM MODAL -->
+<div id="bazar-modal" class="oferta-modal" onclick="closeBazarModalOnBackdrop(event)">
+    <div class="oferta-modal-content">
+        <span class="oferta-modal-close" onclick="closeBazarModal()">&times;</span>
+        <h3 id="bazar-modal-title" class="oferta-title" style="font-size: 1.3em; margin: 5px 0;"></h3>
+        <p id="bazar-modal-subtitle" class="oferta-subtitle" style="margin-bottom: 5px;"></p>
+        
+        <div class="oferta-modal-viewer">
+            <button id="bazar-modal-prev-btn" class="modal-arrow prev" onclick="changeBazarModalImage(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+            <img id="bazar-modal-img" src="logo.png" alt="Zoom Bazar" decoding="async">
+            <button id="bazar-modal-next-btn" class="modal-arrow next" onclick="changeBazarModalImage(1)"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+        
+        <div id="bazar-modal-counter" style="color: #A3C4AF; font-size: 0.85em; margin-bottom: 12px;"></div>
+        <a id="bazar-modal-buy-btn" href="#" target="_blank" rel="noopener noreferrer" class="oferta-buy-btn" style="width: 100%; max-width: 300px; padding: 12px;"><i class="fa-brands fa-whatsapp fa-lg"></i> Comprar en Bazar</a>
+    </div>
+</div>
