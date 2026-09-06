@@ -1,3 +1,86 @@
+<style>
+  /* ==========================================
+     FULL-WIDTH CATALOG GRID (NO SIDEBAR)
+     ========================================== */
+  #accesorios-dynamic-track {
+    display: grid !important;
+    grid-template-columns: repeat(6, 1fr) !important; /* 6 per row on desktop */
+    gap: 14px !important;
+    width: 100% !important;
+    margin-top: 20px;
+  }
+
+  /* Intermediate screen scaling */
+  @media (max-width: 1280px) {
+    #accesorios-dynamic-track {
+      grid-template-columns: repeat(4, 1fr) !important; /* 4 per row on small laptops */
+    }
+  }
+
+  @media (max-width: 900px) {
+    #accesorios-dynamic-track {
+      grid-template-columns: repeat(3, 1fr) !important; /* 3 per row on tablets */
+    }
+  }
+
+  /* Mobile: 2 per row */
+  @media (max-width: 600px) {
+    #accesorios-dynamic-track {
+      grid-template-columns: repeat(2, 1fr) !important; /* 2 per row on phones */
+      gap: 10px !important;
+    }
+    #accesorios-dynamic-track .product-card {
+      padding: 10px 8px !important;
+    }
+    #accesorios-dynamic-track .product-img-box {
+      height: 110px !important;
+    }
+    #accesorios-dynamic-track .product-name {
+      font-size: 0.88rem !important;
+    }
+  }
+
+  /* ==========================================
+     OFERTA BADGE & PRICING STYLES
+     ========================================== */
+  .badge-oferta {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%);
+    color: #FFFFFF;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    z-index: 2;
+  }
+
+  .precio-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin: 6px 0;
+  }
+
+  .precio-original {
+    text-decoration: line-through;
+    color: #888888;
+    font-size: 0.82rem;
+  }
+
+  .precio-actual {
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: var(--matcha-deep, #2D5A27);
+  }
+</style>
+
+
+
 <div class="story-card">
     <h1 class="story-title"><i class="fa-solid fa-boxes-packing" style="color: var(--gold-accent);"></i> Accesorios</h1>
     <div class="story-subtitle">Utensilios y Accesorios de Preparación</div>
