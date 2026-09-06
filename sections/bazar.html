@@ -95,7 +95,7 @@
   </div>
   <h2 style="font-family: var(--font-heading); color: var(--matcha-deep, #2D5A27); margin: 0 0 8px 0;">BAZAR VIP</h2>
   <p style="color: var(--text-muted, #666); font-size: 0.9rem; margin-bottom: 20px;">
-    Acceso exclusivo para miembros registrados. Ingresa tu clave para consultar la selección.
+    Acceso exclusivo para miembros VIP Premium. Ingresa tu clave.
   </p>
 
   <input type="password" id="vip-pin-input" class="vip-pin-input" maxlength="12" placeholder="•••••••" onkeydown="if(event.key==='Enter') verifyVipPin();">
@@ -106,13 +106,12 @@
     <i class="fa-solid fa-lock-open"></i> Desbloquear
   </button>
 
-  <div>
-    <a href="https://wa.me/522212061234?text=Hola%20Chai-itto,%20me%20gustar%C3%ADa%20solicitar%20mi%20clave%20de%20acceso%20para%20el%20Bazar%20VIP" 
-       target="_blank" 
-       style="font-size: 0.82rem; color: var(--gold-accent, #AA7C11); text-decoration: none; font-weight: 600;">
-      ¿No tienes tu clave? Solicítala por WhatsApp
-    </a>
-  </div>
+    <div>
+      <button type="button" onclick="window.location.hash='club-vip';" 
+              style="background: transparent; border: none; font-size: 0.86rem; color: var(--gold-accent, #AA7C11); font-weight: 700; cursor: pointer; text-decoration: underline; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
+        <i class="fa-solid fa-crown"></i> ¿Aún no eres miembro? Adquiere tu Membresía VIP Premium aquí
+      </button>
+    </div>
 </div>
 
 <!-- UNLOCKED STATE: VIP SHOWCASE -->
