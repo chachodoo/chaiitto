@@ -507,6 +507,8 @@ let currentBazarImgIdx = 0;
 /* ===================================================
    BAZAR VIP AUTHENTICATION & EXPIRATION CHECK
    =================================================== */
+const VIP_API_URL = 'https://script.google.com/macros/s/AKfycby0Y8l0z4cj36ck79vn1Kv-2r11XcU_UVLMFy1qKxT-W0pfSLRnmsh7U2BsfvkJuITk/exec';
+
 async function verifyVipPin() {
     const input = document.getElementById('vip-pin-input');
     const errorEl = document.getElementById('vip-pin-error');
@@ -518,39 +520,36 @@ async function verifyVipPin() {
         return;
     }
 
+    errorEl.style.color = '';
+    errorEl.textContent = 'Verificando con Google Sheets...';
+
     try {
-        const res = await fetch('bazarpins.json?t=' + Date.now());
-        const pinData = await res.json();
+        const res = await fetch(`${VIP_API_URL}?action=check&pin=${encodeURIComponent(enteredPin)}`);
+        const data = await res.json();
 
-        // Support both object { pin, expires } and plain string pins
-        const record = Array.isArray(pinData) 
-            ? pinData.find(item => (typeof item === 'object' ? item.pin : item) === enteredPin)
-            : null;
-
-        if (!record) {
-            errorEl.textContent = 'Clave no válida o no encontrada.';
+        if (!data.success) {
+            errorEl.style.color = '#e74c3c';
+            errorEl.textContent = data.message || 'Clave no válida o no encontrada.';
             input.value = '';
             return;
         }
 
-        // Check expiration date if present (format: YYYY-MM-DD)
-        if (typeof record === 'object' && record.expires) {
-            const expiryDate = new Date(record.expires + 'T23:59:59');
-            const now = new Date();
-
-            if (now > expiryDate) {
-                errorEl.textContent = 'Tu membresía VIP ha vencido. Renueva tu acceso.';
-                input.value = '';
-                return;
-            }
+        if (!data.isActive) {
+            errorEl.style.color = '#e74c3c';
+            errorEl.textContent = data.isExpired 
+                ? 'Tu membresía VIP ha vencido. Renueva tu acceso.' 
+                : 'Tu membresía no está activa.';
+            input.value = '';
+            return;
         }
 
-        // Store active session and expiry time
+        // Store VIP session & member data in browser
         sessionStorage.setItem('chai_vip_auth', 'true');
-        if (typeof record === 'object' && record.expires) {
-            sessionStorage.setItem('chai_vip_expiry', record.expires);
-        } else {
-            sessionStorage.removeItem('chai_vip_expiry');
+        sessionStorage.setItem('chai_vip_pin', enteredPin);
+        sessionStorage.setItem('chai_vip_name', data.nombre || 'Miembro VIP');
+        sessionStorage.setItem('chai_vip_cups', data.tazasConsumidas || 0);
+        if (data.fechaVencimiento) {
+            sessionStorage.setItem('chai_vip_expiry', data.fechaVencimiento);
         }
 
         errorEl.textContent = '';
@@ -559,7 +558,8 @@ async function verifyVipPin() {
 
     } catch (err) {
         console.error('Error validando PIN:', err);
-        errorEl.textContent = 'Error de conexión. Intenta de nuevo.';
+        errorEl.style.color = '#e74c3c';
+        errorEl.textContent = 'Error de conexión con la base de datos. Intenta de nuevo.';
     }
 }
 
@@ -568,16 +568,134 @@ function showUnlockedBazar() {
     const contentBox = document.getElementById('bazar-vip-content');
     if (lockBox) lockBox.style.display = 'none';
     if (contentBox) contentBox.style.display = 'block';
+    renderVipMemberCard();
     renderBazarCatalog();
 }
 
 function lockBazarVIP() {
     sessionStorage.removeItem('chai_vip_auth');
+    sessionStorage.removeItem('chai_vip_pin');
+    sessionStorage.removeItem('chai_vip_name');
+    sessionStorage.removeItem('chai_vip_cups');
     sessionStorage.removeItem('chai_vip_expiry');
     const lockBox = document.getElementById('bazar-vip-lock');
     const contentBox = document.getElementById('bazar-vip-content');
     if (lockBox) lockBox.style.display = 'block';
     if (contentBox) contentBox.style.display = 'none';
+}
+
+function renderVipMemberCard() {
+    const contentBox = document.getElementById('bazar-vip-content');
+    if (!contentBox) return;
+
+    let card = document.getElementById('vip-member-card');
+    if (!card) {
+        card = document.createElement('div');
+        card.id = 'vip-member-card';
+        contentBox.insertBefore(card, contentBox.firstChild);
+    }
+
+    const name = sessionStorage.getItem('chai_vip_name') || 'Miembro VIP';
+    const expiry = sessionStorage.getItem('chai_vip_expiry') || '';
+    const cups = parseInt(sessionStorage.getItem('chai_vip_cups') || '0', 10);
+    const remaining = Math.max(0, 4 - cups);
+
+    let cupsHtml = '';
+    for (let i = 1; i <= 4; i++) {
+        if (i <= cups) {
+            cupsHtml += `<span title="Taza ${i} canjeada" style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;background:#b38b59;color:#fff;border-radius:50%;font-size:18px;margin:0 5px;box-shadow:0 2px 4px rgba(0,0,0,0.15);">☕</span>`;
+        } else {
+            cupsHtml += `<span title="Taza ${i} disponible" style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;background:#f5f0eb;border:2px dashed #b38b59;color:#b38b59;border-radius:50%;font-size:16px;margin:0 5px;opacity:0.6;">☕</span>`;
+        }
+    }
+
+    card.innerHTML = `
+        <div style="background:linear-gradient(135deg, #2c2523, #1a1615);color:#fff;border-radius:14px;padding:20px;margin-bottom:25px;box-shadow:0 4px 15px rgba(0,0,0,0.15);text-align:center;border:1px solid #c5a059;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:10px;">
+                <div>
+                    <span style="background:#c5a059;color:#1a1615;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;">Membresía VIP</span>
+                    <h3 style="margin:6px 0 0;font-size:1.3rem;color:#f9f6f0;">${name}</h3>
+                </div>
+                <button onclick="lockBazarVIP()" style="background:transparent;border:1px solid rgba(255,255,255,0.3);color:#ddd;padding:4px 12px;border-radius:6px;font-size:12px;cursor:pointer;">Cerrar sesión</button>
+            </div>
+            
+            <div style="background:rgba(255,255,255,0.06);border-radius:10px;padding:15px;margin:15px 0;">
+                <p style="margin:0 0 10px;font-size:13px;letter-spacing:0.5px;color:#d8cfc4;">Tazas de cortesía del mes (4 al mes):</p>
+                <div style="display:flex;justify-content:center;align-items:center;margin:10px 0;">${cupsHtml}</div>
+                <p style="margin:8px 0 0;font-size:12px;color:#c5a059;font-weight:600;">
+                    ${remaining > 0 ? `Te quedan ${remaining} tazas de cortesía este mes` : '¡Completaste tus 4 tazas de cortesía de este mes!'}
+                </p>
+            </div>
+
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:10px;">
+                <span style="font-size:11px;color:#a89f91;">${expiry ? `Vigencia: ${expiry}` : ''}</span>
+                ${remaining > 0 ? `
+                    <button id="vip-redeem-btn" onclick="redeemVipCup()" style="background:#c5a059;color:#1a1615;font-weight:700;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;transition:0.2s;">
+                        Canjear 1 Taza
+                    </button>
+                ` : `
+                    <span style="font-size:12px;color:#aaa;background:rgba(255,255,255,0.1);padding:6px 12px;border-radius:6px;">Próxima taza: costo regular</span>
+                `}
+            </div>
+            <div id="vip-redeem-status" style="margin-top:8px;font-size:12px;"></div>
+        </div>
+    `;
+}
+
+async function redeemVipCup() {
+    const pin = sessionStorage.getItem('chai_vip_pin');
+    if (!pin) {
+        alert('Sesión no válida. Ingresa tu PIN de nuevo.');
+        lockBazarVIP();
+        return;
+    }
+
+    const btn = document.getElementById('vip-redeem-btn');
+    const statusEl = document.getElementById('vip-redeem-status');
+
+    const confirmRedeem = confirm('¿Confirmas que deseas canjear 1 taza de cortesía en este momento?');
+    if (!confirmRedeem) return;
+
+    if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'Registrando...';
+    }
+    if (statusEl) {
+        statusEl.style.color = '#c5a059';
+        statusEl.textContent = 'Conectando con Google Sheets...';
+    }
+
+    try {
+        const res = await fetch(`${VIP_API_URL}?action=redeem&pin=${encodeURIComponent(pin)}`);
+        const data = await res.json();
+
+        if (!data.success) {
+            if (statusEl) {
+                statusEl.style.color = '#e74c3c';
+                statusEl.textContent = data.message || 'No se pudo canjear la taza.';
+            }
+            if (btn) {
+                btn.disabled = false;
+                btn.textContent = 'Canjear 1 Taza';
+            }
+            return;
+        }
+
+        sessionStorage.setItem('chai_vip_cups', data.tazasConsumidas);
+        renderVipMemberCard();
+        alert('¡Taza registrada con éxito! Disfruta tu Chai.');
+
+    } catch (err) {
+        console.error('Error canjeando taza:', err);
+        if (statusEl) {
+            statusEl.style.color = '#e74c3c';
+            statusEl.textContent = 'Error de conexión. Intenta de nuevo.';
+        }
+        if (btn) {
+            btn.disabled = false;
+            btn.textContent = 'Canjear 1 Taza';
+        }
+    }
 }
 
 async function loadBazarGrid() {
