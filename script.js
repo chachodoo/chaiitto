@@ -499,17 +499,71 @@ async function loadAccesoriosGrid() {
     }
 }
 
-/* --- BAZAR RENDERER --- */
+/* --- BAZAR VIP AUTHENTICATION & DATABASE CHECK --- */
 let bazarList = [];
 let currentBazarItem = null;
 let currentBazarImgIdx = 0;
 
+async function verifyVipPin() {
+    const input = document.getElementById('vip-pin-input');
+    const errorEl = document.getElementById('vip-pin-error');
+    if (!input || !errorEl) return;
+
+    const enteredPin = input.value.trim();
+    if (!enteredPin) {
+        errorEl.textContent = 'Por favor ingresa tu clave VIP.';
+        return;
+    }
+
+    try {
+        const res = await fetch('bazarpins.json?t=' + Date.now());
+        const validPins = await res.json();
+
+        if (Array.isArray(validPins) && validPins.includes(enteredPin)) {
+            sessionStorage.setItem('chai_vip_auth', 'true');
+            errorEl.textContent = '';
+            input.value = '';
+            showUnlockedBazar();
+        } else {
+            errorEl.textContent = 'Clave no válida o inactiva.';
+            input.value = '';
+        }
+    } catch (err) {
+        console.error('Error validando PIN:', err);
+        errorEl.textContent = 'Error de conexión. Intenta de nuevo.';
+    }
+}
+
+function showUnlockedBazar() {
+    const lockBox = document.getElementById('bazar-vip-lock');
+    const contentBox = document.getElementById('bazar-vip-content');
+    if (lockBox) lockBox.style.display = 'none';
+    if (contentBox) contentBox.style.display = 'block';
+    renderBazarCatalog();
+}
+
+function lockBazarVIP() {
+    sessionStorage.removeItem('chai_vip_auth');
+    const lockBox = document.getElementById('bazar-vip-lock');
+    const contentBox = document.getElementById('bazar-vip-content');
+    if (lockBox) lockBox.style.display = 'block';
+    if (contentBox) contentBox.style.display = 'none';
+}
+
 async function loadBazarGrid() {
+    if (sessionStorage.getItem('chai_vip_auth') === 'true') {
+        showUnlockedBazar();
+    } else {
+        lockBazarVIP();
+    }
+}
+
+async function renderBazarCatalog() {
     const track = document.getElementById('bazar-dynamic-track');
     if (!track) return;
 
     try {
-        const response = await fetch('bazar.json');
+        const response = await fetch('bazar.json?t=' + Date.now());
         bazarList = await response.json();
         track.innerHTML = '';
 
@@ -517,8 +571,8 @@ async function loadBazarGrid() {
             track.innerHTML = `
                 <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; color: var(--text-muted);">
                     <i class="fa-solid fa-crown" style="font-size: 2.5rem; color: var(--gold-accent); margin-bottom: 15px; display: block;"></i>
-                    <h3 style="font-family: var(--font-heading); color: var(--matcha-deep); margin-bottom: 8px;">Próximamente en Bazar VIP</h3>
-                    <p style="font-size: 0.95rem;">Estamos seleccionando piezas únicas y colecciones especiales. ¡Vuelve pronto!</p>
+                    <h3 style="font-family: var(--font-heading); color: var(--matcha-deep); margin-bottom: 8px;">Inventario VIP en Preparación</h3>
+                    <p style="font-size: 0.95rem;">Actualmente estamos catalogando nuevas piezas exclusivas.</p>
                 </div>
             `;
             return;
