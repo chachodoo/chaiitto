@@ -953,4 +953,68 @@ function scrollGallery(direction) {
     }
 }
 
+// ==========================================
+// VIP MEMBERSHIP CONTROLLER
+// ==========================================
+const APPS_SCRIPT_VIP_URL = "https://script.google.com/macros/s/AKfycby0Y8l0z4cj36ck79vn1Kv-2r11XcU_UVLMFy1qKxT-W0pfSLRnmsh7U2BsfvkJuITk/exec";
+
+function openVipModal() {
+  const modal = document.getElementById("vip-register-modal");
+  const step1 = document.getElementById("vip-modal-step1");
+  const step2 = document.getElementById("vip-modal-step2");
+  if (modal) {
+    modal.style.display = "flex";
+    if (step1) step1.style.display = "block";
+    if (step2) step2.style.display = "none";
+  }
+}
+
+function closeVipModal() {
+  const modal = document.getElementById("vip-register-modal");
+  if (modal) modal.style.display = "none";
+}
+
+function handleVipRegister(e) {
+  e.preventDefault();
+  const nombre = document.getElementById("vip-input-nombre").value.trim();
+  const tel = document.getElementById("vip-input-tel").value.trim();
+  const cumple = document.getElementById("vip-input-cumple").value.trim();
+  const errBox = document.getElementById("vip-form-error");
+  const btn = document.getElementById("vip-submit-btn");
+
+  if (!nombre || !tel) {
+    errBox.textContent = "Por favor ingresa tu nombre y WhatsApp.";
+    errBox.style.display = "block";
+    return;
+  }
+  if (!/^[0-9]{10}$/.test(tel)) {
+    errBox.textContent = "El WhatsApp debe ser exactamente de 10 dígitos.";
+    errBox.style.display = "block";
+    return;
+  }
+
+  errBox.style.display = "none";
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
+
+  try {
+    localStorage.setItem("chaiitto_vip_phone", tel);
+    localStorage.setItem("chaiitto_vip_name", nombre);
+  } catch (ex) {}
+
+  const url = `${APPS_SCRIPT_VIP_URL}?action=register&nombre=${encodeURIComponent(nombre)}&telefono=${encodeURIComponent(tel)}&cumpleanos=${encodeURIComponent(cumple)}`;
+
+  fetch(url, { mode: "no-cors" })
+    .then(() => {
+      document.getElementById("vip-modal-step1").style.display = "none";
+      document.getElementById("vip-modal-step2").style.display = "block";
+      btn.disabled = false;
+    })
+    .catch(() => {
+      document.getElementById("vip-modal-step1").style.display = "none";
+      document.getElementById("vip-modal-step2").style.display = "block";
+      btn.disabled = false;
+    });
+}
+
 
