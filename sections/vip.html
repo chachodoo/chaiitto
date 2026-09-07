@@ -107,7 +107,7 @@
           <p style="font-size: 0.8rem; color: #64748b; text-align: center; margin: 0 0 15px 0;">
             <i class="fa-solid fa-shield-halved"></i> Cancela o renueva en cualquier momento sin plazos forzosos
           </p>
-          <button type="button" onclick="document.getElementById('vip-register-modal').style.display='flex'; document.getElementById('vip-modal-step1').style.display='block'; document.getElementById('vip-modal-step2').style.display='none';" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-sizing: border-box; text-align: center; padding: 14px 20px; border: none; cursor: pointer; border-radius: 10px; background: var(--matcha-deep, #2d4a22); color: #ffffff; font-weight: 700; font-size: 1rem; box-shadow: 0 4px 12px rgba(45, 74, 34, 0.25); transition: opacity 0.2s ease;">
+          <button type="button" onclick="openVipModal()" style="...">
             <i class="fa-solid fa-crown"></i> Suscribirme a VIP Premium
           </button>
         </div>
@@ -119,8 +119,7 @@
       <div style="background: #ffffff; width: 100%; max-width: 440px; border-radius: 18px; padding: 25px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25); position: relative; text-align: left; font-family: inherit;">
         
         <!-- Botón cerrar directo -->
-        <button type="button" onclick="document.getElementById('vip-register-modal').style.display='none';" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.4rem; color: #94a3b8; cursor: pointer; line-height: 1;">&times;</button>
-
+        <button type="button" onclick="closeVipModal()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.4rem; color: #94a3b8; cursor: pointer; line-height: 1;">&times;</button>
         <!-- PASO 1: Formulario de Datos -->
         <div id="vip-modal-step1">
           <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
@@ -132,8 +131,7 @@
           </p>
 
           <!-- Formulario con envío directo sin requerir scripts externos -->
-          <form id="vip-reg-form" onsubmit="event.preventDefault(); var n=document.getElementById('vip-input-nombre').value.trim(); var t=document.getElementById('vip-input-tel').value.trim(); var c=document.getElementById('vip-input-cumple').value.trim(); var err=document.getElementById('vip-form-error'); var btn=document.getElementById('vip-submit-btn'); if(!n || !t){ err.textContent='Por favor ingresa tu nombre y WhatsApp.'; err.style.display='block'; return false; } if(!/^[0-9]{10}$/.test(t)){ err.textContent='El WhatsApp debe tener 10 dígitos.'; err.style.display='block'; return false; } err.style.display='none'; btn.disabled=true; btn.innerHTML='Guardando...'; var url='https://script.google.com/macros/s/AKfycby0Y8l0z4cj36ck79vn1Kv-2r11XcU_UVLMFy1qKxT-W0pfSLRnmsh7U2BsfvkJuITk/exec?action=register&nombre=' + encodeURIComponent(n) + '&telefono=' + encodeURIComponent(t) + '&cumpleanos=' + encodeURIComponent(c); fetch(url, {mode:'no-cors'}).then(function(){ document.getElementById('vip-modal-step1').style.display='none'; document.getElementById('vip-modal-step2').style.display='block'; btn.disabled=false; }).catch(function(){ document.getElementById('vip-modal-step1').style.display='none'; document.getElementById('vip-modal-step2').style.display='block'; btn.disabled=false; }); return false;">
-            
+            <form id="vip-reg-form" onsubmit="handleVipRegister(event)">            
             <div style="margin-bottom: 14px;">
               <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #334155; margin-bottom: 6px;">Nombre completo *</label>
               <input type="text" id="vip-input-nombre" required placeholder="Ej. Ana García" style="width: 100%; box-sizing: border-box; padding: 11px 14px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
