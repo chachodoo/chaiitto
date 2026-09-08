@@ -971,6 +971,16 @@ function openVipModal() {
   const step1 = document.getElementById("vip-modal-step1");
   const step2 = document.getElementById("vip-modal-step2");
   const step3 = document.getElementById("vip-modal-step3");
+  const btn = document.getElementById("vip-submit-btn");
+  const errBox = document.getElementById("vip-form-error");
+
+  if (btn) {
+    btn.style.display = "block";
+    btn.disabled = false;
+    btn.innerHTML = 'Continuar al Pago ($199) <i class="fa-solid fa-arrow-right"></i>';
+  }
+  if (errBox) errBox.style.display = "none";
+
   if (modal) {
     modal.style.display = "flex";
     if (step1) step1.style.display = "block";
@@ -1017,15 +1027,16 @@ function handleVipRegister(e) {
   fetch(url)
       .then(res => res.json())
       .then(data => {
-        btn.disabled = false;
-        btn.innerHTML = 'Continuar al Pago ($199) <i class="fa-solid fa-arrow-right"></i>';
-
-        // Detener si ya cuenta con membresía activa
+        // 🛑 SI YA ESTÁ ACTIVO: Ocultar el botón de pago por completo y no dejar pagar
         if (data.alreadyActive) {
+          btn.style.display = "none";
           errBox.style.display = "block";
           errBox.innerHTML = `⚠️ <strong>${data.message}</strong><br><a href="#bazar" onclick="closeVipModal()" style="color: #2D5A27; font-weight: bold; text-decoration: underline; display: inline-block; margin-top: 6px;">Acceder directo al Bazar VIP aquí &rarr;</a>`;
           return;
         }
+
+        btn.disabled = false;
+        btn.innerHTML = 'Continuar al Pago ($199) <i class="fa-solid fa-arrow-right"></i>';
 
         if (!data.success) {
           errBox.style.display = "block";
@@ -1037,12 +1048,6 @@ function handleVipRegister(e) {
         document.getElementById("vip-modal-step1").style.display = "none";
         document.getElementById("vip-modal-step2").style.display = "block";
       })
-      .catch(() => {
-        btn.disabled = false;
-        btn.innerHTML = 'Continuar al Pago ($199) <i class="fa-solid fa-arrow-right"></i>';
-        errBox.style.display = "block";
-        errBox.textContent = "Error al conectar con el servidor. Intenta de nuevo.";
-      });
 
 }
 
