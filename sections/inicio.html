@@ -146,8 +146,19 @@
     }
 
     .scroll-cue-arrow {
-  display: none !important;
-}
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: absolute !important;
+    right: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    width: 22px !important;
+    background: transparent !important; /* No muddy dark box */
+    color: var(--gold-accent, #C59B27) !important;
+    font-size: 0.85rem !important;
+    pointer-events: none !important;
+  }
 
     /* 6. Main Content Follows Immediately */
     .product-teaser-section { order: 3; width: 100%; margin-top: 0 !important; }
