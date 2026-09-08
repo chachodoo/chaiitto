@@ -1,0 +1,98 @@
+/* =======================================================
+   CHAIITTO SHARED DESKTOP SIDEBAR & COLLECTION PILLS
+   Global styles for: inicio.html & productos.html
+   ======================================================= */
+
+@media (min-width: 992px) {
+  /* 1. Sidebar Container: 148px width, zero horizontal scroll */
+  .sidebar-menu {
+    flex: 0 0 148px !important;
+    width: 148px !important;
+    position: sticky !important;
+    top: 20px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    max-height: calc(100vh - 40px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-right: 4px !important;
+    margin: 0 !important;
+  }
+
+  .sidebar-menu::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .sidebar-menu::-webkit-scrollbar-thumb {
+    background: rgba(45, 90, 39, 0.2);
+    border-radius: 10px;
+  }
+
+  /* 2. Collections Header: Relaxed spacing, no clipped text */
+  .collections-title {
+    font-size: 0.82rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 1px !important;
+    color: var(--matcha-deep, #2D5A27) !important;
+    text-transform: uppercase !important;
+    margin: 0 0 10px 0 !important;
+    padding-bottom: 3px !important;
+    border-bottom: 1.5px solid var(--gold-border, rgba(212, 175, 55, 0.35)) !important;
+    display: block !important;
+    width: 100% !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+    scroll-margin-top: 80px;
+  }
+
+  /* 3. Pills Track Container */
+  .collections-wrapper,
+  .collections-pills-track {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* 4. Plump Stadium Pills: Fixed 46px height & clean 2-line wrap */
+  .sidebar-menu .tab-btn,
+  .collections-pills-track .tab-btn {
+    width: 100% !important;
+    height: 46px !important;
+    margin: 0 !important;
+    padding: 4px 10px !important;
+    font-size: 0.76rem !important;
+    font-weight: 700 !important;
+    line-height: 1.15 !important;
+    white-space: normal !important;
+    word-break: keep-all !important;
+    border-radius: 9999px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+  }
+
+  .sidebar-menu .tab-btn span,
+  .collections-pills-track .tab-btn span {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    gap: 6px !important;
+    white-space: normal !important;
+    word-break: keep-all !important;
+  }
+
+  /* 5. Clean View: Hide icons and desktop scroll cues */
+  .sidebar-menu .tab-btn i,
+  .sidebar-menu .tab-btn svg,
+  .collections-pills-track .tab-btn i,
+  .collections-pills-track .tab-btn svg,
+  .mobile-scroll-arrow,
+  .scroll-cue-arrow {
+    display: none !important;
+  }
+}
