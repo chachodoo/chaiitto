@@ -510,57 +510,65 @@ let currentBazarImgIdx = 0;
 const VIP_API_URL = 'https://script.google.com/macros/s/AKfycby0Y8l0z4cj36ck79vn1Kv-2r11XcU_UVLMFy1qKxT-W0pfSLRnmsh7U2BsfvkJuITk/exec';
 
 async function verifyVipPin() {
-    const input = document.getElementById('vip-pin-input');
-    const errorEl = document.getElementById('vip-pin-error');
-    if (!input || !errorEl) return;
+  const phoneInput = document.getElementById('vip-phone-input');
+  const pinInput = document.getElementById('vip-pin-input');
+  const errorEl = document.getElementById('vip-pin-error');
 
-    const enteredPin = input.value.trim();
-    if (!enteredPin) {
-        errorEl.textContent = 'Por favor ingresa tu clave VIP.';
-        return;
+  const enteredPhone = phoneInput ? phoneInput.value.trim() : '';
+  const enteredPin = pinInput ? pinInput.value.trim() : '';
+
+  if (!enteredPhone || !enteredPin) {
+    if (errorEl) {
+      errorEl.style.color = '#e74c3c';
+      errorEl.textContent = 'WhatsApp y PIN son requeridos.';
     }
+    return;
+  }
 
+  if (errorEl) {
     errorEl.style.color = '';
-    errorEl.textContent = 'Verificando con Google Sheets...';
+    errorEl.textContent = 'Verificando...';
+  }
 
-    try {
-        const res = await fetch(`${VIP_API_URL}?action=check&pin=${encodeURIComponent(enteredPin)}`);
-        const data = await res.json();
+  try {
+    const res = await fetch(`${VIP_API_URL}?action=check&telefono=${encodeURIComponent(enteredPhone)}&pin=${encodeURIComponent(enteredPin)}`);
+    const data = await res.json();
 
-        if (!data.success) {
-            errorEl.style.color = '#e74c3c';
-            errorEl.textContent = data.message || 'Clave no válida o no encontrada.';
-            input.value = '';
-            return;
-        }
-
-        if (!data.isActive) {
-            errorEl.style.color = '#e74c3c';
-            errorEl.textContent = data.isExpired 
-                ? 'Tu membresía VIP ha vencido. Renueva tu acceso.' 
-                : 'Tu membresía no está activa.';
-            input.value = '';
-            return;
-        }
-
-        // Store VIP session & member data in browser
-        sessionStorage.setItem('chai_vip_auth', 'true');
-        sessionStorage.setItem('chai_vip_pin', enteredPin);
-        sessionStorage.setItem('chai_vip_name', data.nombre || 'Miembro VIP');
-        sessionStorage.setItem('chai_vip_cups', data.tazasConsumidas || 0);
-        if (data.fechaVencimiento) {
-            sessionStorage.setItem('chai_vip_expiry', data.fechaVencimiento);
-        }
-
-        errorEl.textContent = '';
-        input.value = '';
-        showUnlockedBazar();
-
-    } catch (err) {
-        console.error('Error validando PIN:', err);
-        errorEl.style.color = '#e74c3c';
-        errorEl.textContent = 'Error de conexión con la base de datos. Intenta de nuevo.';
+    if (!data.success) {
+      errorEl.style.color = '#e74c3c';
+      errorEl.textContent = data.message || 'Clave no válida o no encontrada.';
+      return;
     }
+
+    if (!data.isActive) {
+      errorEl.style.color = '#e74c3c';
+      errorEl.textContent = data.isExpired
+        ? 'Tu membresía VIP ha vencido. Renueva tu acceso.'
+        : 'Tu membresía no está activa.';
+      return;
+    }
+
+    // Guardar sesión VIP en navegador
+    sessionStorage.setItem('chai_vip_auth', 'true');
+    sessionStorage.setItem('chai_vip_phone', enteredPhone);
+    sessionStorage.setItem('chai_vip_pin', enteredPin);
+    sessionStorage.setItem('chai_vip_name', data.nombre || 'Miembro VIP');
+    sessionStorage.setItem('chai_vip_cups', data.tazasConsumidas || 0);
+    if (data.fechaVencimiento) {
+      sessionStorage.setItem('chai_vip_expiry', data.fechaVencimiento);
+    }
+
+    errorEl.textContent = '';
+    if (pinInput) pinInput.value = '';
+    showUnlockedBazar();
+
+  } catch (err) {
+    console.error('Error validando credenciales:', err);
+    if (errorEl) {
+      errorEl.style.color = '#e74c3c';
+      errorEl.textContent = 'Error de conexión. Intenta de nuevo.';
+    }
+  }
 }
 
 function showUnlockedBazar() {
