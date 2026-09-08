@@ -35,7 +35,7 @@
     letter-spacing: 1px !important;
     color: var(--matcha-deep, #2D5A27) !important;
     text-transform: uppercase !important;
-    margin: 0 0 10px 0 !important;
+    margin: 0 0 4px 0 !important;
     padding-bottom: 3px !important;
     border-bottom: 1.5px solid var(--gold-border, rgba(212, 175, 55, 0.35)) !important;
     display: block !important;
