@@ -158,25 +158,43 @@
           </form>
         </div>
 
-        <!-- STEP 2: CLIP PAYMENT LINK & SIMULATOR -->
-        <div id="vip-modal-step2" style="display: none; text-align: center;">
-          <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(45, 74, 34, 0.1); color: var(--matcha-deep, #2d4a22); font-weight: 800; font-size: 0.75rem; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; margin-bottom: 12px;">
-            <span>Paso 2 de 2</span>
-          </div>
-          <h3 style="margin: 0 0 6px; font-size: 1.25rem; color: #1e293b; font-weight: 800;">Realiza tu Pago Seguro</h3>
-          <p style="font-size: 0.85rem; color: #64748b; margin-top: 0; margin-bottom: 20px;">
-            Paga a través de la pasarela oficial de Clip para activar tu membresía.
-          </p>
+        <!-- STEP 2: CLIP PAYMENT LINK & QR -->
+    <div id="vip-modal-step2" style="display: none; text-align: center;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(45, 74, 34, 0.1); color: var(--matcha-deep, #2d4a22); font-weight: 800; font-size: 0.75rem; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; margin-bottom: 12px;">
+        <span>Paso 2 de 2</span>
+      </div>
+      <h3 style="margin: 0 0 6px; font-size: 1.25rem; color: #1e293b; font-weight: 800;">Realiza tu Pago Seguro</h3>
+      <p style="font-size: 0.85rem; color: #64748b; margin-top: 0; margin-bottom: 16px;">
+        Escanea el código con tu celular o pulsa el botón para pagar directamente en Clip.
+      </p>
 
-          <a href="https://clip.mx/@chaiitto" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; box-sizing: border-box; padding: 14px 20px; border-radius: 10px; background: #FF5A00; color: #ffffff; font-weight: 800; text-decoration: none; font-size: 1rem; box-shadow: 0 4px 12px rgba(255,90,0,0.25);">
-            <i class="fa-solid fa-credit-card"></i> Pagar $199 MXN con Clip
-          </a>
+      <!-- QR CODE CONTAINER -->
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 14px; margin-bottom: 16px; max-width: 220px; margin-left: auto; margin-right: auto;">
+        <div style="background: #ffffff; padding: 8px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+          <img src="qr-vip.png" alt="QR Clip Membresía VIP" style="width: 150px; height: 150px; display: block; margin: 0 auto; object-fit: contain;">
+        </div>
+        <span style="font-size: 0.75rem; color: #64748b; font-weight: 600; margin-top: 8px; display: block;">
+          <i class="fa-solid fa-camera"></i> Escanea con tu cámara
+        </span>
+      </div>
 
-          <p style="font-size: 0.75rem; color: #94a3b8; margin-top: 14px; line-height: 1.4;">
-            Al completar tu pago en Clip, el sistema activará tus beneficios de inmediato.
-          </p>
+      <!-- SEPARATOR -->
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+        <span style="flex: 1; height: 1px; background: #e2e8f0;"></span>
+        <span style="font-size: 0.75rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">O pulsa aquí</span>
+        <span style="flex: 1; height: 1px; background: #e2e8f0;"></span>
+      </div>
 
-          <!-- TEST BUTTON (Calls real activate action in Google Sheets) 
+      <!-- DIRECT CLIP BUTTON -->
+      <a href="https://pago.clip.mx/v3/d89bf087-4254-4a55-b534-747818616e1f" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; box-sizing: border-box; padding: 14px 20px; border-radius: 10px; background: #FF5A00; color: #ffffff; font-weight: 800; text-decoration: none; font-size: 1rem; box-shadow: 0 4px 12px rgba(255,90,0,0.25); transition: opacity 0.2s ease;">
+        <i class="fa-solid fa-credit-card"></i> Pagar $199 MXN con Clip
+      </a>
+
+      <p style="font-size: 0.75rem; color: #94a3b8; margin-top: 14px; line-height: 1.4;">
+        Al completar tu pago en Clip, el sistema activará tus beneficios de inmediato.
+      </p>
+
+          <!-- TEST BUTTON SIMULATE SUCCESS PAGO (Calls real activate action in Google Sheets) 
           <button type="button" onclick="simulateVipPayment()" style="margin-top: 15px; background: #f8fafc; border: 1px dashed #94a3b8; border-radius: 8px; padding: 9px 12px; font-size: 0.8rem; color: #475569; cursor: pointer; width: 100%; font-weight: 700;">
             🧪 Simular Pago Exitoso (Test Backend)
           </button>  -->
