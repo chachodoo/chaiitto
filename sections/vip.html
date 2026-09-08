@@ -107,92 +107,82 @@
           <p style="font-size: 0.8rem; color: #64748b; text-align: center; margin: 0 0 15px 0;">
             <i class="fa-solid fa-shield-halved"></i> Cancela o renueva en cualquier momento sin plazos forzosos
           </p>
-          <button type="button" onclick="openVipModal()" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-sizing: border-box; text-align: center; padding: 14px 20px; border: none; cursor: pointer; border-radius: 10px; background: var(--matcha-deep, #2d4a22); color: #ffffff; font-weight: 700; font-size: 1rem; box-shadow: 0 4px 12px rgba(45, 74, 34, 0.25); transition: opacity 0.2s ease;">
-            <i class="fa-solid fa-crown"></i> Suscribirme a VIP Premium
-          </button>
-        </div>
+          <!-- MEMBERSHIP CARD TRIGGER BUTTON -->
+        <button type="button" onclick="openVipModal()" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-sizing: border-box; text-align: center; padding: 14px 20px; border: none; cursor: pointer; border-radius: 10px; background: var(--matcha-deep, #2d4a22); color: #ffffff; font-weight: 700; font-size: 1rem; box-shadow: 0 4px 12px rgba(45, 74, 34, 0.25); transition: opacity 0.2s ease;">
+          <i class="fa-solid fa-crown"></i> Suscribirme a VIP Premium
+        </button>
       </div>
+
     </div>
 
-    <!-- MODAL DE REGISTRO PRE-PAGO -->
-    <div id="vip-register-modal" style="display: none; position: fixed; inset: 0; z-index: 99999; background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(4px); align-items: center; justify-content: center; padding: 15px; box-sizing: border-box;">
-      <div style="background: #ffffff; width: 100%; max-width: 440px; border-radius: 18px; padding: 25px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25); position: relative; text-align: left; font-family: inherit;">
+    <!-- MODAL DE REGISTRO VIP -->
+    <div id="vip-register-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.65); z-index: 99999; align-items: center; justify-content: center; padding: 16px; box-sizing: border-box; backdrop-filter: blur(4px);">
+      <div style="background: #ffffff; width: 100%; max-width: 440px; border-radius: 16px; padding: 24px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2); position: relative; max-height: 90vh; overflow-y: auto;">
         
-        <!-- Botón cerrar directo -->
+        <!-- CLOSE BUTTON -->
         <button type="button" onclick="closeVipModal()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.4rem; color: #94a3b8; cursor: pointer; line-height: 1;">&times;</button>
-        <!-- PASO 1: Formulario de Datos -->
+
+        <!-- STEP 1: PRE-REGISTRATION -->
         <div id="vip-modal-step1">
           <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
-            <span style="background: rgba(45, 74, 34, 0.1); color: var(--matcha-deep, #2d4a22); padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 800;">PASO 1 DE 2</span>
+            <span style="background: rgba(45, 74, 34, 0.1); color: var(--matcha-deep, #2d4a22); font-weight: 800; font-size: 0.75rem; padding: 4px 10px; border-radius: 6px; text-transform: uppercase;">Paso 1 de 2</span>
             <h3 style="margin: 0; font-size: 1.25rem; color: #1e293b; font-weight: 800;">Registro VIP Premium</h3>
           </div>
-          <p style="margin: 0 0 18px; font-size: 0.88rem; color: #64748b;">
+          <p style="font-size: 0.85rem; color: #64748b; margin-top: 0; margin-bottom: 16px; line-height: 1.4;">
             Ingresa tus datos para registrar tu perfil y generar tu PIN exclusivo al completar tu pago.
           </p>
 
-          <!-- Formulario con envío directo sin requerir scripts externos -->
-            <form id="vip-reg-form" onsubmit="handleVipRegister(event)">            
-            <div style="margin-bottom: 14px;">
-              <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #334155; margin-bottom: 6px;">Nombre completo *</label>
-              <input type="text" id="vip-input-nombre" required placeholder="Ej. Ana García" style="width: 100%; box-sizing: border-box; padding: 11px 14px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
+          <form id="vip-reg-form" onsubmit="handleVipRegister(event)">
+            <div style="margin-bottom: 12px;">
+              <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #334155; margin-bottom: 4px;">Nombre completo *</label>
+              <input type="text" id="vip-input-nombre" required placeholder="Ej. Ana García" style="width: 100%; box-sizing: border-box; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem;">
             </div>
 
-            <div style="margin-bottom: 14px;">
-              <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #334155; margin-bottom: 6px;">WhatsApp (10 dígitos) *</label>
-              <input type="tel" id="vip-input-tel" required pattern="[0-9]{10}" placeholder="Ej. 2221234567" style="width: 100%; box-sizing: border-box; padding: 11px 14px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
-              <span style="font-size: 0.72rem; color: #64748b;">Aquí recibirás tu PIN exclusivo al confirmar tu pago.</span>
+            <div style="margin-bottom: 12px;">
+              <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #334155; margin-bottom: 4px;">WhatsApp (10 dígitos) *</label>
+              <input type="tel" id="vip-input-tel" required pattern="[0-9]{10}" maxlength="10" placeholder="Ej. 2221234567" style="width: 100%; box-sizing: border-box; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem;">
+              <span style="font-size: 0.72rem; color: #94a3b8;">Tu cuenta quedará asociada a este número.</span>
             </div>
 
-            <div style="margin-bottom: 20px;">
-              <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #334155; margin-bottom: 6px;">Fecha de cumpleaños <span style="font-weight: 400; color: #64748b;">(Opcional)</span></label>
-              <input type="text" id="vip-input-cumple" placeholder="Ej. 15 de Octubre (DD/MM)" style="width: 100%; box-sizing: border-box; padding: 11px 14px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
-              <span style="font-size: 0.72rem; color: #64748b;">Para tu postre artesanal de cortesía en Casa de Té Cholula.</span>
+            <div style="margin-bottom: 16px;">
+              <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #334155; margin-bottom: 4px;">Fecha de cumpleaños <span style="font-weight: 400; color: #94a3b8;">(Opcional)</span></label>
+              <input type="text" id="vip-input-cumple" placeholder="Ej. 15 de Octubre (DD/MM)" style="width: 100%; box-sizing: border-box; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem;">
+              <span style="font-size: 0.72rem; color: #94a3b8;">Para tu postre artesanal de cortesía en Casa de Té Cholula.</span>
             </div>
 
-            <div id="vip-form-error" style="display: none; color: #dc2626; font-size: 0.8rem; margin-bottom: 12px; font-weight: 600;"></div>
+            <div id="vip-form-error" style="display: none; background: #fef2f2; color: #dc2626; padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; margin-bottom: 12px; border: 1px solid #fecaca;"></div>
 
-            <button type="submit" id="vip-submit-btn" style="width: 100%; padding: 13px; background: var(--matcha-deep, #2d4a22); color: #ffffff; border: none; border-radius: 10px; font-weight: 700; font-size: 1rem; cursor: pointer;">
-              Continuar al Pago ($199) <i class="fa-solid fa-arrow-right" style="margin-left: 6px;"></i>
+            <button type="submit" id="vip-submit-btn" style="width: 100%; padding: 12px; border: none; border-radius: 8px; background: var(--matcha-deep, #2d4a22); color: #ffffff; font-weight: 700; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+              Continuar al Pago ($199) <i class="fa-solid fa-arrow-right"></i>
             </button>
           </form>
         </div>
 
-      <!-- PASO 2: Pago con Clip (Link directo o QR) -->
-      <div id="vip-modal-step2" style="display: none; text-align: center;">
-        <div style="display: inline-block; background: rgba(45, 74, 34, 0.1); color: var(--matcha-deep, #2d4a22); padding: 5px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 800; margin-bottom: 10px;">
-          PASO 2 DE 2
-        </div>
-        <h3 style="margin: 0 0 6px; font-size: 1.3rem; color: #1e293b; font-weight: 800;">Completa tu Pago ($199 MXN)</h3>
-        <p style="margin: 0 0 16px; font-size: 0.85rem; color: #64748b;">
-          Tus datos quedaron registrados. Paga con tarjeta o escanea con tu celular:
-        </p>
-
-        <!-- QR Code para escaneo en PC -->
-        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; margin-bottom: 16px; display: inline-block;">
-          <div style="background: #ffffff; padding: 4px; border-radius: 8px; width: 130px; height: 130px; margin: 0 auto 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-            <img src="qr-vip.png" alt="QR Pago Clip" style="width: 100%; height: 100%; object-fit: contain; display: block;">
+        <!-- STEP 2: CLIP PAYMENT LINK & SIMULATOR -->
+        <div id="vip-modal-step2" style="display: none; text-align: center;">
+          <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(45, 74, 34, 0.1); color: var(--matcha-deep, #2d4a22); font-weight: 800; font-size: 0.75rem; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; margin-bottom: 12px;">
+            <span>Paso 2 de 2</span>
           </div>
-          <span style="font-size: 0.75rem; color: #64748b; font-weight: 600;">
-            <i class="fa-solid fa-camera"></i> Escanea con tu cel si estás en computadora
-          </span>
-        </div>
+          <h3 style="margin: 0 0 6px; font-size: 1.25rem; color: #1e293b; font-weight: 800;">Realiza tu Pago Seguro</h3>
+          <p style="font-size: 0.85rem; color: #64748b; margin-top: 0; margin-bottom: 20px;">
+            Paga a través de la pasarela oficial de Clip para activar tu membresía.
+          </p>
 
-        <!-- Botón directo de Clip -->
-        <a id="vip-clip-direct-link" href="https://pago.clip.mx/v3/d89bf087-4254-4a55-b534-747818616e1f" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-sizing: border-box; text-align: center; padding: 14px 20px; border-radius: 10px; background: #ea580c; color: #ffffff; font-weight: 700; text-decoration: none; font-size: 1rem; box-shadow: 0 4px 12px rgba(234, 88, 12, 0.25);">
-          <i class="fa-solid fa-credit-card"></i> Pagar $199 en Clip Ahora
-        </a>
+          <a href="https://clip.mx/@chaiitto" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; box-sizing: border-box; padding: 14px 20px; border-radius: 10px; background: #FF5A00; color: #ffffff; font-weight: 800; text-decoration: none; font-size: 1rem; box-shadow: 0 4px 12px rgba(255,90,0,0.25);">
+            <i class="fa-solid fa-credit-card"></i> Pagar $199 MXN con Clip
+          </a>
 
-        <p style="font-size: 0.75rem; color: #94a3b8; margin-top: 14px; line-height: 1.4;">
+          <p style="font-size: 0.75rem; color: #94a3b8; margin-top: 14px; line-height: 1.4;">
             Al completar tu pago en Clip, el sistema activará tus beneficios de inmediato.
           </p>
 
-          <!-- TEST BUTTON (Calls simulateVipPayment in script.js) -->
+          <!-- TEST BUTTON (Calls real activate action in Google Sheets) -->
           <button type="button" onclick="simulateVipPayment()" style="margin-top: 15px; background: #f8fafc; border: 1px dashed #94a3b8; border-radius: 8px; padding: 9px 12px; font-size: 0.8rem; color: #475569; cursor: pointer; width: 100%; font-weight: 700;">
-            🧪 Simular Pago Exitoso (Test)
+            🧪 Simular Pago Exitoso (Test Backend)
           </button>
         </div>
 
-        <!-- PASO 3: BIENVENIDA, PIN Y ACCIONES -->
+        <!-- STEP 3: WELCOME, 911 PIN DISPLAY & DIRECT BAZAR ACCESS -->
         <div id="vip-modal-step3" style="display: none; text-align: center;">
           <div style="width: 55px; height: 55px; background: rgba(45, 74, 34, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; color: var(--matcha-deep, #2d4a22); font-size: 1.6rem;">
             <i class="fa-solid fa-crown"></i>
@@ -204,13 +194,13 @@
 
           <h3 style="margin: 10px 0 6px; font-size: 1.35rem; color: #1e293b; font-weight: 800;">¡Bienvenido a VIP Premium!</h3>
           <p style="margin: 0 0 16px; font-size: 0.85rem; color: #64748b;">
-            Tu pago ha sido registrado. Este es tu PIN exclusivo de socio para cortesías en sucursal y acceso al Bazar:
+            Tu registro ha sido confirmado. Este es tu PIN exclusivo de socio para cortesías en sucursal y acceso al Bazar:
           </p>
 
-          <!-- PIN CARD -->
+          <!-- PIN DISPLAY CARD -->
           <div style="background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 12px; padding: 14px; margin-bottom: 18px;">
             <span style="display: block; font-size: 0.72rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Tu PIN Personal de Socio</span>
-            <div id="vip-display-pin" style="font-size: 2.2rem; font-weight: 900; letter-spacing: 6px; color: var(--matcha-deep, #2d4a22); font-family: monospace;">----</div>
+            <div id="vip-display-pin" style="font-size: 2.2rem; font-weight: 900; letter-spacing: 6px; color: var(--matcha-deep, #2d4a22); font-family: monospace;">-------</div>
             <span style="display: block; font-size: 0.72rem; color: #94a3b8; margin-top: 4px;">Guárdalo o anótalo, lo necesitarás al visitarnos.</span>
           </div>
 
@@ -220,7 +210,7 @@
               <i class="fa-brands fa-whatsapp fa-lg"></i> Guardar mi PIN en WhatsApp
             </a>
 
-            <a href="#bazar-section" onclick="closeVipModal()" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-sizing: border-box; padding: 12px 18px; border-radius: 10px; background: #AA7C11; color: #ffffff; font-weight: 700; text-decoration: none; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(170,124,17,0.25);">
+            <a href="#bazar" onclick="goToBazarVip(event)" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-sizing: border-box; padding: 12px 18px; border-radius: 10px; background: #AA7C11; color: #ffffff; font-weight: 700; text-decoration: none; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(170,124,17,0.25);">
               <i class="fa-solid fa-gem"></i> Explorar el Bazar VIP
             </a>
 
