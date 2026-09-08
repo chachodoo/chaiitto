@@ -101,85 +101,6 @@
       padding-bottom: 5px !important;
     }
 
-    /* 1. Relative wrapper anchors the arrow button strictly inside this bar */
-    .collections-wrapper {
-      position: relative !important;
-      display: block !important;
-      width: 100% !important;
-      max-width: 100% !important;
-      box-sizing: border-box !important;
-      margin-top: 8px !important;
-    }
-
-    /* 2. Swiping Track: 44px right padding stops pills before reaching the arrow */
-    .collections-scroll-container {
-      display: flex !important;
-      flex-direction: row !important;
-      flex-wrap: nowrap !important;
-      width: 100% !important;
-      max-width: 100% !important;
-      overflow-x: auto !important;
-      overflow-y: hidden !important;
-      -webkit-overflow-scrolling: touch !important;
-      scrollbar-width: none !important;
-      -ms-overflow-style: none !important;
-      box-sizing: border-box !important;
-      gap: 8px !important;
-      padding: 4px 44px 10px 0 !important;
-      margin: 0 !important;
-    }
-    .collections-scroll-container::-webkit-scrollbar {
-      display: none !important;
-    }
-
-    /* 3. Plump Pill Buttons (1:1 with productos.html) */
-    .collections-scroll-container .tab-btn {
-      flex: 0 0 auto !important;
-      width: auto !important;
-      white-space: nowrap !important;
-      padding: 10px 14px !important;
-      font-size: 0.82rem !important;
-      font-weight: 800 !important;
-      border-radius: 9999px !important;
-      line-height: 1 !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25) !important;
-    }
-    .collections-scroll-container .tab-btn span {
-      display: inline-flex !important;
-      align-items: center !important;
-      gap: 5px !important;
-    }
-    .collections-scroll-container .tab-btn i,
-    .collections-scroll-container .tab-btn svg {
-      display: none !important;
-    }
-
-    /* 4. Circular Gold Arrow (1:1 with productos.html) */
-    .scroll-cue-arrow,
-    .mobile-scroll-arrow {
-      position: absolute !important;
-      right: 0 !important;
-      top: 50% !important;
-      transform: translateY(-50%) !important;
-      width: 32px !important;
-      height: 32px !important;
-      border-radius: 50% !important;
-      background: var(--gold-accent, #c5a059) !important;
-      color: #121a12 !important;
-      border: none !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      box-shadow: -3px 0 8px rgba(0, 0, 0, 0.4) !important;
-      cursor: pointer !important;
-      z-index: 30 !important;
-      font-size: 0.82rem !important;
-      padding: 0 !important;
-    }
-
     /* 6. Main Content Follows Immediately */
     .product-teaser-section { order: 3; width: 100%; margin-top: 0 !important; }
     #home-reviews-section { order: 4; width: 100%; }
@@ -259,10 +180,10 @@
         </button>
       </div>
 
-      <!-- Cue Arrow Indicating More Items to Swipe -->
-      <div class="scroll-cue-arrow" aria-hidden="true">
-        <i class="fa-solid fa-chevron-right"></i>
-      </div>
+      <!-- Functional Tap-to-Scroll Arrow -->
+<button type="button" class="scroll-cue-arrow mobile-scroll-arrow" aria-label="Ver más colecciones" onclick="document.getElementById('collections-slider').scrollBy({left: 160, behavior: 'smooth'})">
+  <i class="fa-solid fa-chevron-right"></i>
+</button>
     </div>
 
   </aside>
