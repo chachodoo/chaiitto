@@ -113,8 +113,7 @@
       gap: 6px !important;
       width: 100% !important;
       overflow-x: auto !important;
-      padding: 2px 28px 4px 2px !important; /* Right padding leaves room for arrow */
-      scrollbar-width: none !important;
+      padding: 4px 10px !important;      scrollbar-width: none !important;
       -ms-overflow-style: none !important;
       -webkit-overflow-scrolling: touch !important;
     }
@@ -146,21 +145,9 @@
       display: none !important;
     }
 
-    /* 5. Sleek Right Cue Arrow */
     .scroll-cue-arrow {
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      position: absolute !important;
-      right: 0 !important;
-      top: 0 !important;
-      bottom: 0 !important;
-      width: 26px !important;
-      background: linear-gradient(to right, transparent, var(--bg-cream, #FBF8F2) 65%) !important;
-      color: var(--gold-accent, #C59B27) !important;
-      font-size: 0.75em !important;
-      pointer-events: none !important;
-    }
+  display: none !important;
+}
 
     /* 6. Main Content Follows Immediately */
     .product-teaser-section { order: 3; width: 100%; margin-top: 0 !important; }
