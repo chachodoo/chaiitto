@@ -97,11 +97,9 @@
   <p style="color: var(--text-muted, #666); font-size: 0.9rem; margin-bottom: 20px;">
     Acceso exclusivo para miembros VIP Premium. Ingresa tu clave.
   </p>
-
-  <input type="password" id="vip-pin-input" class="vip-pin-input" maxlength="12" placeholder="•••••••" onkeydown="if(event.key==='Enter') verifyVipPin();">
-  
+  <input type="tel" id="vip-phone-input" class="vip-pin-input" maxlength="10" placeholder="WhatsApp (10 dígitos)" style="margin-bottom: 10px;" onkeydown="if (event.key === 'Enter') verifyVipPin();">
+  <input type="password" id="vip-pin-input" class="vip-pin-input" maxlength="7" placeholder="PIN VIP (7 dígitos)" onkeydown="if (event.key === 'Enter') verifyVipPin();">
   <div id="vip-pin-error" style="color: #D9534F; font-size: 0.85rem; font-weight: 700; min-height: 20px; margin-bottom: 12px;"></div>
-
   <button onclick="verifyVipPin()" class="nav-btn" style="width: 100%; max-width: 220px; margin: 0 auto 15px auto; padding: 12px; background: var(--matcha-deep, #2D5A27); color: #FFF; font-weight: bold; border-radius: 10px; cursor: pointer;">
     <i class="fa-solid fa-lock-open"></i> Desbloquear
   </button>
