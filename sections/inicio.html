@@ -12,8 +12,8 @@
 
   /* 1. Sidebar Container: 195px keeps all labels on a single line */
   .sidebar-menu {
-    flex: 0 0 195px;
-    width: 195px;
+    flex: 0 0 140px;
+    width: 140px;
     position: sticky;
     top: 20px;
     display: flex;
@@ -62,27 +62,32 @@
     padding: 0 !important;
   }
 
-  /* 3. Uniform Pill Buttons: Plump, Centered & No Chevrons */
+  /* 3. Uniform Stadium Pills: Fat, Uniform & 2-Line Capable */
   .sidebar-menu .tab-btn {
+    width: 100% !important;
+    height: 46px !important; /* Locks every pill to the exact same chubby height */
     margin: 0 !important;
-    padding: 8px 12px !important;
-    font-size: 0.8rem !important;
+    padding: 4px 10px !important;
+    font-size: 0.76rem !important;
     font-weight: 700 !important;
     line-height: 1.15 !important;
-    white-space: nowrap !important;
+    white-space: normal !important; /* Allows multi-word titles to wrap */
+    word-break: keep-all !important; /* Forbids cutting words in half */
     border-radius: 9999px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 8px !important;
     box-sizing: border-box !important;
   }
 
   .sidebar-menu .tab-btn span {
     display: inline-flex !important;
     align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
     gap: 6px !important;
-    white-space: nowrap !important;
+    white-space: normal !important;
+    word-break: keep-all !important;
   }
 
   /* Kill the trailing arrows completely */
