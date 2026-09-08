@@ -209,33 +209,50 @@
         }
 
         /* --- MASTER HERO BANNER --- */
-        #master-hero-banner {
-            width: 100%;
-            background: linear-gradient(135deg, #2D5A27 0%, #4A7C36 100%);
-            box-shadow: 0 4px 25px rgba(45, 90, 39, 0.3);
-            padding: clamp(30px, 5vw, 40px) 15px 20px 15px;
-            text-align: center;
-            color: white;
-            display: flex; 
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
+        /* --- MASTER HERO BANNER (COMPACT 50% HEIGHT) --- */
+#master-hero-banner {
+    width: 100%;
+    background: transparent;
+    box-shadow: none;
+    padding: 10px 15px 8px 15px !important;
+    text-align: center;
+    color: #1C3317;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px !important;
+}
 
-        .trust-bar-hero {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px 20px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            width: 100%;
-            max-width: 900px;
-            margin-top: 15px;
-            gap: 15px;
-        }
+#master-hero-banner h1,
+#master-hero-banner .hero-title {
+    font-size: clamp(1.4rem, 3vw, 1.9rem) !important;
+    margin: 0 !important;
+    line-height: 1.15 !important;
+}
+
+#master-hero-banner p,
+#master-hero-banner .hero-subtitle {
+    font-size: 0.88rem !important;
+    margin: 0 !important;
+    line-height: 1.25 !important;
+    max-width: 750px;
+}
+
+.trust-bar-hero {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.18);
+    padding: 6px 14px !important;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    width: 100%;
+    max-width: 800px;
+    margin-top: 2px !important;
+    gap: 10px !important;
+    font-size: 0.8rem !important;
+}
 
         /* --- FLOATING BUTTONS --- */
         #floating-cart-btn {
