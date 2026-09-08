@@ -209,124 +209,116 @@
         }
 
 /* ============================================================
-   ENTERPRISE HERO & LUXURY CONTROLS
+   ENTERPRISE HERO & COMPACT CONTROLS (ZERO DEAD SPACE)
    ============================================================ */
 #master-hero-banner {
     width: 100%;
     background: transparent;
-    padding: clamp(14px, 2.5vw, 24px) 16px 12px;
+    padding: 6px 16px 8px !important;
     text-align: center;
     color: #0E2610;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 4px !important;
 }
 
-.hero-badge-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 4px 14px;
-    background: rgba(14, 38, 16, 0.08);
-    border: 1px solid rgba(14, 38, 16, 0.18);
-    border-radius: 50px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: #0E2610;
+#master-hero-banner .logo-main {
+    max-height: 44px;
+    width: auto;
+    margin: 0 !important;
+    cursor: pointer;
 }
 
-#master-hero-banner h1.hero-title {
+#master-hero-banner h1,
+#master-hero-banner .hero-title {
     font-family: var(--font-title);
-    font-size: clamp(1.6rem, 4.2vw, 2.8rem);
+    font-size: clamp(1.4rem, 3.2vw, 2.1rem) !important;
     font-weight: 900;
     font-style: italic;
     letter-spacing: -0.5px;
-    line-height: 1.1;
-    margin: 0;
+    line-height: 1.1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
     color: #0E2610;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
-#master-hero-banner p.hero-subtitle {
+#master-hero-banner p,
+#master-hero-banner .hero-subtitle {
     font-family: var(--font-body);
-    font-size: clamp(0.85rem, 1.6vw, 1rem);
+    font-size: clamp(0.8rem, 1.3vw, 0.92rem) !important;
     font-weight: 500;
-    line-height: 1.45;
+    line-height: 1.25 !important;
     color: #1A3E1E;
-    max-width: 680px;
-    margin: 0;
+    max-width: 650px;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
-/* Frosted Porcelain Trust Ribbon */
+/* Compact Frosted Trust Ribbon */
 .trust-bar-hero {
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 16px 28px;
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    padding: 8px 24px;
-    border-radius: 40px;
+    gap: 12px 20px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 5px 18px !important;
+    border-radius: 50px;
     border: 1px solid rgba(255, 255, 255, 0.85);
-    box-shadow: 0 8px 24px -6px rgba(14, 38, 16, 0.12),
+    box-shadow: 0 4px 14px -2px rgba(14, 38, 16, 0.1),
                 inset 0 1px 1px rgba(255, 255, 255, 0.9);
-    margin-top: 4px;
+    margin: 3px 0 !important;
 }
 
 .trust-item {
     color: #0E2610;
     font-weight: 700;
-    font-size: 0.84rem;
-    letter-spacing: 0.3px;
+    font-size: 0.8rem;
+    letter-spacing: 0.2px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+    margin: 0;
 }
 
 .trust-item i {
     color: #1A5420;
-    font-size: 1.15em;
+    font-size: 1.1em;
 }
 
 /* Luxury Master CTA Button */
-.hero-cta-btn {
+.hero-cta-btn,
+#master-hero-banner button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     background: linear-gradient(180deg, #1A4E21 0%, #0E2A12 100%);
     color: #FFFFFF !important;
     font-family: var(--font-heading);
     font-weight: 800;
-    font-size: 0.92rem;
-    letter-spacing: 1.5px;
+    font-size: 0.88rem;
+    letter-spacing: 1.2px;
     text-transform: uppercase;
-    padding: 13px 32px;
+    padding: 9px 26px !important;
     border-radius: 50px;
-    border: 1px solid rgba(212, 175, 55, 0.6);
+    border: 1.5px solid rgba(212, 175, 55, 0.7);
     cursor: pointer;
-    box-shadow: 0 10px 24px -4px rgba(14, 38, 16, 0.38),
+    box-shadow: 0 8px 18px -3px rgba(14, 38, 16, 0.35),
                 inset 0 1px 1px rgba(255, 255, 255, 0.35);
-    transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-    margin-top: 6px;
+    transition: all 0.2s ease;
+    margin: 3px 0 0 0 !important;
 }
 
-.hero-cta-btn:hover {
+.hero-cta-btn:hover,
+#master-hero-banner button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 14px 28px -4px rgba(14, 38, 16, 0.48),
-                0 0 16px rgba(212, 175, 55, 0.4),
-                inset 0 1px 1px rgba(255, 255, 255, 0.4);
     border-color: #F5D061;
-}
-
-.hero-cta-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 6px 16px -2px rgba(14, 38, 16, 0.3);
+    box-shadow: 0 12px 22px -3px rgba(14, 38, 16, 0.45),
+                0 0 12px rgba(212, 175, 55, 0.35);
 }
 
         /* --- FLOATING BUTTONS --- */
