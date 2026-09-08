@@ -1044,6 +1044,8 @@ function handleVipRegister(e) {
         errBox.textContent = "Error al conectar con el servidor. Intenta de nuevo.";
       });
 
+}
+
 async function simulateVipPayment() {
   const step2 = document.getElementById("vip-modal-step2");
   const step3 = document.getElementById("vip-modal-step3");
