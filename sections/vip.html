@@ -183,12 +183,53 @@
         </a>
 
         <p style="font-size: 0.75rem; color: #94a3b8; margin-top: 14px; line-height: 1.4;">
-          Al completar tu pago en Clip, el sistema activará tus beneficios de inmediato.
-        </p>
+            Al completar tu pago en Clip, el sistema activará tus beneficios de inmediato.
+          </p>
+
+          <!-- TEST BUTTON (Calls simulateVipPayment in script.js) -->
+          <button type="button" onclick="simulateVipPayment()" style="margin-top: 15px; background: #f8fafc; border: 1px dashed #94a3b8; border-radius: 8px; padding: 9px 12px; font-size: 0.8rem; color: #475569; cursor: pointer; width: 100%; font-weight: 700;">
+            🧪 Simular Pago Exitoso (Test)
+          </button>
+        </div>
+
+        <!-- PASO 3: BIENVENIDA, PIN Y ACCIONES -->
+        <div id="vip-modal-step3" style="display: none; text-align: center;">
+          <div style="width: 55px; height: 55px; background: rgba(45, 74, 34, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; color: var(--matcha-deep, #2d4a22); font-size: 1.6rem;">
+            <i class="fa-solid fa-crown"></i>
+          </div>
+          
+          <span style="background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%); color: #1C3317; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.5px;">
+            ¡MEMBRESÍA ACTIVA!
+          </span>
+
+          <h3 style="margin: 10px 0 6px; font-size: 1.35rem; color: #1e293b; font-weight: 800;">¡Bienvenido a VIP Premium!</h3>
+          <p style="margin: 0 0 16px; font-size: 0.85rem; color: #64748b;">
+            Tu pago ha sido registrado. Este es tu PIN exclusivo de socio para cortesías en sucursal y acceso al Bazar:
+          </p>
+
+          <!-- PIN CARD -->
+          <div style="background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 12px; padding: 14px; margin-bottom: 18px;">
+            <span style="display: block; font-size: 0.72rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Tu PIN Personal de Socio</span>
+            <div id="vip-display-pin" style="font-size: 2.2rem; font-weight: 900; letter-spacing: 6px; color: var(--matcha-deep, #2d4a22); font-family: monospace;">----</div>
+            <span style="display: block; font-size: 0.72rem; color: #94a3b8; margin-top: 4px;">Guárdalo o anótalo, lo necesitarás al visitarnos.</span>
+          </div>
+
+          <!-- ACTION BUTTONS -->
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <a id="vip-btn-whatsapp-save" href="#" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-sizing: border-box; padding: 12px 18px; border-radius: 10px; background: #25D366; color: #ffffff; font-weight: 700; text-decoration: none; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(37,211,102,0.25);">
+              <i class="fa-brands fa-whatsapp fa-lg"></i> Guardar mi PIN en WhatsApp
+            </a>
+
+            <a href="#bazar-section" onclick="closeVipModal()" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-sizing: border-box; padding: 12px 18px; border-radius: 10px; background: #AA7C11; color: #ffffff; font-weight: 700; text-decoration: none; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(170,124,17,0.25);">
+              <i class="fa-solid fa-gem"></i> Explorar el Bazar VIP
+            </a>
+
+            <button type="button" onclick="closeVipModal()" style="background: none; border: none; color: #64748b; font-size: 0.85rem; font-weight: 600; cursor: pointer; padding: 6px; margin-top: 4px;">
+              Cerrar y continuar en la web
+            </button>
+          </div>
+        </div>
+
       </div>
-
     </div>
-  </div>
-
-  
-</section>
+  </section>
