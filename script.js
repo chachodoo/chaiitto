@@ -954,7 +954,7 @@ function scrollGallery(direction) {
 }
 
 // ==========================================
-// VIP MEMBERSHIP CONTROLLER
+// VIP MEMBERSHIP & BAZAR CONTROLLER
 // ==========================================
 const APPS_SCRIPT_VIP_URL = "https://script.google.com/macros/s/AKfycby0Y8l0z4cj36ck79vn1Kv-2r11XcU_UVLMFy1qKxT-W0pfSLRnmsh7U2BsfvkJuITk/exec";
 
@@ -962,10 +962,12 @@ function openVipModal() {
   const modal = document.getElementById("vip-register-modal");
   const step1 = document.getElementById("vip-modal-step1");
   const step2 = document.getElementById("vip-modal-step2");
+  const step3 = document.getElementById("vip-modal-step3");
   if (modal) {
     modal.style.display = "flex";
     if (step1) step1.style.display = "block";
     if (step2) step2.style.display = "none";
+    if (step3) step3.style.display = "none";
   }
 }
 
@@ -1009,36 +1011,78 @@ function handleVipRegister(e) {
       document.getElementById("vip-modal-step1").style.display = "none";
       document.getElementById("vip-modal-step2").style.display = "block";
       btn.disabled = false;
+      btn.innerHTML = 'Continuar al Pago ($199) <i class="fa-solid fa-arrow-right"></i>';
     })
     .catch(() => {
       document.getElementById("vip-modal-step1").style.display = "none";
       document.getElementById("vip-modal-step2").style.display = "block";
       btn.disabled = false;
+      btn.innerHTML = 'Continuar al Pago ($199) <i class="fa-solid fa-arrow-right"></i>';
     });
 }
 
-function simulateVipPayment() {
+async function simulateVipPayment() {
   const step2 = document.getElementById("vip-modal-step2");
   const step3 = document.getElementById("vip-modal-step3");
   const pinDisplay = document.getElementById("vip-display-pin");
   const waLink = document.getElementById("vip-btn-whatsapp-save");
 
-  // Read saved name & phone from step 1
   const phone = localStorage.getItem("chaiitto_vip_phone") || "";
   const name = localStorage.getItem("chaiitto_vip_name") || "Socio VIP";
 
-  // Use a generated 4-digit test PIN
-  const testPin = Math.floor(1000 + Math.random() * 9000);
-
-  if (pinDisplay) pinDisplay.textContent = testPin;
-
-  if (waLink) {
-    const msg = `Hola! Soy ${name}. Mi PIN VIP de Chai-itto es ${testPin}.`;
-    waLink.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
+  if (!phone) {
+    alert("No se encontró número de WhatsApp para activar.");
+    return;
   }
 
-  if (step2) step2.style.display = "none";
-  if (step3) step3.style.display = "block";
+  // Call Apps Script to activate the record in Google Sheets
+  const activateUrl = `${APPS_SCRIPT_VIP_URL}?action=activate&telefono=${encodeURIComponent(phone)}`;
+
+  try {
+    const res = await fetch(activateUrl);
+    const data = await res.json();
+
+    if (data.success && data.pin) {
+      const realPin = data.pin;
+      const expDate = data.fechaVencimiento || "";
+
+      // Authorize session for Bazar VIP
+      sessionStorage.setItem("chai_vip_auth", "true");
+      sessionStorage.setItem("chai_vip_phone", phone);
+      sessionStorage.setItem("chai_vip_expiry", expDate);
+      localStorage.setItem("chaiitto_vip_pin", realPin);
+
+      // Display assigned 911 PIN on screen
+      if (pinDisplay) pinDisplay.textContent = realPin;
+
+      // Prepare WhatsApp backup message
+      if (waLink) {
+        const msg = `Hola! Soy ${name}. Mi WhatsApp es ${phone} y mi PIN VIP de Chai-itto es ${realPin}.`;
+        waLink.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
+      }
+
+      if (step2) step2.style.display = "none";
+      if (step3) step3.style.display = "block";
+    } else {
+      alert(data.message || "No se pudo activar la membresía.");
+    }
+  } catch (err) {
+    console.error("Error activating membership:", err);
+    alert("Error de comunicación con Google Sheets.");
+  }
+}
+
+function goToBazarVip(e) {
+  if (e) e.preventDefault();
+  closeVipModal();
+
+  // Navigate to #bazar route
+  window.location.hash = "bazar";
+
+  // Trigger catalog render if the function exists
+  if (typeof loadBazarGrid === "function") {
+    loadBazarGrid();
+  }
 }
 
 
