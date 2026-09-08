@@ -1014,20 +1014,35 @@ function handleVipRegister(e) {
 
   const url = `${APPS_SCRIPT_VIP_URL}?action=register&nombre=${encodeURIComponent(nombre)}&telefono=${encodeURIComponent(tel)}&cumpleanos=${encodeURIComponent(cumple)}`;
 
-  fetch(url, { mode: "no-cors" })
-    .then(() => {
-      document.getElementById("vip-modal-step1").style.display = "none";
-      document.getElementById("vip-modal-step2").style.display = "block";
-      btn.disabled = false;
-      btn.innerHTML = 'Continuar al Pago ($199) <i class="fa-solid fa-arrow-right"></i>';
-    })
-    .catch(() => {
-      document.getElementById("vip-modal-step1").style.display = "none";
-      document.getElementById("vip-modal-step2").style.display = "block";
-      btn.disabled = false;
-      btn.innerHTML = 'Continuar al Pago ($199) <i class="fa-solid fa-arrow-right"></i>';
-    });
-}
+  fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        btn.disabled = false;
+        btn.innerHTML = 'Continuar al Pago ($199) <i class="fa-solid fa-arrow-right"></i>';
+
+        // Detener si ya cuenta con membresía activa
+        if (data.alreadyActive) {
+          errBox.style.display = "block";
+          errBox.innerHTML = `⚠️ <strong>${data.message}</strong><br><a href="#bazar" onclick="closeVipModal()" style="color: #2D5A27; font-weight: bold; text-decoration: underline; display: inline-block; margin-top: 6px;">Acceder directo al Bazar VIP aquí &rarr;</a>`;
+          return;
+        }
+
+        if (!data.success) {
+          errBox.style.display = "block";
+          errBox.textContent = data.message || "Error al procesar el registro.";
+          return;
+        }
+
+        // Solo pasa al paso 2 si es registro nuevo
+        document.getElementById("vip-modal-step1").style.display = "none";
+        document.getElementById("vip-modal-step2").style.display = "block";
+      })
+      .catch(() => {
+        btn.disabled = false;
+        btn.innerHTML = 'Continuar al Pago ($199) <i class="fa-solid fa-arrow-right"></i>';
+        errBox.style.display = "block";
+        errBox.textContent = "Error al conectar con el servidor. Intenta de nuevo.";
+      });
 
 async function simulateVipPayment() {
   const step2 = document.getElementById("vip-modal-step2");
