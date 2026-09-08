@@ -1017,4 +1017,28 @@ function handleVipRegister(e) {
     });
 }
 
+function simulateVipPayment() {
+  const step2 = document.getElementById("vip-modal-step2");
+  const step3 = document.getElementById("vip-modal-step3");
+  const pinDisplay = document.getElementById("vip-display-pin");
+  const waLink = document.getElementById("vip-btn-whatsapp-save");
+
+  // Read saved name & phone from step 1
+  const phone = localStorage.getItem("chaiitto_vip_phone") || "";
+  const name = localStorage.getItem("chaiitto_vip_name") || "Socio VIP";
+
+  // Use a generated 4-digit test PIN
+  const testPin = Math.floor(1000 + Math.random() * 9000);
+
+  if (pinDisplay) pinDisplay.textContent = testPin;
+
+  if (waLink) {
+    const msg = `Hola! Soy ${name}. Mi PIN VIP de Chai-itto es ${testPin}.`;
+    waLink.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
+  }
+
+  if (step2) step2.style.display = "none";
+  if (step3) step3.style.display = "block";
+}
+
 
