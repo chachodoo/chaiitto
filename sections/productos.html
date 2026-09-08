@@ -246,7 +246,7 @@
     <h3 class="collections-title">Colecciones</h3>
     
     <div class="collections-wrapper">
-      <div class="collections-pills-track" id="pillsTrack">
+      <div class="collections-pills-track" id="pillsTrack" onscroll="const arrow = document.getElementById('collectionsScrollArrow'); if (arrow) { const atEnd = this.scrollLeft + this.clientWidth >= this.scrollWidth - 10; arrow.style.opacity = atEnd ? '0' : '1'; arrow.style.pointerEvents = atEnd ? 'none' : 'auto'; }">
         <button class="tab-btn active" onclick="switchPage('productos'); setTimeout(() => selectCollection('BIENESTAR'), 100);">
           <span>Bienestar</span>
         </button>
@@ -269,11 +269,11 @@
           <span>Wow</span>
         </button>
       </div>
-
       <!-- Functional Tap-to-Scroll Arrow -->
-      <button type="button" class="mobile-scroll-arrow" aria-label="Ver más colecciones" onclick="document.getElementById('pillsTrack').scrollBy({left: 160, behavior: 'smooth'})">
+      <button type="button" id="collectionsScrollArrow" class="mobile-scroll-arrow" style="transition: opacity 0.25s ease;" aria-label="Ver más colecciones" onclick="document.getElementById('pillsTrack').scrollBy({left: 160, behavior: 'smooth'})">
         <i class="fa-solid fa-chevron-right"></i>
       </button>
+    </div>
     </div>
   </aside>
 
