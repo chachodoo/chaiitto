@@ -96,3 +96,83 @@
     display: none !important;
   }
 }
+
+@media (max-width: 991px) {
+  /* Relative wrapper anchors the arrow */
+  .collections-wrapper {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    margin-top: 8px !important;
+  }
+
+  /* Swiping track for both inicio and productos */
+  .collections-pills-track,
+  .collections-scroll-container {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    box-sizing: border-box !important;
+    gap: 8px !important;
+    padding: 4px 44px 10px 0 !important; /* 44px buffer stops pills before the arrow */
+    margin: 0 !important;
+  }
+  .collections-pills-track::-webkit-scrollbar,
+  .collections-scroll-container::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  /* Fat stadium pills */
+  .collections-pills-track .tab-btn,
+  .collections-scroll-container .tab-btn {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    white-space: nowrap !important;
+    padding: 10px 14px !important;
+    font-size: 0.82rem !important;
+    font-weight: 800 !important;
+    border-radius: 9999px !important;
+    line-height: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25) !important;
+  }
+  .collections-pills-track .tab-btn i,
+  .collections-scroll-container .tab-btn i,
+  .collections-pills-track .tab-btn svg,
+  .collections-scroll-container .tab-btn svg {
+    display: none !important;
+  }
+
+  /* Circular floating gold button */
+  .mobile-scroll-arrow,
+  .scroll-cue-arrow {
+    position: absolute !important;
+    right: 0 !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    background: var(--gold-accent, #c5a059) !important;
+    color: #121a12 !important;
+    border: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: -3px 0 8px rgba(0, 0, 0, 0.4) !important;
+    cursor: pointer !important;
+    z-index: 30 !important;
+    font-size: 0.82rem !important;
+    padding: 0 !important;
+  }
+}
