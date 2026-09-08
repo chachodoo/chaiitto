@@ -101,64 +101,84 @@
       padding-bottom: 5px !important;
     }
 
+    /* 1. Relative wrapper anchors the arrow button strictly inside this bar */
     .collections-wrapper {
+      position: relative !important;
+      display: block !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
       margin-top: 8px !important;
     }
 
-    /* 3. Horizontal Scroll Container */
+    /* 2. Swiping Track: 44px right padding stops pills before reaching the arrow */
     .collections-scroll-container {
       display: flex !important;
       flex-direction: row !important;
       flex-wrap: nowrap !important;
-      gap: 6px !important;
       width: 100% !important;
+      max-width: 100% !important;
       overflow-x: auto !important;
-      padding: 4px 10px !important;      scrollbar-width: none !important;
-      -ms-overflow-style: none !important;
+      overflow-y: hidden !important;
       -webkit-overflow-scrolling: touch !important;
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+      box-sizing: border-box !important;
+      gap: 8px !important;
+      padding: 4px 44px 10px 0 !important;
+      margin: 0 !important;
     }
     .collections-scroll-container::-webkit-scrollbar {
       display: none !important;
     }
 
-    /* 4. Compact Pills (Fit ~4 Across Screen) */
+    /* 3. Plump Pill Buttons (1:1 with productos.html) */
     .collections-scroll-container .tab-btn {
       flex: 0 0 auto !important;
       width: auto !important;
+      white-space: nowrap !important;
+      padding: 10px 14px !important;
+      font-size: 0.82rem !important;
+      font-weight: 800 !important;
+      border-radius: 9999px !important;
+      line-height: 1 !important;
       display: inline-flex !important;
       align-items: center !important;
-      gap: 5px !important;
-      padding: 6px 11px !important;
-      font-size: 0.75rem !important; /* 12px clean text */
-      font-weight: 600 !important;
-      border-radius: 20px !important;
-      white-space: nowrap !important;
+      justify-content: center !important;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25) !important;
     }
     .collections-scroll-container .tab-btn span {
       display: inline-flex !important;
       align-items: center !important;
       gap: 5px !important;
     }
-    /* Hide all icons on mobile (text only) */
     .collections-scroll-container .tab-btn i,
     .collections-scroll-container .tab-btn svg {
       display: none !important;
     }
 
-    .scroll-cue-arrow {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    position: absolute !important;
-    right: 0 !important;
-    top: 0 !important;
-    bottom: 0 !important;
-    width: 22px !important;
-    background: transparent !important; /* No muddy dark box */
-    color: var(--gold-accent, #C59B27) !important;
-    font-size: 0.85rem !important;
-    pointer-events: none !important;
-  }
+    /* 4. Circular Gold Arrow (1:1 with productos.html) */
+    .scroll-cue-arrow,
+    .mobile-scroll-arrow {
+      position: absolute !important;
+      right: 0 !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      width: 32px !important;
+      height: 32px !important;
+      border-radius: 50% !important;
+      background: var(--gold-accent, #c5a059) !important;
+      color: #121a12 !important;
+      border: none !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      box-shadow: -3px 0 8px rgba(0, 0, 0, 0.4) !important;
+      cursor: pointer !important;
+      z-index: 30 !important;
+      font-size: 0.82rem !important;
+      padding: 0 !important;
+    }
 
     /* 6. Main Content Follows Immediately */
     .product-teaser-section { order: 3; width: 100%; margin-top: 0 !important; }
