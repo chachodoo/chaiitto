@@ -10,19 +10,19 @@
     margin-top: 10px;
   }
 
-  /* 1. Sidebar Container: 195px keeps all labels on a single line */
+  /* 1. Sidebar Container: 148px + forbidden horizontal scroll */
   .sidebar-menu {
-    flex: 0 0 140px;
-    width: 140px;
+    flex: 0 0 148px;
+    width: 148px;
     position: sticky;
     top: 20px;
     display: flex;
     flex-direction: column;
     max-height: calc(100vh - 40px);
     overflow-y: auto;
+    overflow-x: hidden !important; /* Kills the horizontal scrollbar artifact completely */
     padding-right: 4px;
   }
-
   .sidebar-menu::-webkit-scrollbar {
     width: 5px;
   }
@@ -31,11 +31,11 @@
     border-radius: 10px;
   }
 
-  /* 2. Collections Header */
+  /* 2. Collections Header: Relaxed letter-spacing fits cleanly */
   .collections-title {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 800;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     color: var(--matcha-deep, #2D5A27);
     text-transform: uppercase;
     margin: 0 !important;
@@ -43,6 +43,7 @@
     border-bottom: 1.5px solid var(--gold-border, rgba(212, 175, 55, 0.35));
     display: block;
     width: 100%;
+    white-space: nowrap;
     scroll-margin-top: 80px;
   }
 
