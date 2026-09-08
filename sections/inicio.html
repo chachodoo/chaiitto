@@ -65,7 +65,7 @@
   /* ==========================================
      MOBILE & TABLET OVERRIDES
      ========================================== */
-  @media (max-width: 992px) {
+  @media (max-width: 991px) {
     .dashboard-layout { display: flex; flex-direction: column; }
     .dashboard-content { display: contents; } 
     .story-card { order: 1; width: 100%; }
@@ -123,8 +123,7 @@
     <h3 class="collections-title">COLECCIONES</h3>
     <!-- Scrollable Pills Wrapper -->
     <div class="collections-wrapper">
-      <div class="collections-scroll-container" id="collections-slider">
-        <button class="tab-btn" onclick="jumpToMenuCollection(1)" style="justify-content: space-between;">
+          <div class="collections-scroll-container" id="collections-slider" onscroll="const arrow = document.getElementById('inicioScrollArrow'); if (arrow) { const atEnd = this.scrollLeft + this.clientWidth >= this.scrollWidth - 10; arrow.style.opacity = atEnd ? '0' : '1'; arrow.style.pointerEvents = atEnd ? 'none' : 'auto'; }">        <button class="tab-btn" onclick="jumpToMenuCollection(1)" style="justify-content: space-between;">
           <span><i class="fa-solid fa-leaf" style="color: var(--matcha-deep);"></i> Bienestar</span>
           <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
         </button>
@@ -181,7 +180,7 @@
       </div>
 
       <!-- Functional Tap-to-Scroll Arrow -->
-<button type="button" class="scroll-cue-arrow mobile-scroll-arrow" aria-label="Ver más colecciones" onclick="document.getElementById('collections-slider').scrollBy({left: 160, behavior: 'smooth'})">
+<button type="button" id="inicioScrollArrow" class="scroll-cue-arrow mobile-scroll-arrow" style="transition: opacity 0.25s ease;" aria-label="Ver más colecciones" onclick="document.getElementById('collections-slider').scrollBy({left: 160, behavior: 'smooth'})">
   <i class="fa-solid fa-chevron-right"></i>
 </button>
     </div>
