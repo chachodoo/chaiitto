@@ -209,7 +209,7 @@
     border-top: 1.5px solid #D4AF37;
     border-bottom: 1.5px solid #D4AF37;
     padding: 8px 0;
-    margin-top: 10px;
+    margin-top: 0;
     position: relative;
     white-space: nowrap;
     display: flex;
@@ -349,16 +349,23 @@
         /* --- HEADER & NAVIGATION --- */
         header {
             position: sticky; top: 0; z-index: 1000; display: flex; flex-direction: column; align-items: center;
-            padding: 15px 40px 10px 40px; background: rgba(244, 248, 243, 0.92);
+            padding: 0 0 12px 0;            
+            background: rgba(244, 248, 243, 0.92);
             backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05); border-bottom: 1px solid rgba(212, 175, 55, 0.3);
             transition: all 0.3s ease;
         }
 
         .header-square-layout {
-            display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
-            width: 100%; max-width: 900px; margin: 0 auto; text-align: center;
-        }
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 14px;
+}
         
         .logo-wrapper { grid-column: 2; display: flex; justify-content: center; }
         .logo-main { height: 85px; width: auto; cursor: pointer; filter: drop-shadow(0 4px 12px rgba(45, 90, 39, 0.15)); transition: transform 0.4s ease; }
@@ -621,38 +628,7 @@
     </button>
 
     <header id="main-master-header">
-        <!-- Logo Wrapper (Toggled by JS) -->
-        <div class="header-square-layout" id="header-logo-container">
-            <div class="logo-wrapper">
-                <img src="logo.png" alt="Logo Chai-itto" class="logo-main" onclick="switchPage('inicio')">
-            </div>
-        </div>
-
-        <nav class="main-nav" id="main-nav-menu">
-            <button class="nav-btn" data-page="inicio" onclick="window.location.hash='inicio'; if(typeof loadSection==='function'){loadSection('inicio');}else if(typeof switchPage==='function'){switchPage('inicio');}">Inicio</button>            
-            <button class="nav-btn" data-page="productos" onclick="window.location.hash='productos';">Tienda</button>
-            <button class="nav-btn" data-page="accesorios" onclick="window.location.hash='accesorios';">Accesorios</button>
-            <button class="nav-btn" data-page="galeria" onclick="window.location.hash='galeria';">Galería</button>
-            <button class="nav-btn nav-vip" data-page="vip" onclick="window.location.hash='vip';">
-                CLUB VIP <span class="nav-vip-badge"><i class="fa-solid fa-crown"></i></span>
-            </button>
-            <button class="nav-btn" data-page="bazar" onclick="window.location.hash='bazar';">
-                <i class="fa-solid fa-lock" style="color: var(--gold-accent); margin-right: 4px;"></i> Bazar VIP
-            </button>
-            
-        </nav>
-    </header>
-
-    <!-- 1. THE NEW MASTER HERO BANNER (Top of the screen, controlled by JS) -->
-    <div id="master-hero-banner">
-        <h1 style="font-size: clamp(1.35rem, 5.5vw, 2.1rem) !important; line-height: 1.15 !important; white-space: normal !important; max-width: 78% !important; margin: 0 auto 10px auto !important; text-align: center !important;">
-          El Té Verdadero<br>Ha Llegado
-        </h1>
-        
-            Dejamos atrás las bolsitas comerciales. Bienvenido a la auténtica cultura del Té de hoja suelta en México.
-        </p>
-      
-       <!-- Enterprise Marquee Ribbon -->
+        <!-- Enterprise Marquee Ribbon -->
 <div class="hero-marquee-wrapper" title="Desliza para pausar">
   <div class="hero-marquee-content">
     <span class="marquee-item"><i class="fa-solid fa-mug-hot"></i> 120+ Mezclas Artesanales</span>
@@ -683,6 +659,37 @@
     <span class="marquee-dot">✦</span>
   </div>
 </div>
+        <!-- Logo Wrapper (Toggled by JS) -->
+        <div class="header-square-layout" id="header-logo-container">
+            <div class="logo-wrapper">
+                <img src="logo.png" alt="Logo Chai-itto" class="logo-main" onclick="switchPage('inicio')">
+            </div>
+        </div>
+
+        <nav class="main-nav" id="main-nav-menu">
+            <button class="nav-btn" data-page="inicio" onclick="window.location.hash='inicio'; if(typeof loadSection==='function'){loadSection('inicio');}else if(typeof switchPage==='function'){switchPage('inicio');}">Inicio</button>            
+            <button class="nav-btn" data-page="productos" onclick="window.location.hash='productos';">Tienda</button>
+            <button class="nav-btn" data-page="accesorios" onclick="window.location.hash='accesorios';">Accesorios</button>
+            <button class="nav-btn" data-page="galeria" onclick="window.location.hash='galeria';">Galería</button>
+            <button class="nav-btn nav-vip" data-page="vip" onclick="window.location.hash='vip';">
+                CLUB VIP <span class="nav-vip-badge"><i class="fa-solid fa-crown"></i></span>
+            </button>
+            <button class="nav-btn" data-page="bazar" onclick="window.location.hash='bazar';">
+                <i class="fa-solid fa-lock" style="color: var(--gold-accent); margin-right: 4px;"></i> Bazar VIP
+            </button>
+            
+        </nav>
+    </header>
+
+    <!-- 1. THE NEW MASTER HERO BANNER (Top of the screen, controlled by JS) -->
+    <div id="master-hero-banner">
+        <h1 style="font-size: clamp(1.35rem, 5.5vw, 2.1rem) !important; line-height: 1.15 !important; white-space: normal !important; max-width: 78% !important; margin: 0 auto 10px auto !important; text-align: center !important;">
+          El Té Verdadero<br>Ha Llegado
+        </h1>
+            Dejamos atrás las bolsitas comerciales. Bienvenido a la auténtica cultura del Té de hoja suelta en México.
+        </p>
+      
+       
     </div>
 
     <!-- 2. THE MAIN NAVIGATION HEADER -->
