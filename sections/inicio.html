@@ -107,18 +107,20 @@
   <!-- ==========================================
        SIDEBAR / COLLECTIONS SECTION
        ========================================== -->
-  <aside class="sidebar-menu">
-
+<aside class="sidebar-menu" style="gap: 0 !important;">
     <!-- 120px Clearance Anchor to clear the floating hamburger -->
     <div id="colecciones-anchor" class="collections-scroll-anchor"></div>
 
-<!-- Master Menu Button -->
-<button type="button" onclick="switchPage('menu')" style="width: 100%; height: 42px; background: #2D5A27; color: #FFFFFF; border: 1.5px solid #D4AF37; border-radius: 9999px; font-family: var(--font-heading, 'Cinzel', serif); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.15); margin: 15px 0 6px 0; padding: 0 8px; white-space: nowrap;">
-  <i class="fa-solid fa-book-open" style="font-size: 0.85em; color: #D4AF37;"></i>
+    <!-- Master Menu Button -->
+    <!-- Master Menu Button (White Pill, Gold Border) -->
+<button type="button" onclick="switchPage('menu')" 
+  onmouseenter="this.style.background='#2D5A27'; this.style.color='#FFFFFF'; this.querySelector('i').style.color='#FFFFFF';" 
+  onmouseleave="this.style.background='#FFFFFF'; this.style.color='#2D5A27'; this.querySelector('i').style.color='#2D5A27';" 
+  style="width: 100%; height: 44px; background: #FFFFFF; color: #2D5A27; border: 1.5px solid #D4AF37; border-radius: 9999px; font-family: var(--font-heading, 'Cinzel', serif); font-size: 0.74rem; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; box-shadow: 0 3px 8px rgba(0,0,0,0.06); margin: 15px 0 4px 0; padding: 0 8px; white-space: nowrap; transition: all 0.2s ease;">
+  <i class="fa-solid fa-book-open" style="font-size: 0.85em; color: #2D5A27; transition: color 0.2s ease;"></i>
   <span>Ver Menú</span>
-</button>
-<div style="width: 100%; height: 1px; background: rgba(212, 175, 55, 0.4); margin: 0 0 8px 0;"></div>    <!-- Scrollable Pills Wrapper -->
-    <div class="collections-wrapper">
+</button>   
+  <div class="collections-wrapper">
           <div class="collections-scroll-container" id="collections-slider" onscroll="const arrow = document.getElementById('inicioScrollArrow'); if (arrow) { const atEnd = this.scrollLeft + this.clientWidth >= this.scrollWidth - 10; arrow.style.opacity = atEnd ? '0' : '1'; arrow.style.pointerEvents = atEnd ? 'none' : 'auto'; }">        <button class="tab-btn" onclick="jumpToMenuCollection(1)" style="justify-content: space-between;">
           <span><i class="fa-solid fa-leaf" style="color: var(--matcha-deep);"></i> Bienestar</span>
           <i class="fa-solid fa-chevron-right" style="font-size: 0.7em; color: #ccc;"></i>
