@@ -585,11 +585,25 @@
             text-align: center;
         }
  
-        @media (max-width: 991px) {
-            body.page-inicio #main-master-header {
-            display: none !important;
-            }
-        }
+@media (max-width: 991px) {
+    /* Flattens the header on mobile Inicio to zero space without killing the menu */
+    body.page-inicio #main-master-header {
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        min-height: 0 !important;
+        height: 0 !important;
+        pointer-events: none;
+    }
+    body.page-inicio #header-logo-container {
+        display: none !important;
+    }
+    body.page-inicio #main-nav-menu {
+        pointer-events: auto !important;
+    }
+}
         
     </style>
 </head>
