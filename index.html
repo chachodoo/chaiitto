@@ -337,7 +337,7 @@
         }
         #floating-whatsapp-btn:hover { transform: scale(1.1) translateY(-2px); box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5); }
 
-        @media (max-width: 768px) {
+        @media (max-width: 991px) {
             #floating-cart-btn { top: auto !important; bottom: 22px !important; right: 20px !important; width: 56px !important; height: 56px !important; }
             #floating-whatsapp-btn { top: auto !important; bottom: 22px !important; left: 20px !important; width: 56px !important; height: 56px !important; }
         }
@@ -584,10 +584,16 @@
             min-height: 38px !important;
             text-align: center;
         }
+ 
+        @media (max-width: 991px) {
+            body.page-inicio #main-master-header {
+            display: none !important;
+            }
+        }
         
     </style>
 </head>
-<body>
+<body class="page-inicio">
     
 
     <a id="floating-whatsapp-btn" href="https://wa.me/522218415466" target="_blank" aria-label="Chat en WhatsApp">
@@ -809,9 +815,11 @@
         if (pageName === 'inicio') {
             if (topHero) topHero.style.display = 'flex';
             if (smallLogo) smallLogo.style.display = 'none';
+            document.body.classList.add('page-inicio');
         } else {
             if (topHero) topHero.style.display = 'none';
             if (smallLogo) smallLogo.style.display = 'flex';
+            document.body.classList.remove('page-inicio');
         }
     };
 
