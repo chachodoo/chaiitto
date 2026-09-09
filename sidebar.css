@@ -107,8 +107,7 @@
   color: var(--matcha-deep, #2D5A27) !important;
   margin: 0 0 4px 0 !important;
   padding-bottom: 3px !important;
-  border-bottom: 3px solid #FF0000 !important;
-}
+  border-bottom: 1.5px solid #C5A059 !important;}
    
   /* Relative wrapper anchors the arrow */
   .collections-wrapper {
