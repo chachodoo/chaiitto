@@ -98,17 +98,17 @@
 /*  MOBILE SETUP max 991px  */
 @media (max-width: 991px) {
   .collections-title {
-    display: block !important;
-    width: 100% !important;
-    font-size: 0.82rem !important;
-    font-weight: 800 !important;
-    letter-spacing: 1px !important;
-    text-transform: uppercase !important;
-    color: var(--matcha-deep, #2D5A27) !important;
-    margin: 0 0 4px 0 !important;
-    padding-bottom: 3px !important;
-    border-bottom: 1.5px solid var(--gold-border, rgba(197, 160, 89, 0.3)) !important;
-  }
+  display: block !important;
+  width: 100% !important;
+  font-size: 0.82rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  color: #FF0000 !important;
+  margin: 0 0 4px 0 !important;
+  padding-bottom: 3px !important;
+  border-bottom: 3px solid #FF0000 !important;
+}
    
   /* Relative wrapper anchors the arrow */
   .collections-wrapper {
