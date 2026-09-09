@@ -157,19 +157,16 @@
             .sidebar-promo { display: none; }
         }
 
-/* ============================================================
-   ENTERPRISE HERO & COMPACT CONTROLS (ZERO DEAD SPACE)
-   ============================================================ */
 #master-hero-banner {
     width: 100%;
     background: transparent;
-    padding: 6px 0 0 0 !important;
+    padding: 24px 0 0 0 !important;
     text-align: center;
     color: #0E2610;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px !important;
+    gap: 8px !important;
 }
 
 #master-hero-banner .logo-main {
@@ -648,8 +645,6 @@
 
     <!-- 1. THE NEW MASTER HERO BANNER (Top of the screen, controlled by JS) -->
     <div id="master-hero-banner">
-        <img src="logo.png" alt="Logo Chai-itto" class="logo-main" onclick="window.location.hash='inicio';">        <p style="font-family: var(--font-body); font-size: clamp(1em, 2vw, 1.15em); font-weight: 300; margin: 0; max-width: 700px; letter-spacing: 1px; line-height: 1.5;">
-
         <h1 style="font-size: clamp(1.35rem, 5.5vw, 2.1rem) !important; line-height: 1.15 !important; white-space: normal !important; max-width: 78% !important; margin: 0 auto 10px auto !important; text-align: center !important;">
           El Té Verdadero<br>Ha Llegado
         </h1>
@@ -828,13 +823,11 @@
         const smallLogo = document.querySelector('.logo-wrapper');
 
         if (pageName === 'inicio') {
-            if (topHero) topHero.style.display = 'flex';
-            if (smallLogo) smallLogo.style.display = 'none';
-            document.body.classList.add('page-inicio');
+        if (topHero) topHero.style.display = 'flex';
+        document.body.classList.add('page-inicio');
         } else {
-            if (topHero) topHero.style.display = 'none';
-            if (smallLogo) smallLogo.style.display = 'flex';
-            document.body.classList.remove('page-inicio');
+        if (topHero) topHero.style.display = 'none';
+        document.body.classList.remove('page-inicio');
         }
     };
 
