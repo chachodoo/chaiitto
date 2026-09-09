@@ -163,7 +163,7 @@
 #master-hero-banner {
     width: 100%;
     background: transparent;
-    padding: 6px 16px 8px !important;
+    padding: 6px 0 0 0 !important;
     text-align: center;
     color: #0E2610;
     display: flex;
@@ -204,22 +204,56 @@
     padding: 0 !important;
 }
 
-/* Compact Frosted Trust Ribbon */
-.trust-bar-hero {
-    display: inline-flex;
-    justify-content: center;
+/* Enterprise Edge-to-Edge Infinite Marquee Ribbon */
+.hero-marquee-wrapper {
+    width: 100%;
+    overflow: hidden;
+    background: #2D5A27;
+    border-top: 1.5px solid #D4AF37;
+    border-bottom: 1.5px solid #D4AF37;
+    padding: 8px 0;
+    margin-top: 10px;
+    position: relative;
+    white-space: nowrap;
+    display: flex;
+    user-select: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+.hero-marquee-content {
+    display: flex;
+    flex-shrink: 0;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 12px 20px;
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    padding: 5px 18px !important;
-    border-radius: 50px;
-    border: 1px solid rgba(255, 255, 255, 0.85);
-    box-shadow: 0 4px 14px -2px rgba(14, 38, 16, 0.1),
-                inset 0 1px 1px rgba(255, 255, 255, 0.9);
-    margin: 3px 0 !important;
+    justify-content: space-around;
+    min-width: 100%;
+    animation: enterpriseMarquee 30s linear infinite;
+}
+.hero-marquee-wrapper:hover .hero-marquee-content,
+.hero-marquee-wrapper:active .hero-marquee-content {
+    animation-play-state: paused;
+}
+.marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #FFFFFF;
+    font-family: var(--font-body, 'Montserrat', sans-serif);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    padding: 0 16px;
+}
+.marquee-item i {
+    color: #F5D061;
+    font-size: 1em;
+}
+.marquee-dot {
+    color: #D4AF37;
+    font-size: 0.7em;
+}
+@keyframes enterpriseMarquee {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-100%, 0, 0); }
 }
 
 .trust-item {
@@ -574,17 +608,37 @@
             Dejamos atrás las bolsitas comerciales. Bienvenido a la auténtica cultura del Té de hoja suelta en México.
         </p>
       
-        <div class="trust-bar-hero" style="border: 1.5px solid rgba(28, 51, 23, 0.25); background: rgba(255, 255, 255, 0.4);">
-          <div style="color: #1C3317; font-weight: 700; font-size: 0.95em; display: flex; align-items: center; gap: 8px;">
-              <i class="fa-solid fa-mug-hot" style="color: #1C3317; font-size: 1.3em;"></i> 120+ Mezclas de Té
-          </div>
-          <div style="color: #1C3317; font-weight: 700; font-size: 0.95em; display: flex; align-items: center; gap: 8px;">
-            <i class="fa-solid fa-leaf" style="color: #1C3317; font-size: 1.3em;"></i> 100% Hoja Suelta
-         </div>
-         <div style="color: #1C3317; font-weight: 700; font-size: 0.95em; display: flex; align-items: center; gap: 8px;">
-            <i class="fa-solid fa-award" style="color: #1C3317; font-size: 1.3em;"></i> 5 Años (2021-2026)
-         </div>
-      </div>
+       <!-- Enterprise Marquee Ribbon -->
+<div class="hero-marquee-wrapper" title="Desliza para pausar">
+  <div class="hero-marquee-content">
+    <span class="marquee-item"><i class="fa-solid fa-mug-hot"></i> 120+ Mezclas Artesanales</span>
+    <span class="marquee-dot">✦</span>
+    <span class="marquee-item"><i class="fa-solid fa-leaf"></i> 100% Hoja Suelta</span>
+    <span class="marquee-dot">✦</span>
+    <span class="marquee-item"><i class="fa-solid fa-truck-fast"></i> Envíos a Todo México</span>
+    <span class="marquee-dot">✦</span>
+    <span class="marquee-item"><i class="fa-solid fa-award"></i> 5 Años de Calidad (2021-2026)</span>
+    <span class="marquee-dot">✦</span>
+    <span class="marquee-item"><i class="fa-solid fa-shield-halved"></i> Compra Segura SSL</span>
+    <span class="marquee-dot">✦</span>
+    <span class="marquee-item"><i class="fa-solid fa-location-dot"></i> San Pedro Cholula, Pue.</span>
+    <span class="marquee-dot">✦</span>
+  </div>
+  <div class="hero-marquee-content" aria-hidden="true">
+    <span class="marquee-item"><i class="fa-solid fa-mug-hot"></i> 120+ Mezclas Artesanales</span>
+    <span class="marquee-dot">✦</span>
+    <span class="marquee-item"><i class="fa-solid fa-leaf"></i> 100% Hoja Suelta</span>
+    <span class="marquee-dot">✦</span>
+    <span class="marquee-item"><i class="fa-solid fa-truck-fast"></i> Envíos a Todo México</span>
+    <span class="marquee-dot">✦</span>
+    <span class="marquee-item"><i class="fa-solid fa-award"></i> 5 Años de Calidad (2021-2026)</span>
+    <span class="marquee-dot">✦</span>
+    <span class="marquee-item"><i class="fa-solid fa-shield-halved"></i> Compra Segura SSL</span>
+    <span class="marquee-dot">✦</span>
+    <span class="marquee-item"><i class="fa-solid fa-location-dot"></i> San Pedro Cholula, Pue.</span>
+    <span class="marquee-dot">✦</span>
+  </div>
+</div>
     </div>
 
     <!-- 2. THE MAIN NAVIGATION HEADER -->
