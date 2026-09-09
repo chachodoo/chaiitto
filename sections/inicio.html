@@ -66,40 +66,54 @@
      MOBILE & TABLET OVERRIDES
      ========================================== */
   @media (max-width: 991px) {
-    .dashboard-layout { display: flex; flex-direction: column; }
-    .dashboard-content { display: contents; } 
-    .story-card { order: 1; width: 100%; }
+    .dashboard-layout { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 0 !important; 
+    }
+    .dashboard-content { 
+      display: contents; 
+    } 
+    .story-card { 
+      order: 1; 
+      width: 100%; 
+      margin-bottom: 8px !important; 
+    }
     /* Mobile Offset: pins the scroll target exactly 120px above the sidebar */
     .collections-scroll-anchor {
-  display: block !important;
-  position: absolute !important;
-  top: -120px !important;
-  left: 0 !important;
-  width: 1px !important;
-  height: 1px !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
+      display: block !important;
+      position: absolute !important;
+      top: -120px !important;
+      left: 0 !important;
+      width: 1px !important;
+      height: 1px !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
     
     /* 1. Sidebar Container Reset */
     .sidebar-menu { 
       order: 2 !important; 
       flex: none !important; 
       width: 100% !important; 
-      position: relative !important; /* Changed from static to relative */
+      position: relative !important;
       max-height: none !important; 
       height: auto !important; 
       overflow: visible !important; 
-      margin: 10px 0 16px 0 !important; 
+      margin: 0 0 12px 0 !important; 
       padding: 0 !important;
       display: block !important;
+    }
+    /* Pulls VER MENÚ tight beneath Nuestra Historia on mobile */
+    .sidebar-menu > button {
+      margin-top: 0 !important;
     }
     /* 6. Main Content Follows Immediately */
     .product-teaser-section { order: 3; width: 100%; margin-top: 0 !important; }
     #home-reviews-section { order: 4; width: 100%; }
     #home-branch-section { order: 5; width: 100%; }
     .strict-3-grid { grid-template-columns: repeat(2, 1fr) !important; }
-  }
+}
 </style>
 
 <div class="dashboard-layout">
