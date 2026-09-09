@@ -227,7 +227,14 @@
     min-width: 100%;
     animation: enterpriseMarquee 30s linear infinite;
 }
-.hero-marquee-wrapper:hover .hero-marquee-content,
+/* Desktop: Pauses only when hovered with an actual mouse */
+@media (hover: hover) and (pointer: fine) {
+    .hero-marquee-wrapper:hover .hero-marquee-content {
+        animation-play-state: paused;
+    }
+}
+
+/* Mobile: Pauses ONLY while your finger is physically held down, resumes the split second you lift it */
 .hero-marquee-wrapper:active .hero-marquee-content {
     animation-play-state: paused;
 }
