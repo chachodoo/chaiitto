@@ -97,7 +97,22 @@
   }
 }
 
+/*  MOBILE SETUP max 991px  */
 @media (max-width: 991px) {
+   /* Mobile Title: Matcha Deep Green */
+  .collections-title {
+    display: block !important;
+    width: 100% !important;
+    font-size: 0.82rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+    color: var(--matcha-deep, #2D5A27) !important;
+    margin: 0 0 8px 0 !important;
+    padding-bottom: 4px !important;
+    border-bottom: 1.5px solid var(--gold-border, rgba(197, 160, 89, 0.3)) !important;
+  }
+   
   /* Relative wrapper anchors the arrow */
   .collections-wrapper {
     position: relative !important;
