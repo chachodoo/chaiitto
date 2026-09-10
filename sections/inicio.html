@@ -115,118 +115,55 @@
 
 <div class="dashboard-layout" style="display: block !important;">
 
-        <!-- GLIDER DE COLECCIONES PREMIUM (ALWAYS VISIBLE) -->
-    <div style="width: 100%; margin: 15px auto 35px auto; text-align: center; position: relative; max-width: 950px;">
-        
-        <!-- Flecha Izquierda (Desktop) -->
-        <button onclick="document.getElementById('inicio-glider-track').scrollBy({left: -250, behavior: 'smooth'})" class="glider-arrow" style="left: -20px;" aria-label="Deslizar izquierda">
-            <i class="fa-solid fa-chevron-left"></i>
-        </button>
+        <!-- COLECCIONES TRACK (Exact Match to Productos) -->
+    <div style="width: 100%; max-width: 950px; margin: 15px auto 25px auto;">
+        <div class="collections-wrapper">
+            <div class="collections-pills-track" id="inicioPillsTrack">
+                <button class="tab-btn" onclick="jumpToMenuCollection(1)"><span>Menú Completo</span></button>
+                <button class="tab-btn" onclick="jumpToMenuCollection(1)"><span>Bienestar</span></button>
+                <button class="tab-btn" onclick="jumpToMenuCollection(2)"><span>Chai Lover</span></button>
+                <button class="tab-btn" onclick="jumpToMenuCollection(3)"><span>Blue Magic</span></button>
+                <button class="tab-btn" onclick="jumpToMenuCollection(4)"><span>Viajes con Té</span></button>
+                <button class="tab-btn" onclick="jumpToMenuCollection(5)"><span>Nocturna</span></button>
+                <button class="tab-btn" onclick="jumpToMenuCollection(6)"><span>Especial</span></button>
+                <button class="tab-btn" onclick="jumpToMenuCollection(9)"><span>Wow</span></button>
+                <button class="tab-btn" onclick="jumpToMenuCollection(10)"><span>Café</span></button>
+                <button class="tab-btn" onclick="jumpToMenuCollection(11)"><span>Choco Latte</span></button>
+                <button class="tab-btn" onclick="jumpToMenuCollection(12)"><span>Tentaciones</span></button>
+                <button class="tab-btn" onclick="jumpToMenuCollection(14)"><span>Quiero Matcha</span></button>
+            </div>
 
-        <!-- Contenedor Horizontal Deslizable (Netflix Style) -->
-        <div id="inicio-glider-track" style="display: flex; gap: 12px; overflow-x: auto; scroll-behavior: smooth; scrollbar-width: none; padding: 10px 15px; -webkit-overflow-scrolling: touch;">
-            
-            <!-- Botón Especial: Menú Completo -->
-            <button class="tab-btn" onclick="jumpToMenuCollection(1)" style="flex: 0 0 auto; background: var(--matcha-deep); color: #FFFFFF; border-color: var(--gold-border); box-shadow: 0 4px 12px rgba(45,90,39,0.3);">
-                <i class="fa-solid fa-book-open" style="color: #F5D061;"></i> Menú Completo
+            <!-- Single floating arrow, matching Productos exactly -->
+            <button type="button" class="mobile-scroll-arrow" aria-label="Deslizar" onclick="document.getElementById('inicioPillsTrack').scrollBy({left: 200, behavior: 'smooth'})">
+                <i class="fa-solid fa-chevron-right"></i>
             </button>
-
-            <!-- Píldoras de Categorías -->
-            <button class="tab-btn" onclick="jumpToMenuCollection(1)" style="flex: 0 0 auto;">Bienestar</button>
-            <button class="tab-btn" onclick="jumpToMenuCollection(2)" style="flex: 0 0 auto;">Chai Lover</button>
-            <button class="tab-btn" onclick="jumpToMenuCollection(3)" style="flex: 0 0 auto;">Blue Magic</button>
-            <button class="tab-btn" onclick="jumpToMenuCollection(4)" style="flex: 0 0 auto;">Viajes con Té</button>
-            <button class="tab-btn" onclick="jumpToMenuCollection(5)" style="flex: 0 0 auto;">Nocturna</button>
-            <button class="tab-btn" onclick="jumpToMenuCollection(6)" style="flex: 0 0 auto;">Especial</button>
-            <button class="tab-btn" onclick="jumpToMenuCollection(9)" style="flex: 0 0 auto;">Wow</button>
-            <button class="tab-btn" onclick="jumpToMenuCollection(10)" style="flex: 0 0 auto;">Café</button>
-            <button class="tab-btn" onclick="jumpToMenuCollection(11)" style="flex: 0 0 auto;">Choco Latte</button>
-            <button class="tab-btn" onclick="jumpToMenuCollection(12)" style="flex: 0 0 auto;">Tentaciones</button>
-            <button class="tab-btn" onclick="jumpToMenuCollection(14)" style="flex: 0 0 auto;">Quiero Matcha</button>
         </div>
-
-        <!-- Flecha Derecha (Desktop) -->
-        <button onclick="document.getElementById('inicio-glider-track').scrollBy({left: 250, behavior: 'smooth'})" class="glider-arrow" style="right: -20px;" aria-label="Deslizar derecha">
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
     </div>
 
-        <style>
-    #inicio-glider-track::-webkit-scrollbar { display: none; }
-    
-    /* Píldoras 100% Uniformes (Igual que en Tienda) */
-    #inicio-glider-track .tab-btn {
-        width: auto !important;
-        flex: 0 0 auto !important;
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        height: 46px !important;       
-        padding: 0 20px !important;    
-        margin: 0 !important;
-        font-size: 0.85rem !important;
-        font-weight: 700 !important;
-        border-radius: 25px !important;
-        background: #FFFFFF !important;
-        color: var(--matcha-deep) !important;
-        border: 1px solid rgba(45, 90, 39, 0.2) !important;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.02) !important;
-        transition: all 0.2s ease !important;
-    }
-    
-    #inicio-glider-track .tab-btn:hover {
-        background: var(--matcha-deep) !important;
-        color: #FFFFFF !important;
-        border-color: var(--matcha-deep) !important;
-        transform: translateY(-2px) !important;
-        box-shadow: 0 4px 10px rgba(45, 90, 39, 0.2) !important;
-    }
-
-    /* Flechas del Glider (Desktop) */
-    .glider-arrow {
-        position: absolute; 
-        top: 50%; 
-        transform: translateY(-50%); 
-        z-index: 10; 
-        background: #FFFFFF; 
-        border: 2px solid var(--gold-border); 
-        border-radius: 50%; 
-        width: 42px; 
-        height: 42px; 
-        color: var(--matcha-deep); 
-        cursor: pointer; 
-        box-shadow: 0 4px 10px rgba(0,0,0,0.15); 
-        display: flex; 
-        align-items: center; 
-        justify-content: center;
-        transition: all 0.2s ease;
-    }
-    
-    .glider-arrow:hover {
-        background: var(--matcha-deep);
-        color: #FFFFFF;
-        transform: translateY(-50%) scale(1.1);
-    }
-    
-    /* FIX MOBILE: Flecha idéntica a la de Productos */
-    @media (max-width: 991px) {
-        .glider-arrow[aria-label="Deslizar izquierda"] { 
-            display: none !important; /* Ocultar flecha izquierda en móvil */
+    <style>
+        /* Desktop: keeps track horizontal and enables arrow like mobile */
+        @media (min-width: 992px) {
+            #inicioPillsTrack {
+                flex-direction: row !important;
+                overflow-x: auto !important;
+                gap: 8px !important;
+                padding: 4px 44px 10px 0 !important;
+                scrollbar-width: none;
+            }
+            #inicioPillsTrack::-webkit-scrollbar { display: none; }
+            #inicioPillsTrack .tab-btn {
+                flex: 0 0 auto !important;
+                width: auto !important;
+                height: 46px !important;
+                padding: 4px 14px !important;
+                border-radius: 9999px !important;
+                white-space: nowrap !important;
+            }
+            .collections-wrapper .mobile-scroll-arrow {
+                display: flex !important;
+            }
         }
-        .glider-arrow[aria-label="Deslizar derecha"] { 
-            right: -5px !important;
-            width: 32px !important; 
-            height: 32px !important; 
-            background: var(--gold-accent, #c5a059) !important; 
-            color: #121a12 !important; 
-            border: none !important; 
-            box-shadow: -3px 0 8px rgba(0, 0, 0, 0.4) !important;
-        }
-        #inicio-glider-track { 
-            padding: 10px 44px 10px 0 !important; /* Espacio extra a la derecha para que la flecha no tape las pastillas */
-        }
-    }
-</style>
+    </style>
 
     <!-- MAIN CONTENT -->
     <main class="dashboard-content" style="display: block !important; width: 100% !important;">
