@@ -163,35 +163,44 @@
         </div>
 
         <style>
-            #inicio-glider-track::-webkit-scrollbar { display: none; }
-            .glider-arrow {
-                position: absolute; 
-                top: 50%; 
-                transform: translateY(-50%); 
-                z-index: 10; 
-                background: #FFFFFF; 
-                border: 2px solid var(--gold-border); 
-                border-radius: 50%; 
-                width: 42px; 
-                height: 42px; 
-                color: var(--matcha-deep); 
-                cursor: pointer; 
-                box-shadow: 0 4px 10px rgba(0,0,0,0.15); 
-                display: flex; 
-                align-items: center; 
-                justify-content: center;
-                transition: all 0.2s ease;
-            }
-            .glider-arrow:hover {
-                background: var(--matcha-deep);
-                color: #FFFFFF;
-                transform: translateY(-50%) scale(1.1);
-            }
-            @media (max-width: 768px) {
-                .glider-arrow { display: none !important; } /* Ocultar flechas en móvil, usar swipe táctil */
-                #inicio-glider-track { padding: 10px 20px; }
-            }
-        </style>
+    #inicio-glider-track::-webkit-scrollbar { display: none; }
+    
+    /* FIX: Force the buttons back into tight pills instead of 100% width */
+    #inicio-glider-track .tab-btn {
+        width: auto !important;
+        flex: 0 0 auto !important;
+        display: inline-flex !important;
+        padding: 8px 22px !important;
+    }
+
+    .glider-arrow {
+        position: absolute; 
+        top: 50%; 
+        transform: translateY(-50%); 
+        z-index: 10; 
+        background: #FFFFFF; 
+        border: 2px solid var(--gold-border); 
+        border-radius: 50%; 
+        width: 42px; 
+        height: 42px; 
+        color: var(--matcha-deep); 
+        cursor: pointer; 
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15); 
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+        transition: all 0.2s ease;
+    }
+    .glider-arrow:hover {
+        background: var(--matcha-deep);
+        color: #FFFFFF;
+        transform: translateY(-50%) scale(1.1);
+    }
+    @media (max-width: 768px) {
+        .glider-arrow { display: none !important; } /* Ocultar flechas en móvil, usar swipe táctil */
+        #inicio-glider-track { padding: 10px 20px; }
+    }
+</style>
 
     <!-- MAIN CONTENT -->
     <main class="dashboard-content" style="display: block !important; width: 100% !important;">
