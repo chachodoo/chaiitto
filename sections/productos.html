@@ -4,22 +4,24 @@
    ======================================================= */
 @media (min-width: 992px) {
     /* 1. Cancels the container's 20px gap so pills are docked with ZERO upward travel */
+    /* 1. Cancels the container's 20px gap and removes the 30px flex gap */
     .dashboard-layout {
         display: flex !important;
         flex-direction: column !important;
         width: 100% !important;
         margin: -20px 0 0 0 !important;
+        gap: 0 !important;
     }
 
-    /* 2. Pinned directly below the header border — stays put immediately upon scrolling */
+    /* 2. Pinned directly below header border with tight, balanced spacing */
     .dashboard-layout .sidebar-menu {
         width: 100% !important;
         position: sticky !important;
         top: 204px !important;
         z-index: 999 !important;
         background: var(--matcha-bg) !important;
-        padding: 6px 0 10px 0 !important;
-        margin: 0 0 16px 0 !important;
+        padding: 6px 0 6px 0 !important;
+        margin: 0 0 12px 0 !important;
         flex: none !important;
         max-height: unset !important;
         overflow: visible !important;
