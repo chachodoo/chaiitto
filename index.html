@@ -448,121 +448,113 @@
     .logo-main {
         height: 52px;
     }
-    /* Sinensis Naked Hamburger Icon */
-    .hamburger-btn {
-        display: flex !important;
-        position: static !important;
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-        border-radius: 0 !important;
-        color: var(--matcha-deep) !important;
-        font-size: 1.65rem !important;
-        padding: 0 !important;
-        cursor: pointer;
-        width: 36px;
-        height: 36px;
-        align-items: center;
-        justify-content: flex-start;
-        z-index: 10001;
-    }
-    .header-spacer {
-        width: 36px;
-        height: 36px;
-    }
-
-    /* --- ENTERPRISE MOBILE NAVIGATION PANEL --- */
-nav.main-nav {
-    display: none;
-    flex-direction: column;
-    gap: 0 !important;
-    position: fixed;
-    top: 86px;
-    left: 0;
-    right: 0;
-    width: 100%;
-    background: var(--matcha-bg) !important;
-    padding: 6px 22px 18px 22px !important;
-    border-radius: 0 0 20px 20px !important;
-    border-top: 1px solid rgba(212, 175, 55, 0.3) !important;
-    border-bottom: 2px solid var(--gold-border) !important;
-    border-left: none !important;
-    border-right: none !important;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 0 0 100vmax rgba(0, 0, 0, 0.45) !important;
-    z-index: 10000;
-    box-sizing: border-box;
-    max-height: calc(100vh - 100px);
-    overflow-y: auto;
-}
-
-nav.main-nav.active {
-    display: flex !important;
-    animation: menuSlideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes menuSlideDown {
-    from { opacity: 0; transform: translateY(-8px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Minimalist Luxury Text Rows (Replaces Stadium Bubble Pills) */
-nav.main-nav .nav-btn {
-    background: transparent !important;
-    border: none !important;
-    border-bottom: 1px solid rgba(45, 90, 39, 0.12) !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    padding: 14px 6px !important;
-    margin: 0 !important;
-    width: 100% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    font-family: var(--font-heading) !important;
-    font-size: 0.9rem !important;
-    font-weight: 700 !important;
-    letter-spacing: 1.5px !important;
-    text-transform: uppercase !important;
-    color: var(--matcha-deep) !important;
-    text-align: left !important;
-    transition: all 0.2s ease !important;
-}
-
-nav.main-nav .nav-btn:last-child {
-    border-bottom: none !important;
-}
-
-nav.main-nav .nav-btn:active,
-nav.main-nav .nav-btn:hover {
-    background: rgba(45, 90, 39, 0.05) !important;
-    padding-left: 12px !important;
-    transform: none !important;
-    box-shadow: none !important;
-}
-
-/* Elegant Active Indicator: Sleek Gold Border Accent */
-nav.main-nav .nav-btn.active {
-    background: rgba(45, 90, 39, 0.06) !important;
-    color: var(--matcha-deep) !important;
-    border-left: 4px solid var(--gold-border) !important;
-    border-bottom: 1px solid rgba(45, 90, 39, 0.12) !important;
-    padding-left: 12px !important;
-    font-weight: 800 !important;
-    box-shadow: none !important;
-}
-
-nav.main-nav .nav-btn.nav-vip {
-    color: var(--gold-accent) !important;
-}
-
-nav.main-nav .nav-vip-badge {
-    background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%) !important;
-    color: #1C3317 !important;
-    font-size: 0.72em !important;
-    padding: 3px 8px !important;
-    border-radius: 10px !important;
-    box-shadow: 0 2px 6px rgba(212, 175, 55, 0.3) !important;
-}
+    /*  Naked Hamburger & Crisp White Close Icon */
+            .hamburger-btn {
+                display: flex !important;
+                position: static !important;
+                background: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                color: #FFFFFF !important;
+                font-size: 1.65rem !important;
+                padding: 0 !important;
+                cursor: pointer;
+                width: 36px;
+                height: 36px;
+                align-items: center;
+                justify-content: flex-start;
+                z-index: 10001;
+                transition: color 0.2s ease;
+            }
+            .header-spacer {
+                width: 36px;
+                height: 36px;
+            }
+            /*  Pure White Sheet Dropdown */
+            nav.main-nav {
+                display: none;
+                flex-direction: column;
+                gap: 0 !important;
+                position: fixed;
+                top: 86px;
+                left: 0;
+                right: 0;
+                width: 100%;
+                background: #FFFFFF !important;
+                padding: 10px 24px 22px 24px !important;
+                border-radius: 0 0 22px 22px !important;
+                border-top: 1px solid rgba(212, 175, 55, 0.3) !important;
+                border-bottom: 3px solid var(--gold-border) !important;
+                border-left: none !important;
+                border-right: none !important;
+                box-shadow: 0 24px 44px rgba(0, 0, 0, 0.18), 0 0 0 100vmax rgba(0, 0, 0, 0.45) !important;
+                z-index: 10000;
+                box-sizing: border-box;
+                max-height: calc(100vh - 95px);
+                overflow-y: auto;
+            }
+            nav.main-nav.active {
+                display: flex !important;
+                animation: menuSlideDown 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            }
+            @keyframes menuSlideDown {
+                from { opacity: 0; transform: translateY(-8px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            /* Editorial Typography on White Porcelain */
+            nav.main-nav .nav-btn {
+                background: transparent !important;
+                border: none !important;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.07) !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                padding: 15px 8px !important;
+                margin: 0 !important;
+                width: 100% !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                font-family: var(--font-heading) !important;
+                font-size: 0.88rem !important;
+                font-weight: 700 !important;
+                letter-spacing: 1.4px !important;
+                text-transform: uppercase !important;
+                color: #1C3317 !important;
+                text-align: left !important;
+                transition: all 0.18s ease !important;
+            }
+            nav.main-nav .nav-btn:last-child {
+                border-bottom: none !important;
+            }
+            nav.main-nav .nav-btn:active,
+            nav.main-nav .nav-btn:hover {
+                background: rgba(212, 175, 55, 0.08) !important;
+                padding-left: 14px !important;
+                transform: none !important;
+                box-shadow: none !important;
+            }
+            /* Universal Gold Active Marker: Clean Gold Side Stripe */
+            nav.main-nav .nav-btn.active {
+                background: rgba(212, 175, 55, 0.12) !important;
+                color: #07511A !important;
+                border-left: 4px solid var(--gold-border) !important;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.07) !important;
+                padding-left: 14px !important;
+                font-weight: 800 !important;
+                box-shadow: none !important;
+            }
+            nav.main-nav .nav-btn.nav-vip {
+                color: var(--gold-accent) !important;
+            }
+            nav.main-nav .nav-vip-badge {
+                background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%) !important;
+                color: #1C3317 !important;
+                font-size: 0.72em !important;
+                padding: 3px 8px !important;
+                border-radius: 10px !important;
+                box-shadow: 0 2px 6px rgba(212, 175, 55, 0.3) !important;
+            }
 }
 
         /* --- DYNAMIC SECTION SHELL --- */
@@ -717,24 +709,7 @@ nav.main-nav .nav-vip-badge {
             text-align: center;
         }
  
-/* 
-    @media (max-width: 991px) {
-    body.page-inicio #main-master-header {
-        padding: 0 !important;
-        margin: 0 !important;
-        border: none !important;
-        background: transparent !important;
-        box-shadow: none !important;
-        height: auto !important;
-    }
-    body.page-inicio #header-logo-container {
-        display: flex !important;
-    }
-    body.page-inicio #main-nav-menu {
-        pointer-events: auto !important;
-    }
-}  
-        */
+
         
     </style>
 </head>
