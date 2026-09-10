@@ -47,30 +47,32 @@
         overflow: visible !important;
     }
 
-    /* BUTTON GREEN MATCH: Exact match to the #07511A menu bar */
-.dashboard-layout .tab-btn,
-.dashboard-layout .collections-pills-track .tab-btn {
-  width: auto !important;
-  height: auto !important;
-  background: #07511A !important;
-  color: #FFFFFF !important;
-  border: 1.5px solid rgba(212, 175, 55, 0.45) !important;
-  border-radius: 25px !important;
-  padding: 8px 18px !important;
-  font-size: 0.82rem !important;
-  font-weight: 700 !important;
-  white-space: nowrap !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
-  cursor: pointer !important;
-  transition: all 0.2s ease !important;
-}
+    /* BUTTON MATCH: Matches the exact tone, font, and border of INICIO / ACCESORIOS */
+    .dashboard-layout .tab-btn,
+    .dashboard-layout .collections-pills-track .tab-btn {
+        width: auto !important;
+        height: auto !important;
+        background: #0B4E1F !important;
+        color: #FFFFFF !important;
+        border: 1.5px solid rgba(212, 175, 55, 0.45) !important;
+        border-radius: 25px !important;
+        padding: 8px 18px !important;
+        font-family: var(--font-heading) !important;
+        font-size: 0.82rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 1px !important;
+        white-space: nowrap !important;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+    }
 
-.dashboard-layout .tab-btn:hover {
-  background: #0E6824 !important;
-  border-color: #F5D061 !important;
-  color: #FFFFFF !important;
-  transform: translateY(-1px) !important;
-}
+    .dashboard-layout .tab-btn:hover {
+        background: #14692C !important;
+        border-color: #F5D061 !important;
+        color: #FFFFFF !important;
+        transform: translateY(-1px) !important;
+    }
 
     /* 4. ACTIVE SELECTION: Solid gold fill with dark text matching TIENDA */
     .dashboard-layout .tab-btn.active,
