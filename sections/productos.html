@@ -1,46 +1,98 @@
 <style>
-  /* =========================================
-     1. DESKTOP (992px and up): 10% / 90% (5 JARS)
-     ========================================= */
-  @media (min-width: 992px) {
+/* =======================================================
+   1. DESKTOP (992px and up): 100% FULL-WIDTH & 6-COLUMN GRID
+   ======================================================= */
+@media (min-width: 992px) {
+    /* Converts 10%/90% split to 100% full-width vertical stack */
     .dashboard-layout {
-      display: grid !important;
-      grid-template-columns: 10% 90% !important;
-      column-gap: 14px !important;
-      align-items: start !important;
-      width: 100% !important;
-      margin: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        margin: 0 !important;
     }
 
-    .sidebar-menu {
-      width: 100% !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      flex: none !important;
+    /* Pinned collection pill bar across the top */
+    .dashboard-layout .sidebar-menu {
+        width: 100% !important;
+        position: sticky !important;
+        top: 185px !important;
+        z-index: 100 !important;
+        background: var(--matcha-bg) !important;
+        padding: 10px 0 14px 0 !important;
+        margin: 0 0 16px 0 !important;
+        flex: none !important;
+        max-height: unset !important;
+        overflow: visible !important;
     }
 
-    /* 5 Cards across on Desktop */
+    /* Hide vertical sidebar title and desktop scroll arrow */
+    .dashboard-layout .collections-title,
+    .dashboard-layout .mobile-scroll-arrow {
+        display: none !important;
+    }
+
+    /* Horizontal collection pills centered across the top */
+    .dashboard-layout .collections-wrapper,
+    .dashboard-layout .collections-pills-track {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 10px !important;
+        width: 100% !important;
+        flex-wrap: wrap !important;
+        padding: 0 !important;
+        overflow: visible !important;
+    }
+
+    .dashboard-layout .tab-btn,
+    .dashboard-layout .collections-pills-track .tab-btn {
+        width: auto !important;
+        height: auto !important;
+        padding: 8px 18px !important;
+        font-size: 0.82rem !important;
+        font-weight: 700 !important;
+        border-radius: 25px !important;
+        white-space: nowrap !important;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    /* 6 Cards across on Desktop (100% full width matching Accesorios and Bazar) */
+    .dashboard-layout .dashboard-content {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+
     #products-container,
     .products-grid {
-      display: grid !important;
-      grid-template-columns: repeat(5, 1fr) !important;
-      gap: 10px !important;
-      width: 100% !important;
+        display: grid !important;
+        grid-template-columns: repeat(6, 1fr) !important;
+        gap: 12px !important;
+        width: 100% !important;
     }
 
     #products-container .product-card,
     .products-grid .product-card {
-      padding: 10px 8px !important;
+        padding: 10px 8px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
     }
 
     #products-container .product-img-box,
-    #products-container img,
-    .products-grid .product-img-box,
-    .products-grid img {
-      max-height: 105px !important;
-      object-fit: contain;
+    .products-grid .product-img-box {
+        height: 110px !important;
+        width: 100% !important;
+        margin-bottom: 8px !important;
     }
-  }
+
+    #products-container .product-img-box img,
+    .products-grid .product-img-box img {
+        max-height: 95px !important;
+        max-width: 90% !important;
+        object-fit: contain !important;
+    }
+}
 
   /* =========================================
      2. MOBILE: ZERO HORIZONTAL OVERFLOW
