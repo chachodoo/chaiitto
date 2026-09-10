@@ -929,6 +929,19 @@ function jumpToMenuCollection(pageNum) {
   window.targetMenuPage = pageNum;
   window.shouldScrollToCollections = true;
   switchPage('menu');
+
+  // Center the tapped collection pill in the mobile horizontal track
+  setTimeout(() => {
+    const activeBtn = document.querySelector(`.collections-pills-track button[onclick*="${pageNum}"]`) ||
+                      document.querySelector(`.inicio-pills-track button[onclick*="${pageNum}"]`);
+    if (activeBtn) {
+      activeBtn.scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest'
+      });
+    }
+  }, 150);
 }
 
 // --- 1-TAP RETURN TO COLLECTIONS ---
