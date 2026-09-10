@@ -48,37 +48,51 @@
         overflow: visible !important;
     }
 
-    /* FAT & COMPACT PILLS: Plump vertical height, snug width, pale background */
+    /* UNIFORM 2-LINE STADIUM PILLS: Fixed identical size for all 7 pills */
     .dashboard-layout .tab-btn,
     .dashboard-layout .collections-pills-track .tab-btn {
-        width: auto !important;
-        height: auto !important;
-        background: #07511A !important;
+        width: 124px !important;
+        height: 44px !important;
+        flex: 0 0 124px !important;
+        background: #1A5F2C !important;
         color: #FFFFFF !important;
-        border: 1.5px solid rgba(212, 175, 55, 0.55) !important;
+        border: 1.5px solid rgba(212, 175, 55, 0.45) !important;
         border-radius: 9999px !important;
-        padding: 9px 14px !important; /* 9px gives vertical plumpness; 14px keeps width compact */
+        padding: 4px 8px !important;
         font-family: var(--font-heading) !important;
         font-size: 0.72rem !important;
-        font-weight: 800 !important;
+        font-weight: 700 !important;
         text-transform: uppercase !important;
-        letter-spacing: 0.3px !important; /* Low tracking stops the button from stretching sideways */
-        line-height: 1 !important;
-        white-space: nowrap !important;
+        letter-spacing: 0.4px !important;
+        line-height: 1.15 !important;
+        white-space: normal !important;
+        word-break: normal !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15) !important;
         cursor: pointer !important;
         transition: all 0.2s ease !important;
+        box-sizing: border-box !important;
+    }
+
+    .dashboard-layout .tab-btn span,
+    .dashboard-layout .collections-pills-track .tab-btn span {
+        display: inline-block !important;
+        text-align: center !important;
+        line-height: 1.15 !important;
     }
 
     .dashboard-layout .tab-btn:hover {
-        background: #0E6824 !important;
+        background: #237436 !important;
         border-color: #F5D061 !important;
         color: #FFFFFF !important;
         transform: translateY(-1px) !important;
         box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2) !important;
     }
 
-    /* ACTIVE PILL: Plump gold stadium pill */
+    /* ACTIVE PILL: Same exact 124px x 44px shell in solid gold */
     .dashboard-layout .tab-btn.active,
     .dashboard-layout .tab-btn.active:hover {
         background: var(--gold-border) !important;
