@@ -211,31 +211,27 @@
       <div style="width: 100%; text-align: center; margin-bottom: 5px;">
 <!-- INTERACTIVE 4-SLIDE STORY SLIDER -->
 <div class="story-slider-wrapper">
-    <div class="story-slider-track" id="storySliderTrack">
-        <div class="story-slide">
-            <img src="historia-1.JPG" alt="Nuestra Historia - Parte 1" loading="lazy">
-        </div>
-        <div class="story-slide">
-            <img src="historia-2.JPG" alt="Nuestra Historia - Parte 2" loading="lazy">
-        </div>
-        <div class="story-slide">
-            <img src="historia-3.JPG" alt="Nuestra Historia - Parte 3" loading="lazy">
-        </div>
-        <div class="story-slide">
-            <img src="historia-4.JPG" alt="Nuestra Historia - Parte 4" loading="lazy">
-        </div>
+    <!-- Inline onscroll updates the dots without needing a script tag -->
+    <div class="story-slider-track" id="storySliderTrack" onscroll="
+        const idx = Math.round(this.scrollLeft / this.clientWidth);
+        const dots = document.getElementById('storyDots').children;
+        for(let i=0; i<dots.length; i++) dots[i].classList.toggle('active', i === idx);
+    ">
+        <div class="story-slide"><img src="historia-1.JPG" alt="Nuestra Historia - Parte 1" loading="lazy"></div>
+        <div class="story-slide"><img src="historia-2.JPG" alt="Nuestra Historia - Parte 2" loading="lazy"></div>
+        <div class="story-slide"><img src="historia-3.JPG" alt="Nuestra Historia - Parte 3" loading="lazy"></div>
+        <div class="story-slide"><img src="historia-4.JPG" alt="Nuestra Historia - Parte 4" loading="lazy"></div>
     </div>
 
-    <!-- Navigation Arrows -->
-    <button type="button" class="story-arrow prev" id="storyPrevBtn" aria-label="Anterior">&#10094;</button>
-    <button type="button" class="story-arrow next" id="storyNextBtn" aria-label="Siguiente">&#10095;</button>
+    <!-- Inline onclick bypasses the dynamic loading script block restriction -->
+    <button type="button" class="story-arrow prev" aria-label="Anterior" onclick="document.getElementById('storySliderTrack').scrollBy({left: -document.getElementById('storySliderTrack').clientWidth, behavior: 'smooth'})">&#10094;</button>
+    <button type="button" class="story-arrow next" aria-label="Siguiente" onclick="document.getElementById('storySliderTrack').scrollBy({left: document.getElementById('storySliderTrack').clientWidth, behavior: 'smooth'})">&#10095;</button>
 
-    <!-- 4 Dots Indicators -->
     <div class="story-dots-track" id="storyDots">
-        <span class="story-dot active" onclick="goToStorySlide(0)"></span>
-        <span class="story-dot" onclick="goToStorySlide(1)"></span>
-        <span class="story-dot" onclick="goToStorySlide(2)"></span>
-        <span class="story-dot" onclick="goToStorySlide(3)"></span>
+        <span class="story-dot active" onclick="document.getElementById('storySliderTrack').scrollTo({left: 0, behavior: 'smooth'})"></span>
+        <span class="story-dot" onclick="document.getElementById('storySliderTrack').scrollTo({left: document.getElementById('storySliderTrack').clientWidth, behavior: 'smooth'})"></span>
+        <span class="story-dot" onclick="document.getElementById('storySliderTrack').scrollTo({left: document.getElementById('storySliderTrack').clientWidth * 2, behavior: 'smooth'})"></span>
+        <span class="story-dot" onclick="document.getElementById('storySliderTrack').scrollTo({left: document.getElementById('storySliderTrack').clientWidth * 3, behavior: 'smooth'})"></span>
     </div>
 </div>
 
@@ -243,7 +239,7 @@
 .story-slider-wrapper {
     position: relative;
     width: 100%;
-    max-width: 820px;
+    max-width: 600px; /* Constrains width so tall images don't look awkwardly wide */
     margin: 16px auto 24px auto;
     border: 1.5px solid rgba(212, 175, 55, 0.45);
     border-radius: 16px;
@@ -269,6 +265,8 @@
 .story-slide {
     flex: 0 0 100%;
     width: 100%;
+    height: 65vh;       /* Adapts to phone screens */
+    max-height: 600px;  /* Caps height on desktop so it never takes up the whole screen */
     scroll-snap-align: start;
     display: flex;
     align-items: center;
@@ -277,9 +275,9 @@
 
 .story-slide img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: contain; /* Guarantees the entire image fits inside the box without stretching */
     display: block;
-    object-fit: contain;
 }
 
 /* Floating Navigation Arrows */
@@ -302,10 +300,7 @@
     transition: all 0.2s ease;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
 }
-.story-arrow:hover {
-    background: #237A38;
-    transform: translateY(-50%) scale(1.08);
-}
+.story-arrow:hover { background: #237A38; transform: translateY(-50%) scale(1.08); }
 .story-arrow.prev { left: 10px; }
 .story-arrow.next { right: 10px; }
 
@@ -318,7 +313,6 @@
     padding: 10px 0;
     background: #FFFFFF;
 }
-
 .story-dot {
     width: 10px;
     height: 10px;
