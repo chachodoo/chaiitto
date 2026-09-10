@@ -126,41 +126,41 @@
             <i class="fa-solid fa-book-open" style="color: #F5D061;"></i> Ver Menú
         </button>
 
-        <!-- GLIDER DE COLECCIONES PREMIUM -->
-        <div id="inicio-collections-menu" style="display: none; margin-top: 25px; text-align: center; animation: fadeIn 0.3s ease; position: relative; max-width: 950px; margin-left: auto; margin-right: auto;">
+        <!-- GLIDER DE COLECCIONES PREMIUM (ALWAYS VISIBLE) -->
+    <div style="width: 100%; margin: 15px auto 35px auto; text-align: center; position: relative; max-width: 950px;">
+        
+        <!-- Flecha Izquierda (Desktop) -->
+        <button onclick="document.getElementById('inicio-glider-track').scrollBy({left: -250, behavior: 'smooth'})" class="glider-arrow" style="left: -20px;" aria-label="Deslizar izquierda">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <!-- Contenedor Horizontal Deslizable (Netflix Style) -->
+        <div id="inicio-glider-track" style="display: flex; gap: 12px; overflow-x: auto; scroll-behavior: smooth; scrollbar-width: none; padding: 10px 15px; -webkit-overflow-scrolling: touch;">
             
-            <!-- Flecha Izquierda (Desktop) -->
-            <button onclick="document.getElementById('inicio-glider-track').scrollBy({left: -250, behavior: 'smooth'})" class="glider-arrow" style="left: -20px;" aria-label="Deslizar izquierda">
-                <i class="fa-solid fa-chevron-left"></i>
+            <!-- Botón Especial: Menú Completo -->
+            <button class="tab-btn" onclick="jumpToMenuCollection(1)" style="flex: 0 0 auto; background: var(--matcha-deep); color: #FFFFFF; border-color: var(--gold-border); box-shadow: 0 4px 12px rgba(45,90,39,0.3);">
+                <i class="fa-solid fa-book-open" style="color: #F5D061;"></i> Menú Completo
             </button>
 
-            <!-- Contenedor Horizontal Deslizable (Netflix Style) -->
-            <div id="inicio-glider-track" style="display: flex; gap: 12px; overflow-x: auto; scroll-behavior: smooth; scrollbar-width: none; padding: 10px 15px; -webkit-overflow-scrolling: touch;">
-                
-                <!-- Botón Especial: Menú Completo -->
-                <button class="tab-btn" onclick="jumpToMenuCollection(1)" style="flex: 0 0 auto; background: var(--matcha-deep); color: #FFFFFF; border-color: var(--gold-border); box-shadow: 0 4px 12px rgba(45,90,39,0.3);">
-                    <i class="fa-solid fa-book-open" style="color: #F5D061;"></i> Menú Completo
-                </button>
-
-                <!-- Píldoras de Categorías -->
-                <button class="tab-btn" onclick="jumpToMenuCollection(1)" style="flex: 0 0 auto;">Bienestar</button>
-                <button class="tab-btn" onclick="jumpToMenuCollection(2)" style="flex: 0 0 auto;">Chai Lover</button>
-                <button class="tab-btn" onclick="jumpToMenuCollection(3)" style="flex: 0 0 auto;">Blue Magic</button>
-                <button class="tab-btn" onclick="jumpToMenuCollection(4)" style="flex: 0 0 auto;">Viajes con Té</button>
-                <button class="tab-btn" onclick="jumpToMenuCollection(5)" style="flex: 0 0 auto;">Nocturna</button>
-                <button class="tab-btn" onclick="jumpToMenuCollection(6)" style="flex: 0 0 auto;">Especial</button>
-                <button class="tab-btn" onclick="jumpToMenuCollection(9)" style="flex: 0 0 auto;">Wow</button>
-                <button class="tab-btn" onclick="jumpToMenuCollection(10)" style="flex: 0 0 auto;">Café</button>
-                <button class="tab-btn" onclick="jumpToMenuCollection(11)" style="flex: 0 0 auto;">Choco Latte</button>
-                <button class="tab-btn" onclick="jumpToMenuCollection(12)" style="flex: 0 0 auto;">Tentaciones</button>
-                <button class="tab-btn" onclick="jumpToMenuCollection(14)" style="flex: 0 0 auto;">Quiero Matcha</button>
-            </div>
-
-            <!-- Flecha Derecha (Desktop) -->
-            <button onclick="document.getElementById('inicio-glider-track').scrollBy({left: 250, behavior: 'smooth'})" class="glider-arrow" style="right: -20px;" aria-label="Deslizar derecha">
-                <i class="fa-solid fa-chevron-right"></i>
-            </button>
+            <!-- Píldoras de Categorías -->
+            <button class="tab-btn" onclick="jumpToMenuCollection(1)" style="flex: 0 0 auto;">Bienestar</button>
+            <button class="tab-btn" onclick="jumpToMenuCollection(2)" style="flex: 0 0 auto;">Chai Lover</button>
+            <button class="tab-btn" onclick="jumpToMenuCollection(3)" style="flex: 0 0 auto;">Blue Magic</button>
+            <button class="tab-btn" onclick="jumpToMenuCollection(4)" style="flex: 0 0 auto;">Viajes con Té</button>
+            <button class="tab-btn" onclick="jumpToMenuCollection(5)" style="flex: 0 0 auto;">Nocturna</button>
+            <button class="tab-btn" onclick="jumpToMenuCollection(6)" style="flex: 0 0 auto;">Especial</button>
+            <button class="tab-btn" onclick="jumpToMenuCollection(9)" style="flex: 0 0 auto;">Wow</button>
+            <button class="tab-btn" onclick="jumpToMenuCollection(10)" style="flex: 0 0 auto;">Café</button>
+            <button class="tab-btn" onclick="jumpToMenuCollection(11)" style="flex: 0 0 auto;">Choco Latte</button>
+            <button class="tab-btn" onclick="jumpToMenuCollection(12)" style="flex: 0 0 auto;">Tentaciones</button>
+            <button class="tab-btn" onclick="jumpToMenuCollection(14)" style="flex: 0 0 auto;">Quiero Matcha</button>
         </div>
+
+        <!-- Flecha Derecha (Desktop) -->
+        <button onclick="document.getElementById('inicio-glider-track').scrollBy({left: 250, behavior: 'smooth'})" class="glider-arrow" style="right: -20px;" aria-label="Deslizar derecha">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+    </div>
 
         <style>
     #inicio-glider-track::-webkit-scrollbar { display: none; }
