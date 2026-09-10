@@ -27,6 +27,11 @@
     background: rgba(45, 90, 39, 0.2);
     border-radius: 10px;
   }
+
+   /* Vaporize the mobile back button on Desktop */
+   .back-btn {
+       display: none !important;
+   }
   .collections-title {
     font-size: 0.82rem !important;
     font-weight: 800 !important;
