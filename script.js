@@ -352,18 +352,10 @@ function selectCollection(colName) {
     const targetNorm = normalizeStr(colName);
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    // Highlight active tab button and scroll track to it
+    // Highlight active tab button without moving or gliding the track
     document.querySelectorAll('.tab-btn').forEach(btn => {
         const btnNorm = normalizeStr(btn.textContent || btn.innerText || '');
-        const isActive = btnNorm === targetNorm;
-        btn.classList.toggle('active', isActive);
-        if (isActive) {
-            btn.scrollIntoView({
-                behavior: 'smooth',
-                inline: 'center',
-                block: 'nearest'
-            });
-        }
+        btn.classList.toggle('active', btnNorm === targetNorm);
     });
 
     // Update section title banner if present
