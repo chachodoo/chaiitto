@@ -440,31 +440,99 @@
         height: 36px;
     }
 
-    /* Menu grows smoothly out of the hamburger button */
-    nav.main-nav {
-        display: none;
-        flex-direction: column;
-        gap: 15px;
-        position: fixed;
-        top: 94px;
-        left: 14px;
-        right: auto;
-        width: 250px;
-        background: #F4F8F3;
-        padding: 20px;
-        border-radius: 16px;
-        border: 2px solid var(--gold-border);
-        box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-        z-index: 10000;
-        transform-origin: top left;
-    }
-            nav.main-nav.active { display: flex; animation: popOutMenu 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards; }
-        }
-        
-        @keyframes popOutMenu { 
-            from { opacity: 0; transform: scale(0.8) translateY(-10px); } 
-            to { opacity: 1; transform: scale(1) translateY(0); } 
-        }
+    /* --- ENTERPRISE MOBILE NAVIGATION PANEL --- */
+nav.main-nav {
+    display: none;
+    flex-direction: column;
+    gap: 0 !important;
+    position: fixed;
+    top: 86px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: var(--matcha-bg) !important;
+    padding: 6px 22px 18px 22px !important;
+    border-radius: 0 0 20px 20px !important;
+    border-top: 1px solid rgba(212, 175, 55, 0.3) !important;
+    border-bottom: 2px solid var(--gold-border) !important;
+    border-left: none !important;
+    border-right: none !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 0 0 100vmax rgba(0, 0, 0, 0.45) !important;
+    z-index: 10000;
+    box-sizing: border-box;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+}
+
+nav.main-nav.active {
+    display: flex !important;
+    animation: menuSlideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes menuSlideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Minimalist Luxury Text Rows (Replaces Stadium Bubble Pills) */
+nav.main-nav .nav-btn {
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(45, 90, 39, 0.12) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 14px 6px !important;
+    margin: 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    font-family: var(--font-heading) !important;
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
+    color: var(--matcha-deep) !important;
+    text-align: left !important;
+    transition: all 0.2s ease !important;
+}
+
+nav.main-nav .nav-btn:last-child {
+    border-bottom: none !important;
+}
+
+nav.main-nav .nav-btn:active,
+nav.main-nav .nav-btn:hover {
+    background: rgba(45, 90, 39, 0.05) !important;
+    padding-left: 12px !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Elegant Active Indicator: Sleek Gold Border Accent */
+nav.main-nav .nav-btn.active {
+    background: rgba(45, 90, 39, 0.06) !important;
+    color: var(--matcha-deep) !important;
+    border-left: 4px solid var(--gold-border) !important;
+    border-bottom: 1px solid rgba(45, 90, 39, 0.12) !important;
+    padding-left: 12px !important;
+    font-weight: 800 !important;
+    box-shadow: none !important;
+}
+
+nav.main-nav .nav-btn.nav-vip {
+    color: var(--gold-accent) !important;
+}
+
+nav.main-nav .nav-vip-badge {
+    background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%) !important;
+    color: #1C3317 !important;
+    font-size: 0.72em !important;
+    padding: 3px 8px !important;
+    border-radius: 10px !important;
+    box-shadow: 0 2px 6px rgba(212, 175, 55, 0.3) !important;
+}
+}
 
         /* --- DYNAMIC SECTION SHELL --- */
         #dynamic-content-area { max-width: 1400px; margin: 0 auto; padding: 20px 12px 60px; width: 100%; min-height: 500px; }
