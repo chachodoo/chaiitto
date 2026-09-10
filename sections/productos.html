@@ -3,22 +3,22 @@
    1. DESKTOP (992px and up): 100% FULL-WIDTH & 6-COLUMN GRID
    ======================================================= */
 @media (min-width: 992px) {
-    /* Converts 10%/90% split to 100% full-width vertical stack */
+    /* Converts to full-width stack & removes the top gap so pills dock flush */
     .dashboard-layout {
         display: flex !important;
         flex-direction: column !important;
         width: 100% !important;
-        margin: 0 !important;
+        margin: -20px 0 0 0 !important;
     }
 
-    /* Pinned collection pill bar across the top */
+    /* Pinned collection bar locked flush against the bottom of the header */
     .dashboard-layout .sidebar-menu {
         width: 100% !important;
         position: sticky !important;
-        top: 185px !important;
-        z-index: 100 !important;
+        top: 279px !important;
+        z-index: 999 !important;
         background: var(--matcha-bg) !important;
-        padding: 10px 0 14px 0 !important;
+        padding: 10px 0 12px 0 !important;
         margin: 0 0 16px 0 !important;
         flex: none !important;
         max-height: unset !important;
@@ -31,7 +31,7 @@
         display: none !important;
     }
 
-    /* Horizontal collection pills centered across the top */
+    /* Horizontal collection track */
     .dashboard-layout .collections-wrapper,
     .dashboard-layout .collections-pills-track {
         display: flex !important;
@@ -45,19 +45,41 @@
         overflow: visible !important;
     }
 
+    /* UNIFIED COLOR RULE: Green pill with gold border matching the header */
     .dashboard-layout .tab-btn,
     .dashboard-layout .collections-pills-track .tab-btn {
-        width: auto !important;
-        height: auto !important;
+        background: #07511A !important;
+        color: #FFFFFF !important;
+        border: 1.5px solid rgba(212, 175, 55, 0.45) !important;
+        border-radius: 25px !important;
         padding: 8px 18px !important;
         font-size: 0.82rem !important;
         font-weight: 700 !important;
-        border-radius: 25px !important;
         white-space: nowrap !important;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08) !important;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
     }
 
-    /* 6 Cards across on Desktop (100% full width matching Accesorios and Bazar) */
+    .dashboard-layout .tab-btn:hover {
+        background: #18441F !important;
+        border-color: #F5D061 !important;
+        color: #FFFFFF !important;
+        transform: translateY(-1px) !important;
+    }
+
+    /* ACTIVE STATE: Solid gold fill with dark green text matching TIENDA */
+    .dashboard-layout .tab-btn.active,
+    .dashboard-layout .tab-btn.active:hover {
+        background: var(--gold-border) !important;
+        color: #07511A !important;
+        border-color: var(--gold-border) !important;
+        font-weight: 800 !important;
+        box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4) !important;
+        transform: none !important;
+    }
+
+    /* 6 Cards across on Desktop */
     .dashboard-layout .dashboard-content {
         width: 100% !important;
         margin: 0 !important;
