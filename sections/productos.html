@@ -3,22 +3,22 @@
    1. DESKTOP (992px and up): 100% FULL-WIDTH & 6-COLUMN GRID
    ======================================================= */
 @media (min-width: 992px) {
-    /* Converts to full-width stack & removes the top gap so pills dock flush */
+    /* 1. Converts layout to vertical stack */
     .dashboard-layout {
         display: flex !important;
         flex-direction: column !important;
         width: 100% !important;
-        margin: -20px 0 0 0 !important;
+        margin: 0 !important;
     }
 
-    /* Pinned collection bar locked flush against the bottom of the header */
+    /* 2. Locks sticky anchor right at the bottom edge of the desktop header (35px + 165px = 200px) */
     .dashboard-layout .sidebar-menu {
         width: 100% !important;
         position: sticky !important;
-        top: 279px !important;
+        top: 200px !important;
         z-index: 999 !important;
         background: var(--matcha-bg) !important;
-        padding: 10px 0 12px 0 !important;
+        padding: 8px 0 12px 0 !important;
         margin: 0 0 16px 0 !important;
         flex: none !important;
         max-height: unset !important;
@@ -31,7 +31,7 @@
         display: none !important;
     }
 
-    /* Horizontal collection track */
+    /* Horizontal row centered across the screen */
     .dashboard-layout .collections-wrapper,
     .dashboard-layout .collections-pills-track {
         display: flex !important;
@@ -45,9 +45,11 @@
         overflow: visible !important;
     }
 
-    /* UNIFIED COLOR RULE: Green pill with gold border matching the header */
+    /* 3. OVERRIDE: Neutralizes sidebar.css 100% width so pills stay horizontal */
     .dashboard-layout .tab-btn,
     .dashboard-layout .collections-pills-track .tab-btn {
+        width: auto !important;
+        height: auto !important;
         background: #07511A !important;
         color: #FFFFFF !important;
         border: 1.5px solid rgba(212, 175, 55, 0.45) !important;
@@ -68,7 +70,7 @@
         transform: translateY(-1px) !important;
     }
 
-    /* ACTIVE STATE: Solid gold fill with dark green text matching TIENDA */
+    /* 4. ACTIVE SELECTION: Matches Tienda button (solid gold fill with green text) */
     .dashboard-layout .tab-btn.active,
     .dashboard-layout .tab-btn.active:hover {
         background: var(--gold-border) !important;
@@ -79,7 +81,7 @@
         transform: none !important;
     }
 
-    /* 6 Cards across on Desktop */
+    /* 5. 6 Cards across on Desktop */
     .dashboard-layout .dashboard-content {
         width: 100% !important;
         margin: 0 !important;
