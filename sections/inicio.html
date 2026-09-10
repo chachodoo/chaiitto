@@ -117,6 +117,11 @@
 
         <!-- COLECCIONES GLIDER -->
     <div class="inicio-glider-container">
+        <!-- Flecha Izquierda -->
+        <button type="button" class="inicio-glider-arrow arrow-left" aria-label="Deslizar izquierda" onclick="document.getElementById('inicioPillsTrack').scrollBy({left: -240, behavior: 'smooth'})">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
         <div class="inicio-pills-track" id="inicioPillsTrack">
             <button type="button" class="tab-btn" onclick="jumpToMenuCollection(1)">Menú Completo</button>
             <button type="button" class="tab-btn" onclick="jumpToMenuCollection(1)">Bienestar</button>
@@ -132,7 +137,8 @@
             <button type="button" class="tab-btn" onclick="jumpToMenuCollection(14)">Quiero Matcha</button>
         </div>
 
-        <button type="button" class="inicio-glider-arrow" aria-label="Deslizar" onclick="document.getElementById('inicioPillsTrack').scrollBy({left: 240, behavior: 'smooth'})">
+        <!-- Flecha Derecha -->
+        <button type="button" class="inicio-glider-arrow arrow-right" aria-label="Deslizar derecha" onclick="document.getElementById('inicioPillsTrack').scrollBy({left: 240, behavior: 'smooth'})">
             <i class="fa-solid fa-chevron-right"></i>
         </button>
     </div>
@@ -153,8 +159,8 @@
             flex-wrap: nowrap;
             overflow-x: auto;
             overflow-y: hidden;
-            gap: 10px;
-            padding: 8px 48px 12px 8px;
+            gap: 8px;
+            padding: 6px 44px 10px 44px;
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
@@ -165,20 +171,22 @@
             display: none;
         }
 
+        /* Identical pill dimensions, typography, and colors from sidebar.css */
         .inicio-pills-track .tab-btn {
             flex: 0 0 auto !important;
             width: auto !important;
             height: 46px !important;
-            padding: 0 20px !important;
+            padding: 4px 14px !important;
             border-radius: 9999px !important;
             white-space: nowrap !important;
+            font-family: var(--font-body, 'Montserrat', sans-serif) !important;
             font-size: 0.82rem !important;
             font-weight: 800 !important;
-            font-family: var(--font-body) !important;
+            line-height: 1 !important;
             background: #FFFFFF !important;
-            color: var(--matcha-deep) !important;
+            color: var(--matcha-deep, #2D5A27) !important;
             border: 1px solid rgba(45, 90, 39, 0.2) !important;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15) !important;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.18) !important;
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
@@ -187,15 +195,15 @@
         }
 
         .inicio-pills-track .tab-btn:hover {
-            background: var(--matcha-deep) !important;
+            background: var(--matcha-deep, #2D5A27) !important;
             color: #FFFFFF !important;
-            border-color: var(--matcha-deep) !important;
+            border-color: var(--matcha-deep, #2D5A27) !important;
             transform: translateY(-2px);
         }
 
+        /* Gold Circular Buttons */
         .inicio-glider-arrow {
             position: absolute !important;
-            right: 0 !important;
             top: calc(50% - 2px) !important;
             transform: translateY(-50%) !important;
             width: 32px !important;
@@ -207,16 +215,34 @@
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
-            box-shadow: -3px 0 8px rgba(0, 0, 0, 0.4) !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35) !important;
             cursor: pointer !important;
             z-index: 30 !important;
-            font-size: 0.85rem !important;
+            font-size: 0.82rem !important;
             padding: 0 !important;
+        }
+
+        .inicio-glider-arrow.arrow-left {
+            left: 0 !important;
+        }
+
+        .inicio-glider-arrow.arrow-right {
+            right: 0 !important;
         }
 
         .inicio-glider-arrow i {
             display: inline-block !important;
             color: #121a12 !important;
+        }
+
+        /* On mobile, only display the right scroll cue */
+        @media (max-width: 991px) {
+            .inicio-glider-arrow.arrow-left {
+                display: none !important;
+            }
+            .inicio-pills-track {
+                padding: 4px 44px 10px 0 !important;
+            }
         }
     </style>
 
