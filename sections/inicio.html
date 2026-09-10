@@ -116,76 +116,41 @@
 }
 </style>
 
-<div class="dashboard-layout">
+<div class="dashboard-layout" style="display: block !important;">
 
-  <!-- ==========================================
-       SIDEBAR / COLLECTIONS SECTION
-       ========================================== -->
-<!-- BOTÓN VER MENÚ & COLECCIONES HORIZONTALES (Reemplaza el sidebar vertical) -->
-<div style="width: 100%; margin: 10px auto 35px auto; text-align: center;">
-    
-    <!-- El Botón Principal que despliega el menú -->
-    <button onclick="const m = document.getElementById('inicio-collections-menu'); m.style.display = m.style.display === 'none' ? 'block' : 'none';" class="hero-cta-btn" style="background: var(--matcha-deep); border-radius: 30px; font-size: 1.05rem; padding: 14px 34px; box-shadow: 0 4px 15px rgba(45,90,39,0.25);">
-        <i class="fa-solid fa-book-open" style="color: #F5D061;"></i> Ver Menú
-    </button>
+    <!-- BOTÓN VER MENÚ (Fixed Layout & Links) -->
+    <div style="width: 100%; margin: 10px auto 35px auto; text-align: center;">
 
-    <!-- El Contenedor Oculto (Track Horizontal) -->
-    <div id="inicio-collections-menu" style="display: none; margin-top: 25px; text-align: left; animation: fadeIn 0.3s ease;">
-        <div class="collections-wrapper" style="max-width: 1100px; margin: 0 auto; position: relative;">
-            
-            <div class="collections-pills-track" id="inicioPillsTrack" style="padding-bottom: 10px;">
-                <!-- Botones que dirigen a la Tienda y abren la colección -->
-                <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('BIENESTAR'), 100);"><span>Bienestar</span></button>
-                <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('CHAI LOVER'), 100);"><span>Chai Lover</span></button>
-                <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('BLUE MAGIC'), 100);"><span>Blue Magic</span></button>
-                <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('VIAJES CON TÉ'), 100);"><span>Viajes con Té</span></button>
-                <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('NOCTURNA'), 100);"><span>Nocturna</span></button>
-                <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('ESPECIAL'), 100);"><span>Especial</span></button>
-                <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('WOW'), 100);"><span>Wow</span></button>
-                <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('CAFÉ'), 100);"><span>Café</span></button>
-                <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('CHOCO LATTE'), 100);"><span>Choco Latte</span></button>
-                <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('TENTACIONES'), 100);"><span>Tentaciones</span></button>
-                <button class="tab-btn" onclick="switchPage('productos'); setTimeout(() => selectCollection('QUIERO MATCHA'), 100);"><span>Quiero Matcha</span></button>
+        <!-- El Botón Principal -->
+        <button onclick="const m = document.getElementById('inicio-collections-menu'); m.style.display = m.style.display === 'none' ? 'block' : 'none';" class="hero-cta-btn" style="background: var(--matcha-deep); border-radius: 30px; font-size: 1.05rem; padding: 14px 34px; box-shadow: 0 4px 15px rgba(45,90,39,0.25);">
+            <i class="fa-solid fa-book-open" style="color: #F5D061;"></i> Ver Menú
+        </button>
+
+        <!-- Grid de Colecciones Premium (Abre el Flipbook Menu) -->
+        <div id="inicio-collections-menu" style="display: none; margin-top: 25px; text-align: center; animation: fadeIn 0.3s ease;">
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; max-width: 900px; margin: 0 auto;">
+                <button class="nav-btn" onclick="jumpToMenuCollection(1)">Bienestar</button>
+                <button class="nav-btn" onclick="jumpToMenuCollection(2)">Chai Lover</button>
+                <button class="nav-btn" onclick="jumpToMenuCollection(3)">Blue Magic</button>
+                <button class="nav-btn" onclick="jumpToMenuCollection(4)">Viajes con Té</button>
+                <button class="nav-btn" onclick="jumpToMenuCollection(5)">Nocturna</button>
+                <button class="nav-btn" onclick="jumpToMenuCollection(6)">Especial</button>
+                <button class="nav-btn" onclick="jumpToMenuCollection(9)">Wow</button>
+                <button class="nav-btn" onclick="jumpToMenuCollection(14)">Quiero Matcha</button>
             </div>
-
-            <!-- Flecha de desplazamiento (estilo móvil) -->
-            <button type="button" class="mobile-scroll-arrow" aria-label="Deslizar" onclick="document.getElementById('inicioPillsTrack').scrollBy({left: 180, behavior: 'smooth'})">
-                <i class="fa-solid fa-chevron-right"></i>
-            </button>
         </div>
     </div>
-</div>
 
-<style>
-/* Obliga a las píldoras a ser horizontales en Desktop para esta sección específica */
-@media (min-width: 992px) {
-    #inicio-collections-menu .collections-pills-track {
-        flex-direction: row !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
-        gap: 12px !important;
-    }
-    #inicio-collections-menu .tab-btn {
-        width: auto !important;
-        flex: 0 0 auto !important;
-        display: inline-flex !important;
-        padding: 10px 18px !important;
-    }
-    #inicio-collections-menu .mobile-scroll-arrow {
-        display: none !important;
-    }
-}
-@keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-</style>
+    <style>
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
 
-  <!-- ==========================================
-       MAIN CONTENT 
-       ========================================== -->
-  <main class="dashboard-content">
-    
-    <!-- THE STORY -->
-    <div class="story-card" style="margin-bottom: 15px; padding: 15px 20px 5px 20px;">
-      <h2 class="story-title" style="margin-bottom: 2px; font-size: 1.5em;">Nuestra Historia</h2>
+    <!-- MAIN CONTENT -->
+    <main class="dashboard-content" style="display: block !important; width: 100% !important;">
+
+        <!-- THE STORY -->
+        <div class="story-card" style="margin-bottom: 15px; padding: 15px 20px 5px 20px;">
+            <h2 class="story-title" style="margin-bottom: 25px; font-size: 1.5em;">Nuestra Historia</h2>
       <div style="width: 100%; text-align: center; margin-bottom: 5px;">
 <!-- INTERACTIVE 4-SLIDE STORY SLIDER (ENTERPRISE SPLIT LAYOUT) -->
 <div class="story-slider-wrapper">
