@@ -115,53 +115,108 @@
 
 <div class="dashboard-layout" style="display: block !important;">
 
-        <!-- COLECCIONES TRACK (Exact Match to Productos) -->
-    <div style="width: 100%; max-width: 950px; margin: 15px auto 25px auto;">
-        <div class="collections-wrapper">
-            <div class="collections-pills-track" id="inicioPillsTrack">
-                <button class="tab-btn" onclick="jumpToMenuCollection(1)"><span>Menú Completo</span></button>
-                <button class="tab-btn" onclick="jumpToMenuCollection(1)"><span>Bienestar</span></button>
-                <button class="tab-btn" onclick="jumpToMenuCollection(2)"><span>Chai Lover</span></button>
-                <button class="tab-btn" onclick="jumpToMenuCollection(3)"><span>Blue Magic</span></button>
-                <button class="tab-btn" onclick="jumpToMenuCollection(4)"><span>Viajes con Té</span></button>
-                <button class="tab-btn" onclick="jumpToMenuCollection(5)"><span>Nocturna</span></button>
-                <button class="tab-btn" onclick="jumpToMenuCollection(6)"><span>Especial</span></button>
-                <button class="tab-btn" onclick="jumpToMenuCollection(9)"><span>Wow</span></button>
-                <button class="tab-btn" onclick="jumpToMenuCollection(10)"><span>Café</span></button>
-                <button class="tab-btn" onclick="jumpToMenuCollection(11)"><span>Choco Latte</span></button>
-                <button class="tab-btn" onclick="jumpToMenuCollection(12)"><span>Tentaciones</span></button>
-                <button class="tab-btn" onclick="jumpToMenuCollection(14)"><span>Quiero Matcha</span></button>
-            </div>
-
-            <!-- Single floating arrow, matching Productos exactly -->
-            <button type="button" class="mobile-scroll-arrow" aria-label="Deslizar" onclick="document.getElementById('inicioPillsTrack').scrollBy({left: 200, behavior: 'smooth'})">
-                <i class="fa-solid fa-chevron-right"></i>
-            </button>
+        <!-- COLECCIONES GLIDER -->
+    <div class="inicio-glider-container">
+        <div class="inicio-pills-track" id="inicioPillsTrack">
+            <button type="button" class="tab-btn" onclick="jumpToMenuCollection(1)">Menú Completo</button>
+            <button type="button" class="tab-btn" onclick="jumpToMenuCollection(1)">Bienestar</button>
+            <button type="button" class="tab-btn" onclick="jumpToMenuCollection(2)">Chai Lover</button>
+            <button type="button" class="tab-btn" onclick="jumpToMenuCollection(3)">Blue Magic</button>
+            <button type="button" class="tab-btn" onclick="jumpToMenuCollection(4)">Viajes con Té</button>
+            <button type="button" class="tab-btn" onclick="jumpToMenuCollection(5)">Nocturna</button>
+            <button type="button" class="tab-btn" onclick="jumpToMenuCollection(6)">Especial</button>
+            <button type="button" class="tab-btn" onclick="jumpToMenuCollection(9)">Wow</button>
+            <button type="button" class="tab-btn" onclick="jumpToMenuCollection(10)">Café</button>
+            <button type="button" class="tab-btn" onclick="jumpToMenuCollection(11)">Choco Latte</button>
+            <button type="button" class="tab-btn" onclick="jumpToMenuCollection(12)">Tentaciones</button>
+            <button type="button" class="tab-btn" onclick="jumpToMenuCollection(14)">Quiero Matcha</button>
         </div>
+
+        <button type="button" class="inicio-glider-arrow" aria-label="Deslizar" onclick="document.getElementById('inicioPillsTrack').scrollBy({left: 240, behavior: 'smooth'})">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
     </div>
 
     <style>
-        /* Desktop: keeps track horizontal and enables arrow like mobile */
-        @media (min-width: 992px) {
-            #inicioPillsTrack {
-                flex-direction: row !important;
-                overflow-x: auto !important;
-                gap: 8px !important;
-                padding: 4px 44px 10px 0 !important;
-                scrollbar-width: none;
-            }
-            #inicioPillsTrack::-webkit-scrollbar { display: none; }
-            #inicioPillsTrack .tab-btn {
-                flex: 0 0 auto !important;
-                width: auto !important;
-                height: 46px !important;
-                padding: 4px 14px !important;
-                border-radius: 9999px !important;
-                white-space: nowrap !important;
-            }
-            .collections-wrapper .mobile-scroll-arrow {
-                display: flex !important;
-            }
+        .inicio-glider-container {
+            position: relative;
+            width: 100%;
+            max-width: 950px;
+            margin: 12px auto 25px auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .inicio-pills-track {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            gap: 10px;
+            padding: 8px 48px 12px 8px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            width: 100%;
+        }
+
+        .inicio-pills-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .inicio-pills-track .tab-btn {
+            flex: 0 0 auto !important;
+            width: auto !important;
+            height: 46px !important;
+            padding: 0 20px !important;
+            border-radius: 9999px !important;
+            white-space: nowrap !important;
+            font-size: 0.82rem !important;
+            font-weight: 800 !important;
+            font-family: var(--font-body) !important;
+            background: #FFFFFF !important;
+            color: var(--matcha-deep) !important;
+            border: 1px solid rgba(45, 90, 39, 0.2) !important;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15) !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .inicio-pills-track .tab-btn:hover {
+            background: var(--matcha-deep) !important;
+            color: #FFFFFF !important;
+            border-color: var(--matcha-deep) !important;
+            transform: translateY(-2px);
+        }
+
+        .inicio-glider-arrow {
+            position: absolute !important;
+            right: 0 !important;
+            top: calc(50% - 2px) !important;
+            transform: translateY(-50%) !important;
+            width: 32px !important;
+            height: 32px !important;
+            border-radius: 50% !important;
+            background: var(--gold-accent, #c5a059) !important;
+            color: #121a12 !important;
+            border: none !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            box-shadow: -3px 0 8px rgba(0, 0, 0, 0.4) !important;
+            cursor: pointer !important;
+            z-index: 30 !important;
+            font-size: 0.85rem !important;
+            padding: 0 !important;
+        }
+
+        .inicio-glider-arrow i {
+            display: inline-block !important;
+            color: #121a12 !important;
         }
     </style>
 
