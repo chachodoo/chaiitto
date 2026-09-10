@@ -209,24 +209,61 @@
       <h2 class="story-title" style="margin-bottom: 2px; font-size: 1.5em;">Nuestra Historia</h2>
       <div class="story-subtitle" style="margin-bottom: 10px; font-size: 0.9em;">Cómo nació Chaiitto</div>
       <div style="width: 100%; text-align: center; margin-bottom: 5px;">
-<!-- INTERACTIVE 4-SLIDE STORY SLIDER -->
+<!-- INTERACTIVE 4-SLIDE STORY SLIDER (ENTERPRISE SPLIT LAYOUT) -->
 <div class="story-slider-wrapper">
-    <!-- Inline onscroll updates the dots without needing a script tag -->
+    <!-- Inline onscroll updates the dots dynamically -->
     <div class="story-slider-track" id="storySliderTrack" onscroll="
         const idx = Math.round(this.scrollLeft / this.clientWidth);
         const dots = document.getElementById('storyDots').children;
         for(let i=0; i<dots.length; i++) dots[i].classList.toggle('active', i === idx);
     ">
-        <div class="story-slide"><img src="historia-1.JPG" alt="Nuestra Historia - Parte 1" loading="lazy"></div>
-        <div class="story-slide"><img src="historia-2.JPG" alt="Nuestra Historia - Parte 2" loading="lazy"></div>
-        <div class="story-slide"><img src="historia-3.JPG" alt="Nuestra Historia - Parte 3" loading="lazy"></div>
-        <div class="story-slide"><img src="historia-4.JPG" alt="Nuestra Historia - Parte 4" loading="lazy"></div>
+        <!-- SLIDE 1 -->
+        <div class="story-slide">
+            <div class="story-split">
+                <div class="story-photo"><img src="historia-1.JPG" alt="Parte 1" loading="lazy"></div>
+                <div class="story-text">
+                    <p>“Todo empezó con la incredulidad de mi esposo… y un Té de bolsita de 10 pesos.”</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 2 -->
+        <div class="story-slide">
+            <div class="story-split">
+                <div class="story-photo"><img src="historia-2.JPG" alt="Parte 2" loading="lazy"></div>
+                <div class="story-text">
+                    <p>“En nuestra ciudad, Cholula, era difícil encontrar té de calidad. Todo se reducía al típico té de bolsita. Ni en las cafeterías gourmet.”</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 3 -->
+        <div class="story-slide">
+            <div class="story-split">
+                <div class="story-photo"><img src="historia-3.JPG" alt="Parte 3" loading="lazy"></div>
+                <div class="story-text">
+                    <p>“Mi esposo es libanés. Para él, el té es CULTURA Y RITUAL. No podía creer que nos sirvieran hojas pulverizadas sin alma. Decidimos cambiarlo.”</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 4 -->
+        <div class="story-slide">
+            <div class="story-split">
+                <div class="story-photo"><img src="historia-4.JPG" alt="Parte 4" loading="lazy"></div>
+                <div class="story-text">
+                    <p>“EMPEZAMOS A SERVIR EL TÉ VERDADERO. Dejamos lo ordinario para traer la autenticidad del té de hoja suelta de Camellia Sinensis a Puebla. Acompáñanos en este viaje de bienestar y descubrimiento.”</p>
+                    <p style="margin-top: 15px; font-family: var(--font-heading, 'Cinzel', serif); font-weight: 700; color: var(--matcha-deep, #2D5A27);">Chai-itto. Salud Con Té.</p>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Inline onclick bypasses the dynamic loading script block restriction -->
+    <!-- Navigation Arrows -->
     <button type="button" class="story-arrow prev" aria-label="Anterior" onclick="document.getElementById('storySliderTrack').scrollBy({left: -document.getElementById('storySliderTrack').clientWidth, behavior: 'smooth'})">&#10094;</button>
     <button type="button" class="story-arrow next" aria-label="Siguiente" onclick="document.getElementById('storySliderTrack').scrollBy({left: document.getElementById('storySliderTrack').clientWidth, behavior: 'smooth'})">&#10095;</button>
 
+    <!-- Pagination Dots -->
     <div class="story-dots-track" id="storyDots">
         <span class="story-dot active" onclick="document.getElementById('storySliderTrack').scrollTo({left: 0, behavior: 'smooth'})"></span>
         <span class="story-dot" onclick="document.getElementById('storySliderTrack').scrollTo({left: document.getElementById('storySliderTrack').clientWidth, behavior: 'smooth'})"></span>
@@ -236,21 +273,20 @@
 </div>
 
 <style>
+/* ENTERPRISE SPLIT LAYOUT STYLES */
 .story-slider-wrapper {
     position: relative;
     width: 100%;
-    max-width: 320px; /* Constrains width so tall images don't look awkwardly wide */
-    margin: 16px auto 24px auto;
+    max-width: 860px; /* Expands to fill desktop space beautifully */
+    margin: 16px auto 30px auto;
     border: 1.5px solid rgba(212, 175, 55, 0.45);
     border-radius: 16px;
     overflow: hidden;
-    background: #FFFFFF;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    background: #FDFDF9;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
-
 .story-slider-track {
     display: flex;
-    flex-direction: row;
     width: 100%;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
@@ -258,51 +294,75 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
 }
-.story-slider-track::-webkit-scrollbar {
-    display: none;
-}
+.story-slider-track::-webkit-scrollbar { display: none; }
 
 .story-slide {
     flex: 0 0 100%;
     width: 100%;
-    height: 50vh;       /* Adapts to phone screens */
-    max-height: 380px;  /* Caps height on desktop so it never takes up the whole screen */
     scroll-snap-align: start;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.story-slide img {
+.story-split {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 420px; /* Fixed height for consistent desktop display */
+}
+
+/* Photo Section */
+.story-photo {
+    flex: 1;
+    overflow: hidden;
+    background: #e9ecef;
+}
+.story-photo img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Guarantees the entire image fits inside the box without stretching */
+    object-fit: cover; /* Ensures the AI images perfectly fill their half without stretching */
     display: block;
+}
+
+/* Text Section */
+.story-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px 45px;
+    font-family: var(--font-body, 'Montserrat', sans-serif);
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--text-dark, #1C3317);
+    text-align: left;
+    background: #FDFDF9;
+}
+.story-text p {
+    margin: 0;
 }
 
 /* Floating Navigation Arrows */
 .story-arrow {
     position: absolute;
-    top: 50%;
+    top: calc(50% - 20px);
     transform: translateY(-50%);
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background: rgba(7, 81, 26, 0.85);
+    background: rgba(7, 81, 26, 0.9);
     color: #FFFFFF;
     border: 1.5px solid var(--gold-border, #D4AF37);
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     z-index: 10;
     transition: all 0.2s ease;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 .story-arrow:hover { background: #237A38; transform: translateY(-50%) scale(1.08); }
-.story-arrow.prev { left: 10px; }
-.story-arrow.next { right: 10px; }
+.story-arrow.prev { left: 15px; }
+.story-arrow.next { right: 15px; }
 
 /* 4 Centered Dots */
 .story-dots-track {
@@ -310,8 +370,9 @@
     justify-content: center;
     align-items: center;
     gap: 8px;
-    padding: 10px 0;
-    background: #FFFFFF;
+    padding: 14px 0;
+    background: #FDFDF9;
+    border-top: 1px solid rgba(212, 175, 55, 0.15);
 }
 .story-dot {
     width: 10px;
@@ -323,10 +384,36 @@
     transition: all 0.25s ease;
 }
 .story-dot.active {
-    width: 26px;
+    width: 28px;
     border-radius: 10px;
     background: var(--gold-border, #D4AF37);
     border-color: #B8860B;
+}
+
+/* ==========================================
+   MOBILE RESPONSIVE OVERRIDES
+   ========================================== */
+@media (max-width: 768px) {
+    .story-split {
+        flex-direction: column;
+        height: auto; /* Lets the height grow naturally based on text length */
+    }
+    .story-photo {
+        flex: none;
+        width: 100%;
+        height: 300px; /* Locks the photo height so it's always visible */
+    }
+    .story-text {
+        flex: none;
+        padding: 25px 20px;
+        font-size: 1.05rem;
+        text-align: center;
+    }
+    .story-arrow {
+        top: 150px; /* Centers the arrows perfectly over the photo on mobile */
+        width: 36px;
+        height: 36px;
+    }
 }
 </style>
 
