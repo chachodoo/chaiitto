@@ -177,6 +177,7 @@
         }
 
         /* Identical Pill Uniformity: Fixed width, height, font and border colors */
+        /* Desktop Theme Match: Dark Green Unselected, Gold Selected & Hover */
         .inicio-pills-track .tab-btn {
             flex: 0 0 135px !important;
             width: 135px !important;
@@ -184,21 +185,23 @@
             margin: 0 !important;
             padding: 4px 8px !important;
             border-radius: 9999px !important;
-            font-family: var(--font-body, 'Montserrat', sans-serif) !important;
+            font-family: var(--font-heading, 'Cinzel', serif) !important;
             font-size: 0.78rem !important;
             font-weight: 700 !important;
             line-height: 1.15 !important;
-            background: #FFFFFF !important;
-            color: var(--matcha-deep, #2D5A27) !important;
-            border: 1px solid rgba(45, 90, 39, 0.25) !important;
-            box-shadow: 0 2px 6px rgba(45, 90, 39, 0.08) !important;
+            letter-spacing: 0.8px !important;
+            text-transform: uppercase !important;
+            background: #07511A !important;
+            color: #FFFFFF !important;
+            border: 1.5px solid rgba(212, 175, 55, 0.6) !important;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2) !important;
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
             text-align: center !important;
             cursor: pointer;
             box-sizing: border-box !important;
-            transition: all 0.2s ease;
+            transition: all 0.25s ease;
         }
 
         .inicio-pills-track .tab-btn span {
@@ -211,11 +214,19 @@
         }
 
         .inicio-pills-track .tab-btn:hover {
-            background: var(--matcha-deep, #2D5A27) !important;
+            background: rgba(255, 255, 255, 0.18) !important;
             color: #FFFFFF !important;
-            border-color: var(--matcha-deep, #2D5A27) !important;
-            box-shadow: 0 4px 10px rgba(45, 90, 39, 0.22) !important;
+            border-color: #F5D061 !important;
             transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.28) !important;
+        }
+
+        .inicio-pills-track .tab-btn.active {
+            background: var(--gold-border, #D4AF37) !important;
+            color: #07511A !important;
+            border-color: var(--gold-border, #D4AF37) !important;
+            font-weight: 800 !important;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4) !important;
         }
 
         /* Gold Circular Buttons Outside Track */
