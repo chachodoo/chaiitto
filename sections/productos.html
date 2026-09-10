@@ -13,18 +13,19 @@
         gap: 0 !important;
     }
 
-    /* 2. Pinned directly below header border with tight, balanced spacing */
+    /* 2. Docked collection shelf sharing the header's background */
     .dashboard-layout .sidebar-menu {
         width: 100% !important;
         position: sticky !important;
         top: 204px !important;
         z-index: 999 !important;
-        background: var(--matcha-bg) !important;
-        padding: 6px 0 6px 0 !important;
-        margin: 0 0 12px 0 !important;
+        background: var(--header-bg, #07511A) !important;
+        padding: 8px 0 10px 0 !important;
+        margin: 0 0 16px 0 !important;
         flex: none !important;
         max-height: unset !important;
         overflow: visible !important;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2) !important;
     }
 
     /* Hide vertical sidebar title and desktop scroll arrow */
@@ -47,38 +48,40 @@
         overflow: visible !important;
     }
 
-    /* BUTTON MATCH: Matches the exact tone, font, and border of INICIO / ACCESORIOS */
+    /* INACTIVE PILLS: Exact same rule and background as INICIO */
     .dashboard-layout .tab-btn,
     .dashboard-layout .collections-pills-track .tab-btn {
         width: auto !important;
         height: auto !important;
-        background: #1A5F2C !important;
+        background: var(--nav-btn-bg, rgba(255, 255, 255, 0.08)) !important;
         color: #FFFFFF !important;
-        border: 1.5px solid rgba(212, 175, 55, 0.45) !important;
+        border: 1.5px solid var(--nav-btn-border, rgba(212, 175, 55, 0.45)) !important;
         border-radius: 25px !important;
         padding: 8px 18px !important;
         font-family: var(--font-heading) !important;
-        font-size: 0.82rem !important;
+        font-size: 0.85em !important;
         font-weight: 700 !important;
-        letter-spacing: 1px !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1.2px !important;
         white-space: nowrap !important;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
         cursor: pointer !important;
-        transition: all 0.2s ease !important;
+        transition: all 0.25s ease !important;
     }
 
     .dashboard-layout .tab-btn:hover {
-        background: #14692C !important;
+        background: rgba(255, 255, 255, 0.18) !important;
         border-color: #F5D061 !important;
         color: #FFFFFF !important;
-        transform: translateY(-1px) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
     }
 
-    /* 4. ACTIVE SELECTION: Solid gold fill with dark text matching TIENDA */
+    /* ACTIVE PILL: Exact same rule as TIENDA */
     .dashboard-layout .tab-btn.active,
     .dashboard-layout .tab-btn.active:hover {
         background: var(--gold-border) !important;
-        color: #07511A !important;
+        color: var(--header-bg, #07511A) !important;
         border-color: var(--gold-border) !important;
         font-weight: 800 !important;
         box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4) !important;
