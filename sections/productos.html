@@ -3,22 +3,22 @@
    1. DESKTOP (992px and up): 100% FULL-WIDTH & 6-COLUMN GRID
    ======================================================= */
 @media (min-width: 992px) {
-    /* 1. Converts layout to vertical stack */
+    /* 1. Cancels the container's 20px gap so pills are docked with ZERO upward travel */
     .dashboard-layout {
         display: flex !important;
         flex-direction: column !important;
         width: 100% !important;
-        margin: 0 !important;
+        margin: -20px 0 0 0 !important;
     }
 
-    /* 2. Locks sticky anchor right at the bottom edge of the desktop header (35px + 165px = 200px) */
+    /* 2. Pinned directly below the header border — stays put immediately upon scrolling */
     .dashboard-layout .sidebar-menu {
         width: 100% !important;
         position: sticky !important;
-        top: 200px !important;
+        top: 198px !important;
         z-index: 999 !important;
         background: var(--matcha-bg) !important;
-        padding: 8px 0 12px 0 !important;
+        padding: 6px 0 10px 0 !important;
         margin: 0 0 16px 0 !important;
         flex: none !important;
         max-height: unset !important;
@@ -31,7 +31,7 @@
         display: none !important;
     }
 
-    /* Horizontal row centered across the screen */
+    /* Centered horizontal collection row */
     .dashboard-layout .collections-wrapper,
     .dashboard-layout .collections-pills-track {
         display: flex !important;
@@ -45,12 +45,12 @@
         overflow: visible !important;
     }
 
-    /* 3. OVERRIDE: Neutralizes sidebar.css 100% width so pills stay horizontal */
+    /* 3. BUTTON GREEN MATCH: Exactly matches the INICIO / ACCESORIOS button tone */
     .dashboard-layout .tab-btn,
     .dashboard-layout .collections-pills-track .tab-btn {
         width: auto !important;
         height: auto !important;
-        background: #07511A !important;
+        background: #1A5F2C !important;
         color: #FFFFFF !important;
         border: 1.5px solid rgba(212, 175, 55, 0.45) !important;
         border-radius: 25px !important;
@@ -64,13 +64,13 @@
     }
 
     .dashboard-layout .tab-btn:hover {
-        background: #18441F !important;
+        background: #237436 !important;
         border-color: #F5D061 !important;
         color: #FFFFFF !important;
         transform: translateY(-1px) !important;
     }
 
-    /* 4. ACTIVE SELECTION: Matches Tienda button (solid gold fill with green text) */
+    /* 4. ACTIVE SELECTION: Solid gold fill with dark text matching TIENDA */
     .dashboard-layout .tab-btn.active,
     .dashboard-layout .tab-btn.active:hover {
         background: var(--gold-border) !important;
