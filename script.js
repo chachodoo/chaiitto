@@ -350,10 +350,16 @@ function normalizeStr(str) {
 
 function selectCollection(colName) {
     const targetNorm = normalizeStr(colName);
-    // Highlight active tab button without moving or gliding the track
+    let activeBtn = null;
+
+    // Highlight active tab button
     document.querySelectorAll('.tab-btn').forEach(btn => {
         const btnNorm = normalizeStr(btn.textContent || btn.innerText || '');
-        btn.classList.toggle('active', btnNorm === targetNorm);
+        const isActive = btnNorm === targetNorm;
+        btn.classList.toggle('active', isActive);
+        if (isActive && !activeBtn) {
+            activeBtn = btn;
+        }
     });
 
     // Update section title banner if present
@@ -362,7 +368,25 @@ function selectCollection(colName) {
         titleEl.textContent = colName;
     }
 
+    // Render products for the selected collection
     loadCollection(colName);
+
+    // Keep the tapped pill visible & centered without vertical window movement or gliding
+    if (activeBtn) {
+        const keepPillVisible = () => {
+            const track = activeBtn.closest('.collections-pills-track') || 
+                          activeBtn.closest('.collections-scroll-container') ||
+                          document.querySelector('.collections-pills-track');
+            if (track) {
+                const centerOffset = activeBtn.offsetLeft - (track.clientWidth / 2) + (activeBtn.clientWidth / 2);
+                track.scrollLeft = Math.max(0, centerOffset);
+            }
+        };
+
+        keepPillVisible();
+        setTimeout(keepPillVisible, 50);
+        setTimeout(keepPillVisible, 150);
+    }
 }
 
 function loadCollection(colName) {
