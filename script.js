@@ -326,7 +326,7 @@ if (pageName === 'inicio' && window.shouldScrollToCollections) {
         if (anchor) {
             const headerOffset = 85; // Keeps title 85px below the screen top
             const targetY = anchor.getBoundingClientRect().top + window.pageYOffset - headerOffset;
-            window.scrollTo({ top: targetY, behavior: 'smooth' });
+            window.scrollTo({ top: targetY, behavior: 'instant' });
         }
     }, 150);
 }
@@ -350,8 +350,6 @@ function normalizeStr(str) {
 
 function selectCollection(colName) {
     const targetNorm = normalizeStr(colName);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
     // Highlight active tab button without moving or gliding the track
     document.querySelectorAll('.tab-btn').forEach(btn => {
         const btnNorm = normalizeStr(btn.textContent || btn.innerText || '');
