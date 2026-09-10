@@ -502,19 +502,20 @@
                 from { opacity: 0; transform: translateY(-8px); }
                 to { opacity: 1; transform: translateY(0); }
             }
-            /* Editorial Typography on White Porcelain */
+            /* App-Drawer Row with Left-Aligned Icons */
             nav.main-nav .nav-btn {
                 background: transparent !important;
                 border: none !important;
                 border-bottom: 1px solid rgba(0, 0, 0, 0.07) !important;
                 border-radius: 0 !important;
                 box-shadow: none !important;
-                padding: 15px 8px !important;
+                padding: 14px 10px !important;
                 margin: 0 !important;
                 width: 100% !important;
                 display: flex !important;
                 align-items: center !important;
-                justify-content: space-between !important;
+                justify-content: flex-start !important;
+                gap: 14px !important;
                 font-family: var(--font-heading) !important;
                 font-size: 0.88rem !important;
                 font-weight: 700 !important;
@@ -524,37 +525,39 @@
                 text-align: left !important;
                 transition: all 0.18s ease !important;
             }
+            nav.main-nav .nav-btn i {
+                width: 22px !important;
+                text-align: center !important;
+                font-size: 1.05rem !important;
+                color: var(--gold-accent) !important;
+                flex-shrink: 0 !important;
+            }
             nav.main-nav .nav-btn:last-child {
                 border-bottom: none !important;
             }
+            /* Instant Touch / Tap Feedback: Clear 28% Gold Flash */
             nav.main-nav .nav-btn:active,
             nav.main-nav .nav-btn:hover {
-                background: rgba(212, 175, 55, 0.08) !important;
+                background: rgba(212, 175, 55, 0.28) !important;
                 padding-left: 14px !important;
                 transform: none !important;
                 box-shadow: none !important;
             }
-            /* Universal Gold Active Marker: Clean Gold Side Stripe */
+            /* Selected State: Solid Warm Honey Gold Fill + 5px Dark Brass Stripe */
             nav.main-nav .nav-btn.active {
-                background: rgba(212, 175, 55, 0.12) !important;
+                background: #F4E8C1 !important;
                 color: #07511A !important;
-                border-left: 4px solid var(--gold-border) !important;
+                border-left: 5px solid #B8860B !important;
                 border-bottom: 1px solid rgba(0, 0, 0, 0.07) !important;
                 padding-left: 14px !important;
                 font-weight: 800 !important;
                 box-shadow: none !important;
             }
-            nav.main-nav .nav-btn.nav-vip {
-                color: var(--gold-accent) !important;
+            nav.main-nav .nav-btn.active i {
+                color: #07511A !important;
             }
-            nav.main-nav .nav-vip-badge {
-                background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%) !important;
-                color: #1C3317 !important;
-                font-size: 0.72em !important;
-                padding: 3px 8px !important;
-                border-radius: 10px !important;
-                box-shadow: 0 2px 6px rgba(212, 175, 55, 0.3) !important;
-            }
+
+            
 }
 
         /* --- DYNAMIC SECTION SHELL --- */
@@ -757,7 +760,7 @@
     <header id="main-master-header">
         <!-- Enterprise Marquee Ribbon -->
 
-        <!-- Logo & Nav Row (Sinensis Header Layout) -->
+        <!-- Logo & Nav Row (Header Layout) -->
 <div class="header-square-layout" id="header-logo-container">
     <button id="floating-hamburger-btn" class="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Menú">
         <i class="fa-solid fa-bars"></i>
@@ -769,18 +772,25 @@
 </div>
 
         <nav class="main-nav" id="main-nav-menu">
-            <button class="nav-btn" data-page="inicio" onclick="window.location.hash='inicio'; if(typeof loadSection==='function'){loadSection('inicio');}else if(typeof switchPage==='function'){switchPage('inicio');}">Inicio</button>            
-            <button class="nav-btn" data-page="productos" onclick="window.location.hash='productos';">Tienda</button>
-            <button class="nav-btn" data-page="accesorios" onclick="window.location.hash='accesorios';">Accesorios</button>
-            <button class="nav-btn" data-page="galeria" onclick="window.location.hash='galeria';">Galería</button>
-            <button class="nav-btn nav-vip" data-page="vip" onclick="window.location.hash='vip';">
-                CLUB VIP <span class="nav-vip-badge"><i class="fa-solid fa-crown"></i></span>
-            </button>
-            <button class="nav-btn" data-page="bazar" onclick="window.location.hash='bazar';">
-                <i class="fa-solid fa-lock" style="color: var(--gold-accent); margin-right: 4px;"></i> Bazar VIP
-            </button>
-            
-        </nav>
+        <button class="nav-btn" data-page="inicio" onclick="window.location.hash='inicio'; if(typeof loadSection==='function'){loadSection('inicio');}else if(typeof switchPage==='function'){switchPage('inicio');}">
+            <i class="fa-solid fa-house"></i> Inicio
+        </button>
+        <button class="nav-btn" data-page="productos" onclick="window.location.hash='productos';">
+            <i class="fa-solid fa-leaf"></i> Tienda
+        </button>
+        <button class="nav-btn" data-page="accesorios" onclick="window.location.hash='accesorios';">
+            <i class="fa-solid fa-mug-hot"></i> Accesorios
+        </button>
+        <button class="nav-btn" data-page="galeria" onclick="window.location.hash='galeria';">
+            <i class="fa-solid fa-images"></i> Galería
+        </button>
+        <button class="nav-btn nav-vip" data-page="vip" onclick="window.location.hash='vip';">
+            <i class="fa-solid fa-crown"></i> Club VIP
+        </button>
+        <button class="nav-btn" data-page="bazar" onclick="window.location.hash='bazar';">
+            <i class="fa-solid fa-lock"></i> Bazar VIP
+        </button>
+    </nav>
     </header>
 
     <!-- 1. THE NEW MASTER HERO BANNER (Top of the screen, controlled by JS) -->
