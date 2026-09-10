@@ -1,7 +1,4 @@
 <style>
-  /* ==========================================
-     10/90 DESKTOP LAYOUT (DEFAULT)
-     ========================================== */
   .dashboard-layout {
     display: flex;
     gap:15px;
@@ -157,14 +154,35 @@
         <style>
     #inicio-glider-track::-webkit-scrollbar { display: none; }
     
-    /* FIX: Force the buttons back into tight pills instead of 100% width */
+    /* Píldoras 100% Uniformes (Igual que en Tienda) */
     #inicio-glider-track .tab-btn {
         width: auto !important;
         flex: 0 0 auto !important;
         display: inline-flex !important;
-        padding: 8px 22px !important;
+        align-items: center !important;
+        justify-content: center !important;
+        height: 46px !important;       
+        padding: 0 20px !important;    
+        margin: 0 !important;
+        font-size: 0.85rem !important;
+        font-weight: 700 !important;
+        border-radius: 25px !important;
+        background: #FFFFFF !important;
+        color: var(--matcha-deep) !important;
+        border: 1px solid rgba(45, 90, 39, 0.2) !important;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02) !important;
+        transition: all 0.2s ease !important;
+    }
+    
+    #inicio-glider-track .tab-btn:hover {
+        background: var(--matcha-deep) !important;
+        color: #FFFFFF !important;
+        border-color: var(--matcha-deep) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 10px rgba(45, 90, 39, 0.2) !important;
     }
 
+    /* Flechas del Glider (Desktop) */
     .glider-arrow {
         position: absolute; 
         top: 50%; 
@@ -183,14 +201,30 @@
         justify-content: center;
         transition: all 0.2s ease;
     }
+    
     .glider-arrow:hover {
         background: var(--matcha-deep);
         color: #FFFFFF;
         transform: translateY(-50%) scale(1.1);
     }
-    @media (max-width: 768px) {
-        .glider-arrow { display: none !important; } /* Ocultar flechas en móvil, usar swipe táctil */
-        #inicio-glider-track { padding: 10px 20px; }
+    
+    /* FIX MOBILE: Flecha idéntica a la de Productos */
+    @media (max-width: 991px) {
+        .glider-arrow[aria-label="Deslizar izquierda"] { 
+            display: none !important; /* Ocultar flecha izquierda en móvil */
+        }
+        .glider-arrow[aria-label="Deslizar derecha"] { 
+            right: -5px !important;
+            width: 32px !important; 
+            height: 32px !important; 
+            background: var(--gold-accent, #c5a059) !important; 
+            color: #121a12 !important; 
+            border: none !important; 
+            box-shadow: -3px 0 8px rgba(0, 0, 0, 0.4) !important;
+        }
+        #inicio-glider-track { 
+            padding: 10px 44px 10px 0 !important; /* Espacio extra a la derecha para que la flecha no tape las pastillas */
+        }
     }
 </style>
 
