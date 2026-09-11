@@ -355,7 +355,7 @@ function selectCollection(colName) {
     // Highlight active tab button
     document.querySelectorAll('.tab-btn').forEach(btn => {
         const btnNorm = normalizeStr(btn.textContent || btn.innerText || '');
-        const isActive = btnNorm === targetNorm;
+        const isActive = btnNorm.includes(targetNorm);
         btn.classList.toggle('active', isActive);
         if (isActive && !tappedBtn) tappedBtn = btn;
     });
