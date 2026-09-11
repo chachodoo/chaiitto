@@ -975,11 +975,6 @@
         }
     };
 
-// Initialize state on page load instantly to prevent the blink
-        window.addEventListener('DOMContentLoaded', () => {
-            const hash = window.location.hash.replace('#', '').replace('-page', '') || 'inicio';
-            window.switchPage(hash);
-        });
 
         // Listen for URL changes and switch pages automatically
         window.addEventListener('hashchange', () => {
