@@ -943,10 +943,10 @@ function jumpToMenuCollection(pageNum) {
     window.targetMenuPage = pageNum;
     window.shouldScrollToCollections = true;
 
-    // 2. 50ms micro-pause so gold registers before page change
+    // 2. 20ms micro-pause so gold registers before page change
     setTimeout(() => {
         switchPage('menu');
-    }, 50);
+    }, 20);
 }
 
 // --- 1-TAP RETURN TO COLLECTIONS ---
