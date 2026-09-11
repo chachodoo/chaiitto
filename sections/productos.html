@@ -12,15 +12,15 @@
         gap: 0 !important;
     }
 
-    /* 2. Docked collection shelf: Added thick top/bottom padding so cards hide earlier on scroll */
+    /* 2. Docked collection shelf: Solid Block (Option B) */
     .dashboard-layout .sidebar-menu {
         width: 100% !important;
         position: sticky !important;
-        top: 190px !important; /* Pin height below the main header */
+        top: 220px !important; /* Lowered tripwire to lock instantly on scroll */
         z-index: 999 !important;
         background: var(--matcha-bg) !important;
-        padding: 18px 0 32px 0 !important; /* 18px above pills, massive 32px buffer below pills */
-        margin: 0 0 15px 0 !important; /* Extra push before the grid starts */
+        padding: 10px 0 35px 0 !important; /* Tighter top, massive tuck-space below */
+        margin: 0 0 15px 0 !important; 
         flex: none !important;
         max-height: unset !important;
         overflow: visible !important;
