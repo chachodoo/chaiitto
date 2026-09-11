@@ -338,7 +338,7 @@
       <div class="story-card" style="background: transparent !important; border: none !important; box-shadow: none !important; margin-top: 48px !important; margin-bottom: 25px !important; padding: 0;">
     <h2 class="story-title" style="margin-bottom: 16px !important; font-size: 2.1em !important;">Nuestra Historia</h2>
       <div style="width: 100%; text-align: center; margin-bottom: 5px;">
-<!-- INTERACTIVE 4-SLIDE STORY SLIDER (ENTERPRISE SPLIT LAYOUT) -->
+<!-- INTERACTIVE 4-SLIDE STORY SLIDER (EDITORIAL INLINE FLOW) -->
 <div class="story-slider-wrapper">
     <!-- Inline onscroll updates the dots dynamically -->
     <div class="story-slider-track" id="storySliderTrack" onscroll="
@@ -351,7 +351,7 @@
             <div class="story-split">
                 <div class="story-photo"><img src="historia-1.JPG" alt="Parte 1" loading="lazy"></div>
                 <div class="story-text">
-                    <p>“Todo empezó con la incredulidad de mi esposo… y un Té de bolsita de 10 pesos.”</p>
+                    <p>“Todo empezó con la incredulidad de mi esposo… y un Té de bolsita de 10 pesos.” <span role="button" aria-label="Siguiente" onclick="document.getElementById('storySliderTrack').scrollBy({left: document.getElementById('storySliderTrack').clientWidth, behavior: 'smooth'})" style="cursor: pointer; display: inline-block; color: #000000; font-weight: 900; font-size: 1.3em; margin-left: 8px; line-height: 1; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(4px)'" onmouseout="this.style.transform='translateX(0)'" title="Siguiente parte">&#10140;</span></p>
                 </div>
             </div>
         </div>
@@ -361,7 +361,7 @@
             <div class="story-split">
                 <div class="story-photo"><img src="historia-2.JPG" alt="Parte 2" loading="lazy"></div>
                 <div class="story-text">
-                    <p>“En Cholula, era casi imposible encontrar Té de calidad. Todo se reducía al típico Té de bolsita. Ni en las cafeterías gourmet!”</p>
+                    <p>“En Cholula, era casi imposible encontrar Té de calidad. Todo se reducía al típico Té de bolsita. Ni en las cafeterías gourmet!” <span role="button" aria-label="Siguiente" onclick="document.getElementById('storySliderTrack').scrollBy({left: document.getElementById('storySliderTrack').clientWidth, behavior: 'smooth'})" style="cursor: pointer; display: inline-block; color: #000000; font-weight: 900; font-size: 1.3em; margin-left: 8px; line-height: 1; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(4px)'" onmouseout="this.style.transform='translateX(0)'" title="Siguiente parte">&#10140;</span></p>
                 </div>
             </div>
         </div>
@@ -371,7 +371,7 @@
             <div class="story-split">
                 <div class="story-photo"><img src="historia-3.JPG" alt="Parte 3" loading="lazy"></div>
                 <div class="story-text">
-                    <p>“Mi esposo es Libanés. Para él, el Té es CULTURA Y RITUAL. No podía creer que nos sirvieran hojas pulverizadas sin alma. Decidimos cambiarlo.”</p>
+                    <p>“Mi esposo es Libanés. Para él, el Té es CULTURA Y RITUAL. No podía creer que nos sirvieran hojas pulverizadas sin alma. Decidimos cambiarlo.” <span role="button" aria-label="Siguiente" onclick="document.getElementById('storySliderTrack').scrollBy({left: document.getElementById('storySliderTrack').clientWidth, behavior: 'smooth'})" style="cursor: pointer; display: inline-block; color: #000000; font-weight: 900; font-size: 1.3em; margin-left: 8px; line-height: 1; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(4px)'" onmouseout="this.style.transform='translateX(0)'" title="Siguiente parte">&#10140;</span></p>
                 </div>
             </div>
         </div>
@@ -381,15 +381,11 @@
             <div class="story-split">
                 <div class="story-photo"><img src="historia-4.JPG" alt="Parte 4" loading="lazy"></div>
                 <div class="story-text">
-                    <p>“Entre papeles blanqueados y polvo sin vida, la bolsita común no cuida tu cuerpo. Trajimos el Té 100% puro para darte auténtica salud con Té.”</p>
+                    <p>“Entre papeles blanqueados y polvo sin vida, la bolsita común no cuida tu cuerpo. Trajimos el Té 100% puro para darte auténtica salud con Té.” <span role="button" aria-label="Volver al inicio" onclick="document.getElementById('storySliderTrack').scrollTo({left: 0, behavior: 'smooth'})" style="cursor: pointer; display: inline-block; color: #000000; font-weight: 900; font-size: 1.3em; margin-left: 8px; line-height: 1; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(4px)'" onmouseout="this.style.transform='translateX(0)'" title="Volver al inicio">&#10140;</span></p>
                 </div>
-          </div>
+            </div>
         </div>
     </div>
-
-    <!-- Navigation Arrows -->
-    <button type="button" class="story-arrow prev" aria-label="Anterior" onclick="document.getElementById('storySliderTrack').scrollBy({left: -document.getElementById('storySliderTrack').clientWidth, behavior: 'smooth'})">&#10094;</button>
-    <button type="button" class="story-arrow next" aria-label="Siguiente" onclick="document.getElementById('storySliderTrack').scrollBy({left: document.getElementById('storySliderTrack').clientWidth, behavior: 'smooth'})">&#10095;</button>
 
     <!-- Pagination Dots -->
     <div class="story-dots-track" id="storyDots">
