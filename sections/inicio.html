@@ -62,39 +62,43 @@
   /* =======================================================
        DESKTOP ONLY OVERRIDES (992px and up)
        ======================================================= */
-    /* =======================================================
-       DESKTOP ONLY OVERRIDES (992px and up)
-       ======================================================= */
     @media (min-width: 992px) {
-        /* 1. Kill the ugly desktop arrows */
-        .inicio-glider-arrow {
+        /* 1. Vaporize the yellow glider arrows on Desktop */
+        #dynamic-content-area .inicio-glider-arrow {
             display: none !important;
         }
 
-        /* 2. Center and wrap the 14+ pills into clean rows (No horizontal scroll) */
-        .inicio-pills-track {
+        #dynamic-content-area .inicio-glider-container {
+            max-width: 1100px !important;
+            padding: 0 !important;
+            margin: 10px auto 35px auto !important;
+        }
+
+        /* 2. Wrap all pills into clean, centered artistic rows (Matches Productos) */
+        #dynamic-content-area .inicio-pills-track {
             display: flex !important;
             flex-wrap: wrap !important;
             justify-content: center !important;
             align-items: center !important;
-            gap: 12px !important;
+            gap: 10px 12px !important;
             width: 100% !important;
             max-width: 1050px !important;
-            margin: 0 auto 30px auto !important;
+            margin: 0 auto !important;
             padding: 0 !important;
             overflow: visible !important;
         }
 
-        /* 3. Ghost Pills: Auto-width, clean white chips, no chopped text */
-        .inicio-pills-track .tab-btn {
-            width: auto !important;
-            height: 40px !important;
+        /* 3. Ghost Pills: Pure white, auto-width, dark green text (Identical to Productos) */
+        #dynamic-content-area .inicio-pills-track .tab-btn {
             flex: 0 0 auto !important;
+            width: auto !important;
+            min-width: unset !important;
+            height: 40px !important;
             background: #FFFFFF !important;
             color: #07511A !important;
             border: 1.5px solid rgba(7, 81, 26, 0.2) !important;
             border-radius: 9999px !important;
-            padding: 0 22px !important;
+            padding: 0 20px !important;
             font-family: var(--font-heading) !important;
             font-size: 0.78rem !important;
             font-weight: 700 !important;
@@ -109,25 +113,48 @@
             transition: all 0.25s ease !important;
         }
 
-        .inicio-pills-track .tab-btn:hover {
+        #dynamic-content-area .inicio-pills-track .tab-btn span {
+            white-space: nowrap !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+
+        #dynamic-content-area .inicio-pills-track .tab-btn:hover {
             background: #F4F9F5 !important;
             border-color: #07511A !important;
             transform: translateY(-2px) !important;
             box-shadow: 0 4px 12px rgba(7, 81, 26, 0.12) !important;
         }
 
-        /* 4. Make "MENÚ COMPLETO" the Master Button */
-        .inicio-pills-track button:first-child {
+        /* 4. Master "Menú" Button: Solid matcha/gold anchor */
+        #dynamic-content-area .inicio-pills-track .tab-btn.master-menu-btn {
             background: linear-gradient(135deg, #1A4E21 0%, #0E2A12 100%) !important;
             color: #FFFFFF !important;
             border: 1.5px solid #D4AF37 !important;
-            box-shadow: 0 4px 12px rgba(14, 38, 16, 0.3) !important;
+            box-shadow: 0 4px 14px rgba(14, 38, 16, 0.35) !important;
+            padding: 0 26px !important;
+            height: 42px !important;
         }
 
-        .inicio-pills-track button:first-child:hover {
+        #dynamic-content-area .inicio-pills-track .tab-btn.master-menu-btn i {
+            color: #F5D061 !important;
+            margin-right: 6px !important;
+        }
+
+        #dynamic-content-area .inicio-pills-track .tab-btn.master-menu-btn:hover {
             transform: translateY(-2px) !important;
-            box-shadow: 0 6px 16px rgba(212, 175, 55, 0.4) !important;
             border-color: #F5D061 !important;
+            box-shadow: 0 6px 18px rgba(212, 175, 55, 0.4) !important;
+        }
+
+        /* 5. Cloud Break: Drops remaining collections beneath the Menú anchor */
+        #dynamic-content-area .inicio-pills-track .cloud-break {
+            flex-basis: 100% !important;
+            width: 100% !important;
+            height: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
     }
   
