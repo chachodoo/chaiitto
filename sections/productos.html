@@ -3,23 +3,23 @@
    1. DESKTOP (992px and up): 100% FULL-WIDTH & 6-COLUMN GRID
    ======================================================= */
 @media (min-width: 992px) {
-    /* 1. Restores the breathing room between the green header and the pills */
+    /* 1. Pull the layout up to eliminate the initial "jump" */
     .dashboard-layout {
         display: flex !important;
         flex-direction: column !important;
         width: 100% !important;
-        margin: 10px 0 0 0 !important; 
+        margin: -20px 0 0 0 !important; /* Negates the default container padding */
         gap: 0 !important;
     }
 
-    /* 2. Docked collection shelf: Solid Block (Option B) */
+    /* 2. Dock perfectly flush with the green header (No gaps) */
     .dashboard-layout .sidebar-menu {
         width: 100% !important;
         position: sticky !important;
-        top: 220px !important; /* Lowered tripwire to lock instantly on scroll */
+        top: 195px !important; /* Locks exactly at the bottom of the header */
         z-index: 999 !important;
         background: var(--matcha-bg) !important;
-        padding: 10px 0 35px 0 !important; /* Tighter top, massive tuck-space below */
+        padding: 10px 0 35px 0 !important; 
         margin: 0 0 15px 0 !important; 
         flex: none !important;
         max-height: unset !important;
