@@ -923,9 +923,9 @@ function initVisitorCounter() {
     if (counterEl) counterEl.textContent = String(savedCount).padStart(6, '0').replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-    await fetchProducts();
-    handleHashNavigation();
+document.addEventListener('DOMContentLoaded', () => {
+    handleHashNavigation(); // 1. Render the page instantly on frame 1
+    fetchProducts();        // 2. Fetch catalog in background
     initVisitorCounter();
     updateCartUI();
 });
