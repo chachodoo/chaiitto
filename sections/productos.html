@@ -3,25 +3,24 @@
    1. DESKTOP (992px and up): 100% FULL-WIDTH & 6-COLUMN GRID
    ======================================================= */
 @media (min-width: 992px) {
-    /* 1. Cancels the container's 20px gap so pills are docked with ZERO upward travel */
-    /* 1. Cancels the container's 20px gap and removes the 30px flex gap */
+    /* 1. Restores the breathing room between the green header and the pills */
     .dashboard-layout {
         display: flex !important;
         flex-direction: column !important;
         width: 100% !important;
-        margin: -20px 0 0 0 !important;
+        margin: 10px 0 0 0 !important; 
         gap: 0 !important;
     }
 
-    /* 2. Docked collection shelf on the pale matcha background */
+    /* 2. Docked collection shelf: Added thick top/bottom padding so cards hide earlier on scroll */
     .dashboard-layout .sidebar-menu {
         width: 100% !important;
         position: sticky !important;
-        top: 204px !important;
+        top: 190px !important; /* Pin height below the main header */
         z-index: 999 !important;
         background: var(--matcha-bg) !important;
-        padding: 6px 0 8px 0 !important;
-        margin: 0 0 12px 0 !important;
+        padding: 18px 0 32px 0 !important; /* 18px above pills, massive 32px buffer below pills */
+        margin: 0 0 15px 0 !important; /* Extra push before the grid starts */
         flex: none !important;
         max-height: unset !important;
         overflow: visible !important;
