@@ -352,24 +352,22 @@ function selectCollection(colName) {
     const targetNorm = normalizeStr(colName);
     let tappedBtn = null;
 
-    // Highlight active tab button
     document.querySelectorAll('.tab-btn').forEach(btn => {
-        const btnNorm = normalizeStr(btn.textContent || btn.innerText || '');
-        const isActive = btnNorm.includes(targetNorm);
+        const clickAttr = btn.getAttribute('onclick') || '';
+        const btnText = btn.textContent || btn.innerText || '';
+        const isActive = clickAttr.toUpperCase().includes(targetNorm) || normalizeStr(btnText).includes(targetNorm);
+        
         btn.classList.toggle('active', isActive);
         if (isActive && !tappedBtn) tappedBtn = btn;
     });
 
-    // Update section title banner if present
     const titleEl = document.getElementById('current-collection-title');
     if (titleEl) {
         titleEl.textContent = colName;
     }
 
-    // Render products for the selected collection
     loadCollection(colName);
 
-    // Keep the tapped pill locked in place without gliding back
     if (tappedBtn) {
         tappedBtn.scrollIntoView({ inline: 'nearest', block: 'nearest', behavior: 'instant' });
     }
