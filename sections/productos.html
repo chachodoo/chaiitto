@@ -11,15 +11,15 @@
         gap: 0 !important;
     }
 
-    /* 2. The Solid Block: Locks flawlessly at 197px (Marquee 35 + Header ~162) */
+    /* 2. The Solid Block: Locks flawlessly with perfectly centered visual balance */
     .dashboard-layout .sidebar-menu {
         width: 100% !important;
         position: sticky !important;
-        top: 197px !important; 
+        top: 197px !important; /* The anti-glide lock stays untouched */
         z-index: 999 !important;
         background: var(--matcha-bg) !important;
-        /* Rebuild the 20px breathing gap as a SOLID matcha wall using top-padding */
-        padding: 20px 0 32px 0 !important; 
+        /* Even 35px top/bottom padding for perfect vertical centering */
+        padding: 35px 0 35px 0 !important; 
         margin: 0 0 15px 0 !important; 
         flex: none !important;
         max-height: unset !important;
