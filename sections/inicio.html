@@ -175,7 +175,84 @@
      MOBILE & TABLET OVERRIDES
      ========================================== */
   @media (max-width: 991px) {
-    
+    /* ===================================================
+       MOBILE-ONLY: MAGNETIC SINGLE-SLIDE STORY CAROUSEL
+       =================================================== */
+    .story-slider-wrapper {
+        width: 100% !important;
+        margin-bottom: 6px !important;
+    }
+
+    /* 1. Controlled magnetic snap & smooth friction */
+    .story-slider-track {
+        display: flex !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        scroll-behavior: smooth !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+    }
+    .story-slider-track::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    /* 2. Speed brake: guarantees 1 slide per thumb swipe */
+    .story-slide {
+        flex: 0 0 100% !important;
+        width: 100% !important;
+        min-width: 100% !important;
+        scroll-snap-align: center !important;
+        scroll-snap-stop: always !important;
+        box-sizing: border-box !important;
+        padding: 0 4px !important;
+    }
+
+    /* 3. Compact card: eliminates the giant white dead-space */
+    .story-split {
+        display: flex !important;
+        flex-direction: column !important;
+        height: 310px !important;
+        background: #FFFFFF !important;
+        border-radius: 14px !important;
+        overflow: hidden !important;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06) !important;
+        border: 1px solid rgba(7, 81, 26, 0.12) !important;
+    }
+
+    /* 4. Balanced image box */
+    .story-photo {
+        height: 155px !important;
+        width: 100% !important;
+        flex: 0 0 155px !important;
+    }
+    .story-photo img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+    }
+
+    /* 5. Vertically centered text so Slide 1 quote never has empty space */
+    .story-text {
+        flex: 1 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 12px 16px !important;
+        box-sizing: border-box !important;
+        text-align: center !important;
+    }
+    .story-text p {
+        margin: 0 !important;
+        font-size: 0.86rem !important;
+        line-height: 1.32 !important;
+        color: #1C3317 !important;
+    }
+
+    /* 6. Dots pinned tight below card (above WhatsApp/Cart) */
+    #storyDots, .story-dots {
+        margin-top: 8px !important;
+        margin-bottom: 16px !important;
+    }
     .dashboard-layout { 
       display: flex; 
       flex-direction: column; 
