@@ -685,15 +685,108 @@
         /* --- DYNAMIC SECTION SHELL --- */
         #dynamic-content-area { max-width: 1400px; margin: 0 auto; padding: 8px 12px 60px; width: 100%; min-height: 500px; }
 
-        /* Grid utilities used across pages */
-        .strict-3-grid, .catalog-grid, #dynamic-content-area .product-grid, #dynamic-content-area .ofertas-track, #products-container, #ofertas-dynamic-track, #accesorios-dynamic-track, .reviews-grid { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 20px !important; width: 100% !important; box-sizing: border-box !important; }
-        @media (max-width: 991px) { .strict-3-grid, .catalog-grid, #dynamic-content-area .product-grid, #dynamic-content-area .ofertas-track, #products-container, #ofertas-dynamic-track, #accesorios-dynamic-track, .reviews-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 14px !important; } }
-        @media (max-width: 550px) { .strict-3-grid, .catalog-grid, #dynamic-content-area .product-grid, #dynamic-content-area .ofertas-track, #products-container, #ofertas-dynamic-track, #accesorios-dynamic-track, .reviews-grid { grid-template-columns: 1fr !important; gap: 16px !important; } }
+        /* FLUID PRODUCT GRIDS: 6 COLUMNS ON DESKTOP, 2 COLUMNS ON MOBILE */
+        .catalog-grid, 
+        #products-container, 
+        #accesorios-dynamic-track, 
+        #bazar-dynamic-track, 
+        #ofertas-dynamic-track {
+            display: grid !important;
+            grid-template-columns: repeat(6, 1fr) !important; /* Screen divided by 6 */
+            gap: 12px !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
 
-        /* Generic Card Styles used in Inicio and Productos */
-        .product-card, .oferta-card { background: #FFFFFF !important; border: 1px solid rgba(212, 175, 55, 0.45) !important; border-radius: 18px !important; padding: 16px !important; box-shadow: 0 4px 16px rgba(45, 90, 39, 0.06) !important; display: flex !important; flex-direction: column !important; justify-content: space-between !important; transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, border-color 0.3s ease !important; box-sizing: border-box !important; cursor: pointer; height: 100% !important; }
-        .product-card:hover, .oferta-card:hover { transform: translateY(-5px) !important; box-shadow: 0 12px 28px rgba(45, 90, 39, 0.14) !important; border-color: var(--gold-border) !important; }
+        @media (max-width: 991px) {
+            .catalog-grid, 
+            #products-container, 
+            #accesorios-dynamic-track, 
+            #bazar-dynamic-track, 
+            #ofertas-dynamic-track {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important; /* Screen divided by 2 */
+                gap: 8px !important;
+            }
+        }
 
+        /* Reviews Grid: 3 on desktop, 1 on mobile */
+        .reviews-grid, .strict-3-grid {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 20px !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+        @media (max-width: 991px) {
+            .reviews-grid, .strict-3-grid {
+                grid-template-columns: 1fr !important;
+                gap: 14px !important;
+            }
+        }
+
+        /* FLUID CARDS: ZERO HARDCODED HEIGHTS */
+        .product-card, .oferta-card {
+            background: #FFFFFF !important;
+            border: 1px solid rgba(7, 81, 26, 0.12) !important;
+            border-radius: 12px !important;
+            padding: 8px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            height: auto !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+            box-sizing: border-box !important;
+            transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+        }
+
+        /* Fluid Square Photo Frame (Scales organically with column width) */
+        .product-img-box, .oferta-img-container {
+            width: 100% !important;
+            aspect-ratio: 1 / 1 !important;
+            height: auto !important;
+            background: radial-gradient(circle at center, #FFFFFF 0%, #F5F9F6 100%) !important;
+            border: 1px solid rgba(74, 124, 54, 0.12) !important;
+            border-radius: 10px !important;
+            margin-bottom: 6px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            overflow: hidden !important;
+            position: relative !important;
+            padding: 6% !important;
+        }
+        .product-img-box img, .oferta-img-container img {
+            max-width: 100% !important;
+            max-height: 100% !important;
+            object-fit: contain !important;
+            display: block !important;
+        }
+
+        /* Fluid Typography (1 or 2 lines) */
+        .product-name, .oferta-title {
+            font-family: var(--font-heading, 'Cinzel', serif) !important;
+            font-size: clamp(0.72rem, 0.9vw, 0.85rem) !important;
+            font-weight: 700 !important;
+            color: var(--matcha-deep, #07511A) !important;
+            line-height: 1.25 !important;
+            display: -webkit-box !important;
+            -webkit-line-clamp: 2 !important;
+            -webkit-box-orient: vertical !important;
+            overflow: hidden !important;
+            text-align: center !important;
+            margin: 4px 0 !important;
+        }
+        .product-ingredients, .oferta-subtitle {
+            font-size: clamp(0.66rem, 0.8vw, 0.74rem) !important;
+            line-height: 1.3 !important;
+            color: var(--text-muted, #556B60) !important;
+            display: -webkit-box !important;
+            -webkit-line-clamp: 2 !important;
+            -webkit-box-orient: vertical !important;
+            overflow: hidden !important;
+            text-align: center !important;
+            margin-bottom: 6px !important;
+        }
         /* Miscellaneous utilities kept intact */
         .story-card { background: transparent !important; border: none !important; box-shadow: none !important; margin-top: 48px !important; margin-bottom: 25px !important; padding: 0 !important; width: 100%; }
 .story-title { font-family: var(--font-title); font-size: 2.1em !important; color: var(--matcha-deep); text-align: center; margin-top: 0; margin-bottom: 16px !important; font-style: italic; }
