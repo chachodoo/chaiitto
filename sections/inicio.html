@@ -59,6 +59,76 @@
     min-height: 42px !important;
     margin-bottom: 8px !important;
   }
+  /* =======================================================
+       DESKTOP ONLY OVERRIDES (992px and up)
+       ======================================================= */
+    @media (min-width: 992px) {
+        /* 1. Kill the ugly desktop arrows */
+        .mobile-scroll-arrow, .glider-arrow-left, .glider-arrow-right {
+            display: none !important;
+        }
+
+        /* 2. Center and wrap the 14+ pills into clean rows (No horizontal scroll) */
+        .collections-pills-track {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 12px !important;
+            width: 100% !important;
+            max-width: 1050px !important;
+            margin: 0 auto 30px auto !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        /* 3. Ghost Pills: Auto-width, clean white chips, no chopped text */
+        .collections-pills-track .tab-btn {
+            width: auto !important;
+            height: 40px !important;
+            flex: 0 0 auto !important;
+            background: #FFFFFF !important;
+            color: #07511A !important;
+            border: 1.5px solid rgba(7, 81, 26, 0.2) !important;
+            border-radius: 9999px !important;
+            padding: 0 22px !important;
+            font-family: var(--font-heading) !important;
+            font-size: 0.78rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.8px !important;
+            white-space: nowrap !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03) !important;
+            cursor: pointer !important;
+            transition: all 0.25s ease !important;
+        }
+
+        .collections-pills-track .tab-btn:hover {
+            background: #F4F9F5 !important;
+            border-color: #07511A !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 12px rgba(7, 81, 26, 0.12) !important;
+        }
+
+        /* 4. Make "MENÚ COMPLETO" the Master Button */
+        .collections-pills-track button:first-child {
+            background: linear-gradient(135deg, #1A4E21 0%, #0E2A12 100%) !important;
+            color: #FFFFFF !important;
+            border: 1.5px solid #D4AF37 !important;
+            box-shadow: 0 4px 12px rgba(14, 38, 16, 0.3) !important;
+        }
+
+        .collections-pills-track button:first-child:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 6px 16px rgba(212, 175, 55, 0.4) !important;
+            border-color: #F5D061 !important;
+        }
+    }
+  
+  
   /* ==========================================
      MOBILE & TABLET OVERRIDES
      ========================================== */
