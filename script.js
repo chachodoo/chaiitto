@@ -932,22 +932,21 @@ window.addEventListener('hashchange', handleHashNavigation);
 
 // --- JUMP TO MENU FROM A COLLECTION ---
 function jumpToMenuCollection(pageNum) {
-  window.targetMenuPage = pageNum;
-  window.shouldScrollToCollections = true;
-  switchPage('menu');
-
-  // Center the tapped collection pill in the mobile horizontal track
-  setTimeout(() => {
-    const activeBtn = document.querySelector(`.collections-pills-track button[onclick*="${pageNum}"]`) ||
-                      document.querySelector(`.inicio-pills-track button[onclick*="${pageNum}"]`);
-    if (activeBtn) {
-      activeBtn.scrollIntoView({
-        behavior: 'smooth',
-        inline: 'center',
-        block: 'nearest'
-      });
+    // 1. Instantly highlight tapped pill in warm gold
+    const eventTarget = window.event ? (window.event.target.closest('button') || window.event.currentTarget) : null;
+    const tappedBtn = eventTarget || document.querySelector(`.inicio-pills-track button[onclick*="${pageNum}"]`);
+    if (tappedBtn) {
+        document.querySelectorAll('.inicio-pills-track .tab-btn').forEach(b => b.classList.remove('active'));
+        tappedBtn.classList.add('active');
     }
-  }, 150);
+
+    window.targetMenuPage = pageNum;
+    window.shouldScrollToCollections = true;
+
+    // 2. 150ms micro-pause so gold registers before page change
+    setTimeout(() => {
+        switchPage('menu');
+    }, 150);
 }
 
 // --- 1-TAP RETURN TO COLLECTIONS ---
