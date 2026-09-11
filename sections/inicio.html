@@ -338,7 +338,7 @@
       <div class="story-card" style="background: transparent !important; border: none !important; box-shadow: none !important; margin-top: 48px !important; margin-bottom: 25px !important; padding: 0;">
     <h2 class="story-title" style="margin-bottom: 16px !important; font-size: 2.1em !important;">Nuestra Historia</h2>
       <div style="width: 100%; text-align: center; margin-bottom: 5px;">
-<!-- INTERACTIVE 4-SLIDE STORY SLIDER (EDITORIAL INLINE FLOW) -->
+<!-- INTERACTIVE 4-SLIDE STORY SLIDER -->
 <div class="story-slider-wrapper">
     <!-- Inline onscroll updates the dots dynamically -->
     <div class="story-slider-track" id="storySliderTrack" onscroll="
@@ -351,7 +351,7 @@
             <div class="story-split">
                 <div class="story-photo"><img src="historia-1.JPG" alt="Parte 1" loading="lazy"></div>
                 <div class="story-text">
-                    <p>“Todo empezó con la incredulidad de mi esposo… y un Té de bolsita de 10 pesos.” <span role="button" aria-label="Siguiente" onclick="document.getElementById('storySliderTrack').scrollBy({left: document.getElementById('storySliderTrack').clientWidth, behavior: 'smooth'})" style="cursor: pointer; display: inline-block; color: #000000; font-weight: 900; font-size: 1.3em; margin-left: 8px; line-height: 1; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(4px)'" onmouseout="this.style.transform='translateX(0)'" title="Siguiente parte">&#10140;</span></p>
+                    <p>“Todo empezó con la incredulidad de mi esposo… y un Té de bolsita de 10 pesos.” <span role="button" aria-label="Siguiente" onclick="document.getElementById('storySliderTrack').scrollBy({left: document.getElementById('storySliderTrack').clientWidth, behavior: 'smooth'})" style="cursor: pointer; color: #07511A; font-weight: 700; font-size: 0.88em; font-style: italic; text-decoration: underline; text-underline-offset: 3px; margin-left: 6px;">sigue...</span></p>
                 </div>
             </div>
         </div>
@@ -361,7 +361,7 @@
             <div class="story-split">
                 <div class="story-photo"><img src="historia-2.JPG" alt="Parte 2" loading="lazy"></div>
                 <div class="story-text">
-                    <p>“En Cholula, era casi imposible encontrar Té de calidad. Todo se reducía al típico Té de bolsita. Ni en las cafeterías gourmet!” <span role="button" aria-label="Siguiente" onclick="document.getElementById('storySliderTrack').scrollBy({left: document.getElementById('storySliderTrack').clientWidth, behavior: 'smooth'})" style="cursor: pointer; display: inline-block; color: #000000; font-weight: 900; font-size: 1.3em; margin-left: 8px; line-height: 1; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(4px)'" onmouseout="this.style.transform='translateX(0)'" title="Siguiente parte">&#10140;</span></p>
+                    <p>“En Cholula, era casi imposible encontrar Té de calidad. Todo se reducía al típico Té de bolsita. Ni en las cafeterías gourmet!” <span role="button" aria-label="Siguiente" onclick="document.getElementById('storySliderTrack').scrollBy({left: document.getElementById('storySliderTrack').clientWidth, behavior: 'smooth'})" style="cursor: pointer; color: #07511A; font-weight: 700; font-size: 0.88em; font-style: italic; text-decoration: underline; text-underline-offset: 3px; margin-left: 6px;">sigue...</span></p>
                 </div>
             </div>
         </div>
@@ -371,7 +371,7 @@
             <div class="story-split">
                 <div class="story-photo"><img src="historia-3.JPG" alt="Parte 3" loading="lazy"></div>
                 <div class="story-text">
-                    <p>“Mi esposo es Libanés. Para él, el Té es CULTURA Y RITUAL. No podía creer que nos sirvieran hojas pulverizadas sin alma. Decidimos cambiarlo.” <span role="button" aria-label="Siguiente" onclick="document.getElementById('storySliderTrack').scrollBy({left: document.getElementById('storySliderTrack').clientWidth, behavior: 'smooth'})" style="cursor: pointer; display: inline-block; color: #000000; font-weight: 900; font-size: 1.3em; margin-left: 8px; line-height: 1; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(4px)'" onmouseout="this.style.transform='translateX(0)'" title="Siguiente parte">&#10140;</span></p>
+                    <p>“Mi esposo es Libanés. Para él, el Té es CULTURA Y RITUAL. No podía creer que nos sirvieran hojas pulverizadas sin alma. Decidimos cambiarlo.” <span role="button" aria-label="Siguiente" onclick="document.getElementById('storySliderTrack').scrollBy({left: document.getElementById('storySliderTrack').clientWidth, behavior: 'smooth'})" style="cursor: pointer; color: #07511A; font-weight: 700; font-size: 0.88em; font-style: italic; text-decoration: underline; text-underline-offset: 3px; margin-left: 6px;">sigue...</span></p>
                 </div>
             </div>
         </div>
@@ -381,11 +381,15 @@
             <div class="story-split">
                 <div class="story-photo"><img src="historia-4.JPG" alt="Parte 4" loading="lazy"></div>
                 <div class="story-text">
-                    <p>“Entre papeles blanqueados y polvo sin vida, la bolsita común no cuida tu cuerpo. Trajimos el Té 100% puro para darte auténtica salud con Té.” <span role="button" aria-label="Volver al inicio" onclick="document.getElementById('storySliderTrack').scrollTo({left: 0, behavior: 'smooth'})" style="cursor: pointer; display: inline-block; color: #000000; font-weight: 900; font-size: 1.3em; margin-left: 8px; line-height: 1; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(4px)'" onmouseout="this.style.transform='translateX(0)'" title="Volver al inicio">&#10140;</span></p>
+                    <p>“Entre papeles blanqueados y polvo sin vida, la bolsita común no cuida tu cuerpo. Trajimos el Té 100% puro para darte auténtica salud con Té.”</p>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Desktop Floating Side Arrows -->
+    <button type="button" class="story-arrow prev" aria-label="Anterior" onclick="document.getElementById('storySliderTrack').scrollBy({left: -document.getElementById('storySliderTrack').clientWidth, behavior: 'smooth'})">&#10094;</button>
+    <button type="button" class="story-arrow next" aria-label="Siguiente" onclick="document.getElementById('storySliderTrack').scrollBy({left: document.getElementById('storySliderTrack').clientWidth, behavior: 'smooth'})">&#10095;</button>
 
     <!-- Pagination Dots -->
     <div class="story-dots-track" id="storyDots">
@@ -492,27 +496,7 @@
 /* MOBILE ONLY: LUMINOUS FROSTED PEARL & GOLD HAIRLINE */
 @media (max-width: 991px) {
     .story-arrow {
-        width: 32px !important;
-        height: 32px !important;
-        top: 78px !important; /* Centered cleanly over the photo */
-        transform: translateY(-50%) !important;
-        background: rgba(255, 255, 255, 0.85) !important;
-        backdrop-filter: blur(12px) !important;
-        -webkit-backdrop-filter: blur(12px) !important;
-        border: 1px solid rgba(212, 175, 55, 0.6) !important;
-        color: #07511A !important;
-        font-size: 0.85rem !important;
-        font-weight: 900 !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
-        z-index: 10 !important;
-        transition: transform 0.15s ease, background 0.15s ease !important;
-    }
-    .story-arrow.prev { left: 10px !important; }
-    .story-arrow.next { right: 10px !important; }
-    .story-arrow:active {
-        transform: translateY(-50%) scale(0.9) !important;
-        background: #FFFFFF !important;
-        border-color: #D4AF37 !important;
+        display: none !important;
     }
 }
 .story-dots-track {
@@ -525,20 +509,20 @@
     border-top: 1px solid rgba(212, 175, 55, 0.15);
 }
 .story-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #D5DFC9;
-    border: 1px solid rgba(7, 81, 26, 0.2);
-    cursor: pointer;
-    transition: all 0.25s ease;
-}
-.story-dot.active {
-    width: 28px;
-    border-radius: 10px;
-    background: var(--gold-border, #D4AF37);
-    border-color: #B8860B;
-}
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(7, 81, 26, 0.25); /* Subtle matcha ring so inactive dots are clearly visible */
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .story-dot.active {
+        width: 26px; /* Elegant elongated pill */
+        border-radius: 12px;
+        background: #07511A !important; /* Bold deep matcha green */
+        box-shadow: 0 2px 8px rgba(7, 81, 26, 0.35);
+    }
 
 
 </style>
