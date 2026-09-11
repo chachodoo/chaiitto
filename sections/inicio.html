@@ -470,7 +470,7 @@
     margin: 0;
 }
 
-/* Floating Navigation Arrows */
+/* DESKTOP BASE ARROWS */
 .story-arrow {
     position: absolute;
     top: calc(50% - 20px);
@@ -494,17 +494,15 @@
 .story-arrow.prev { left: 15px; }
 .story-arrow.next { right: 15px; }
 
-/* ===================================================
-   MOBILE ONLY: FROSTED GLASS & GOLD PULSE ARROWS
-   =================================================== */
+/* MOBILE ONLY: FROSTED TRANSLUCENT SMOKE & GOLD AURA */
 @media (max-width: 991px) {
     @keyframes luxury-pulse {
         0%, 100% {
-            box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.45), 0 4px 12px rgba(0, 0, 0, 0.35);
-            border-color: rgba(212, 175, 55, 0.5);
+            box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.5), 0 4px 12px rgba(0, 0, 0, 0.4);
+            border-color: rgba(212, 175, 55, 0.6);
         }
         50% {
-            box-shadow: 0 0 14px 4px rgba(212, 175, 55, 0.8), 0 4px 16px rgba(0, 0, 0, 0.45);
+            box-shadow: 0 0 16px 5px rgba(212, 175, 55, 0.85), 0 4px 16px rgba(0, 0, 0, 0.5);
             border-color: #F5D061;
         }
     }
@@ -512,26 +510,24 @@
     .story-arrow {
         width: 34px !important;
         height: 34px !important;
-        background: rgba(14, 38, 16, 0.55) !important;
-        backdrop-filter: blur(8px) !important;
-        -webkit-backdrop-filter: blur(8px) !important;
-        border: 1.5px solid rgba(212, 175, 55, 0.6) !important;
+        background: rgba(18, 22, 18, 0.58) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+        border: 1.5px solid #D4AF37 !important;
         color: #FDFDF9 !important;
         font-size: 0.95rem !important;
         transform: translateY(-50%) !important;
-        animation: luxury-pulse 3s infinite ease-in-out !important;
-        top: 155px !important; /* Centers right on the photo seam */
+        animation: luxury-pulse 2.8s infinite ease-in-out !important;
+        top: 155px !important;
         z-index: 10 !important;
     }
     .story-arrow.prev { left: 8px !important; }
     .story-arrow.next { right: 8px !important; }
     .story-arrow:active {
         transform: translateY(-50%) scale(0.92) !important;
-        background: rgba(7, 81, 26, 0.85) !important;
+        background: rgba(0, 0, 0, 0.8) !important;
     }
 }
-
-/* 4 Centered Dots */
 .story-dots-track {
     display: flex;
     justify-content: center;
@@ -557,31 +553,7 @@
     border-color: #B8860B;
 }
 
-/* ==========================================
-   MOBILE RESPONSIVE OVERRIDES
-   ========================================== */
-@media (max-width: 768px) {
-    .story-split {
-        flex-direction: column;
-        height: auto; /* Lets the height grow naturally based on text length */
-    }
-    .story-photo {
-        flex: none;
-        width: 100%;
-        height: 300px; /* Locks the photo height so it's always visible */
-    }
-    .story-text {
-        flex: none;
-        padding: 25px 20px;
-        font-size: 1.05rem;
-        text-align: center;
-    }
-    .story-arrow {
-        top: 150px; /* Centers the arrows perfectly over the photo on mobile */
-        width: 36px;
-        height: 36px;
-    }
-}
+
 </style>
 
 <script>
