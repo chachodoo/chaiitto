@@ -399,20 +399,25 @@ function loadCollection(colName) {
             const safeName = (prod.name || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
 
             // 1-CLICK BUTTON: FRASCO
+            // COMPACT TEMU CHIP: FRASCO
             let frascoHtml = frascoPrice > 0 ? `
-                <button onclick="addToCart('${safeName}', ${frascoPrice}, 'Frasco')" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 4px 10px rgba(74, 124, 54, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';" style="background: rgba(74, 124, 54, 0.08); border: 1px solid var(--matcha-deep); border-radius: 8px; padding: 12px 5px; flex: 1; text-align: center; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;">
-                    <span style="font-size: 0.75em; font-weight: 800; color: var(--matcha-deep); letter-spacing: 1px;">FRASCO</span>
-                    <span style="font-size: 1.15em; font-weight: 900; color: var(--text-dark); margin: 2px 0;">$${frascoPrice}</span>
-                    <span style="font-size: 0.85em; color: var(--matcha-deep); font-weight: bold;"><i class="fa-solid fa-cart-plus"></i> Añadir</span>
-                </button>` : '';
-                
-            // 1-CLICK BUTTON: SOBRE
+            <button onclick="addToCart('${safeName}', ${frascoPrice}, 'Frasco')" title="Añadir Frasco" style="flex: 1; min-width: 0; height: 36px; display: flex; align-items: center; justify-content: space-between; padding: 0 8px; border-radius: 18px; border: 1.5px solid var(--matcha-deep, #07511A); background: #FFFFFF; color: var(--matcha-deep, #07511A); cursor: pointer; transition: all 0.15s ease;" onmouseover="this.style.background='#F0F7F2'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#FFFFFF'; this.style.transform='translateY(0)';">
+                <div style="text-align: left; line-height: 1.1;">
+                    <span style="font-size: 0.62rem; font-weight: 800; color: var(--matcha-deep, #07511A); display: block;">FRASCO</span>
+                    <span style="font-size: 0.85rem; font-weight: 900; color: #1C3317;">$${frascoPrice}</span>
+                </div>
+                <i class="fa-solid fa-cart-plus" style="font-size: 0.85rem; color: #07511A;"></i>
+            </button>` : '';
+
+            // COMPACT TEMU CHIP: SOBRE
             let sobreHtml = sobrePrice > 0 ? `
-                <button onclick="addToCart('${safeName}', ${sobrePrice}, 'Sobre')" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 4px 10px rgba(74, 124, 54, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';" style="background: linear-gradient(145deg, #ffffff, #e5e7eb); border: 1px solid var(--matcha-deep); border-radius: 8px; padding: 12px 5px; flex: 1; text-align: center; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;">
-                    <span style="font-size: 0.75em; font-weight: 800; color: var(--matcha-deep); letter-spacing: 1px;">SOBRE</span>
-                    <span style="font-size: 1.15em; font-weight: 900; color: var(--text-dark); margin: 2px 0;">$${sobrePrice}</span>
-                    <span style="font-size: 0.85em; color: var(--matcha-deep); font-weight: bold;"><i class="fa-solid fa-cart-plus"></i> Añadir</span>
-                </button>` : '';
+            <button onclick="addToCart('${safeName}', ${sobrePrice}, 'Sobre')" title="Añadir Sobre" style="flex: 1; min-width: 0; height: 36px; display: flex; align-items: center; justify-content: space-between; padding: 0 8px; border-radius: 18px; border: 1.5px solid rgba(7, 81, 26, 0.4); background: #FAFAF7; color: var(--matcha-deep, #07511A); cursor: pointer; transition: all 0.15s ease;" onmouseover="this.style.background='#F0F7F2'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#FAFAF7'; this.style.transform='translateY(0)';">
+                <div style="text-align: left; line-height: 1.1;">
+                    <span style="font-size: 0.62rem; font-weight: 800; color: var(--matcha-deep, #07511A); display: block;">SOBRE</span>
+                    <span style="font-size: 0.85rem; font-weight: 900; color: #1C3317;">$${sobrePrice}</span>
+                </div>
+                <i class="fa-solid fa-cart-plus" style="font-size: 0.85rem; color: #07511A;"></i>
+            </button>` : '';
 
             // FALLBACK
             let fallbackHtml = !isShippable ? `
@@ -483,13 +488,13 @@ async function loadAccesoriosGrid() {
                     <h3 class="product-name">${titleText}</h3>
                     <p class="product-ingredients">${descText}</p>
                 </div>
-                <div style="display: flex; gap: 10px; justify-content: center; width: 100%; margin-top: auto;">
-                    <button onclick="event.stopPropagation(); addToCart('${safeName}', ${price})" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 4px 10px rgba(74, 124, 54, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';" style="background: rgba(74, 124, 54, 0.08); border: 1px solid var(--matcha-deep); border-radius: 8px; padding: 12px 5px; flex: 1; text-align: center; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;">
-                        <span style="font-size: 0.75em; font-weight: 800; color: var(--matcha-deep); letter-spacing: 1px;">COMPRAR</span>
-                        <span style="font-size: 1.15em; font-weight: 900; color: var(--text-dark); margin: 2px 0;">
-                            ${isSale ? `<span style="font-size: 0.75em; text-decoration: line-through; color: #888; margin-right: 4px; font-weight: 400;">$${originalPrice}</span>` : ''}$${price}
-                        </span>
-                        <span style="font-size: 0.85em; color: var(--matcha-deep); font-weight: bold;"><i class="fa-solid fa-cart-plus"></i> Añadir</span>
+                <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; margin-top: auto; padding: 6px 4px 2px 4px;">
+                    <div style="display: flex; align-items: baseline; gap: 6px;">
+                        ${isSale ? `<span style="font-size: 0.8rem; text-decoration: line-through; color: #888; font-weight: 500;">$${originalPrice}</span>` : ''}
+                        <span style="font-family: var(--font-heading, 'Cinzel', serif); font-size: 1.05rem; font-weight: 800; color: var(--matcha-deep, #07511A);">$${price}</span>
+                    </div>
+                    <button onclick="event.stopPropagation(); addToCart('${safeName}', ${price})" title="Añadir al carrito" style="width: 34px; height: 34px; min-width: 34px; border-radius: 50%; border: 1.5px solid var(--matcha-deep, #07511A); background: #FFFFFF; color: var(--matcha-deep, #07511A); display: flex; align-items: center; justify-content: center; font-size: 0.95rem; cursor: pointer; padding: 0; box-shadow: 0 2px 6px rgba(0,0,0,0.06); transition: all 0.15s ease;" onmouseover="this.style.background='#07511A'; this.style.color='#FFFFFF'; this.style.transform='scale(1.08)';" onmouseout="this.style.background='#FFFFFF'; this.style.color='#07511A'; this.style.transform='scale(1)';">
+                        <i class="fa-solid fa-cart-plus"></i>
                     </button>
                 </div>
             `;
@@ -767,13 +772,15 @@ async function renderBazarCatalog() {
                     <div class="product-ingredients" style="font-size: 0.78rem; min-height: 32px;">${item.descripcion || ''}</div>
                 </div>
                 <div>
-                    <button class="buy-button buy-now" style="margin-top: 8px;" onclick="openBazarModal(${index})">
-                        <span style="font-size: 0.75rem; letter-spacing: 0.5px;">VER DETALLE</span>
-                        <span style="font-size: 1.1em; font-weight: 900; margin: 2px 0;">
-                            ${isSale ? `<span style="font-size: 0.75em; text-decoration: line-through; color: #888; margin-right: 4px; font-weight: 400;">$${originalPrice}</span>` : ''}$${price}
-                        </span>
-                        <span style="font-size: 0.7rem; opacity: 0.85;">Pieza VIP</span>
+                    <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; margin-top: auto; padding: 6px 4px 2px 4px;">
+                    <div style="display: flex; align-items: baseline; gap: 6px;">
+                        ${isSale ? `<span style="font-size: 0.78rem; text-decoration: line-through; color: #888;">$${originalPrice}</span>` : ''}
+                        <span style="font-family: var(--font-heading, 'Cinzel', serif); font-size: 1.05rem; font-weight: 800; color: var(--matcha-deep, #07511A);">$${price}</span>
+                    </div>
+                    <button onclick="openBazarModal(${index})" title="Ver detalle de la pieza" style="width: 34px; height: 34px; min-width: 34px; border-radius: 50%; border: 1.5px solid var(--matcha-deep, #07511A); background: #FFFFFF; color: var(--matcha-deep, #07511A); display: flex; align-items: center; justify-content: center; font-size: 0.95rem; cursor: pointer; padding: 0; box-shadow: 0 2px 6px rgba(0,0,0,0.06); transition: all 0.15s ease;" onmouseover="this.style.background='#07511A'; this.style.color='#FFFFFF'; this.style.transform='scale(1.08)';" onmouseout="this.style.background='#FFFFFF'; this.style.color='#07511A'; this.style.transform='scale(1)';">
+                        <i class="fa-solid fa-arrow-right"></i>
                     </button>
+                </div>
                 </div>
             `;
             track.appendChild(card);
