@@ -2,24 +2,24 @@
 /* =======================================================
    1. DESKTOP (992px and up): 100% FULL-WIDTH & 6-COLUMN GRID
    ======================================================= */
-/* 1. Exact Math: Pulls the container up by exactly 20px to negate global padding */
+/* 1. Exact Math: Pull up exactly 40px to cancel both global padding AND global margin */
     .dashboard-layout {
         display: flex !important;
         flex-direction: column !important;
         width: 100% !important;
-        margin: -20px 0 0 0 !important; 
+        margin: -40px 0 0 0 !important; 
         gap: 0 !important;
     }
 
-    /* 2. The Solid Block: Locks flawlessly at 196px with a built-in solid gap */
+    /* 2. The Solid Block: Locks flawlessly at 197px (Marquee 35 + Header ~162) */
     .dashboard-layout .sidebar-menu {
         width: 100% !important;
         position: sticky !important;
-        top: 199px !important; /* Exactly 35px marquee + 161px header */
+        top: 197px !important; 
         z-index: 999 !important;
         background: var(--matcha-bg) !important;
-        /* TOP padding creates the 24px breathing gap as a solid wall. BOTTOM padding hides jars early. */
-        padding: 24px 0 32px 0 !important; 
+        /* Rebuild the 20px breathing gap as a SOLID matcha wall using top-padding */
+        padding: 20px 0 32px 0 !important; 
         margin: 0 0 15px 0 !important; 
         flex: none !important;
         max-height: unset !important;
