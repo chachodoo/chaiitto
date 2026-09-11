@@ -286,7 +286,7 @@ async function fetchProducts() {
     if (headerEl) headerEl.classList.add('compact-header');
     container.classList.remove('dark-section');
     try {
-        const response = await fetch(`sections/${pageName}.html`);
+    const response = await fetch(`sections/${pageName}.html?v=` + Date.now());
     if (!response.ok) throw new Error(`Could not load section: ${pageName}`);
     let html = await response.text();
 
