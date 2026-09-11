@@ -494,6 +494,43 @@
 .story-arrow.prev { left: 15px; }
 .story-arrow.next { right: 15px; }
 
+/* ===================================================
+   MOBILE ONLY: FROSTED GLASS & GOLD PULSE ARROWS
+   =================================================== */
+@media (max-width: 991px) {
+    @keyframes luxury-pulse {
+        0%, 100% {
+            box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.45), 0 4px 12px rgba(0, 0, 0, 0.35);
+            border-color: rgba(212, 175, 55, 0.5);
+        }
+        50% {
+            box-shadow: 0 0 14px 4px rgba(212, 175, 55, 0.8), 0 4px 16px rgba(0, 0, 0, 0.45);
+            border-color: #F5D061;
+        }
+    }
+
+    .story-arrow {
+        width: 34px !important;
+        height: 34px !important;
+        background: rgba(14, 38, 16, 0.55) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        border: 1.5px solid rgba(212, 175, 55, 0.6) !important;
+        color: #FDFDF9 !important;
+        font-size: 0.95rem !important;
+        transform: translateY(-50%) !important;
+        animation: luxury-pulse 3s infinite ease-in-out !important;
+        top: 155px !important; /* Centers right on the photo seam */
+        z-index: 10 !important;
+    }
+    .story-arrow.prev { left: 8px !important; }
+    .story-arrow.next { right: 8px !important; }
+    .story-arrow:active {
+        transform: translateY(-50%) scale(0.92) !important;
+        background: rgba(7, 81, 26, 0.85) !important;
+    }
+}
+
 /* 4 Centered Dots */
 .story-dots-track {
     display: flex;
