@@ -62,14 +62,17 @@
   /* =======================================================
        DESKTOP ONLY OVERRIDES (992px and up)
        ======================================================= */
+    /* =======================================================
+       DESKTOP ONLY OVERRIDES (992px and up)
+       ======================================================= */
     @media (min-width: 992px) {
         /* 1. Kill the ugly desktop arrows */
-        .mobile-scroll-arrow, .glider-arrow-left, .glider-arrow-right {
+        .inicio-glider-arrow {
             display: none !important;
         }
 
         /* 2. Center and wrap the 14+ pills into clean rows (No horizontal scroll) */
-        .collections-pills-track {
+        .inicio-pills-track {
             display: flex !important;
             flex-wrap: wrap !important;
             justify-content: center !important;
@@ -83,7 +86,7 @@
         }
 
         /* 3. Ghost Pills: Auto-width, clean white chips, no chopped text */
-        .collections-pills-track .tab-btn {
+        .inicio-pills-track .tab-btn {
             width: auto !important;
             height: 40px !important;
             flex: 0 0 auto !important;
@@ -106,7 +109,7 @@
             transition: all 0.25s ease !important;
         }
 
-        .collections-pills-track .tab-btn:hover {
+        .inicio-pills-track .tab-btn:hover {
             background: #F4F9F5 !important;
             border-color: #07511A !important;
             transform: translateY(-2px) !important;
@@ -114,14 +117,14 @@
         }
 
         /* 4. Make "MENÚ COMPLETO" the Master Button */
-        .collections-pills-track button:first-child {
+        .inicio-pills-track button:first-child {
             background: linear-gradient(135deg, #1A4E21 0%, #0E2A12 100%) !important;
             color: #FFFFFF !important;
             border: 1.5px solid #D4AF37 !important;
             box-shadow: 0 4px 12px rgba(14, 38, 16, 0.3) !important;
         }
 
-        .collections-pills-track button:first-child:hover {
+        .inicio-pills-track button:first-child:hover {
             transform: translateY(-2px) !important;
             box-shadow: 0 6px 16px rgba(212, 175, 55, 0.4) !important;
             border-color: #F5D061 !important;
