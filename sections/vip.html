@@ -12,108 +12,106 @@
     </p>
   </div>
 
-  <!-- Pricing Grid Side-by-Side -->
-  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; align-items: stretch;">
+  <!-- ENTERPRISE PRICING STYLES -->
+<style>
+    .vip-pricing-wrapper { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; align-items: center; padding: 20px 0 40px; }
+    .vip-card { flex: 1 1 320px; max-width: 400px; border-radius: 20px; padding: 40px 30px; position: relative; transition: transform 0.3s ease, box-shadow 0.3s ease; text-align: left; }
+    
+    /* Basic Card - Understated, clean */
+    .vip-card.basic { background: #ffffff; border: 1px solid #E2ECE5; box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+    
+    /* Premium Card - The "Black Card" luxury feel */
+    .vip-card.premium { background: var(--emerald-card, #102619); color: #ffffff; border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 20px 40px rgba(16, 38, 25, 0.25); transform: scale(1.05); z-index: 2; }
+    @media (max-width: 768px) { .vip-card.premium { transform: scale(1); margin-top: 15px; } }
+    
+    .vip-badge { position: absolute; top: -16px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%); color: #102619; padding: 6px 18px; border-radius: 30px; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4); white-space: nowrap; }
+    
+    .vip-price-block { margin: 25px 0; border-bottom: 1px solid rgba(0,0,0,0.08); padding-bottom: 25px; }
+    .vip-card.premium .vip-price-block { border-bottom: 1px solid rgba(255,255,255,0.1); }
+    
+    .vip-price { font-size: 3.2rem; font-weight: 800; line-height: 1; font-family: var(--font-heading, inherit); margin-bottom: 5px; }
+    .vip-price span { font-size: 1rem; font-weight: 500; opacity: 0.7; font-family: var(--font-body, inherit); }
+    
+    .vip-features { list-style: none; padding: 0; margin: 0 0 30px; }
+    .vip-features li { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; font-size: 0.95rem; line-height: 1.5; }
+    .vip-features i { margin-top: 4px; font-size: 1.1rem; }
+    
+    .vip-card.basic .vip-features i { color: var(--matcha-deep, #2d4a22); }
+    .vip-card.premium .vip-features i { color: #D4AF37; }
+    
+    /* The Conversion Clincher: ROI Box */
+    .vip-roi-box { background: rgba(212, 175, 55, 0.1); border: 1px dashed rgba(212, 175, 55, 0.5); padding: 14px; border-radius: 10px; font-size: 0.85rem; text-align: center; margin-bottom: 25px; color: #F5D061; line-height: 1.4; }
+    
+    /* Buttons */
+    .vip-btn-basic { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px; border-radius: 10px; background: #f8fafc; color: #102619; font-weight: 700; text-decoration: none; border: 1px solid #cbd5e1; transition: all 0.2s; box-sizing: border-box; }
+    .vip-btn-basic:hover { background: #25D366; color: #fff; border-color: #25D366; }
+    
+    .vip-btn-premium { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 16px; border-radius: 10px; background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%); color: #102619; font-weight: 800; font-size: 1.05rem; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); transition: transform 0.2s, box-shadow 0.2s; }
+    .vip-btn-premium:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5); }
+</style>
 
-    <!-- Tier 1: Free / WhatsApp -->
-    <div style="flex: 1 1 320px; max-width: 400px; background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 16px; padding: 32px 24px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.03); text-align: left;">
-      <div>
-        <h3 style="font-family: var(--font-heading, inherit); color: #333; margin: 0 0 8px; font-size: 1.4rem;">VIP Básico</h3>
-        <p style="color: #777; font-size: 0.9rem; margin: 0 0 20px;">Para los amantes ocasionales del buen Té.</p>
-        <div style="font-size: 2.2rem; font-weight: 800; color: #222; margin-bottom: 20px;">
-          Gratis
+<!-- PRICING GRID -->
+<div class="vip-pricing-wrapper">
+    
+    <!-- TIER 1: BÁSICO -->
+    <div class="vip-card basic">
+        <h3 style="font-family: var(--font-heading); font-size: 1.6rem; color: #102619; margin: 0 0 5px;">VIP Básico</h3>
+        <p style="color: #666; font-size: 0.95rem; margin: 0;">Para los exploradores ocasionales.</p>
+        
+        <div class="vip-price-block">
+            <div class="vip-price" style="color: #102619;">Gratis</div>
         </div>
-        <ul style="list-style: none; padding: 0; margin: 0 0 20px; line-height: 1.8; color: #444; font-size: 0.92rem;">
-          <li style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px;">
-            <i class="fa-solid fa-check" style="color: var(--matcha-deep, #2d4a22); margin-top: 5px;"></i>
-            <span>Acceso a nuestro <strong>Grupo de WhatsApp</strong> oficial.</span>
-          </li>
-          <li style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px;">
-            <i class="fa-solid fa-check" style="color: var(--matcha-deep, #2d4a22); margin-top: 5px;"></i>
-            <span>Avisos oportunos de <strong>promociones, subastas y novedades</strong>.</span>
-          </li>
-          <li style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px;">
-            <i class="fa-solid fa-check" style="color: var(--matcha-deep, #2d4a22); margin-top: 5px;"></i>
-            <span><strong>Una taza de Té de bienvenida 100% gratis</strong> al inscribirte (sucursal Cholula).</span>
-          </li>
+
+        <ul class="vip-features" style="color: #444;">
+            <li><i class="fa-solid fa-check"></i> <span>Acceso al <strong>Grupo de WhatsApp</strong> oficial.</span></li>
+            <li><i class="fa-solid fa-check"></i> <span>Alertas de <strong>subastas y liquidaciones</strong>.</span></li>
+            <li><i class="fa-solid fa-check"></i> <span>Una <strong>taza de Té de bienvenida</strong> (Cortesía en sucursal).</span></li>
         </ul>
-      </div>
 
-      <!-- WhatsApp Actions: QR for PC + Tap Button for Mobile -->
-      <div style="margin-top: 20px;">
-        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; margin-bottom: 15px; text-align: center;">
-          <div style="background: #ffffff; padding: 4px; border-radius: 8px; width: 110px; height: 110px; margin: 0 auto 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.06);">
-            <img src="whats-qr.webp" alt="QR WhatsApp VIP" onerror="this.src='whats-qr.png'" style="width: 100%; height: 100%; object-fit: contain; display: block;">
-          </div>
-          <span style="font-size: 0.75rem; color: #64748b; font-weight: 600;">
-            <i class="fa-solid fa-camera"></i> Escanea con tu cel o pulsa abajo
-          </span>
+        <div style="text-align: center; margin-bottom: 18px;">
+            <div style="display: inline-block; padding: 4px; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); margin-bottom: 6px;">
+                <img src="whats-qr.webp" alt="QR WhatsApp VIP" onerror="this.src='whats-qr.png'" style="width: 80px; height: 80px; display: block; object-fit: contain;">
+            </div>
+            <div style="font-size: 0.75rem; color: #888;"><i class="fa-solid fa-camera"></i> Escanea o pulsa abajo</div>
         </div>
-        <a href="https://chat.whatsapp.com/IeBNBW1Tiap5SBGyrBLt8r?s=cl&p=a&ilr=0" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-sizing: border-box; text-align: center; padding: 13px 20px; border-radius: 10px; background: #25D366; color: #ffffff; font-weight: 700; text-decoration: none; font-size: 1rem; box-shadow: 0 4px 12px rgba(37,211,102,0.25); transition: all 0.2s ease;">
-          <i class="fa-brands fa-whatsapp fa-lg"></i> Unirme al Grupo Gratis
+
+        <a href="https://chat.whatsapp.com/IeBNBW1Tiap5SBGyrBLt8r?s=cl&p=a&ilr=0" target="_blank" rel="noopener noreferrer" class="vip-btn-basic">
+            <i class="fa-brands fa-whatsapp fa-lg" style="color: #25D366;"></i> Unirme al Grupo
         </a>
-      </div>
     </div>
 
-    <!-- Tier 2: Paid VIP Premium Subscription -->
-    <div style="flex: 1 1 340px; max-width: 440px; background: #ffffff; border: 2px solid var(--matcha-deep, #2d4a22); border-radius: 16px; padding: 32px 24px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 8px 24px rgba(45, 74, 34, 0.12); position: relative; text-align: left;">
-      <div style="position: absolute; top: -13px; right: 24px; background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%); color: #1C3317; padding: 4px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.5px; box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);">
-        <i class="fa-solid fa-crown"></i> MEMBRESÍA SELECTA
-      </div>
-
-      <div>
-        <h3 style="font-family: var(--font-heading, inherit); color: var(--matcha-deep, #2d4a22); margin: 0 0 8px; font-size: 1.4rem;">VIP Premium</h3>
-        <p style="color: #777; font-size: 0.9rem; margin: 0 0 20px;">Máxima distinción, atenciones de cortesía en nuestra Casa de Té y acceso reservado a oportunidades únicas.</p>
-        <div style="font-size: 2.2rem; font-weight: 800; color: #222; margin-bottom: 20px;">
-          $199 <span style="font-size: 0.95rem; font-weight: 500; color: #777;">MXN / mes</span>
+    <!-- TIER 2: PREMIUM -->
+    <div class="vip-card premium">
+        <div class="vip-badge"><i class="fa-solid fa-star"></i> LA DECISIÓN INTELIGENTE</div>
+        <h3 style="font-family: var(--font-heading); font-size: 1.9rem; color: #D4AF37; margin: 0 0 5px;">VIP Premium</h3>
+        <p style="color: #A3C4AF; font-size: 0.95rem; margin: 0;">El estándar de lujo. Recupera tu inversión en tu primera visita.</p>
+        
+        <div class="vip-price-block">
+            <div class="vip-price" style="color: #ffffff;">$199<span> MXN / mes</span></div>
         </div>
 
-        <ul style="list-style: none; padding: 0; margin: 0 0 25px; line-height: 1.6; color: #333; font-size: 0.92rem;">
-          
-          <!-- BAZAR VIP ACCESS (MONTHLY ACTIVE PASS) -->
-          <li style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px; background: rgba(212, 175, 55, 0.08); padding: 10px 12px; border-radius: 8px; border-left: 3px solid #D4AF37;">
-            <i class="fa-solid fa-gem" style="color: #AA7C11; margin-top: 4px; font-size: 1rem;"></i>
-            <span><strong>Acceso Mensual al Bazar VIP:</strong> Tu clave activa te otorga entrada libre durante el periodo de tu membresía a nuestro <strong>archivo privado</strong>. Una selección fascinante que trasciende el universo del Té: <strong>ropa de diseñador, gafas de sol de alta gama, relojería fina, calzado selecto y piezas únicas</strong> a precios de liquidacion verdaderamente irrepetibles.</span>
-          </li>
+        <div class="vip-roi-box">
+            <i class="fa-solid fa-calculator"></i> Al usar tus 4 tazas incluidas, <strong>recibes +$220 MXN</strong> en valor real. ¡La membresía se paga sola!
+        </div>
 
-          <!-- BIRTHDAY DESSERT -->
-          <li style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px;">
-            <i class="fa-solid fa-cake-candles" style="color: var(--matcha-deep, #2d4a22); margin-top: 4px;"></i>
-            <span><strong>Postre de Cortesía en tu Cumpleaños:</strong> Ven a celebrar a nuestra Casa de Té en Cholula y recibe un postre artesanal completamente por cuenta de la casa durante la semana de tu cumpleaños.</span>
-          </li>
-
-          <!-- 4 CUPS OF TÉ -->
-          <li style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px;">
-            <i class="fa-solid fa-mug-hot" style="color: var(--matcha-deep, #2d4a22); margin-top: 4px;"></i>
-            <span><strong>4 Tazas de Té al mes:</strong> Disfruta de cuatro preparaciones de nuestra carta sin costo durante el mes, servidas al momento en nuestra Casa de Té en Cholula.</span>
-          </li>
-
-          <!-- 10% DISCOUNT -->
-          <li style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px;">
-            <i class="fa-solid fa-percent" style="color: var(--matcha-deep, #2d4a22); margin-top: 4px;"></i>
-            <span><strong>10% de descuento en Frascos:</strong> Beneficio activo durante el mes de tu membresía, válido exclusivamente en la compra de cualquier frasco de nuestras colecciones.</span>
-          </li>
-
-          <!-- CONCIERGE & WHATSAPP COMMUNITY -->
-          <li style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px;">
-            <i class="fa-solid fa-bell-concierge" style="color: var(--matcha-deep, #2d4a22); margin-top: 4px;"></i>
-            <span><strong>Comunidad Oficial & Experiencias Exclusivas:</strong> Acceso a nuestro grupo de WhatsApp más tarifa preferencial en talleres y ceremonias de Té en nuestra Casa de Té en Cholula.</span>
-          </li>
+        <ul class="vip-features" style="color: #E2ECE5;">
+            <li><i class="fa-solid fa-gem"></i> <span><strong>Llave al Bazar VIP:</strong> Acceso ilimitado a nuestro archivo privado de liquidaciones (gafas, ropa de diseñador, relojería) a precios de costo.</span></li>
+            <li><i class="fa-solid fa-mug-hot"></i> <span><strong>4 Tazas de Té al mes:</strong> Pide tus mezclas favoritas en sucursal totalmente gratis.</span></li>
+            <li><i class="fa-solid fa-cake-candles"></i> <span><strong>Postre de Cumpleaños:</strong> Repostería artesanal por cuenta de la casa en tu semana.</span></li>
+            <li><i class="fa-solid fa-percent"></i> <span><strong>10% OFF Constante:</strong> Ahorro garantizado en todos nuestros frascos para llevar.</span></li>
+            <li><i class="fa-solid fa-bell-concierge"></i> <span><strong>Concierge & Catas:</strong> Atención prioritaria y tarifas preferenciales.</span></li>
         </ul>
-      </div>
 
-      <!-- VIP Premium Actions: Abre el modal directamente -->
-        <div style="margin-top: 20px;">
-          <p style="font-size: 0.8rem; color: #64748b; text-align: center; margin: 0 0 15px 0;">
-            <i class="fa-solid fa-shield-halved"></i> Cancela o renueva en cualquier momento sin plazos forzosos
-          </p>
-          <!-- MEMBERSHIP CARD TRIGGER BUTTON -->
-        <button type="button" onclick="openVipModal()" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-sizing: border-box; text-align: center; padding: 14px 20px; border: none; cursor: pointer; border-radius: 10px; background: var(--matcha-deep, #2d4a22); color: #ffffff; font-weight: 700; font-size: 1rem; box-shadow: 0 4px 12px rgba(45, 74, 34, 0.25); transition: opacity 0.2s ease;">
-          <i class="fa-solid fa-crown"></i> Suscribirme a VIP Premium
+        <button type="button" onclick="openVipModal()" class="vip-btn-premium">
+            <i class="fa-solid fa-crown"></i> Desbloquear Premium
         </button>
-      </div>
-
+        
+        <p style="font-size: 0.75rem; color: #888; text-align: center; margin: 15px 0 0 0;">
+            <i class="fa-solid fa-shield-halved"></i> Cancela en cualquier momento. Sin plazos forzosos.
+        </p>
     </div>
+
+</div>
 
     <!-- MODAL DE REGISTRO VIP -->
     <div id="vip-register-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.65); z-index: 99999; align-items: center; justify-content: center; padding: 16px; box-sizing: border-box; backdrop-filter: blur(4px);">
