@@ -351,25 +351,44 @@ function normalizeStr(str) {
 function selectCollection(colName) {
     const targetNorm = normalizeStr(colName);
     let tappedBtn = null;
-
     document.querySelectorAll('.tab-btn').forEach(btn => {
         const clickAttr = btn.getAttribute('onclick') || '';
         const btnText = btn.textContent || btn.innerText || '';
         const isActive = clickAttr.toUpperCase().includes(targetNorm) || normalizeStr(btnText).includes(targetNorm);
-        
         btn.classList.toggle('active', isActive);
         if (isActive && !tappedBtn) tappedBtn = btn;
     });
-
     const titleEl = document.getElementById('current-collection-title');
     if (titleEl) {
         titleEl.textContent = colName;
     }
-
     loadCollection(colName);
-
     if (tappedBtn) {
         tappedBtn.scrollIntoView({ inline: 'nearest', block: 'nearest', behavior: 'instant' });
+    }
+
+    // RESET DESKTOP & MOBILE SCROLL TO JAR #1
+    const container = document.getElementById('products-container');
+    if (container) {
+        const sidebar = document.querySelector('.sidebar-menu');
+        const isDesktop = window.innerWidth >= 992;
+        let stickyOffset = 0;
+        
+        if (isDesktop && sidebar) {
+            // Header (197px) + sticky pills height + margin
+            stickyOffset = 197 + (sidebar.offsetHeight || 110) + 15;
+        } else {
+            const header = document.querySelector('header');
+            stickyOffset = (header ? header.offsetHeight : 70) + 15;
+        }
+        
+        const containerTop = container.getBoundingClientRect().top + window.pageYOffset;
+        const targetY = Math.max(0, containerTop - stickyOffset);
+        
+        // Only reset if user has scrolled down past the top of the grid
+        if (window.pageYOffset > targetY + 20) {
+            window.scrollTo({ top: targetY, behavior: 'instant' });
+        }
     }
 }
 
