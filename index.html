@@ -519,6 +519,20 @@
     transition: all 0.25s ease;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
+
+/* ========================================================
+   UNIVERSAL ZERO-SCROLLBAR: HIDES ALL POPPING SCROLL LINES
+   ======================================================== */
+html, body, #dynamic-content-area, .dashboard-layout, * {
+    scrollbar-width: none !important; /* Firefox */
+    -ms-overflow-style: none !important; /* IE / Edge */
+}
+*::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+}        
 /* 1. General Hover (Only applies when NOT already active) */
 .nav-btn:hover {
     background: rgba(255, 255, 255, 0.18) !important;
