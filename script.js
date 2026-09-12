@@ -440,8 +440,7 @@ function loadCollection(colName) {
                     <p style="font-size: 0.85em; color: #666; margin-bottom: 20px; line-height: 1.4; min-height: 40px;">${prod.ingredients || ''}</p>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 6px; width: 100%; margin-top: auto;">
-                    ${frascoHtml}
-                    ${sobreHtml}
+                    ${purchaseHtml}
                     ${fallbackHtml}
                 </div>`;
                 
@@ -449,6 +448,24 @@ function loadCollection(colName) {
         });
     } else {
         container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px; color: var(--text-muted);">Próximamente agregando productos a <strong>${colName}</strong>...</div>`;
+    }
+}
+// HELPER: TOGGLE FRASCO / SOBRE ON PRODUCT CARD
+function setCardPresentation(prodId, pres, price, name) {
+    const priceEl = document.getElementById(prodId + '_price');
+    const cartBtn = document.getElementById(prodId + '_cart_btn');
+    const btnFrasco = document.getElementById(prodId + '_btn_frasco');
+    const btnSobre = document.getElementById(prodId + '_btn_sobre');
+    if (priceEl) priceEl.textContent = '$' + price;
+    if (cartBtn) cartBtn.setAttribute('onclick', `event.stopPropagation(); addToCart('${name}', ${price}, '${pres}')`);
+    if (btnFrasco && btnSobre) {
+        if (pres === 'Frasco') {
+            btnFrasco.style.background = '#07511A'; btnFrasco.style.color = '#FFFFFF'; btnFrasco.style.borderColor = '#07511A';
+            btnSobre.style.background = '#FFFFFF'; btnSobre.style.color = '#07511A'; btnSobre.style.borderColor = 'rgba(7, 81, 26, 0.3)';
+        } else {
+            btnSobre.style.background = '#07511A'; btnSobre.style.color = '#FFFFFF'; btnSobre.style.borderColor = '#07511A';
+            btnFrasco.style.background = '#FFFFFF'; btnFrasco.style.color = '#07511A'; btnFrasco.style.borderColor = 'rgba(7, 81, 26, 0.3)';
+        }
     }
 }
 
