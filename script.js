@@ -524,14 +524,14 @@ async function loadAccesoriosGrid() {
                     <p class="product-ingredients">${descText}</p>
                 </div>
                 <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; margin-top: auto; padding: 4px 2px 2px 2px;">
-                        <div style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.1; min-width: 0;">
-                            ${isSale ? `<span style="font-size: 0.72rem; text-decoration: line-through; color: #888; font-weight: 600;">$${originalPrice}</span>` : ''}
+                        <div style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15; min-width: 0;">
+                            ${isSale ? `<span style="font-size: 0.72rem; text-decoration: line-through; color: #888888; font-weight: 600;">$${originalPrice}</span>` : ''}
                             <span style="font-family: var(--font-heading, 'Cinzel', serif); font-size: 1.05rem; font-weight: 800; color: var(--matcha-deep, #07511A);">$${price}</span>
                         </div>
-                        <button onclick="event.stopPropagation(); addToCart('${safeName}', ${price})" title="Añadir al carrito" style="width: 34px; height: 34px; min-width: 34px; border-radius: 50%; border: 1.5px solid var(--matcha-deep, #07511A); background: #FFFFFF; color: var(--matcha-deep, #07511A); display: flex; align-items: center; justify-content: center; font-size: 0.95rem; cursor: pointer; padding: 0; box-shadow: 0 2px 6px rgba(0,0,0,0.06); transition: all 0.15s ease; flex-shrink: 0;" onmouseover="this.style.background='#07511A'; this.style.color='#FFFFFF'; this.style.transform='scale(1.08)';" onmouseout="this.style.background='#FFFFFF'; this.style.color='#07511A'; this.style.transform='scale(1)';">
+                        <button onclick="event.stopPropagation(); addToCart('${safeName}', ${price})" title="Añadir al carrito" style="width: 32px; height: 32px; min-width: 32px; border-radius: 50%; border: 1.5px solid var(--matcha-deep, #07511A); background: #FFFFFF; color: var(--matcha-deep, #07511A); display: flex; align-items: center; justify-content: center; font-size: 0.88rem; cursor: pointer; padding: 0; box-shadow: 0 2px 6px rgba(0,0,0,0.06); transition: all 0.15s ease; flex-shrink: 0;" onmouseover="this.style.background='#07511A'; this.style.color='#FFFFFF'; this.style.transform='scale(1.08)';" onmouseout="this.style.background='#FFFFFF'; this.style.color='#07511A'; this.style.transform='scale(1)';">
                             <i class="fa-solid fa-cart-plus"></i>
                         </button>
-                </div>
+                    </div>
             `;
             
             card.querySelector('.gallery-trigger').onclick = () => {
