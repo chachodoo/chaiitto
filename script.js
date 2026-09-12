@@ -399,24 +399,28 @@ function loadCollection(colName) {
             const safeName = (prod.name || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
 
             // 1-CLICK BUTTON: FRASCO
-            // OPTION 1: STACKED MICRO-BAR (FRASCO)
+            // UNIFIED TEMU BAR: FRASCO (WITH CIRCULAR CART BADGE)
             let frascoHtml = frascoPrice > 0 ? `
-            <button onclick="addToCart('${safeName}', ${frascoPrice}, 'Frasco')" title="Añadir Frasco al carrito" style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; border-radius: 8px; border: 1.5px solid var(--matcha-deep, #07511A); background: #FFFFFF; color: var(--matcha-deep, #07511A); cursor: pointer; transition: all 0.15s ease;" onmouseover="this.style.background='#F0F7F2'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#FFFFFF'; this.style.transform='translateY(0)';">
-                <div style="display: flex; align-items: baseline; gap: 6px;">
-                    <span style="font-size: 0.72rem; font-weight: 800; letter-spacing: 0.5px; color: var(--matcha-deep, #07511A);">FRASCO</span>
-                    <span style="font-size: 0.95rem; font-weight: 900; color: #1C3317;">$${frascoPrice}</span>
+            <button onclick="addToCart('${safeName}', ${frascoPrice}, 'Frasco')" title="Añadir Frasco al carrito" style="width: 100% !important; min-height: 38px !important; display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 4px 6px 4px 10px !important; box-sizing: border-box !important; border-radius: 20px !important; border: 1.5px solid var(--matcha-deep, #07511A) !important; background: #FFFFFF !important; color: var(--matcha-deep, #07511A) !important; cursor: pointer; transition: all 0.15s ease;" onmouseover="this.style.background='#F0F7F2'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#FFFFFF'; this.style.transform='translateY(0)';">
+                <div style="display: flex; align-items: baseline; gap: 6px; line-height: 1;">
+                    <span style="font-size: 0.65rem; font-weight: 800; letter-spacing: 0.5px; color: var(--matcha-deep, #07511A);">FRASCO</span>
+                    <span style="font-size: 0.92rem; font-weight: 900; color: #1C3317;">$${frascoPrice}</span>
                 </div>
-                <i class="fa-solid fa-cart-plus" style="font-size: 0.85rem; color: #07511A;"></i>
+                <span style="width: 28px; height: 28px; min-width: 28px; border-radius: 50%; background: #07511A; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 0.78rem; box-shadow: 0 2px 5px rgba(7, 81, 26, 0.25);">
+                    <i class="fa-solid fa-cart-plus"></i>
+                </span>
             </button>` : '';
 
-            // OPTION 1: STACKED MICRO-BAR (SOBRE)
+            // UNIFIED TEMU BAR: SOBRE (WITH CIRCULAR CART BADGE)
             let sobreHtml = sobrePrice > 0 ? `
-            <button onclick="addToCart('${safeName}', ${sobrePrice}, 'Sobre')" title="Añadir Sobre al carrito" style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; border-radius: 8px; border: 1.5px solid rgba(7, 81, 26, 0.4); background: #FAFAF7; color: var(--matcha-deep, #07511A); cursor: pointer; transition: all 0.15s ease;" onmouseover="this.style.background='#F0F7F2'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#FAFAF7'; this.style.transform='translateY(0)';">
-                <div style="display: flex; align-items: baseline; gap: 6px;">
-                    <span style="font-size: 0.72rem; font-weight: 800; letter-spacing: 0.5px; color: var(--matcha-deep, #07511A);">SOBRE</span>
-                    <span style="font-size: 0.95rem; font-weight: 900; color: #1C3317;">$${sobrePrice}</span>
+            <button onclick="addToCart('${safeName}', ${sobrePrice}, 'Sobre')" title="Añadir Sobre al carrito" style="width: 100% !important; min-height: 38px !important; display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 4px 6px 4px 10px !important; box-sizing: border-box !important; border-radius: 20px !important; border: 1.5px solid rgba(7, 81, 26, 0.4) !important; background: #FAFAF7 !important; color: var(--matcha-deep, #07511A) !important; cursor: pointer; transition: all 0.15s ease;" onmouseover="this.style.background='#F0F7F2'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#FAFAF7'; this.style.transform='translateY(0)';">
+                <div style="display: flex; align-items: baseline; gap: 6px; line-height: 1;">
+                    <span style="font-size: 0.65rem; font-weight: 800; letter-spacing: 0.5px; color: var(--matcha-deep, #07511A);">SOBRE</span>
+                    <span style="font-size: 0.92rem; font-weight: 900; color: #1C3317;">$${sobrePrice}</span>
                 </div>
-                <i class="fa-solid fa-cart-plus" style="font-size: 0.85rem; color: #07511A;"></i>
+                <span style="width: 28px; height: 28px; min-width: 28px; border-radius: 50%; border: 1.5px solid #07511A; background: #FFFFFF; color: #07511A; display: flex; align-items: center; justify-content: center; font-size: 0.78rem;">
+                    <i class="fa-solid fa-cart-plus"></i>
+                </span>
             </button>` : '';
 
             // FALLBACK
