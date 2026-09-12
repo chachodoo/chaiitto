@@ -399,24 +399,24 @@ function loadCollection(colName) {
             const safeName = (prod.name || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
 
             // 1-CLICK BUTTON: FRASCO
-            // RELATIVE RESPONSIVE CHIP: FRASCO
+            // OPTION 1: STACKED MICRO-BAR (FRASCO)
             let frascoHtml = frascoPrice > 0 ? `
-            <button onclick="addToCart('${safeName}', ${frascoPrice}, 'Frasco')" title="Añadir Frasco al carrito" style="flex: 1 1 0; min-width: 0; height: auto !important; padding: 0.35rem 0.45rem !important; box-sizing: border-box !important; display: flex !important; align-items: center !important; justify-content: space-between !important; gap: 0.25rem !important; border-radius: 0.45rem !important; border: 1.5px solid var(--matcha-deep, #07511A) !important; background: #FFFFFF !important; color: var(--matcha-deep, #07511A) !important; cursor: pointer; transition: all 0.15s ease;" onmouseover="this.style.background='#F0F7F2'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#FFFFFF'; this.style.transform='translateY(0)';">
-                <div style="display: flex; flex-direction: column; justify-content: center; text-align: left; min-width: 0; line-height: 1.15;">
-                    <span style="font-size: 0.6rem; font-weight: 800; color: var(--matcha-deep, #07511A); letter-spacing: 0.03em; display: block;">FRASCO</span>
-                    <span style="font-size: 0.85rem; font-weight: 900; color: #1C3317; display: block;">$${frascoPrice}</span>
+            <button onclick="addToCart('${safeName}', ${frascoPrice}, 'Frasco')" title="Añadir Frasco al carrito" style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; border-radius: 8px; border: 1.5px solid var(--matcha-deep, #07511A); background: #FFFFFF; color: var(--matcha-deep, #07511A); cursor: pointer; transition: all 0.15s ease;" onmouseover="this.style.background='#F0F7F2'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#FFFFFF'; this.style.transform='translateY(0)';">
+                <div style="display: flex; align-items: baseline; gap: 6px;">
+                    <span style="font-size: 0.72rem; font-weight: 800; letter-spacing: 0.5px; color: var(--matcha-deep, #07511A);">FRASCO</span>
+                    <span style="font-size: 0.95rem; font-weight: 900; color: #1C3317;">$${frascoPrice}</span>
                 </div>
-                <i class="fa-solid fa-cart-plus" style="font-size: 0.8rem; color: #07511A; flex-shrink: 0;"></i>
+                <i class="fa-solid fa-cart-plus" style="font-size: 0.85rem; color: #07511A;"></i>
             </button>` : '';
 
-            // RELATIVE RESPONSIVE CHIP: SOBRE
+            // OPTION 1: STACKED MICRO-BAR (SOBRE)
             let sobreHtml = sobrePrice > 0 ? `
-            <button onclick="addToCart('${safeName}', ${sobrePrice}, 'Sobre')" title="Añadir Sobre al carrito" style="flex: 1 1 0; min-width: 0; height: auto !important; padding: 0.35rem 0.45rem !important; box-sizing: border-box !important; display: flex !important; align-items: center !important; justify-content: space-between !important; gap: 0.25rem !important; border-radius: 0.45rem !important; border: 1.5px solid rgba(7, 81, 26, 0.45) !important; background: #FAFAF7 !important; color: var(--matcha-deep, #07511A) !important; cursor: pointer; transition: all 0.15s ease;" onmouseover="this.style.background='#F0F7F2'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#FAFAF7'; this.style.transform='translateY(0)';">
-                <div style="display: flex; flex-direction: column; justify-content: center; text-align: left; min-width: 0; line-height: 1.15;">
-                    <span style="font-size: 0.6rem; font-weight: 800; color: var(--matcha-deep, #07511A); letter-spacing: 0.03em; display: block;">SOBRE</span>
-                    <span style="font-size: 0.85rem; font-weight: 900; color: #1C3317; display: block;">$${sobrePrice}</span>
+            <button onclick="addToCart('${safeName}', ${sobrePrice}, 'Sobre')" title="Añadir Sobre al carrito" style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; border-radius: 8px; border: 1.5px solid rgba(7, 81, 26, 0.4); background: #FAFAF7; color: var(--matcha-deep, #07511A); cursor: pointer; transition: all 0.15s ease;" onmouseover="this.style.background='#F0F7F2'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#FAFAF7'; this.style.transform='translateY(0)';">
+                <div style="display: flex; align-items: baseline; gap: 6px;">
+                    <span style="font-size: 0.72rem; font-weight: 800; letter-spacing: 0.5px; color: var(--matcha-deep, #07511A);">SOBRE</span>
+                    <span style="font-size: 0.95rem; font-weight: 900; color: #1C3317;">$${sobrePrice}</span>
                 </div>
-                <i class="fa-solid fa-cart-plus" style="font-size: 0.8rem; color: #07511A; flex-shrink: 0;"></i>
+                <i class="fa-solid fa-cart-plus" style="font-size: 0.85rem; color: #07511A;"></i>
             </button>` : '';
 
             // FALLBACK
@@ -440,7 +440,7 @@ function loadCollection(colName) {
                     </h3>
                     <p style="font-size: 0.85em; color: #666; margin-bottom: 20px; line-height: 1.4; min-height: 40px;">${prod.ingredients || ''}</p>
                 </div>
-                <div style="display: flex; gap: 6px; justify-content: center; width: 100%; margin-top: auto;">
+                <div style="display: flex; flex-direction: column; gap: 6px; width: 100%; margin-top: auto;">
                     ${frascoHtml}
                     ${sobreHtml}
                     ${fallbackHtml}
