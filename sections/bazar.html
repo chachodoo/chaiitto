@@ -1,50 +1,111 @@
 <style>
-  /* Lock Gate Box */
-  .vip-gate-wrapper {
-    max-width: 480px;
+  /* Lock Gate Box VIP */
+.vip-login-card {
+    max-width: 400px;
     margin: 40px auto;
-    background: #FFFFFF;
-    border: 2px solid var(--gold-border, #D4AF37);
-    border-radius: 20px;
-    padding: 35px 25px;
+    padding: 40px 30px;
+    background: #ffffff;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     text-align: center;
-    box-shadow: 0 10px 30px rgba(45, 90, 39, 0.1);
-  }
+    font-family: var(--font-body, 'Montserrat', sans-serif);
+}
 
-  .vip-icon-shield {
-    width: 65px;
-    height: 65px;
-    background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%);
-    border-radius: 50%;
-    display: inline-flex;
+.vip-header { margin-bottom: 25px; }
+
+.vip-crown-icon {
+    color: var(--gold-accent, #D4AF37);
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+}
+
+.vip-header h3 {
+    font-family: var(--font-heading, 'Cinzel', serif);
+    color: var(--matcha-deep, #102619);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.vip-header p {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.input-wrapper {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.input-wrapper i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--matcha-deep, #102619);
+    opacity: 0.5;
+}
+
+.vip-form input {
+    width: 100%;
+    padding: 14px 14px 14px 45px;
+    border: 1px solid #E2ECE5;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: var(--matcha-deep, #102619);
+    font-family: inherit;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.vip-form input:focus {
+    outline: none;
+    border-color: var(--gold-accent, #D4AF37);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+.btn-unlock {
+    width: 100%;
+    padding: 15px;
+    background: var(--matcha-deep, #102619);
+    color: #F5D061;
+    border: none;
+    border-radius: 8px;
+    font-family: var(--font-heading, 'Cinzel', serif);
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.3s ease;
+    display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.7rem;
-    color: #1C3317;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
-  }
+    gap: 10px;
+}
 
-  .vip-pin-input {
-    letter-spacing: 6px;
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: 800;
-    width: 220px;
-    padding: 10px;
-    border: 2px solid var(--gold-border, #D4AF37);
-    border-radius: 12px;
-    background: #FAFDF9;
-    color: var(--matcha-deep, #2D5A27);
-    margin: 15px auto;
-    display: block;
-    outline: none;
-  }
+.btn-unlock:hover {
+    background: #1A4E21;
+    transform: translateY(-2px);
+}
 
-  .vip-pin-input:focus {
-    border-color: var(--matcha-deep, #2D5A27);
-    box-shadow: 0 0 10px rgba(45, 90, 39, 0.2);
-  }
+.vip-join-link {
+    display: inline-block;
+    margin-top: 25px;
+    color: var(--matcha-deep, #102619);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+}
+
+.vip-join-link strong {
+    color: var(--gold-accent, #D4AF37);
+    font-weight: 600;
+}
+
+.vip-join-link:hover strong {
+    text-decoration: underline;
+}
 
   /* Catalog Grid (hidden until PIN is verified) */
   #bazar-vip-content {
@@ -89,27 +150,33 @@
 </style>
 
 <!-- LOCKED STATE: PIN GATE -->
-<div id="bazar-vip-lock" class="vip-gate-wrapper">
-  <div class="vip-icon-shield">
-    <i class="fa-solid fa-crown"></i>
-  </div>
-  <h2 style="font-family: var(--font-heading); color: var(--matcha-deep, #2D5A27); margin: 0 0 8px 0;">BAZAR VIP</h2>
-  <p style="color: var(--text-muted, #666); font-size: 0.9rem; margin-bottom: 20px;">
-    Acceso exclusivo para miembros VIP Premium. Ingresa tu clave.
-  </p>
-  <input type="tel" id="vip-phone-input" placeholder="WhatsApp" style="width: 220px; padding: 11px 14px; border: 2px solid var(--gold-border, #D4AF37); border-radius: 12px; background: #FAFDF9; color: var(--matcha-deep, #2D5A27); margin: 0 auto 10px auto; display: block; outline: none; text-align: center; font-size: 1rem; font-weight: 600; box-sizing: border-box;" onkeydown="if (event.key === 'Enter') verifyVipPin();">
-<input type="password" id="vip-pin-input" placeholder="PIN VIP" style="width: 220px; padding: 11px 14px; border: 2px solid var(--gold-border, #D4AF37); border-radius: 12px; background: #FAFDF9; color: var(--matcha-deep, #2D5A27); margin: 0 auto 14px auto; display: block; outline: none; text-align: center; font-size: 1rem; font-weight: 600; box-sizing: border-box;" onkeydown="if (event.key === 'Enter') verifyVipPin();">
-<div id="vip-pin-error" style="color: #D9534F; font-size: 0.85rem; font-weight: 700; min-height: 20px; margin-bottom: 12px;"></div>
-<button onclick="verifyVipPin()" class="nav-btn" style="width: 100%; max-width: 220px; margin: 0 auto 15px auto; padding: 12px; background: var(--matcha-deep, #2D5A27); color: #FFF; font-weight: bold; border-radius: 10px; cursor: pointer;">
-    <i class="fa-solid fa-lock-open"></i> Desbloquear
-</button>
-
-    <div>
-      <button type="button" onclick="window.location.hash='vip';" 
-              style="background: transparent; border: none; font-size: 0.86rem; color: var(--gold-accent, #AA7C11); font-weight: 700; cursor: pointer; text-decoration: underline; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
-        <i class="fa-solid fa-crown"></i> ¿Aún no eres miembro? Adquiere tu Membresía VIP Premium aquí
-      </button>
+<div id="bazar-vip-lock" class="vip-login-card">
+    <div class="vip-header">
+        <i class="fa-solid fa-crown vip-crown-icon"></i>
+        <h3 style="margin-bottom: 5px;">Acceso VIP Premium</h3>
+        <p>Exclusivo para miembros. Ingresa tu clave.</p>
     </div>
+
+    <form class="vip-form" onsubmit="return false;">
+        <div class="input-wrapper">
+            <i class="fa-solid fa-phone"></i>
+            <input type="tel" id="vip-phone-input" placeholder="Número de WhatsApp" onkeydown="if (event.key === 'Enter') verifyVipPin();">
+        </div>
+        <div class="input-wrapper">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="vip-pin-input" placeholder="PIN VIP" onkeydown="if (event.key === 'Enter') verifyVipPin();">
+        </div>
+
+        <div id="vip-pin-error" style="color: #D9534F; font-size: 0.85rem; font-weight: 700; min-height: 20px; margin-bottom: 12px;"></div>
+
+        <button type="button" class="btn-unlock" onclick="verifyVipPin()">
+            <i class="fa-solid fa-unlock-keyhole"></i> DESBLOQUEAR
+        </button>
+    </form>
+
+    <a href="#vip" onclick="window.location.hash='vip';" class="vip-join-link">
+        ¿Aún no eres miembro? <strong>Adquiere tu Membresía aquí</strong>
+    </a>
 </div>
 
 <!-- UNLOCKED STATE: VIP SHOWCASE -->
