@@ -24,19 +24,20 @@
   }
 
   /* Mobile: 2 per row */
-  @media (max-width: 600px) {
-    #accesorios-dynamic-track {
-      grid-template-columns: repeat(2, 1fr) !important; /* 2 per row on phones */
-      gap: 10px !important;
-    }
-    #accesorios-dynamic-track .product-card {
-      padding: 10px 8px !important;
-    }
-
-    #accesorios-dynamic-track .product-name {
-      font-size: 0.88rem !important;
-    }
+  /* Mobile & Tablets (under 992px): 2 per row - STRICT ZERO-BLOWOUT */
+@media (max-width: 991px) {
+  #accesorios-dynamic-track {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
   }
+  #accesorios-dynamic-track .product-card {
+    padding: 10px 8px !important;
+    overflow: hidden !important;
+  }
+  #accesorios-dynamic-track .product-name {
+    font-size: 0.88rem !important;
+  }
+}
 
   /* ==========================================
      OFERTA BADGE & PRICING STYLES
