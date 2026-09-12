@@ -399,26 +399,26 @@ function loadCollection(colName) {
             const safeName = (prod.name || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
 
             // 1-CLICK BUTTON: FRASCO
-            // UNIFIED TEMU BAR: FRASCO (WITH CIRCULAR CART BADGE)
+            // UNIFIED ROW: FRASCO (BREATHING ROOM - NO BORDER COLLISION)
             let frascoHtml = frascoPrice > 0 ? `
-            <button onclick="addToCart('${safeName}', ${frascoPrice}, 'Frasco')" title="Añadir Frasco al carrito" style="width: 100% !important; min-height: 38px !important; display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 4px 6px 4px 10px !important; box-sizing: border-box !important; border-radius: 20px !important; border: 1.5px solid var(--matcha-deep, #07511A) !important; background: #FFFFFF !important; color: var(--matcha-deep, #07511A) !important; cursor: pointer; transition: all 0.15s ease;" onmouseover="this.style.background='#F0F7F2'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#FFFFFF'; this.style.transform='translateY(0)';">
-                <div style="display: flex; align-items: baseline; gap: 6px; line-height: 1;">
-                    <span style="font-size: 0.65rem; font-weight: 800; letter-spacing: 0.5px; color: var(--matcha-deep, #07511A);">FRASCO</span>
+            <button onclick="addToCart('${safeName}', ${frascoPrice}, 'Frasco')" title="Añadir Frasco al carrito" style="width: 100% !important; min-height: 38px !important; display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 6px 10px !important; box-sizing: border-box !important; border-radius: 8px !important; border: 1.5px solid var(--matcha-deep, #07511A) !important; background: #FFFFFF !important; cursor: pointer; transition: all 0.15s ease;" onmouseover="this.style.background='#F0F7F2'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#FFFFFF'; this.style.transform='translateY(0)';">
+                <div style="display: flex; align-items: baseline; gap: 8px; line-height: 1;">
+                    <span style="font-size: 0.68rem; font-weight: 800; letter-spacing: 0.5px; color: var(--matcha-deep, #07511A);">FRASCO</span>
                     <span style="font-size: 0.92rem; font-weight: 900; color: #1C3317;">$${frascoPrice}</span>
                 </div>
-                <span style="width: 28px; height: 28px; min-width: 28px; border-radius: 50%; background: #07511A; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 0.78rem; box-shadow: 0 2px 5px rgba(7, 81, 26, 0.25);">
+                <span style="width: 26px; height: 26px; min-width: 26px; border-radius: 50%; background: #07511A; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; flex-shrink: 0; box-shadow: 0 2px 5px rgba(7, 81, 26, 0.25);">
                     <i class="fa-solid fa-cart-plus"></i>
                 </span>
             </button>` : '';
 
-            // UNIFIED TEMU BAR: SOBRE (WITH CIRCULAR CART BADGE)
+            // UNIFIED ROW: SOBRE (IDENTICAL MATCH TO FRASCO)
             let sobreHtml = sobrePrice > 0 ? `
-            <button onclick="addToCart('${safeName}', ${sobrePrice}, 'Sobre')" title="Añadir Sobre al carrito" style="width: 100% !important; min-height: 38px !important; display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 4px 6px 4px 10px !important; box-sizing: border-box !important; border-radius: 20px !important; border: 1.5px solid rgba(7, 81, 26, 0.4) !important; background: #FAFAF7 !important; color: var(--matcha-deep, #07511A) !important; cursor: pointer; transition: all 0.15s ease;" onmouseover="this.style.background='#F0F7F2'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#FAFAF7'; this.style.transform='translateY(0)';">
-                <div style="display: flex; align-items: baseline; gap: 6px; line-height: 1;">
-                    <span style="font-size: 0.65rem; font-weight: 800; letter-spacing: 0.5px; color: var(--matcha-deep, #07511A);">SOBRE</span>
+            <button onclick="addToCart('${safeName}', ${sobrePrice}, 'Sobre')" title="Añadir Sobre al carrito" style="width: 100% !important; min-height: 38px !important; display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 6px 10px !important; box-sizing: border-box !important; border-radius: 8px !important; border: 1.5px solid var(--matcha-deep, #07511A) !important; background: #FFFFFF !important; cursor: pointer; transition: all 0.15s ease;" onmouseover="this.style.background='#F0F7F2'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#FFFFFF'; this.style.transform='translateY(0)';">
+                <div style="display: flex; align-items: baseline; gap: 8px; line-height: 1;">
+                    <span style="font-size: 0.68rem; font-weight: 800; letter-spacing: 0.5px; color: var(--matcha-deep, #07511A);">SOBRE</span>
                     <span style="font-size: 0.92rem; font-weight: 900; color: #1C3317;">$${sobrePrice}</span>
                 </div>
-                <span style="width: 28px; height: 28px; min-width: 28px; border-radius: 50%; border: 1.5px solid #07511A; background: #FFFFFF; color: #07511A; display: flex; align-items: center; justify-content: center; font-size: 0.78rem;">
+                <span style="width: 26px; height: 26px; min-width: 26px; border-radius: 50%; background: #07511A; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; flex-shrink: 0; box-shadow: 0 2px 5px rgba(7, 81, 26, 0.25);">
                     <i class="fa-solid fa-cart-plus"></i>
                 </span>
             </button>` : '';
