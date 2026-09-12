@@ -169,7 +169,7 @@
     <!-- 2. DASHBOARD -->
     <div id="dashboard-screen" class="admin-container hidden">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(229,193,88,0.3); padding-bottom: 15px;">
-            <h2><i class="fa-solid fa-boxes-packing"></i> Cargar Catálogo Web</h2>
+            <h2><i class="fa-solid fa-boxes-packing"></i>Cargar Catálogo</h2>
             <button class="btn btn-danger" onclick="logoutAdmin()"><i class="fa-solid fa-right-from-bracket"></i> Salir</button>
         </div>
 
@@ -182,16 +182,16 @@
             <h3>1. Datos del Producto</h3>
 
             <div class="form-group" style="margin-top: 10px;">
-                <label>Destino de Publicación:</label>
+                <label>Destino:</label>
                 <select id="target-catalog" style="color: var(--gold-accent); font-weight: bold; font-size: 1rem; padding: 10px;">
-                    <option value="accesorios">🏺 Accesorios (accesorios.json)</option>
-                    <option value="bazar">👑 Bazar VIP (bazar.json)</option>
+                    <option value="accesorios">🏺 Accesorios</option>
+                    <option value="bazar">👑 Bazar VIP</option>
                 </select>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
-                    <label>Código / Número (#):</label>
+                    <label>Número Del producto:</label>
                     <input type="text" id="oferta-num" placeholder="01">
                 </div>
                 <div class="form-group">
@@ -201,14 +201,14 @@
             </div>
 
             <div class="form-group">
-                <label>Descripción / Detalles:</label>
+                <label>Descripción:</label>
                 <input type="text" id="oferta-desc" placeholder="Popote con colador incluido perfecto...">
             </div>
 
             <!-- TWO-PRICE INPUTS (ALWAYS VISIBLE FOR BOTH ACCESORIOS & BAZAR) -->
             <div class="form-row">
                 <div class="form-group">
-                    <label>Precio Regular / Original ($ MXN):</label>
+                    <label>Precio ($ MXN):</label>
                     <input type="number" id="oferta-orig" placeholder="79 (o 900 si tendrá oferta)">
                 </div>
                 <div class="form-group">
@@ -218,7 +218,7 @@
             </div>
 
             <div class="form-group">
-                <label>Seleccionar Imagen(es):</label>
+                <label>Imagen(es):</label>
                 <input type="file" id="oferta-files" multiple accept="image/*" style="color: #A3C4AF;">
             </div>
 
@@ -246,7 +246,7 @@
                 </tbody>
             </table>
 
-            <button class="btn btn-publish" onclick="publishAllToGitHub()"><i class="fa-solid fa-cloud-arrow-up"></i> Publicar Cambios en la Web</button>
+            <button class="btn btn-publish" onclick="publishAllToGitHub()"><i class="fa-solid fa-cloud-arrow-up"></i> Publicar en la Web</button>
         </div>
     </div>
 
