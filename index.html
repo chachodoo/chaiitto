@@ -1107,6 +1107,22 @@ Dejamos atrás las bolsitas comerciales. Bienvenido a la auténtica cultura del 
         }
     };
 
+    // CLOSE MENU & RETURN ON TAP (EVEN IF RE-CLICKING CURRENT PAGE)
+    const mainNav = document.getElementById('main-nav-menu');
+    if (mainNav) {
+        mainNav.addEventListener('click', (e) => {
+            const btn = e.target.closest('.nav-btn');
+            if (btn) {
+                window.closeMobileMenu();
+                const target = btn.getAttribute('data-page');
+                const current = (window.location.hash.replace('#', '').replace('-page', '')) || 'inicio';
+                if (target && target === current) {
+                    window.scrollTo(0, 0);
+                }
+            }
+        });
+    }    
+
     const originalSwitchPage = window.switchPage;
     window.switchPage = async function(pageName) {
         // ALWAYS close menu and restore bars immediately when navigating
