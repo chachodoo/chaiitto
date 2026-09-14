@@ -341,6 +341,12 @@ if (pageName === 'inicio' && window.shouldScrollToCollections) {
 function handleHashNavigation() {
     const hash = window.location.hash;
     let pageName = hash ? hash.replace('#', '').replace('-page', '') : 'inicio';
+    
+    // Route Clip payment returns to the main VIP section file
+    if (pageName === 'vip-success' || pageName === 'vip-failed') {
+        pageName = 'vip';
+    }
+    
     switchPage(pageName);
 }
 
