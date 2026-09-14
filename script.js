@@ -1169,8 +1169,10 @@ async function completeVipActivation() {
 
       // Prepare WhatsApp backup message
       if (waLink) {
-        const msg = `Hola! Soy ${name}. Mi WhatsApp es ${phone} y mi PIN VIP de Chai-itto es ${realPin}.`;
-        waLink.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
+        const cleanPhone = phone.replace(/\D/g, '');
+        const msg = `👑 Mi Chai-itto PIN VIP: *${realPin}*`;
+        waLink.href = `https://api.whatsapp.com/send?phone=521${cleanPhone}&text=${encodeURIComponent(msg)}`;
+        waLink.innerHTML = `<i class="fa-brands fa-whatsapp fa-lg"></i> Enviar mi PIN VIP para guardarlo`;
       }
 
       if (step2) step2.style.display = "none";
