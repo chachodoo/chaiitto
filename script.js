@@ -1262,7 +1262,7 @@ async function completeVipActivation() {
         localStorage.setItem("chaiitto_vip_pin", pin);
 
         if (waLink) {
-            const msg = `¡Hola! Aquí tengo guardado mi PIN de socio VIP Chai-itto: *${pin}* (Nombre: ${name}).`;
+            const msg = `Este es mi PIN de socio VIP Premium Chai-itto: *${pin}* (Nombre: ${name}).`;
             waLink.href = `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(msg)}`;
             waLink.target = "_blank";
         }
