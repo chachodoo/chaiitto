@@ -1096,7 +1096,7 @@ function handleVipRegister(e) {
         }
 
         btn.disabled = false;
-        btn.innerHTML = 'Continuar al Pago ($199) <i class="fa-solid fa-arrow-right"></i>';
+        btn.innerHTML = 'Continuar al Pago ($180 MXN) <i class="fa-solid fa-arrow-right"></i>';
 
         if (!data.success) {
           errBox.style.display = "block";
