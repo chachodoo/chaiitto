@@ -153,24 +153,32 @@
 <div id="bazar-vip-lock" class="vip-login-card">
     <div class="vip-header">
         <i class="fa-solid fa-crown vip-crown-icon"></i>
-        <h3 style="margin-bottom: 5px;">Acceso VIP Premium</h3>
-        <p>Exclusivo para miembros. Ingresa tu clave.</p>
+        <h3 style="margin-bottom: 0; font-size: 1.45rem;">Acceso para Socios VIP</h3>
     </div>
 
     <form class="vip-form" onsubmit="return false;">
-        <div class="input-wrapper">
-            <i class="fa-solid fa-phone"></i>
-            <input type="tel" id="vip-phone-input" placeholder="Número de WhatsApp" onkeydown="if (event.key === 'Enter') verifyVipPin();">
+        <!-- PHONE WITH COUNTRY SELECTOR -->
+        <div style="display: flex; gap: 8px; margin-bottom: 15px;">
+            <select id="bazar-country-select" style="width: 105px; box-sizing: border-box; padding: 12px 6px; border: 1px solid #E2ECE5; border-radius: 8px; font-size: 0.88rem; background: #ffffff; color: var(--matcha-deep, #102619); font-weight: 700; cursor: pointer;">
+                <option value="52" selected>🇲🇽 +52</option>
+                <option value="1">🇺🇸 +1</option>
+            </select>
+            <div class="input-wrapper" style="flex: 1; min-width: 0; margin-bottom: 0;">
+                <i class="fa-solid fa-phone"></i>
+                <input type="tel" id="vip-phone-input" placeholder="10 dígitos WhatsApp" pattern="[0-9]{10}" maxlength="10" onkeydown="if (event.key === 'Enter') verifyVipPin();">
+            </div>
         </div>
+
+        <!-- PIN INPUT -->
         <div class="input-wrapper">
-            <i class="fa-solid fa-lock"></i>
+            <i class="fa-solid fa-key"></i>
             <input type="password" id="vip-pin-input" placeholder="PIN VIP" onkeydown="if (event.key === 'Enter') verifyVipPin();">
         </div>
 
         <div id="vip-pin-error" style="color: #D9534F; font-size: 0.85rem; font-weight: 700; min-height: 20px; margin-bottom: 12px;"></div>
 
         <button type="button" class="btn-unlock" onclick="verifyVipPin()">
-            <i class="fa-solid fa-unlock-keyhole"></i> DESBLOQUEAR
+            <i class="fa-solid fa-arrow-right-to-bracket"></i> ENTRAR AL BAZAR
         </button>
     </form>
 
