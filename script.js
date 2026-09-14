@@ -568,19 +568,20 @@ async function verifyVipPin() {
 
     const enteredPhone = phoneInput ? phoneInput.value.trim() : '';
     const enteredPin = pinInput ? pinInput.value.trim() : '';
+    const countrySelect = document.getElementById('bazar-country-select');
+    const countryPrefix = countrySelect ? countrySelect.value.trim() : '52';
 
     if (!enteredPhone || !enteredPin) {
         if (errorEl) {
             errorEl.style.color = '#e74c3c';
-            errorEl.textContent = 'WhatsApp y PIN son requeridos.';
+            errorEl.textContent = 'Ingresa tu número y PIN.';
         }
         return;
     }
 
-    // NEW BACKEND FIX: Auto-formats 10-digit logins with '52' so the backend recognizes it
     let cleanPhone = enteredPhone.replace(/\D/g, "");
     if (cleanPhone.length === 10) {
-        cleanPhone = "52" + cleanPhone;
+        cleanPhone = countryPrefix + cleanPhone;
     }
 
     if (errorEl) {
