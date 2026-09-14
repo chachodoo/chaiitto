@@ -206,58 +206,32 @@
         </div>
 
           
-        <!-- STEP 3: WELCOME, PIN DISPLAY & DIRECT BAZAR ACCESS -->
+        <!-- STEP 3: ULTRA-MINIMALIST SUCCESS & PIN -->
         <div id="vip-modal-step3" style="display: none; text-align: center;">
-          <div style="width: 55px; height: 55px; background: rgba(45, 74, 34, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; color: var(--matcha-deep, #2d4a22); font-size: 1.6rem;">
-            <i class="fa-solid fa-crown"></i>
-          </div>
-          
-          <!-- GLOWING STATUS BADGE -->
-        <style>
-          @keyframes pulse-green {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(37, 211, 102, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-          }
-        </style>
-        <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.4); padding: 6px 16px; border-radius: 30px; margin-bottom: 14px; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);">
-            <div style="width: 8px; height: 8px; background: #25D366; border-radius: 50%; animation: pulse-green 2s infinite;"></div>
-            <span style="color: #B8860B; font-size: 0.7rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">Estatus: Socio Premium Activo</span>
+            <div style="width: 70px; height: 70px; background: rgba(37, 211, 102, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: #25D366; font-size: 2.2rem;">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            
+            <h3 style="margin: 0 0 24px; font-size: 1.8rem; font-family: var(--font-heading, inherit); font-weight: 900; color: #1e293b; letter-spacing: -0.5px;">
+                ¡Tu Membresía VIP Premium ha sido activada con éxito!
+            </h3>
+
+            <!-- PIN DISPLAY CARD -->
+            <div style="background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 12px; padding: 24px 16px; margin-bottom: 24px;">
+                <span style="display: block; font-size: 0.75rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px;">ESTE ES TU PIN</span>
+                <div id="vip-display-pin" style="font-size: 3.2rem; font-weight: 900; letter-spacing: 8px; color: var(--matcha-deep, #102619); font-family: monospace;">-------</div>
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <a id="vip-btn-whatsapp-save" href="#" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-sizing: border-box; padding: 14px 18px; border-radius: 10px; background: #25D366; color: #ffffff; font-weight: 800; text-decoration: none; font-size: 1.05rem; box-shadow: 0 4px 15px rgba(37,211,102,0.3); transition: transform 0.2s;">
+                    <i class="fa-brands fa-whatsapp fa-lg"></i> Enviarme mi PIN a WhatsApp
+                </a>
+                <button type="button" onclick="closeVipModal()" style="background: transparent; border: 1px solid #cbd5e1; color: #475569; padding: 14px 18px; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.2s;">
+                    Cerrar
+                </button>
+            </div>
         </div>
-
-        <!-- DIRECT, AUTHORITATIVE WELCOME -->
-        <h3 style="margin: 0 0 10px; font-size: 1.6rem; font-family: var(--font-heading, inherit); font-weight: 900; color: #1e293b; letter-spacing: -0.5px;">
-            Acceso Total Concedido.
-        </h3>
-        <p style="margin: 0 0 22px; font-size: 0.9rem; color: #475569; line-height: 1.5;">
-            Bienvenido a la élite. Tu membresía ha sido activada. Utiliza tu <strong style="color: #0f172a;">PIN Personal</strong> para desbloquear tus cortesías y acceder a las piezas secretas del Bazar.
-        </p>
-
-          <!-- PIN DISPLAY CARD -->
-          <div style="background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 12px; padding: 14px; margin-bottom: 18px;">
-            <span style="display: block; font-size: 0.72rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Tu PIN Personal de Socio</span>
-            <div id="vip-display-pin" style="font-size: 2.2rem; font-weight: 900; letter-spacing: 6px; color: var(--matcha-deep, #2d4a22); font-family: monospace;">-------</div>
-            <span style="display: block; font-size: 0.72rem; color: #94a3b8; margin-top: 4px;">Guárdalo o anótalo, lo necesitarás al visitarnos.</span>
-          </div>
-
-          <!-- ACTION BUTTONS -->
-          <div style="display: flex; flex-direction: column; gap: 10px;">
-            <a id="vip-btn-whatsapp-save" href="#" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-sizing: border-box; padding: 12px 18px; border-radius: 10px; background: #25D366; color: #ffffff; font-weight: 700; text-decoration: none; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(37,211,102,0.3);">
-    <i class="fa-brands fa-whatsapp fa-lg"></i> Enviar mi PIN VIP para guardarlo
-</a>
-
-            <a href="#bazar" onclick="goToBazarVip(event)" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-sizing: border-box; padding: 12px 18px; border-radius: 10px; background: #AA7C11; color: #ffffff; font-weight: 700; text-decoration: none; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(170,124,17,0.25);">
-              <i class="fa-solid fa-gem"></i> Explorar el Bazar VIP exclusivo
-            </a>
-
-            <button type="button" onclick="closeVipModal()" style="background: none; border: none; color: #64748b; font-size: 0.85rem; font-weight: 600; cursor: pointer; padding: 6px; margin-top: 4px;">
-              Cerrar y continuar en la web
-            </button>
-          </div>
-        </div>
-
-      </div>
-    </div>
 </div>
   <!-- TEST BUTTON SIMULATE SUCCESS PAGO (Calls real activate action in Google Sheets) 
           <button type="button" onclick="simulateVipPayment()" style="margin-top: 15px; background: #f8fafc; border: 1px dashed #94a3b8; border-radius: 8px; padding: 9px 12px; font-size: 0.8rem; color: #475569; cursor: pointer; width: 100%; font-weight: 700;">
