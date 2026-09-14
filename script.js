@@ -1254,7 +1254,8 @@ async function completeVipActivation() {
                 angle: 60,
                 spread: 55,
                 origin: { x: 0, y: 0.8 },
-                colors: ['#D4AF37', '#102619', '#F5D061', '#ffffff']
+                colors: ['#D4AF37', '#102619', '#F5D061', '#ffffff'],
+                zIndex: 999999 // <--- Pushes fireworks IN FRONT of the blurred modal
             });
             // Right Cannon
             confetti({
@@ -1262,7 +1263,8 @@ async function completeVipActivation() {
                 angle: 120,
                 spread: 55,
                 origin: { x: 1, y: 0.8 },
-                colors: ['#D4AF37', '#102619', '#F5D061', '#ffffff']
+                colors: ['#D4AF37', '#102619', '#F5D061', '#ffffff'],
+                zIndex: 999999 // <--- Pushes fireworks IN FRONT of the blurred modal
             });
 
             if (Date.now() < end) {
@@ -1311,7 +1313,7 @@ async function completeVipActivation() {
         localStorage.setItem("chaiitto_vip_pin", fallbackPin);
 
         if (waLink) {
-            const msg = `¡Hola! Aquí tengo guardado mi PIN de socio VIP Chai-itto: *${fallbackPin}* (Nombre: ${name}).`;
+            const msg = `Este es mi PIN de socio VIP Premium Chai-itto: *${fallbackPin}* (Nombre: ${name}).`;
             waLink.href = `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(msg)}`;
             waLink.target = "_blank";
         }
