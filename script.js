@@ -663,9 +663,11 @@ function renderVipMemberCard() {
     let cupsHtml = '';
     for (let i = 1; i <= 4; i++) {
         if (i <= cups) {
-            cupsHtml += `<span title="Taza ${i} canjeada" style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;background:#b38b59;color:#fff;border-radius:50%;font-size:18px;margin:0 5px;box-shadow:0 2px 4px rgba(0,0,0,0.15);">☕</span>`;
+            // REDEEMED CUP (Sleek, dim, used)
+            cupsHtml += `<span title="Taza ${i} canjeada" style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.2);border-radius:50%;font-size:16px;margin:0 6px;"><i class="fa-solid fa-mug-hot"></i></span>`;
         } else {
-            cupsHtml += `<span title="Taza ${i} disponible" style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;background:#f5f0eb;border:2px dashed #b38b59;color:#b38b59;border-radius:50%;font-size:16px;margin:0 5px;opacity:0.6;">☕</span>`;
+            // AVAILABLE CUP (Bright gold, enticing)
+            cupsHtml += `<span title="Taza ${i} disponible" style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;background:linear-gradient(135deg, #F5D061 0%, #D4AF37 100%);color:#102619;border-radius:50%;font-size:16px;margin:0 6px;box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);"><i class="fa-solid fa-mug-hot"></i></span>`;
         }
     }
 
@@ -697,12 +699,14 @@ function renderVipMemberCard() {
                     <span style="font-size:12px;color:#aaa;background:rgba(255,255,255,0.1);padding:6px 12px;border-radius:6px;">Próxima taza: costo regular</span>
                 `}
             </div>
-            <div id="vip-redeem-status" style="margin-top:8px;font-size:12px;"></div>
         </div>
     `;
 }
 
-async function redeemVipCup() {
+// ==================================================
+// ENTERPRISE REDEMPTION MODAL LOGIC
+// ==================================================
+function redeemVipCup() {
     const pin = sessionStorage.getItem('chai_vip_pin');
     if (!pin) {
         alert('Sesión no válida. Ingresa tu PIN de nuevo.');
@@ -710,50 +714,86 @@ async function redeemVipCup() {
         return;
     }
 
-    const btn = document.getElementById('vip-redeem-btn');
-    const statusEl = document.getElementById('vip-redeem-status');
+    // Spawn elegant custom modal instead of ugly native confirm()
+    const existing = document.getElementById('vip-custom-confirm');
+    if (existing) existing.remove();
 
-    const confirmRedeem = confirm('¿Confirmas que deseas canjear 1 taza de cortesía en este momento?');
-    if (!confirmRedeem) return;
+    const overlay = document.createElement('div');
+    overlay.id = 'vip-custom-confirm';
+    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);z-index:99999;display:flex;align-items:center;justify-content:center;';
+    overlay.innerHTML = `
+        <div style="background:#ffffff;border-radius:16px;padding:24px;width:90%;max-width:340px;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,0.4);">
+            <div style="width:60px;height:60px;background:rgba(212,175,55,0.15);color:#D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 16px;">
+                <i class="fa-solid fa-mug-hot"></i>
+            </div>
+            <h3 style="margin:0 0 10px;font-family:var(--font-heading);color:#102619;font-size:1.3rem;">Canjear Cortesía</h3>
+            <p style="margin:0 0 20px;color:#64748b;font-size:0.9rem;line-height:1.4;">¿Confirmas que deseas canjear <strong>1 taza</strong> de tu membresía en este momento?</p>
+            <div style="display:flex;gap:10px;">
+                <button onclick="document.getElementById('vip-custom-confirm').remove()" style="flex:1;padding:12px;background:#f1f5f9;color:#475569;border:none;border-radius:8px;font-weight:700;cursor:pointer;transition:all 0.2s;">Cancelar</button>
+                <button onclick="executeVipRedeem('${pin}')" style="flex:1;padding:12px;background:linear-gradient(135deg, #F5D061, #D4AF37);color:#102619;border:none;border-radius:8px;font-weight:800;cursor:pointer;box-shadow:0 4px 10px rgba(212,175,55,0.3);transition:all 0.2s;">Sí, Canjear</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+}
 
-    if (btn) {
-        btn.disabled = true;
-        btn.textContent = 'Registrando...';
-    }
-    if (statusEl) {
-        statusEl.style.color = '#c5a059';
-        statusEl.textContent = 'Conectando con Google Sheets...';
+async function executeVipRedeem(pin) {
+    const modalOverlay = document.getElementById('vip-custom-confirm');
+    if (modalOverlay) {
+        // Switch to loading state instantly
+        modalOverlay.innerHTML = `
+            <div style="background:#ffffff;border-radius:16px;padding:30px 24px;width:90%;max-width:340px;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,0.4);">
+                <i class="fa-solid fa-spinner fa-spin" style="font-size:2.5rem;color:#D4AF37;margin-bottom:15px;"></i>
+                <h3 style="margin:0;font-family:var(--font-heading);color:#102619;font-size:1.1rem;">Registrando Taza...</h3>
+            </div>
+        `;
     }
 
     try {
         const res = await fetch(`${VIP_API_URL}?action=redeem&pin=${encodeURIComponent(pin)}`);
         const data = await res.json();
-
+        
         if (!data.success) {
-            if (statusEl) {
-                statusEl.style.color = '#e74c3c';
-                statusEl.textContent = data.message || 'No se pudo canjear la taza.';
-            }
-            if (btn) {
-                btn.disabled = false;
-                btn.textContent = 'Canjear 1 Taza';
+            if (modalOverlay) {
+                modalOverlay.innerHTML = `
+                    <div style="background:#ffffff;border-radius:16px;padding:24px;width:90%;max-width:340px;text-align:center;">
+                        <div style="color:#e74c3c;font-size:2.5rem;margin-bottom:10px;"><i class="fa-solid fa-circle-xmark"></i></div>
+                        <h3 style="margin:0 0 10px;color:#102619;">No se pudo canjear</h3>
+                        <p style="color:#64748b;font-size:0.9rem;margin-bottom:20px;">${data.message || 'Error desconocido.'}</p>
+                        <button onclick="document.getElementById('vip-custom-confirm').remove()" style="width:100%;padding:12px;background:#f1f5f9;color:#475569;border:none;border-radius:8px;font-weight:700;cursor:pointer;">Cerrar</button>
+                    </div>
+                `;
             }
             return;
         }
 
         sessionStorage.setItem('chai_vip_cups', data.tazasConsumidas);
-        renderVipMemberCard();
-        alert('¡Taza registrada con éxito! Disfruta tu Chai.');
+        renderVipMemberCard(); // Instantly visually dims a cup behind the modal
+        
+        if (modalOverlay) {
+            modalOverlay.innerHTML = `
+                <div style="background:#ffffff;border-radius:16px;padding:24px;width:90%;max-width:340px;text-align:center;">
+                    <div style="width:60px;height:60px;background:#25D366;color:#ffffff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 16px;box-shadow:0 4px 12px rgba(37,211,102,0.3);">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <h3 style="margin:0 0 10px;font-family:var(--font-heading);color:#102619;font-size:1.3rem;">¡Éxito!</h3>
+                    <p style="margin:0 0 20px;color:#64748b;font-size:0.9rem;line-height:1.4;">Tu taza ha sido canjeada correctamente.</p>
+                    <button onclick="document.getElementById('vip-custom-confirm').remove()" style="width:100%;padding:12px;background:#102619;color:#ffffff;border:none;border-radius:8px;font-weight:700;cursor:pointer;">Disfruta tu Chai</button>
+                </div>
+            `;
+        }
 
     } catch (err) {
         console.error('Error canjeando taza:', err);
-        if (statusEl) {
-            statusEl.style.color = '#e74c3c';
-            statusEl.textContent = 'Error de conexión. Intenta de nuevo.';
-        }
-        if (btn) {
-            btn.disabled = false;
-            btn.textContent = 'Canjear 1 Taza';
+        if (modalOverlay) {
+            modalOverlay.innerHTML = `
+                <div style="background:#ffffff;border-radius:16px;padding:24px;width:90%;max-width:340px;text-align:center;">
+                    <div style="color:#e74c3c;font-size:2.5rem;margin-bottom:10px;"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    <h3 style="margin:0 0 10px;color:#102619;">Error de conexión</h3>
+                    <p style="color:#64748b;font-size:0.9rem;margin-bottom:20px;">Por favor verifica tu internet e intenta de nuevo.</p>
+                    <button onclick="document.getElementById('vip-custom-confirm').remove()" style="width:100%;padding:12px;background:#f1f5f9;color:#475569;border:none;border-radius:8px;font-weight:700;cursor:pointer;">Cerrar</button>
+                </div>
+            `;
         }
     }
 }
