@@ -1232,6 +1232,7 @@ function handleVipRegister(e) {
 // STEP 3: ACTIVATION & DYNAMIC WHATSAPP ROUTING
 async function completeVipActivation() {
     openVipModal();
+
     const step1 = document.getElementById("vip-modal-step1");
     const step2 = document.getElementById("vip-modal-step2");
     const step3 = document.getElementById("vip-modal-step3");
@@ -1242,6 +1243,35 @@ async function completeVipActivation() {
     if (step2) step2.style.display = "none";
     if (step3) step3.style.display = "block";
 
+    const storedPhone = localStorage.getItem("chaiitto_vip_phone") || "";
+    const name = localStorage.getItem("chaiitto_vip_name") || "Socio VIP";
+    const cumple = localStorage.getItem("chaiitto_vip_cumple") || "";
+
+    // 1. CHECK FOR ERRORS FIRST
+    if (!storedPhone) {
+        // ENTERPRISE CUSTOM ERROR MODAL
+        const overlay = document.createElement('div');
+        overlay.id = 'vip-error-overlay'; // Added explicit ID for bulletproof closing
+        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:999999;display:flex;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;';
+
+        const modal = document.createElement('div');
+        modal.style.cssText = 'background:#ffffff;width:100%;max-width:400px;border-radius:16px;padding:24px;text-align:center;box-shadow:0 20px 25px -5px rgba(0,0,0,0.2);';
+
+        modal.innerHTML = `
+            <div style="width:60px;height:60px;background:rgba(220,38,38,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:#dc2626;font-size:1.8rem;">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 style="margin:0 0 12px;font-size:1.4rem;font-family:var(--font-heading,inherit);font-weight:900;color:#102619;letter-spacing:-0.5px;">Atención</h3>
+            <p style="margin:0 0 24px;font-size:0.95rem;color:#64748b;line-height:1.5;">No se encontró tu número de WhatsApp para vincular el registro. Por favor, contáctanos para generar tu PIN manualmente.</p>
+            <button onclick="document.getElementById('vip-error-overlay').remove()" style="width:100%;padding:14px;background:var(--matcha-deep, #07511A);color:#ffffff;border:none;border-radius:10px;font-weight:700;font-size:1rem;cursor:pointer;transition:background 0.2s;">Entendido</button>
+        `;
+
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
+        return; // HALT EXECUTION: No fireworks if we hit an error!
+    }
+
+    // 2. CELEBRATE SUCCESS
     // ENTERPRISE FIREWORKS DISPLAY (Matcha & Gold)
     if (typeof confetti === 'function') {
         const duration = 3000; // 3 seconds of continuous fireworks
@@ -1255,7 +1285,7 @@ async function completeVipActivation() {
                 spread: 55,
                 origin: { x: 0, y: 0.8 },
                 colors: ['#D4AF37', '#102619', '#F5D061', '#ffffff'],
-                zIndex: 999999 // <--- Pushes fireworks IN FRONT of the blurred modal
+                zIndex: 999999
             });
             // Right Cannon
             confetti({
@@ -1264,7 +1294,7 @@ async function completeVipActivation() {
                 spread: 55,
                 origin: { x: 1, y: 0.8 },
                 colors: ['#D4AF37', '#102619', '#F5D061', '#ffffff'],
-                zIndex: 999999 // <--- Pushes fireworks IN FRONT of the blurred modal
+                zIndex: 999999
             });
 
             if (Date.now() < end) {
@@ -1273,32 +1303,7 @@ async function completeVipActivation() {
         }());
     }
 
-    const storedPhone = localStorage.getItem("chaiitto_vip_phone") || "";
-    const name = localStorage.getItem("chaiitto_vip_name") || "Socio VIP";
-    const cumple = localStorage.getItem("chaiitto_vip_cumple") || "";
-
-    if (!storedPhone) {
-        // ENTERPRISE CUSTOM ERROR MODAL (Replaces cheap native alert)
-        const overlay = document.createElement('div');
-        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:999999;display:flex;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;';
-        
-        const modal = document.createElement('div');
-        modal.style.cssText = 'background:#ffffff;width:100%;max-width:400px;border-radius:16px;padding:24px;text-align:center;box-shadow:0 20px 25px -5px rgba(0,0,0,0.2);';
-        
-        modal.innerHTML = `
-            <div style="width:60px;height:60px;background:rgba(220,38,38,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:#dc2626;font-size:1.8rem;">
-                <i class="fa-solid fa-triangle-exclamation"></i>
-            </div>
-            <h3 style="margin:0 0 12px;font-size:1.4rem;font-family:var(--font-heading,inherit);font-weight:900;color:#102619;letter-spacing:-0.5px;">Atención</h3>
-            <p style="margin:0 0 24px;font-size:0.95rem;color:#64748b;line-height:1.5;">No se encontró tu número de WhatsApp para vincular el registro. Por favor, contáctanos para generar tu PIN manualmente.</p>
-            <button onclick="this.closest('div[style*=\\'position:fixed\\']').remove()" style="width:100%;padding:14px;background:var(--matcha-deep, #07511A);color:#ffffff;border:none;border-radius:10px;font-weight:700;font-size:1rem;cursor:pointer;transition:background 0.2s;">Entendido</button>
-        `;
-        
-        overlay.appendChild(modal);
-        document.body.appendChild(overlay);
-        return;
-    }
-
+    // 3. GENERATE PIN
     let cleanPhone = storedPhone.replace(/\D/g, "");
     if (cleanPhone.length === 10) {
         cleanPhone = "52" + cleanPhone;
