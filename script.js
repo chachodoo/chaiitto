@@ -562,65 +562,69 @@ let currentBazarImgIdx = 0;
 const VIP_API_URL = 'https://script.google.com/macros/s/AKfycby0Y8l0z4cj36ck79vn1Kv-2r11XcU_UVLMFy1qKxT-W0pfSLRnmsh7U2BsfvkJuITk/exec';
 
 async function verifyVipPin() {
-  const phoneInput = document.getElementById('vip-phone-input');
-  const pinInput = document.getElementById('vip-pin-input');
-  const errorEl = document.getElementById('vip-pin-error');
+    const phoneInput = document.getElementById('vip-phone-input');
+    const pinInput = document.getElementById('vip-pin-input');
+    const errorEl = document.getElementById('vip-pin-error');
 
-  const enteredPhone = phoneInput ? phoneInput.value.trim() : '';
-  const enteredPin = pinInput ? pinInput.value.trim() : '';
+    const enteredPhone = phoneInput ? phoneInput.value.trim() : '';
+    const enteredPin = pinInput ? pinInput.value.trim() : '';
 
-  if (!enteredPhone || !enteredPin) {
+    if (!enteredPhone || !enteredPin) {
+        if (errorEl) {
+            errorEl.style.color = '#e74c3c';
+            errorEl.textContent = 'WhatsApp y PIN son requeridos.';
+        }
+        return;
+    }
+
+    // NEW BACKEND FIX: Auto-formats 10-digit logins with '52' so the backend recognizes it
+    let cleanPhone = enteredPhone.replace(/\D/g, "");
+    if (cleanPhone.length === 10) {
+        cleanPhone = "52" + cleanPhone;
+    }
+
     if (errorEl) {
-      errorEl.style.color = '#e74c3c';
-      errorEl.textContent = 'WhatsApp y PIN son requeridos.';
-    }
-    return;
-  }
-
-  if (errorEl) {
-    errorEl.style.color = '';
-    errorEl.textContent = 'Verificando...';
-  }
-
-  try {
-    const res = await fetch(`${VIP_API_URL}?action=check&telefono=${encodeURIComponent(enteredPhone)}&pin=${encodeURIComponent(enteredPin)}`);
-    const data = await res.json();
-
-    if (!data.success) {
-      errorEl.style.color = '#e74c3c';
-      errorEl.textContent = data.message || 'Clave no válida o no encontrada.';
-      return;
+        errorEl.style.color = '';
+        errorEl.textContent = 'Verificando...';
     }
 
-    if (!data.isActive) {
-      errorEl.style.color = '#e74c3c';
-      errorEl.textContent = data.isExpired
-        ? 'Tu membresía VIP ha vencido. Renueva tu acceso.'
-        : 'Tu membresía no está activa.';
-      return;
-    }
+    try {
+        const res = await fetch(`${VIP_API_URL}?action=check&telefono=${encodeURIComponent(cleanPhone)}&pin=${encodeURIComponent(enteredPin)}`);
+        const data = await res.json();
 
-    // Guardar sesión VIP en navegador
-    sessionStorage.setItem('chai_vip_auth', 'true');
-    sessionStorage.setItem('chai_vip_phone', enteredPhone);
-    sessionStorage.setItem('chai_vip_pin', enteredPin);
-    sessionStorage.setItem('chai_vip_name', data.nombre || 'Miembro VIP');
-    sessionStorage.setItem('chai_vip_cups', data.tazasConsumidas || 0);
-    if (data.fechaVencimiento) {
-      sessionStorage.setItem('chai_vip_expiry', data.fechaVencimiento);
-    }
+        if (!data.success) {
+            errorEl.style.color = '#e74c3c';
+            errorEl.textContent = data.message || 'Clave no válida o no encontrada.';
+            return;
+        }
 
-    errorEl.textContent = '';
-    if (pinInput) pinInput.value = '';
-    showUnlockedBazar();
+        if (!data.isActive) {
+            errorEl.style.color = '#e74c3c';
+            errorEl.textContent = data.isExpired ? 'Tu membresía VIP ha vencido. Renueva tu acceso.' : 'Tu membresía no está activa.';
+            return;
+        }
 
-  } catch (err) {
-    console.error('Error validando credenciales:', err);
-    if (errorEl) {
-      errorEl.style.color = '#e74c3c';
-      errorEl.textContent = 'Error de conexión. Intenta de nuevo.';
+        // Save the cleaned 12-digit phone to the session so the redemption script can use it
+        sessionStorage.setItem('chai_vip_auth', 'true');
+        sessionStorage.setItem('chai_vip_phone', cleanPhone); 
+        sessionStorage.setItem('chai_vip_pin', enteredPin);
+        sessionStorage.setItem('chai_vip_name', data.nombre || 'Miembro VIP');
+        sessionStorage.setItem('chai_vip_cups', data.tazasConsumidas || 0);
+        if (data.fechaVencimiento) {
+            sessionStorage.setItem('chai_vip_expiry', data.fechaVencimiento);
+        }
+
+        errorEl.textContent = '';
+        if (pinInput) pinInput.value = '';
+        showUnlockedBazar();
+
+    } catch (err) {
+        console.error('Error validando credenciales:', err);
+        if (errorEl) {
+            errorEl.style.color = '#e74c3c';
+            errorEl.textContent = 'Error de conexión. Intenta de nuevo.';
+        }
     }
-  }
 }
 
 function showUnlockedBazar() {
@@ -634,10 +638,12 @@ function showUnlockedBazar() {
 
 function lockBazarVIP() {
     sessionStorage.removeItem('chai_vip_auth');
+    sessionStorage.removeItem('chai_vip_phone');
     sessionStorage.removeItem('chai_vip_pin');
     sessionStorage.removeItem('chai_vip_name');
     sessionStorage.removeItem('chai_vip_cups');
     sessionStorage.removeItem('chai_vip_expiry');
+
     const lockBox = document.getElementById('bazar-vip-lock');
     const contentBox = document.getElementById('bazar-vip-content');
     if (lockBox) lockBox.style.display = 'block';
@@ -663,40 +669,41 @@ function renderVipMemberCard() {
     let cupsHtml = '';
     for (let i = 1; i <= 4; i++) {
         if (i <= cups) {
-            // REDEEMED CUP (Sleek, dim, used)
-            cupsHtml += `<span title="Taza ${i} canjeada" style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.2);border-radius:50%;font-size:16px;margin:0 6px;"><i class="fa-solid fa-mug-hot"></i></span>`;
+            cupsHtml += `<span title="Taza ${i} canjeada" style="display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.2);border-radius:50%;font-size:18px;margin:0 8px;"><i class="fa-solid fa-mug-hot"></i></span>`;
         } else {
-            // AVAILABLE CUP (Bright gold, enticing)
-            cupsHtml += `<span title="Taza ${i} disponible" style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;background:linear-gradient(135deg, #F5D061 0%, #D4AF37 100%);color:#102619;border-radius:50%;font-size:16px;margin:0 6px;box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);"><i class="fa-solid fa-mug-hot"></i></span>`;
+            cupsHtml += `<span title="Taza ${i} disponible" style="display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;background:linear-gradient(135deg, #F5D061 0%, #D4AF37 100%);color:#102619;border-radius:50%;font-size:18px;margin:0 8px;box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);"><i class="fa-solid fa-mug-hot"></i></span>`;
         }
     }
 
+    // ENTERPRISE GREEN PALETTE & LARGER UI
     card.innerHTML = `
-        <div style="background:linear-gradient(135deg, #2c2523, #1a1615);color:#fff;border-radius:14px;padding:20px;margin-bottom:25px;box-shadow:0 4px 15px rgba(0,0,0,0.15);text-align:center;border:1px solid #c5a059;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:10px;">
-                <div>
-                    <span style="background:#c5a059;color:#1a1615;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;">Membresía VIP</span>
-                    <h3 style="margin:6px 0 0;font-size:1.3rem;color:#f9f6f0;">${name}</h3>
+        <div style="background:linear-gradient(135deg, var(--emerald-card, #102619), var(--matcha-deep, #07511A));color:#fff;border-radius:16px;padding:25px;margin-bottom:30px;box-shadow:0 10px 30px rgba(0,0,0,0.25);text-align:center;border:1.5px solid rgba(212, 175, 55, 0.4);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+                <div style="text-align:left;">
+                    <span style="background:linear-gradient(135deg, #F5D061, #D4AF37);color:#102619;font-size:0.75rem;font-weight:800;padding:5px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;box-shadow:0 2px 6px rgba(212,175,55,0.3);">Membresía VIP</span>
+                    <h3 style="margin:8px 0 0;font-size:1.6rem;color:#ffffff;font-family:var(--font-heading);">${name}</h3>
                 </div>
-                <button onclick="lockBazarVIP()" style="background:transparent;border:1px solid rgba(255,255,255,0.3);color:#ddd;padding:4px 12px;border-radius:6px;font-size:12px;cursor:pointer;">Cerrar sesión</button>
+                <button onclick="lockBazarVIP()" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#ffffff;padding:8px 16px;border-radius:8px;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.2s;">Cerrar sesión</button>
             </div>
             
-            <div style="background:rgba(255,255,255,0.06);border-radius:10px;padding:15px;margin:15px 0;">
-                <p style="margin:0 0 10px;font-size:13px;letter-spacing:0.5px;color:#d8cfc4;">Tazas de cortesía del mes (4 al mes):</p>
-                <div style="display:flex;justify-content:center;align-items:center;margin:10px 0;">${cupsHtml}</div>
-                <p style="margin:8px 0 0;font-size:12px;color:#c5a059;font-weight:600;">
+            <div style="background:rgba(0,0,0,0.25);border-radius:12px;padding:22px;margin:20px 0;border:1px solid rgba(255,255,255,0.05);">
+                <p style="margin:0 0 14px;font-size:1rem;letter-spacing:0.5px;color:#e2e8f0;font-weight:600;">Tazas de cortesía del mes (4 al mes):</p>
+                <div style="display:flex;justify-content:center;align-items:center;margin:15px 0;">${cupsHtml}</div>
+                <p style="margin:14px 0 0;font-size:0.95rem;color:#F5D061;font-weight:700;">
                     ${remaining > 0 ? `Te quedan ${remaining} tazas de cortesía este mes` : '¡Completaste tus 4 tazas de cortesía de este mes!'}
                 </p>
             </div>
 
-            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:10px;">
-                <span style="font-size:11px;color:#a89f91;">${expiry ? `Vigencia: ${expiry}` : ''}</span>
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;margin-top:10px;">
+                <span style="font-size:1rem;font-weight:700;color:#f8fafc;background:rgba(255,255,255,0.1);padding:10px 16px;border-radius:10px; border: 1px solid rgba(255,255,255,0.15);">
+                    <i class="fa-regular fa-calendar-xmark" style="color:#D4AF37; margin-right:6px;"></i> ${expiry ? `Vigencia: ${expiry}` : 'Vigencia Activa'}
+                </span>
                 ${remaining > 0 ? `
-                    <button id="vip-redeem-btn" onclick="redeemVipCup()" style="background:#c5a059;color:#1a1615;font-weight:700;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;transition:0.2s;">
-                        Canjear 1 Taza
+                    <button id="vip-redeem-btn" onclick="redeemVipCup()" style="background:linear-gradient(135deg, #F5D061, #D4AF37);color:#102619;font-weight:800;border:none;padding:14px 28px;border-radius:10px;cursor:pointer;font-size:1.1rem;box-shadow:0 4px 15px rgba(212,175,55,0.35);transition:transform 0.2s, box-shadow 0.2s;">
+                        <i class="fa-solid fa-mug-hot"></i> Canjear 1 Taza
                     </button>
                 ` : `
-                    <span style="font-size:12px;color:#aaa;background:rgba(255,255,255,0.1);padding:6px 12px;border-radius:6px;">Próxima taza: costo regular</span>
+                    <span style="font-size:0.95rem;color:#94a3b8;background:rgba(255,255,255,0.05);padding:12px 20px;border-radius:8px;font-weight:600;">Próxima taza: costo regular</span>
                 `}
             </div>
         </div>
@@ -708,13 +715,14 @@ function renderVipMemberCard() {
 // ==================================================
 function redeemVipCup() {
     const pin = sessionStorage.getItem('chai_vip_pin');
-    if (!pin) {
+    const phone = sessionStorage.getItem('chai_vip_phone');
+    
+    if (!pin || !phone) {
         alert('Sesión no válida. Ingresa tu PIN de nuevo.');
         lockBazarVIP();
         return;
     }
 
-    // Spawn elegant custom modal instead of ugly native confirm()
     const existing = document.getElementById('vip-custom-confirm');
     if (existing) existing.remove();
 
@@ -730,17 +738,16 @@ function redeemVipCup() {
             <p style="margin:0 0 20px;color:#64748b;font-size:0.9rem;line-height:1.4;">¿Confirmas que deseas canjear <strong>1 taza</strong> de tu membresía en este momento?</p>
             <div style="display:flex;gap:10px;">
                 <button onclick="document.getElementById('vip-custom-confirm').remove()" style="flex:1;padding:12px;background:#f1f5f9;color:#475569;border:none;border-radius:8px;font-weight:700;cursor:pointer;transition:all 0.2s;">Cancelar</button>
-                <button onclick="executeVipRedeem('${pin}')" style="flex:1;padding:12px;background:linear-gradient(135deg, #F5D061, #D4AF37);color:#102619;border:none;border-radius:8px;font-weight:800;cursor:pointer;box-shadow:0 4px 10px rgba(212,175,55,0.3);transition:all 0.2s;">Sí, Canjear</button>
+                <button onclick="executeVipRedeem('${pin}', '${phone}')" style="flex:1;padding:12px;background:linear-gradient(135deg, #F5D061, #D4AF37);color:#102619;border:none;border-radius:8px;font-weight:800;cursor:pointer;box-shadow:0 4px 10px rgba(212,175,55,0.3);transition:all 0.2s;">Sí, Canjear</button>
             </div>
         </div>
     `;
     document.body.appendChild(overlay);
 }
 
-async function executeVipRedeem(pin) {
+async function executeVipRedeem(pin, phone) {
     const modalOverlay = document.getElementById('vip-custom-confirm');
     if (modalOverlay) {
-        // Switch to loading state instantly
         modalOverlay.innerHTML = `
             <div style="background:#ffffff;border-radius:16px;padding:30px 24px;width:90%;max-width:340px;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,0.4);">
                 <i class="fa-solid fa-spinner fa-spin" style="font-size:2.5rem;color:#D4AF37;margin-bottom:15px;"></i>
@@ -750,7 +757,8 @@ async function executeVipRedeem(pin) {
     }
 
     try {
-        const res = await fetch(`${VIP_API_URL}?action=redeem&pin=${encodeURIComponent(pin)}`);
+        // NEW BACKEND FIX: Appending both pin AND telefono so the backend verifies successfully
+        const res = await fetch(`${VIP_API_URL}?action=redeem&pin=${encodeURIComponent(pin)}&telefono=${encodeURIComponent(phone)}`);
         const data = await res.json();
         
         if (!data.success) {
@@ -768,7 +776,7 @@ async function executeVipRedeem(pin) {
         }
 
         sessionStorage.setItem('chai_vip_cups', data.tazasConsumidas);
-        renderVipMemberCard(); // Instantly visually dims a cup behind the modal
+        renderVipMemberCard(); 
         
         if (modalOverlay) {
             modalOverlay.innerHTML = `
