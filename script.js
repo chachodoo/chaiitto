@@ -1027,91 +1027,82 @@ function scrollGallery(direction) {
 const APPS_SCRIPT_VIP_URL = "https://script.google.com/macros/s/AKfycby0Y8l0z4cj36ck79vn1Kv-2r11XcU_UVLMFy1qKxT-W0pfSLRnmsh7U2BsfvkJuITk/exec";
 
 function openVipModal() {
-  const modal = document.getElementById("vip-register-modal");
-  const step1 = document.getElementById("vip-modal-step1");
-  const step2 = document.getElementById("vip-modal-step2");
-  const step3 = document.getElementById("vip-modal-step3");
-  const btn = document.getElementById("vip-submit-btn");
-  const errBox = document.getElementById("vip-form-error");
+    const modal = document.getElementById("vip-register-modal");
+    const step1 = document.getElementById("vip-modal-step1");
+    const step2 = document.getElementById("vip-modal-step2");
+    const step3 = document.getElementById("vip-modal-step3");
+    const btn = document.getElementById("vip-submit-btn");
+    const errBox = document.getElementById("vip-form-error");
 
-  if (btn) {
-    btn.style.display = "block";
-    btn.disabled = false;
-    btn.innerHTML = 'Continuar al Pago ($180 MXN) <i class="fa-solid fa-arrow-right"></i>';
-  }
-  if (errBox) errBox.style.display = "none";
-
-  if (modal) {
-    modal.style.display = "flex";
-    if (step1) step1.style.display = "block";
-    if (step2) step2.style.display = "none";
-    if (step3) step3.style.display = "none";
-  }
+    if (btn) {
+        btn.style.display = "block";
+        btn.disabled = false;
+        btn.innerHTML = 'Continuar al Pago ($180 MXN) <i class="fa-solid fa-arrow-right"></i>';
+    }
+    if (errBox) errBox.style.display = "none";
+    if (modal) {
+        modal.style.display = "flex";
+        if (step1) step1.style.display = "block";
+        if (step2) step2.style.display = "none";
+        if (step3) step3.style.display = "none";
+    }
 }
 
 function closeVipModal() {
-  const modal = document.getElementById("vip-register-modal");
-  if (modal) modal.style.display = "none";
+    const modal = document.getElementById("vip-register-modal");
+    if (modal) modal.style.display = "none";
 }
 
-function handleVipRegister(e) {
-  e.preventDefault();
-  const nombre = document.getElementById("vip-input-nombre").value.trim();
-  const tel = document.getElementById("vip-input-tel").value.trim();
-  const cumple = document.getElementById("vip-input-cumple").value.trim();
-  const errBox = document.getElementById("vip-form-error");
-  const btn = document.getElementById("vip-submit-btn");
+// AUTO-HANDLE VIP RETURN FROM CLIP (SUCCESS & FAIL)
+function handleClipReturn() {
+    const searchParams = new URLSearchParams(window.location.search);
+    const hash = window.location.hash.toLowerCase();
+    
+    const isSuccess = searchParams.get('clip_status') === 'success' || hash.includes('vip-success');
+    const isFailed = searchParams.get('clip_status') === 'failed' || hash.includes('vip-failed');
 
-  if (!nombre || !tel) {
-    errBox.textContent = "Por favor ingresa tu nombre y WhatsApp.";
-    errBox.style.display = "block";
-    return;
-  }
-  if (!/^[0-9]{10}$/.test(tel)) {
-    errBox.textContent = "El WhatsApp debe ser exactamente de 10 dígitos.";
-    errBox.style.display = "block";
-    return;
-  }
+    if (!isSuccess && !isFailed) return;
 
-  errBox.style.display = "none";
-  btn.disabled = true;
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
+    if (typeof switchPage === 'function' && (!window.location.hash.includes('vip'))) {
+        switchPage('vip');
+    }
 
-  try {
-    localStorage.setItem("chaiitto_vip_phone", tel);
-    localStorage.setItem("chaiitto_vip_name", nombre);
-  } catch (ex) {}
+    let attempts = 0;
+    const checkModalReady = setInterval(() => {
+        attempts++;
+        const modal = document.getElementById("vip-register-modal");
+        
+        if (modal) {
+            clearInterval(checkModalReady);
+            window.history.replaceState({}, document.title, window.location.pathname + '#vip');
 
-  const url = `${APPS_SCRIPT_VIP_URL}?action=register&nombre=${encodeURIComponent(nombre)}&telefono=${encodeURIComponent(tel)}&cumpleanos=${encodeURIComponent(cumple)}`;
-
-  fetch(url)
-      .then(res => res.json())
-      .then(data => {
-        // 🛑 SI YA ESTÁ ACTIVO: Ocultar el botón de pago por completo y no dejar pagar
-        if (data.alreadyActive) {
-          btn.style.display = "none";
-          errBox.style.display = "block";
-          errBox.innerHTML = `⚠️ <strong>${data.message}</strong><br><a href="#bazar" onclick="closeVipModal()" style="color: #2D5A27; font-weight: bold; text-decoration: underline; display: inline-block; margin-top: 6px;">Acceder directo al Bazar VIP aquí &rarr;</a>`;
-          return;
+            if (isSuccess) {
+                completeVipActivation();
+            } else if (isFailed) {
+                openVipModal();
+                const step1 = document.getElementById("vip-modal-step1");
+                const step2 = document.getElementById("vip-modal-step2");
+                const errBox = document.getElementById("vip-form-error");
+                
+                if (step1) step1.style.display = "none";
+                if (step2) step2.style.display = "block";
+                if (errBox) {
+                    errBox.style.display = "block";
+                    errBox.textContent = "Tu pago no se pudo completar. Por favor revisa los datos de tu tarjeta o intenta con otro método.";
+                }
+            }
         }
 
-        btn.disabled = false;
-        btn.innerHTML = 'Continuar al Pago ($180 MXN) <i class="fa-solid fa-arrow-right"></i>';
-
-        if (!data.success) {
-          errBox.style.display = "block";
-          errBox.textContent = data.message || "Error al procesar el registro.";
-          return;
+        if (attempts >= 40) {
+            clearInterval(checkModalReady);
         }
-
-        // Solo pasa al paso 2 si es registro nuevo
-        document.getElementById("vip-modal-step1").style.display = "none";
-        document.getElementById("vip-modal-step2").style.display = "block";
-      })
-
+    }, 100);
 }
 
-// STEP 1 REGISTRATION: CAPTURE COUNTRY CODE & 10 DIGITS
+window.addEventListener('DOMContentLoaded', handleClipReturn);
+window.addEventListener('hashchange', handleClipReturn);
+
+// STEP 1 REGISTRATION: VALIDATE, SHOW SPINNER & SAVE TO GOOGLE SHEETS AS PENDIENTE
 function handleVipRegister(e) {
     if (e) e.preventDefault();
     const nameInput = document.getElementById("vip-input-nombre");
@@ -1119,6 +1110,7 @@ function handleVipRegister(e) {
     const telInput = document.getElementById("vip-input-tel");
     const bdayInput = document.getElementById("vip-input-cumple");
     const errBox = document.getElementById("vip-form-error");
+    const btn = document.getElementById("vip-submit-btn");
 
     const name = nameInput ? nameInput.value.trim() : "";
     const country = countrySelect ? countrySelect.value.trim() : "52";
@@ -1135,18 +1127,52 @@ function handleVipRegister(e) {
 
     if (errBox) errBox.style.display = "none";
 
-    // Build international phone number (e.g., 522221234567 or 13135550199)
     const fullPhone = country + rawTel;
 
-    localStorage.setItem("chaiitto_vip_name", name);
-    localStorage.setItem("chaiitto_vip_phone", fullPhone);
-    localStorage.setItem("chaiitto_vip_cumple", bday);
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
 
-    // Transition to Step 2 (Clip Payment)
-    const step1 = document.getElementById("vip-modal-step1");
-    const step2 = document.getElementById("vip-modal-step2");
-    if (step1) step1.style.display = "none";
-    if (step2) step2.style.display = "block";
+    try {
+        localStorage.setItem("chaiitto_vip_phone", fullPhone);
+        localStorage.setItem("chaiitto_vip_name", name);
+        localStorage.setItem("chaiitto_vip_cumple", bday);
+    } catch (ex) {}
+
+    const url = `${APPS_SCRIPT_VIP_URL}?action=register&nombre=${encodeURIComponent(name)}&telefono=${encodeURIComponent(fullPhone)}&cumpleanos=${encodeURIComponent(bday)}`;
+
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            if (data.alreadyActive) {
+                btn.style.display = "none";
+                errBox.style.display = "block";
+                errBox.innerHTML = `⚠️ <strong>${data.message}</strong><br><a href="#bazar" onclick="closeVipModal()" style="color: #2D5A27; font-weight: bold; text-decoration: underline; display: inline-block; margin-top: 6px;">Acceder directo al Bazar VIP aquí &rarr;</a>`;
+                return;
+            }
+
+            btn.disabled = false;
+            btn.innerHTML = 'Continuar al Pago ($180 MXN) <i class="fa-solid fa-arrow-right"></i>';
+
+            if (!data.success) {
+                errBox.style.display = "block";
+                errBox.textContent = data.message || "Error al procesar el registro.";
+                return;
+            }
+
+            const step1 = document.getElementById("vip-modal-step1");
+            const step2 = document.getElementById("vip-modal-step2");
+            if (step1) step1.style.display = "none";
+            if (step2) step2.style.display = "block";
+        })
+        .catch(err => {
+            console.error("Error guardando registro VIP:", err);
+            btn.disabled = false;
+            btn.innerHTML = 'Continuar al Pago ($180 MXN) <i class="fa-solid fa-arrow-right"></i>';
+            const step1 = document.getElementById("vip-modal-step1");
+            const step2 = document.getElementById("vip-modal-step2");
+            if (step1) step1.style.display = "none";
+            if (step2) step2.style.display = "block";
+        });
 }
 
 // STEP 3: ACTIVATION & DYNAMIC WHATSAPP ROUTING
@@ -1164,13 +1190,13 @@ async function completeVipActivation() {
 
     const storedPhone = localStorage.getItem("chaiitto_vip_phone") || "";
     const name = localStorage.getItem("chaiitto_vip_name") || "Socio VIP";
+    const cumple = localStorage.getItem("chaiitto_vip_cumple") || "";
 
     if (!storedPhone) {
         alert("No se encontró número de WhatsApp para vincular tu registro. Por favor contáctanos para resolver.");
         return;
     }
 
-    // Sanitize phone: backward compatibility for legacy 10-digit entries
     let cleanPhone = storedPhone.replace(/\D/g, "");
     if (cleanPhone.length === 10) {
         cleanPhone = "52" + cleanPhone;
@@ -1179,29 +1205,16 @@ async function completeVipActivation() {
     try {
         if (pinDisplay) pinDisplay.textContent = "ACTIVANDO...";
 
-        // Real Google Apps Script Backend Call
-        const response = await fetch("https://script.google.com/macros/s/AKfycbzz0k5-66iB3q8722qj79j4uT1_1T2a7kY9m_placeholder/exec", {
-            method: "POST",
-            mode: "cors",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams({
-                action: "activate",
-                phone: cleanPhone,
-                name: name,
-                cumple: localStorage.getItem("chaiitto_vip_cumple") || ""
-            })
-        });
-
+        const activateUrl = `${APPS_SCRIPT_VIP_URL}?action=activate&telefono=${encodeURIComponent(cleanPhone)}&nombre=${encodeURIComponent(name)}&cumpleanos=${encodeURIComponent(cumple)}`;
+        const response = await fetch(activateUrl);
         const data = await response.json();
         const pin = data.pin || "911-" + cleanPhone.slice(-4);
 
         if (pinDisplay) pinDisplay.textContent = pin;
 
-        // Save session state
         localStorage.setItem("chaiitto_vip_status", "active");
         localStorage.setItem("chaiitto_vip_pin", pin);
 
-        // Pre-fill WhatsApp backup link with correct country code
         if (waLink) {
             const msg = `¡Hola! Aquí tengo guardado mi PIN de socio VIP Chai-itto: *${pin}* (Nombre: ${name}).`;
             waLink.href = `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(msg)}`;
@@ -1223,16 +1236,12 @@ async function completeVipActivation() {
 }
 
 function goToBazarVip(e) {
-  if (e) e.preventDefault();
-  closeVipModal();
-
-  // Navigate to #bazar route
-  window.location.hash = "bazar";
-
-  // Trigger catalog render if the function exists
-  if (typeof loadBazarGrid === "function") {
-    loadBazarGrid();
-  }
+    if (e) e.preventDefault();
+    closeVipModal();
+    window.location.hash = "bazar";
+    if (typeof loadBazarGrid === "function") {
+        loadBazarGrid();
+    }
 }
 
 
