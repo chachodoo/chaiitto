@@ -669,41 +669,41 @@ function renderVipMemberCard() {
     let cupsHtml = '';
     for (let i = 1; i <= 4; i++) {
         if (i <= cups) {
-            cupsHtml += `<span title="Taza ${i} canjeada" style="display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.2);border-radius:50%;font-size:18px;margin:0 8px;"><i class="fa-solid fa-mug-hot"></i></span>`;
+            cupsHtml += `<span title="Taza ${i} canjeada" style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.2);border-radius:50%;font-size:16px;margin:0 6px;"><i class="fa-solid fa-mug-hot"></i></span>`;
         } else {
-            cupsHtml += `<span title="Taza ${i} disponible" style="display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;background:linear-gradient(135deg, #F5D061 0%, #D4AF37 100%);color:#102619;border-radius:50%;font-size:18px;margin:0 8px;box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);"><i class="fa-solid fa-mug-hot"></i></span>`;
+            cupsHtml += `<span title="Taza ${i} disponible" style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;background:linear-gradient(135deg, #F5D061 0%, #D4AF37 100%);color:#102619;border-radius:50%;font-size:16px;margin:0 6px;box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);"><i class="fa-solid fa-mug-hot"></i></span>`;
         }
     }
 
-    // ENTERPRISE GREEN PALETTE & LARGER UI
+    // ENTERPRISE GREEN PALETTE & COMPACT UI
     card.innerHTML = `
-        <div style="background:linear-gradient(135deg, var(--emerald-card, #102619), var(--matcha-deep, #07511A));color:#fff;border-radius:16px;padding:25px;margin-bottom:30px;box-shadow:0 10px 30px rgba(0,0,0,0.25);text-align:center;border:1.5px solid rgba(212, 175, 55, 0.4);">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+        <div style="background:linear-gradient(135deg, var(--emerald-card, #102619), var(--matcha-deep, #07511A));color:#fff;border-radius:16px;padding:20px;margin-bottom:20px;box-shadow:0 10px 30px rgba(0,0,0,0.25);text-align:center;border:1.5px solid rgba(212, 175, 55, 0.4);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:10px;">
                 <div style="text-align:left;">
-                    <span style="background:linear-gradient(135deg, #F5D061, #D4AF37);color:#102619;font-size:0.75rem;font-weight:800;padding:5px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;box-shadow:0 2px 6px rgba(212,175,55,0.3);">Membresía VIP</span>
-                    <h3 style="margin:8px 0 0;font-size:1.6rem;color:#ffffff;font-family:var(--font-heading);">${name}</h3>
+                    <span style="background:linear-gradient(135deg, #F5D061, #D4AF37);color:#102619;font-size:0.7rem;font-weight:800;padding:4px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;box-shadow:0 2px 6px rgba(212,175,55,0.3);">Membresía VIP</span>
+                    <h3 style="margin:6px 0 0;font-size:1.4rem;color:#ffffff;font-family:var(--font-heading);">${name}</h3>
                 </div>
-                <button onclick="lockBazarVIP()" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#ffffff;padding:8px 16px;border-radius:8px;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.2s;">Cerrar sesión</button>
+                <button onclick="lockBazarVIP()" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#ffffff;padding:6px 14px;border-radius:8px;font-size:0.8rem;font-weight:600;cursor:pointer;transition:all 0.2s;">Cerrar sesión</button>
             </div>
             
-            <div style="background:rgba(0,0,0,0.25);border-radius:12px;padding:22px;margin:20px 0;border:1px solid rgba(255,255,255,0.05);">
-                <p style="margin:0 0 14px;font-size:1rem;letter-spacing:0.5px;color:#e2e8f0;font-weight:600;">Tazas de cortesía del mes (4 al mes):</p>
-                <div style="display:flex;justify-content:center;align-items:center;margin:15px 0;">${cupsHtml}</div>
-                <p style="margin:14px 0 0;font-size:0.95rem;color:#F5D061;font-weight:700;">
+            <div style="background:rgba(0,0,0,0.25);border-radius:12px;padding:16px;margin:16px 0;border:1px solid rgba(255,255,255,0.05);">
+                <p style="margin:0 0 10px;font-size:0.95rem;letter-spacing:0.5px;color:#e2e8f0;font-weight:600;">Tazas de cortesía del mes (4 al mes):</p>
+                <div style="display:flex;justify-content:center;align-items:center;margin:12px 0;">${cupsHtml}</div>
+                <p style="margin:10px 0 0;font-size:0.9rem;color:#F5D061;font-weight:700;">
                     ${remaining > 0 ? `Te quedan ${remaining} tazas de cortesía este mes` : '¡Completaste tus 4 tazas de cortesía de este mes!'}
                 </p>
             </div>
 
-            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;margin-top:10px;">
-                <span style="font-size:1rem;font-weight:700;color:#f8fafc;background:rgba(255,255,255,0.1);padding:10px 16px;border-radius:10px; border: 1px solid rgba(255,255,255,0.15);">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:5px;">
+                <span style="font-size:0.9rem;font-weight:700;color:#f8fafc;background:rgba(255,255,255,0.1);padding:8px 14px;border-radius:8px; border: 1px solid rgba(255,255,255,0.15);">
                     <i class="fa-regular fa-calendar-xmark" style="color:#D4AF37; margin-right:6px;"></i> ${expiry ? `Vigencia: ${expiry}` : 'Vigencia Activa'}
                 </span>
                 ${remaining > 0 ? `
-                    <button id="vip-redeem-btn" onclick="redeemVipCup()" style="background:linear-gradient(135deg, #F5D061, #D4AF37);color:#102619;font-weight:800;border:none;padding:14px 28px;border-radius:10px;cursor:pointer;font-size:1.1rem;box-shadow:0 4px 15px rgba(212,175,55,0.35);transition:transform 0.2s, box-shadow 0.2s;">
+                    <button id="vip-redeem-btn" onclick="redeemVipCup()" style="background:linear-gradient(135deg, #F5D061, #D4AF37);color:#102619;font-weight:800;border:none;padding:10px 22px;border-radius:8px;cursor:pointer;font-size:1rem;box-shadow:0 4px 15px rgba(212,175,55,0.35);transition:transform 0.2s, box-shadow 0.2s;">
                         <i class="fa-solid fa-mug-hot"></i> Canjear 1 Taza
                     </button>
                 ` : `
-                    <span style="font-size:0.95rem;color:#94a3b8;background:rgba(255,255,255,0.05);padding:12px 20px;border-radius:8px;font-weight:600;">Próxima taza: costo regular</span>
+                    <span style="font-size:0.85rem;color:#94a3b8;background:rgba(255,255,255,0.05);padding:10px 16px;border-radius:8px;font-weight:600;">Próxima taza: costo regular</span>
                 `}
             </div>
         </div>
