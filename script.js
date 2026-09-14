@@ -1289,9 +1289,9 @@ async function completeVipActivation() {
             <div style="width:60px;height:60px;background:rgba(220,38,38,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:#dc2626;font-size:1.8rem;">
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
-            <h3 style="margin:0 0 12px;font-size:1.4rem;font-family:var(--font-heading,inherit);font-weight:900;color:#1e293b;letter-spacing:-0.5px;">Atención</h3>
+            <h3 style="margin:0 0 12px;font-size:1.4rem;font-family:var(--font-heading,inherit);font-weight:900;color:#102619;letter-spacing:-0.5px;">Atención</h3>
             <p style="margin:0 0 24px;font-size:0.95rem;color:#64748b;line-height:1.5;">No se encontró tu número de WhatsApp para vincular el registro. Por favor, contáctanos para generar tu PIN manualmente.</p>
-            <button onclick="this.closest('div[style*=\\'position:fixed\\']').remove()" style="width:100%;padding:14px;background:#1e293b;color:#ffffff;border:none;border-radius:10px;font-weight:700;font-size:1rem;cursor:pointer;transition:background 0.2s;">Entendido</button>
+            <button onclick="this.closest('div[style*=\\'position:fixed\\']').remove()" style="width:100%;padding:14px;background:var(--matcha-deep, #07511A);color:#ffffff;border:none;border-radius:10px;font-weight:700;font-size:1rem;cursor:pointer;transition:background 0.2s;">Entendido</button>
         `;
         
         overlay.appendChild(modal);
