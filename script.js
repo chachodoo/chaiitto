@@ -1242,6 +1242,35 @@ async function completeVipActivation() {
     if (step2) step2.style.display = "none";
     if (step3) step3.style.display = "block";
 
+    // ENTERPRISE FIREWORKS DISPLAY (Matcha & Gold)
+    if (typeof confetti === 'function') {
+        const duration = 3000; // 3 seconds of continuous fireworks
+        const end = Date.now() + duration;
+
+        (function frame() {
+            // Left Cannon
+            confetti({
+                particleCount: 5,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0, y: 0.8 },
+                colors: ['#D4AF37', '#102619', '#F5D061', '#ffffff']
+            });
+            // Right Cannon
+            confetti({
+                particleCount: 5,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1, y: 0.8 },
+                colors: ['#D4AF37', '#102619', '#F5D061', '#ffffff']
+            });
+
+            if (Date.now() < end) {
+                requestAnimationFrame(frame);
+            }
+        }());
+    }
+
     const storedPhone = localStorage.getItem("chaiitto_vip_phone") || "";
     const name = localStorage.getItem("chaiitto_vip_name") || "Socio VIP";
     const cumple = localStorage.getItem("chaiitto_vip_cumple") || "";
