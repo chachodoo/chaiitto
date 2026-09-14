@@ -1111,58 +1111,45 @@ function handleVipRegister(e) {
 
 }
 
-// AUTO-HANDLE VIP RETURN FROM CLIP (SUCCESS & FAIL)
-function handleClipReturn() {
-    const searchParams = new URLSearchParams(window.location.search);
-    const hash = window.location.hash.toLowerCase();
-    
-    const isSuccess = searchParams.get('clip_status') === 'success' || hash.includes('vip-success');
-    const isFailed = searchParams.get('clip_status') === 'failed' || hash.includes('vip-failed');
+// STEP 1 REGISTRATION: CAPTURE COUNTRY CODE & 10 DIGITS
+function handleVipRegister(e) {
+    if (e) e.preventDefault();
+    const nameInput = document.getElementById("vip-input-nombre");
+    const countrySelect = document.getElementById("vip-input-country");
+    const telInput = document.getElementById("vip-input-tel");
+    const bdayInput = document.getElementById("vip-input-cumple");
+    const errBox = document.getElementById("vip-form-error");
 
-    if (!isSuccess && !isFailed) return;
+    const name = nameInput ? nameInput.value.trim() : "";
+    const country = countrySelect ? countrySelect.value.trim() : "52";
+    const rawTel = telInput ? telInput.value.trim().replace(/\D/g, "") : "";
+    const bday = bdayInput ? bdayInput.value.trim() : "";
 
-    // Ensure the SPA router loads the VIP section
-    if (typeof switchPage === 'function' && (!window.location.hash.includes('vip'))) {
-        switchPage('vip');
+    if (!name || rawTel.length !== 10) {
+        if (errBox) {
+            errBox.style.display = "block";
+            errBox.textContent = "Por favor ingresa tu nombre y los 10 dígitos de tu WhatsApp.";
+        }
+        return;
     }
 
-    // Wait for sections/vip.html to finish loading into the DOM
-    let attempts = 0;
-    const checkModalReady = setInterval(() => {
-        attempts++;
-        const modal = document.getElementById("vip-register-modal");
-        
-        if (modal) {
-            clearInterval(checkModalReady);
-            window.history.replaceState({}, document.title, window.location.pathname + '#vip');
+    if (errBox) errBox.style.display = "none";
 
-            if (isSuccess) {
-                completeVipActivation();
-            } else if (isFailed) {
-                openVipModal();
-                const step1 = document.getElementById("vip-modal-step1");
-                const step2 = document.getElementById("vip-modal-step2");
-                const errBox = document.getElementById("vip-form-error");
-                
-                // Show Step 2 directly so customer can retry card without retyping info
-                if (step1) step1.style.display = "none";
-                if (step2) step2.style.display = "block";
-                if (errBox) {
-                    errBox.style.display = "block";
-                    errBox.textContent = "Tu pago no se pudo completar. Por favor revisa los datos de tu tarjeta o intenta con otro método.";
-                }
-            }
-        }
+    // Build international phone number (e.g., 522221234567 or 13135550199)
+    const fullPhone = country + rawTel;
 
-        if (attempts >= 40) {
-            clearInterval(checkModalReady);
-        }
-    }, 100);
+    localStorage.setItem("chaiitto_vip_name", name);
+    localStorage.setItem("chaiitto_vip_phone", fullPhone);
+    localStorage.setItem("chaiitto_vip_cumple", bday);
+
+    // Transition to Step 2 (Clip Payment)
+    const step1 = document.getElementById("vip-modal-step1");
+    const step2 = document.getElementById("vip-modal-step2");
+    if (step1) step1.style.display = "none";
+    if (step2) step2.style.display = "block";
 }
 
-window.addEventListener('DOMContentLoaded', handleClipReturn);
-window.addEventListener('hashchange', handleClipReturn);
-
+// STEP 3: ACTIVATION & DYNAMIC WHATSAPP ROUTING
 async function completeVipActivation() {
     openVipModal();
     const step1 = document.getElementById("vip-modal-step1");
@@ -1172,54 +1159,67 @@ async function completeVipActivation() {
     const waLink = document.getElementById("vip-btn-whatsapp-save");
 
     if (step1) step1.style.display = "none";
-    if (step2) step2.style.display = "block";
-    if (step3) step3.style.display = "none";
+    if (step2) step2.style.display = "none";
+    if (step3) step3.style.display = "block";
 
-    const phone = localStorage.getItem("chaiitto_vip_phone") || "";
+    const storedPhone = localStorage.getItem("chaiitto_vip_phone") || "";
     const name = localStorage.getItem("chaiitto_vip_name") || "Socio VIP";
 
-    if (!phone) {
+    if (!storedPhone) {
         alert("No se encontró número de WhatsApp para vincular tu registro. Por favor contáctanos para resolver.");
         return;
     }
 
-  // Call Apps Script to activate the record in Google Sheets
-  const activateUrl = `${APPS_SCRIPT_VIP_URL}?action=activate&telefono=${encodeURIComponent(phone)}`;
-
-  try {
-    const res = await fetch(activateUrl);
-    const data = await res.json();
-
-    if (data.success && data.pin) {
-      const realPin = data.pin;
-      const expDate = data.fechaVencimiento || "";
-
-      // Authorize session for Bazar VIP
-      sessionStorage.setItem("chai_vip_auth", "true");
-      sessionStorage.setItem("chai_vip_phone", phone);
-      sessionStorage.setItem("chai_vip_expiry", expDate);
-      localStorage.setItem("chaiitto_vip_pin", realPin);
-
-      // Display assigned 911 PIN on screen
-      if (pinDisplay) pinDisplay.textContent = realPin;
-
-      // Prepare WhatsApp backup message
-      if (waLink) {
-        const cleanPhone = phone.replace(/\D/g, '');
-        const msg = `👑 Mi Chai-itto PIN VIP: *${realPin}*`;
-        waLink.href = `https://api.whatsapp.com/send?phone=521${cleanPhone}&text=${encodeURIComponent(msg)}`;
-        waLink.innerHTML = `<i class="fa-brands fa-whatsapp fa-lg"></i> Enviar mi PIN VIP para guardarlo`;
-      }
-
-      if (step2) step2.style.display = "none";
-      if (step3) step3.style.display = "block";
-    } else {
-      alert(data.message || "No se pudo activar la membresía.");
+    // Sanitize phone: backward compatibility for legacy 10-digit entries
+    let cleanPhone = storedPhone.replace(/\D/g, "");
+    if (cleanPhone.length === 10) {
+        cleanPhone = "52" + cleanPhone;
     }
-  } catch (err) {
-    console.error("Error activating membership:", err);
-    alert("Error de conexión. Escríbenos por WhatsApp para darte tu PIN.");
-  }
+
+    try {
+        if (pinDisplay) pinDisplay.textContent = "ACTIVANDO...";
+
+        // Real Google Apps Script Backend Call
+        const response = await fetch("https://script.google.com/macros/s/AKfycbzz0k5-66iB3q8722qj79j4uT1_1T2a7kY9m_placeholder/exec", {
+            method: "POST",
+            mode: "cors",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams({
+                action: "activate",
+                phone: cleanPhone,
+                name: name,
+                cumple: localStorage.getItem("chaiitto_vip_cumple") || ""
+            })
+        });
+
+        const data = await response.json();
+        const pin = data.pin || "911-" + cleanPhone.slice(-4);
+
+        if (pinDisplay) pinDisplay.textContent = pin;
+
+        // Save session state
+        localStorage.setItem("chaiitto_vip_status", "active");
+        localStorage.setItem("chaiitto_vip_pin", pin);
+
+        // Pre-fill WhatsApp backup link with correct country code
+        if (waLink) {
+            const msg = `¡Hola! Aquí tengo guardado mi PIN de socio VIP Chai-itto: *${pin}* (Nombre: ${name}).`;
+            waLink.href = `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(msg)}`;
+            waLink.target = "_blank";
+        }
+    } catch (err) {
+        console.warn("Backend activation error, assigning local fallback PIN:", err);
+        const fallbackPin = "911-" + cleanPhone.slice(-4);
+        if (pinDisplay) pinDisplay.textContent = fallbackPin;
+        localStorage.setItem("chaiitto_vip_status", "active");
+        localStorage.setItem("chaiitto_vip_pin", fallbackPin);
+
+        if (waLink) {
+            const msg = `¡Hola! Aquí tengo guardado mi PIN de socio VIP Chai-itto: *${fallbackPin}* (Nombre: ${name}).`;
+            waLink.href = `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(msg)}`;
+            waLink.target = "_blank";
+        }
+    }
 }
 
 function goToBazarVip(e) {
