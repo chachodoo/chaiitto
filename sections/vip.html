@@ -163,35 +163,60 @@
         </div>
 
         <!-- STEP 2: CLIP PAYMENT LINK & QR -->
-    <div id="vip-modal-step2" style="display: none; text-align: center;">
-      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(45, 74, 34, 0.1); color: var(--matcha-deep, #2d4a22); font-weight: 800; font-size: 0.75rem; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; margin-bottom: 12px;">
-        <span>Paso 2 de 2</span>
+    <div id="vip-modal-step2" style="display: none; text-align: center; padding: 4px 6px;">
+      <!-- STEP PILL & SECURE BADGE -->
+      <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px;">
+        <span style="background: rgba(45, 74, 34, 0.08); color: var(--matcha-deep, #2d4a22); font-weight: 800; font-size: 0.72rem; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;">Paso 2 de 2</span>
+        <span style="display: inline-flex; align-items: center; gap: 5px; background: #ecfdf5; color: #047857; font-weight: 700; font-size: 0.72rem; padding: 4px 10px; border-radius: 20px; border: 1px solid #a7f3d0;">
+          <i class="fa-solid fa-shield-halved"></i> Conexión Cifrada SSL
+        </span>
       </div>
-      <h3 style="margin: 0 0 6px; font-size: 1.25rem; color: #1e293b; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px;">
-  <i class="fa-solid fa-lock" style="color: #16a34a; font-size: 1.1rem;"></i> Pago 100% Seguro con Encriptación SSL
-</h3>
-      <p style="font-size: 0.85rem; color: #64748b; margin-top: 0; margin-bottom: 16px;">
-Escanea el código o pulsa el botón para completar tu pago      </p>
 
-      <!-- QR CODE CONTAINER -->
-      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 14px; margin-bottom: 16px; max-width: 220px; margin-left: auto; margin-right: auto;">
-        <div style="background: #ffffff; padding: 8px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-          <img src="qr-vip.png" alt="QR Clip Membresía VIP" style="width: 150px; height: 150px; display: block; margin: 0 auto; object-fit: contain;">
+      <h3 style="margin: 0 0 6px; font-size: 1.3rem; color: #0f172a; font-weight: 800; font-family: var(--font-heading, inherit);">
+        Finalizar Pago Seguro
+      </h3>
+      <p style="font-size: 0.82rem; color: #64748b; margin: 0 0 16px; line-height: 1.4;">
+        Paga con tarjeta de débito, crédito o efectivo vía Clip. Tu PIN de socio se generará automáticamente.
+      </p>
+
+      <!-- ORDER SUMMARY PILL -->
+      <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 10px 16px; margin-bottom: 16px;">
+        <div style="text-align: left;">
+          <div style="font-size: 0.85rem; font-weight: 800; color: #1e293b;">Membresía VIP Premium</div>
+          <div style="font-size: 0.72rem; color: #64748b;">Acceso mensual sin renovación forzosa</div>
         </div>
-        
+        <div style="font-family: var(--font-heading, inherit); font-size: 1.25rem; font-weight: 900; color: var(--matcha-deep, #2d4a22);">
+          $180 <span style="font-size: 0.75rem; font-weight: 600;">MXN</span>
+        </div>
+      </div>
+
+      <!-- PRIMARY ACTION: CLIP BUTTON -->
+      <a href="https://pago.clip.mx/v3/a9ef48fe-7c79-4b92-9191-dec052d92ce9" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; box-sizing: border-box; padding: 15px 20px; border-radius: 12px; background: linear-gradient(135deg, #FF6A00 0%, #EE4D00 100%); color: #ffffff; font-weight: 800; text-decoration: none; font-size: 1rem; letter-spacing: 0.3px; box-shadow: 0 6px 18px rgba(238, 77, 0, 0.3); transition: transform 0.2s, box-shadow 0.2s;">
+        <i class="fa-solid fa-credit-card fa-lg"></i> Pagar con Tarjeta en Línea
+      </a>
+
+      <!-- TRUST CHIPS / PAYMENT METHODS -->
+      <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin: 12px 0 16px; color: #94a3b8; font-size: 1.15rem;">
+        <i class="fa-brands fa-cc-visa" title="Visa"></i>
+        <i class="fa-brands fa-cc-mastercard" title="Mastercard"></i>
+        <i class="fa-brands fa-cc-amex" title="American Express"></i>
+        <span style="font-size: 0.7rem; font-weight: 700; color: #64748b; letter-spacing: 0.5px;">PROCESADO POR CLIP®</span>
       </div>
 
       <!-- SEPARATOR -->
-      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
         <span style="flex: 1; height: 1px; background: #e2e8f0;"></span>
-        <span style="font-size: 0.75rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">O pulsa aquí</span>
+        <span style="font-size: 0.7rem; color: #94a3b8; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">O Escanea con tu celular</span>
         <span style="flex: 1; height: 1px; background: #e2e8f0;"></span>
       </div>
 
-      <!-- DIRECT CLIP BUTTON -->
-      <a href="https://pago.clip.mx/v3/a9ef48fe-7c79-4b92-9191-dec052d92ce9" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; box-sizing: border-box; padding: 14px 20px; border-radius: 10px; background: #FF5A00; color: #ffffff; font-weight: 800; text-decoration: none; font-size: 1rem; box-shadow: 0 4px 12px rgba(255,90,0,0.25); transition: opacity 0.2s ease;">
-        <i class="fa-solid fa-credit-card"></i> Completar Pago en Línea
-      </a>
+      <!-- COMPACT QR BOX -->
+      <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 10px; display: inline-block; box-shadow: 0 4px 12px rgba(0,0,0,0.04);">
+        <img src="qr-vip.png" alt="QR Clip Membresía VIP" style="width: 125px; height: 125px; display: block; object-fit: contain;">
+      </div>
+      <div style="font-size: 0.7rem; color: #94a3b8; margin-top: 6px;">
+        Abre tu cámara o app de banco para pagar
+      </div>
 
           <!-- TEST BUTTON SIMULATE SUCCESS PAGO (Calls real activate action in Google Sheets) 
           <button type="button" onclick="simulateVipPayment()" style="margin-top: 15px; background: #f8fafc; border: 1px dashed #94a3b8; border-radius: 8px; padding: 9px 12px; font-size: 0.8rem; color: #475569; cursor: pointer; width: 100%; font-weight: 700;">
