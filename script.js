@@ -1278,7 +1278,24 @@ async function completeVipActivation() {
     const cumple = localStorage.getItem("chaiitto_vip_cumple") || "";
 
     if (!storedPhone) {
-        alert("No se encontró número de WhatsApp para vincular tu registro. Por favor contáctanos para resolver.");
+        // ENTERPRISE CUSTOM ERROR MODAL (Replaces cheap native alert)
+        const overlay = document.createElement('div');
+        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:999999;display:flex;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;';
+        
+        const modal = document.createElement('div');
+        modal.style.cssText = 'background:#ffffff;width:100%;max-width:400px;border-radius:16px;padding:24px;text-align:center;box-shadow:0 20px 25px -5px rgba(0,0,0,0.2);';
+        
+        modal.innerHTML = `
+            <div style="width:60px;height:60px;background:rgba(220,38,38,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:#dc2626;font-size:1.8rem;">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 style="margin:0 0 12px;font-size:1.4rem;font-family:var(--font-heading,inherit);font-weight:900;color:#1e293b;letter-spacing:-0.5px;">Atención</h3>
+            <p style="margin:0 0 24px;font-size:0.95rem;color:#64748b;line-height:1.5;">No se encontró tu número de WhatsApp para vincular el registro. Por favor, contáctanos para generar tu PIN manualmente.</p>
+            <button onclick="this.closest('div[style*=\\'position:fixed\\']').remove()" style="width:100%;padding:14px;background:#1e293b;color:#ffffff;border:none;border-radius:10px;font-weight:700;font-size:1rem;cursor:pointer;transition:background 0.2s;">Entendido</button>
+        `;
+        
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
         return;
     }
 
@@ -1288,8 +1305,11 @@ async function completeVipActivation() {
     }
 
     try {
-        if (pinDisplay) pinDisplay.textContent = "ACTIVANDO...";
-
+if (pinDisplay) {
+            pinDisplay.textContent = "GENERANDO PIN...";
+            pinDisplay.style.fontSize = "1.2rem";
+            pinDisplay.style.letterSpacing = "2px";
+        }
         const activateUrl = `${APPS_SCRIPT_VIP_URL}?action=activate&telefono=${encodeURIComponent(cleanPhone)}&nombre=${encodeURIComponent(name)}&cumpleanos=${encodeURIComponent(cumple)}`;
         const response = await fetch(activateUrl);
         const data = await response.json();
@@ -1298,8 +1318,11 @@ async function completeVipActivation() {
         if (pinDisplay) pinDisplay.textContent = pin;
 
         localStorage.setItem("chaiitto_vip_status", "active");
-        localStorage.setItem("chaiitto_vip_pin", pin);
-
+        if (pinDisplay) {
+            pinDisplay.textContent = pin;
+            pinDisplay.style.fontSize = "2.2rem";
+            pinDisplay.style.letterSpacing = "4px";
+        }
         if (waLink) {
             const msg = `Este es mi PIN de socio VIP Premium Chai-itto: *${pin}* (Nombre: ${name}).`;
             waLink.href = `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(msg)}`;
@@ -1308,7 +1331,11 @@ async function completeVipActivation() {
     } catch (err) {
         console.warn("Backend activation error, assigning local fallback PIN:", err);
         const fallbackPin = "911-" + cleanPhone.slice(-4);
-        if (pinDisplay) pinDisplay.textContent = fallbackPin;
+        if (pinDisplay) {
+            pinDisplay.textContent = fallbackPin;
+            pinDisplay.style.fontSize = "2.2rem";
+            pinDisplay.style.letterSpacing = "4px";
+        }
         localStorage.setItem("chaiitto_vip_status", "active");
         localStorage.setItem("chaiitto_vip_pin", fallbackPin);
 
