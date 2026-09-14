@@ -1111,7 +1111,26 @@ function handleVipRegister(e) {
 
 }
 
-async function simulateVipPayment() {
+// AUTO-ACTIVATE VIP ON RETURN FROM CLIP
+window.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const status = params.get('clip_status');
+  if (status === 'success') {
+    window.history.replaceState({}, document.title, window.location.pathname + '#vip');
+    completeVipActivation();
+  } else if (status === 'failed') {
+    window.history.replaceState({}, document.title, window.location.pathname + '#vip');
+    openVipModal();
+    const err = document.getElementById('vip-form-error');
+    if (err) {
+      err.style.display = 'block';
+      err.textContent = 'Tu pago no se pudo completar. Por favor revisa los datos de tu tarjeta o intenta con otra tarjeta.';
+    }
+  }
+});
+
+
+async function completeVipActivation() {
   const step2 = document.getElementById("vip-modal-step2");
   const step3 = document.getElementById("vip-modal-step3");
   const pinDisplay = document.getElementById("vip-display-pin");
@@ -1119,9 +1138,12 @@ async function simulateVipPayment() {
 
   const phone = localStorage.getItem("chaiitto_vip_phone") || "";
   const name = localStorage.getItem("chaiitto_vip_name") || "Socio VIP";
+  openVipModal();
+  if (step2) step2.style.display = "block";
+  if (step3) step3.style.display = "none";  
 
   if (!phone) {
-    alert("No se encontró número de WhatsApp para activar.");
+    alert("No se encontró número de WhatsApp para vincular tu registro. Por favor contactanos por WhatsApp para resolver.");
     return;
   }
 
@@ -1158,7 +1180,7 @@ async function simulateVipPayment() {
     }
   } catch (err) {
     console.error("Error activating membership:", err);
-    alert("Error de comunicación con Google Sheets.");
+    alert("Error de conexión. Escríbenos por WhatsApp para darte tu PIN.");
   }
 }
 
