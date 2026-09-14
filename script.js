@@ -1111,41 +1111,77 @@ function handleVipRegister(e) {
 
 }
 
-// AUTO-ACTIVATE VIP ON RETURN FROM CLIP
-window.addEventListener('DOMContentLoaded', () => {
-  const params = new URLSearchParams(window.location.search);
-  const status = params.get('clip_status');
-  if (status === 'success') {
-    window.history.replaceState({}, document.title, window.location.pathname + '#vip');
-    completeVipActivation();
-  } else if (status === 'failed') {
-    window.history.replaceState({}, document.title, window.location.pathname + '#vip');
-    openVipModal();
-    const err = document.getElementById('vip-form-error');
-    if (err) {
-      err.style.display = 'block';
-      err.textContent = 'Tu pago no se pudo completar. Por favor revisa los datos de tu tarjeta o intenta con otra tarjeta.';
-    }
-  }
-});
+// AUTO-HANDLE VIP RETURN FROM CLIP (SUCCESS & FAIL)
+function handleClipReturn() {
+    const searchParams = new URLSearchParams(window.location.search);
+    const hash = window.location.hash.toLowerCase();
+    
+    const isSuccess = searchParams.get('clip_status') === 'success' || hash.includes('vip-success');
+    const isFailed = searchParams.get('clip_status') === 'failed' || hash.includes('vip-failed');
 
+    if (!isSuccess && !isFailed) return;
+
+    // Ensure the SPA router loads the VIP section
+    if (typeof switchPage === 'function' && (!window.location.hash.includes('vip'))) {
+        switchPage('vip');
+    }
+
+    // Wait for sections/vip.html to finish loading into the DOM
+    let attempts = 0;
+    const checkModalReady = setInterval(() => {
+        attempts++;
+        const modal = document.getElementById("vip-register-modal");
+        
+        if (modal) {
+            clearInterval(checkModalReady);
+            window.history.replaceState({}, document.title, window.location.pathname + '#vip');
+
+            if (isSuccess) {
+                completeVipActivation();
+            } else if (isFailed) {
+                openVipModal();
+                const step1 = document.getElementById("vip-modal-step1");
+                const step2 = document.getElementById("vip-modal-step2");
+                const errBox = document.getElementById("vip-form-error");
+                
+                // Show Step 2 directly so customer can retry card without retyping info
+                if (step1) step1.style.display = "none";
+                if (step2) step2.style.display = "block";
+                if (errBox) {
+                    errBox.style.display = "block";
+                    errBox.textContent = "Tu pago no se pudo completar. Por favor revisa los datos de tu tarjeta o intenta con otro método.";
+                }
+            }
+        }
+
+        if (attempts >= 40) {
+            clearInterval(checkModalReady);
+        }
+    }, 100);
+}
+
+window.addEventListener('DOMContentLoaded', handleClipReturn);
+window.addEventListener('hashchange', handleClipReturn);
 
 async function completeVipActivation() {
-  const step2 = document.getElementById("vip-modal-step2");
-  const step3 = document.getElementById("vip-modal-step3");
-  const pinDisplay = document.getElementById("vip-display-pin");
-  const waLink = document.getElementById("vip-btn-whatsapp-save");
+    openVipModal();
+    const step1 = document.getElementById("vip-modal-step1");
+    const step2 = document.getElementById("vip-modal-step2");
+    const step3 = document.getElementById("vip-modal-step3");
+    const pinDisplay = document.getElementById("vip-display-pin");
+    const waLink = document.getElementById("vip-btn-whatsapp-save");
 
-  const phone = localStorage.getItem("chaiitto_vip_phone") || "";
-  const name = localStorage.getItem("chaiitto_vip_name") || "Socio VIP";
-  openVipModal();
-  if (step2) step2.style.display = "block";
-  if (step3) step3.style.display = "none";  
+    if (step1) step1.style.display = "none";
+    if (step2) step2.style.display = "block";
+    if (step3) step3.style.display = "none";
 
-  if (!phone) {
-    alert("No se encontró número de WhatsApp para vincular tu registro. Por favor contactanos por WhatsApp para resolver.");
-    return;
-  }
+    const phone = localStorage.getItem("chaiitto_vip_phone") || "";
+    const name = localStorage.getItem("chaiitto_vip_name") || "Socio VIP";
+
+    if (!phone) {
+        alert("No se encontró número de WhatsApp para vincular tu registro. Por favor contáctanos para resolver.");
+        return;
+    }
 
   // Call Apps Script to activate the record in Google Sheets
   const activateUrl = `${APPS_SCRIPT_VIP_URL}?action=activate&telefono=${encodeURIComponent(phone)}`;
