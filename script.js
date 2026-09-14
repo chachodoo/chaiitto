@@ -1231,27 +1231,17 @@ function handleVipRegister(e) {
 
 // STEP 3: ACTIVATION & DYNAMIC WHATSAPP ROUTING
 async function completeVipActivation() {
-    openVipModal();
-
-    const step1 = document.getElementById("vip-modal-step1");
-    const step2 = document.getElementById("vip-modal-step2");
-    const step3 = document.getElementById("vip-modal-step3");
-    const pinDisplay = document.getElementById("vip-display-pin");
-    const waLink = document.getElementById("vip-btn-whatsapp-save");
-
-    if (step1) step1.style.display = "none";
-    if (step2) step2.style.display = "none";
-    if (step3) step3.style.display = "block";
-
     const storedPhone = localStorage.getItem("chaiitto_vip_phone") || "";
     const name = localStorage.getItem("chaiitto_vip_name") || "Socio VIP";
     const cumple = localStorage.getItem("chaiitto_vip_cumple") || "";
 
     // 1. CHECK FOR ERRORS FIRST
     if (!storedPhone) {
+        closeVipModal(); // <--- Force closes the background modal so the empty success screen never shows
+
         // ENTERPRISE CUSTOM ERROR MODAL
         const overlay = document.createElement('div');
-        overlay.id = 'vip-error-overlay'; // Added explicit ID for bulletproof closing
+        overlay.id = 'vip-error-overlay';
         overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:999999;display:flex;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;';
 
         const modal = document.createElement('div');
@@ -1268,10 +1258,23 @@ async function completeVipActivation() {
 
         overlay.appendChild(modal);
         document.body.appendChild(overlay);
-        return; // HALT EXECUTION: No fireworks if we hit an error!
+        return; // HALT EXECUTION
     }
 
-    // 2. CELEBRATE SUCCESS
+    // 2. IF NO ERROR, SHOW SUCCESS UI
+    openVipModal();
+
+    const step1 = document.getElementById("vip-modal-step1");
+    const step2 = document.getElementById("vip-modal-step2");
+    const step3 = document.getElementById("vip-modal-step3");
+    const pinDisplay = document.getElementById("vip-display-pin");
+    const waLink = document.getElementById("vip-btn-whatsapp-save");
+
+    if (step1) step1.style.display = "none";
+    if (step2) step2.style.display = "none";
+    if (step3) step3.style.display = "block";
+
+    // 3. CELEBRATE SUCCESS
     // ENTERPRISE FIREWORKS DISPLAY (Matcha & Gold)
     if (typeof confetti === 'function') {
         const duration = 3000; // 3 seconds of continuous fireworks
