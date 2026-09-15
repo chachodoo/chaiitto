@@ -78,16 +78,16 @@ function updateCartUI() {
             totalQty += item.qty;
 
             const itemEl = document.createElement('div');
-            itemEl.style.cssText = 'display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; background: #FFFFFF; padding: 12px 14px; border-radius: 10px; border: 1px solid #E2E8E4; box-shadow: 0 2px 6px rgba(0,0,0,0.05);';
+            itemEl.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid #E2ECE5;';
             itemEl.innerHTML = `
-                <div style="flex: 1; padding-right: 10px;">
-                    <div style="color: var(--matcha-deep); font-size: 0.92em; font-family: var(--font-heading); font-weight: bold;">${item.title}</div>
-                    <div style="color: var(--gold-accent); font-size: 0.88em; font-weight: 700;">$${item.price} MXN</div>
+                <div style="flex: 1; padding-right: 15px;">
+                    <div style="color: #102619; font-size: 0.95rem; font-family: var(--font-heading, 'Cinzel', serif); font-weight: 800; letter-spacing: 0.5px; margin-bottom: 4px;">${item.title}</div>
+                    <div style="color: #64748B; font-size: 0.85rem; font-weight: 600;">$${item.price} MXN</div>
                 </div>
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <button onclick="updateCartQty(${index}, -1)" style="background: #F0F5F2; color: var(--matcha-deep); border: 1px solid #C2D4CE; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold;">-</button>
-                    <span style="color: var(--text-dark); font-weight: bold; font-size: 0.95em;">${item.qty}</span>
-                    <button onclick="updateCartQty(${index}, 1)" style="background: #F0F5F2; color: var(--matcha-deep); border: 1px solid #C2D4CE; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold;">+</button>
+                <div style="display: flex; align-items: center; gap: 12px; background: #ffffff; border: 1px solid #E2ECE5; border-radius: 8px; padding: 4px 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                    <button onclick="updateCartQty(${index}, -1)" style="background: none; border: none; color: #64748B; font-size: 1.2rem; cursor: pointer; padding: 0 4px;">-</button>
+                    <span style="color: #102619; font-weight: 700; font-size: 0.95rem; min-width: 16px; text-align: center;">${item.qty}</span>
+                    <button onclick="updateCartQty(${index}, 1)" style="background: none; border: none; color: #64748B; font-size: 1.1rem; cursor: pointer; padding: 0 4px;">+</button>
                 </div>
             `;
             container.appendChild(itemEl);
