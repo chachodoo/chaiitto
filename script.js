@@ -58,7 +58,8 @@ function updateCartUI() {
     const container = document.getElementById('cart-items-container');
     const badge = document.getElementById('cart-count-badge');
     const totalEl = document.getElementById('cart-total-price');
-
+    const subtotalEl = document.getElementById('cart-subtotal-price');
+    const shippingEl = document.getElementById('cart-shipping-price');
     if (!container) return;
 
     let totalQty = 0;
@@ -89,8 +90,14 @@ function updateCartUI() {
     }
 
     if (badge) badge.textContent = totalQty;
-    if (totalEl) totalEl.textContent = `$${totalPrice} MXN`;
-    
+
+
+const shippingCost = totalPrice > 0 ? 100 : 0;
+const grandTotal = totalPrice + shippingCost;
+
+if (subtotalEl) subtotalEl.textContent = `$${totalPrice} MXN`;
+if (shippingEl) shippingEl.textContent = `$${shippingCost} MXN`;
+if (totalEl) totalEl.textContent = `$${grandTotal} MXN`;    
 
     renderPayPalButtons();
 }
@@ -129,16 +136,24 @@ function renderPayPalButtons() {
                 label:  'checkout'
             },
             createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        description: `Pedido Chai-itto (${cart.length} productos)`,
-                        amount: {
-                            currency_code: "MXN",
-                            value: grandTotal.toFixed(2)
-                        }
-                    }]
-                });
-            },
+    const subtotal = calculateCartTotal();
+    const shipping = 100;
+    const finalTotal = subtotal + shipping;
+
+    return actions.order.create({
+        purchase_units: [{
+            description: "Pedido Chai-itto - Té de Hoja Suelta",
+            amount: {
+                currency_code: "MXN",
+                value: finalTotal.toFixed(2),
+                breakdown: {
+                    item_total: { currency_code: "MXN", value: subtotal.toFixed(2) },
+                    shipping: { currency_code: "MXN", value: shipping.toFixed(2) }
+                }
+            }
+        }]
+    });
+},
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
                     cart = [];
