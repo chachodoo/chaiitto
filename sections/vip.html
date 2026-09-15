@@ -173,15 +173,15 @@
         <div id="vip-modal-step2" style="display: none; text-align: center;">
 
             <!-- ORDER SUMMARY -->
-            <div style="background: #FAFCFA; border: 1px solid #E2ECE5; border-radius: 14px; padding: 20px 16px; margin-bottom: 18px;">
-                <h3 style="margin: 0 0 6px; font-family: var(--font-heading, 'Cinzel', serif); color: #102619; font-size: 1.25rem; font-weight: 800;">
+            <div style="background: #FAFCFA; border: 1px solid #E2ECE5; border-radius: 14px; padding: 18px 16px; margin-bottom: 16px;">
+                <h3 style="margin: 0 0 4px; font-family: var(--font-heading, 'Cinzel', serif); color: #102619; font-size: 1.25rem; font-weight: 800;">
                     Membresía VIP Premium
                 </h3>
                 <div style="font-family: var(--font-heading, 'Cinzel', serif); font-size: 2.3rem; font-weight: 800; color: var(--matcha-deep, #07511A); line-height: 1.1; margin: 4px 0;">
                     $180 <span style="font-size: 1rem; font-weight: 600; color: #64748B;">MXN</span>
                 </div>
-                <div style="font-size: 0.8rem; font-weight: 600; color: #64748B; margin-top: 4px;">
-                    Membresía Mensual
+                <div style="font-size: 0.78rem; font-weight: 700; color: #07511A; letter-spacing: 0.5px; margin-top: 4px;">
+                    Acceso 30 Días • Sin cobro recurrente
                 </div>
             </div>
 
@@ -190,26 +190,25 @@
                 <i class="fa-solid fa-credit-card"></i> Pagar con Tarjeta
             </a>
 
-            <!-- TRUST & SSL FOOTPRINT -->
+            <!-- TRUST & OFFICIAL FULL-COLOR CARDS -->
             <div style="margin-top: 14px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
                 <div style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 700; color: #07511A;">
                     <i class="fa-solid fa-lock" style="font-size: 0.75rem;"></i> Compra Segura SSL (256-bit)
                 </div>
-                <div style="display: flex; align-items: center; justify-content: center; gap: 10px; color: #64748B; font-size: 1.1rem;">
-                    <i class="fa-brands fa-cc-visa"></i>
-                    <i class="fa-brands fa-cc-mastercard"></i>
-                    <i class="fa-brands fa-cc-amex"></i>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <img src="https://cdn.jsdelivr.net/gh/aaronfischer/payment-icons/min/flat/visa.svg" alt="Visa" style="height: 20px;">
+                    <img src="https://cdn.jsdelivr.net/gh/aaronfischer/payment-icons/min/flat/mastercard.svg" alt="Mastercard" style="height: 20px;">
+                    <img src="https://cdn.jsdelivr.net/gh/aaronfischer/payment-icons/min/flat/amex.svg" alt="Amex" style="height: 20px;">
                 </div>
             </div>
 
-            <!-- DESKTOP-ONLY QR BLOCK (Hidden on <= 991px) -->
-            <div id="vip-desktop-qr-block" style="margin-top: 18px; padding-top: 16px; border-top: 1px solid #E2ECE5;">
-                <div style="display: flex; align-items: center; gap: 14px; background: #ffffff; border: 1px solid #E2ECE5; border-radius: 12px; padding: 10px 14px; text-align: left;">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://clip.mx/@chaiitto" alt="QR Clip" style="width: 54px; height: 54px; border-radius: 6px; flex-shrink: 0;">
-                    <div>
-                        <div style="font-weight: 800; font-size: 0.86rem; color: #102619;">Escanea para pagar desde tu celular</div>
-                        <div style="font-size: 0.76rem; color: #64748B;">Abre la cámara de tu móvil para completar el pago.</div>
-                    </div>
+            <!-- COMPACT DESKTOP-ONLY QR BLOCK -->
+            <div id="vip-desktop-qr-block" style="margin-top: 16px; padding-top: 14px; border-top: 1px solid #E2ECE5;">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 12px; background: #ffffff; border: 1px solid #E2ECE5; border-radius: 10px; padding: 8px 14px;">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://clip.mx/@chaiitto" alt="QR" style="width: 44px; height: 44px; border-radius: 4px; flex-shrink: 0;">
+                    <span style="font-weight: 700; font-size: 0.85rem; color: #102619;">
+                        Escanear para pagar con celular
+                    </span>
                 </div>
             </div>
 
