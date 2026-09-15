@@ -90,10 +90,7 @@ function updateCartUI() {
 
     if (badge) badge.textContent = totalQty;
     if (totalEl) totalEl.textContent = `$${totalPrice} MXN`;
-    const clipPayBtn = document.getElementById('cart-btn-clip-pay');
-    if (clipPayBtn) {
-        clipPayBtn.href = `https://clip.mx/@chaiitto?amount=${totalPrice}`;
-    }
+    
 
     renderPayPalButtons();
 }
