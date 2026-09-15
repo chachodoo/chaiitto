@@ -1051,7 +1051,7 @@ aside.sidebar-menu, .sidebar-menu {
 
     <!-- CART DRAWER -->
 <div id="cart-drawer-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 10001; backdrop-filter: blur(4px);">
-    <div id="cart-drawer" style="position: absolute; top: 0; right: 0; width: 100%; max-width: 420px; height: 100%; background: #ffffff; box-shadow: -4px 0 15px rgba(0,0,0,0.1); padding: 25px 20px; display: flex; flex-direction: column;">
+    <div id="cart-drawer" style="position: absolute; top: 0; right: 0; width: 100%; max-width: 420px; height: 100%; background: #ffffff; box-shadow: -4px 0 15px rgba(0,0,0,0.1); padding: 25px 20px; display: flex; flex-direction: column; overflow-y: auto;">
         
         <!-- TOP SECTION (Header + Items) -->
         <div style="display: flex; flex-direction: column; flex: 1; overflow-y: auto;">
@@ -1065,10 +1065,10 @@ aside.sidebar-menu, .sidebar-menu {
         
         <!-- BOTTOM SECTION (Total + Checkout) -->
         <div style="border-top: 2px solid #E2ECE5; padding-top: 18px; margin-top: 20px; flex-shrink: 0;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-family: var(--font-heading); font-size: 1.2em;">
-                <span style="color: #4A5D52; font-weight: 600;">Total Estimado:</span>
-                <span id="cart-total-price" style="color: var(--matcha-deep); font-weight: 800; font-size: 1.35em;">$0 MXN</span>
-            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-family: var(--font-heading);">
+    <span style="color: #4A5D52; font-weight: 700; font-size: 1rem; text-transform: uppercase;">Total:</span>
+    <span id="cart-total-price" style="color: var(--matcha-deep); font-weight: 900; font-size: 1.35rem; white-space: nowrap;">$0 MXN</span>
+</div>
            <!-- PAYPAL BUTTON CONTAINER -->
             <div id="paypal-button-container" style="margin-top: 16px; min-height: 45px;"></div>
             <!-- TRUST & OFFICIAL FULL-COLOR CARDS -->
