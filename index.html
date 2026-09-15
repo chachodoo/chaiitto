@@ -1050,14 +1050,18 @@ aside.sidebar-menu, .sidebar-menu {
     </div>
 
     <!-- CART DRAWER -->
-    <div id="cart-drawer-backdrop" onclick="closeCartOnBackdrop(event)" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); z-index: 10000; backdrop-filter: blur(5px);">
-        <div style="position: absolute; right: 0; top: 0; width: 100%; max-width: 440px; height: 100%; background: #FBFDF9; border-left: 3px solid var(--gold-border); padding: 25px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: -10px 0 30px rgba(0,0,0,0.15); overflow-y: auto; color: #1C2820;">
-            <div style="display: flex; justify-content: flex-start; align-items: center; padding: 24px 0 16px 0; border-bottom: 2px solid #E2ECE5; margin-bottom: 10px;">
-    <button onclick="toggleCartDrawer()" style="background: none; border: none; color: #102619; font-size: 0.95rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 8px;">
-        <i class="fa-solid fa-arrow-left"></i> Seguir Comprando
-    </button>
-</div>
-                <div id="cart-items-container" style="max-height: none; padding-right: 5px;"></div>
+    <!-- TOP SECTION (Header + Items) -->
+    <div style="display: flex; flex-direction: column; flex: 1; overflow-y: auto;">
+        <div style="display: flex; justify-content: flex-start; align-items: center; padding: 24px 0 16px 0; border-bottom: 2px solid #E2ECE5; margin-bottom: 10px;">
+            <button onclick="toggleCartDrawer()" style="background: none; border: none; color: #102619; font-size: 0.95rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-arrow-left"></i> Seguir Comprando
+            </button>
+        </div>
+        <div id="cart-items-container" style="max-height: none; padding-right: 5px;"></div>
+    </div>
+    
+    <!-- BOTTOM SECTION (Total + Checkout) -->
+    <div style="border-top: 2px solid #E2E8E4; padding-top: 18px; margin-top: 20px; flex-shrink: 0;">
             </div>
             <div style="border-top: 2px solid #E2E8E4; padding-top: 18px; margin-top: 20px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-family: var(--font-heading); font-size: 1.2em;">
