@@ -1052,12 +1052,8 @@ aside.sidebar-menu, .sidebar-menu {
     <!-- CART DRAWER -->
     <div id="cart-drawer-backdrop" onclick="closeCartOnBackdrop(event)" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); z-index: 10000; backdrop-filter: blur(5px);">
         <div style="position: absolute; right: 0; top: 0; width: 100%; max-width: 440px; height: 100%; background: #FBFDF9; border-left: 3px solid var(--gold-border); padding: 25px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: -10px 0 30px rgba(0,0,0,0.15); overflow-y: auto; color: #1C2820;">
-            <div>
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 24px 0 16px 0; border-bottom: 2px solid #E2ECE5; margin-bottom: 10px;">
-    <h2 style="margin: 0; font-family: var(--font-title); font-size: 1.8rem; color: #102619; font-style: italic; display: flex; align-items: center; gap: 10px;">
-        <i class="fa-solid fa-cart-shopping" style="color: #D4AF37; font-size: 1.4rem;"></i> Tu Pedido
-    </h2>
-    <button onclick="toggleCartDrawer()" style="background: none; border: none; color: #64748B; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 6px; transition: color 0.2s;" onmouseover="this.style.color='#102619'" onmouseout="this.style.color='#64748B'">
+            <div style="display: flex; justify-content: flex-start; align-items: center; padding: 24px 0 16px 0; border-bottom: 2px solid #E2ECE5; margin-bottom: 10px;">
+    <button onclick="toggleCartDrawer()" style="background: none; border: none; color: #102619; font-size: 0.95rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 8px;">
         <i class="fa-solid fa-arrow-left"></i> Seguir Comprando
     </button>
 </div>
