@@ -1066,9 +1066,22 @@ aside.sidebar-menu, .sidebar-menu {
         
         <!-- BOTTOM SECTION (Total + Checkout) -->
         <div style="border-top: 2px solid #E2ECE5; padding-top: 18px; margin-top: 20px; flex-shrink: 0;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-family: var(--font-heading);">
-    <span style="color: #4A5D52; font-weight: 700; font-size: 1rem; text-transform: uppercase;">Total:</span>
-    <span id="cart-total-price" style="color: var(--matcha-deep); font-weight: 900; font-size: 1.35rem; white-space: nowrap;">$0 MXN</span>
+            <div style="font-family: var(--font-heading); margin-bottom: 15px; font-size: 0.9rem;">
+    <div style="display: flex; justify-content: space-between; margin-bottom: 6px; color: #4A5D52;">
+        <span>Subtotal:</span>
+        <span id="cart-subtotal-price" style="font-weight: 700;">$0 MXN</span>
+    </div>
+    <div style="display: flex; justify-content: space-between; margin-bottom: 6px; color: #4A5D52;">
+        <span>Envío Nacional:</span>
+        <span id="cart-shipping-price" style="font-weight: 700; color: var(--matcha-deep);">$100 MXN</span>
+    </div>
+    <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #cbd5e1; padding-top: 8px; margin-top: 8px;">
+        <span style="color: #102619; font-weight: 800; text-transform: uppercase;">Total Final:</span>
+        <span id="cart-total-price" style="color: var(--matcha-deep); font-weight: 900; font-size: 1.35rem; white-space: nowrap;">$0 MXN</span>
+    </div>
+    <div style="font-size: 0.72rem; color: #64748b; text-align: right; margin-top: 4px;">
+        IVA incluido • Envío rastreado a todo México
+    </div>
 </div>
            <!-- PAYPAL BUTTON CONTAINER -->
             <div id="paypal-button-container" style="margin-top: 16px; min-height: 45px;"></div>
