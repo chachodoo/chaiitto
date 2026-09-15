@@ -145,10 +145,6 @@ function renderPayPalButtons() {
                     saveCart();
                     toggleCartDrawer();
 
-                    if (typeof confetti === 'function') {
-                        confetti({ particleCount: 200, spread: 100, origin: { y: 0.4 } });
-                    }
-
                     alert(`¡Pago completado con éxito! Recibirás la confirmación de envío en tu correo.`);
                 });
             },
