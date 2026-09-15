@@ -1050,53 +1050,43 @@ aside.sidebar-menu, .sidebar-menu {
     </div>
 
     <!-- CART DRAWER -->
-    <!-- TOP SECTION (Header + Items) -->
-    <div style="display: flex; flex-direction: column; flex: 1; overflow-y: auto;">
-        <div style="display: flex; justify-content: flex-start; align-items: center; padding: 24px 0 16px 0; border-bottom: 2px solid #E2ECE5; margin-bottom: 10px;">
-            <button onclick="toggleCartDrawer()" style="background: none; border: none; color: #102619; font-size: 0.95rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 8px;">
-                <i class="fa-solid fa-arrow-left"></i> Seguir Comprando
-            </button>
-        </div>
-        <div id="cart-items-container" style="max-height: none; padding-right: 5px;"></div>
-    </div>
-    
-    <!-- BOTTOM SECTION (Total + Checkout) -->
-    <div style="border-top: 2px solid #E2E8E4; padding-top: 18px; margin-top: 20px; flex-shrink: 0;">
+<div id="cart-drawer-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 10001; backdrop-filter: blur(4px);">
+    <div id="cart-drawer" style="position: absolute; top: 0; right: 0; width: 100%; max-width: 420px; height: 100%; background: #ffffff; box-shadow: -4px 0 15px rgba(0,0,0,0.1); padding: 25px 20px; display: flex; flex-direction: column;">
+        
+        <!-- TOP SECTION (Header + Items) -->
+        <div style="display: flex; flex-direction: column; flex: 1; overflow-y: auto;">
+            <div style="display: flex; justify-content: flex-start; align-items: center; padding: 24px 0 16px 0; border-bottom: 2px solid #E2ECE5; margin-bottom: 10px;">
+                <button onclick="toggleCartDrawer()" style="background: none; border: none; color: #102619; font-size: 0.95rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-arrow-left"></i> Seguir Comprando
+                </button>
             </div>
-            <div style="border-top: 2px solid #E2E8E4; padding-top: 18px; margin-top: 20px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-family: var(--font-heading); font-size: 1.2em;">
-                    <span style="color: #4A5D52; font-weight: 600;">Total Estimado:</span>
-                    <span id="cart-total-price" style="color: var(--matcha-deep); font-weight: 800; font-size: 1.35em;">$0 MXN</span>
+            <div id="cart-items-container" style="max-height: none; padding-right: 5px;"></div>
+        </div>
+        
+        <!-- BOTTOM SECTION (Total + Checkout) -->
+        <div style="border-top: 2px solid #E2ECE5; padding-top: 18px; margin-top: 20px; flex-shrink: 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-family: var(--font-heading); font-size: 1.2em;">
+                <span style="color: #4A5D52; font-weight: 600;">Total Estimado:</span>
+                <span id="cart-total-price" style="color: var(--matcha-deep); font-weight: 800; font-size: 1.35em;">$0 MXN</span>
+            </div>
+            <!-- PRIMARY ACTION BUTTON (CART) -->
+            <a id="cart-btn-clip-pay" href="https://clip.mx/@chaiitto" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-sizing: border-box; padding: 14px; background: var(--matcha-deep, #07511A); color: #ffffff; border-radius: 10px; font-weight: 800; font-size: 1rem; text-decoration: none; box-shadow: 0 4px 14px rgba(7, 81, 26, 0.25); transition: background 0.15s ease; margin-top: 16px;">
+                <i class="fa-solid fa-credit-card"></i> Pagar con Tarjeta
+            </a>
+            <!-- TRUST & OFFICIAL FULL-COLOR CARDS -->
+            <div style="margin-top: 14px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                <div style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 700; color: #07511A;">
+                    <i class="fa-solid fa-lock" style="font-size: 0.75rem;"></i> Compra Segura SSL (256-bit)
                 </div>
-                
-                <!-- PRIMARY ACTION BUTTON (CART) -->
-<a id="cart-btn-clip-pay" href="https://clip.mx/@chaiitto" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-sizing: border-box; padding: 14px; background: var(--matcha-deep, #07511A); color: #ffffff; border-radius: 10px; font-weight: 800; font-size: 1rem; text-decoration: none; box-shadow: 0 4px 14px rgba(7, 81, 26, 0.25); transition: background 0.15s ease; margin-top: 16px;">
-    <i class="fa-solid fa-credit-card"></i> Pagar con Tarjeta
-</a>
-
-<!-- TRUST & OFFICIAL FULL-COLOR CARDS -->
-<div style="margin-top: 14px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
-    <div style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 700; color: #07511A;">
-        <i class="fa-solid fa-lock" style="font-size: 0.75rem;"></i> Compra Segura SSL (256-bit)
-    </div>
-    <div style="display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 4px;">
-        <!-- Visa Oficial (Completo) -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 324" style="height: 20px; width: auto;">
-            <path fill="#1434CB" d="M394.8 318.5H324l44.3-273.2h70.8l-44.3 273.2zm241.6-267c-14.1-5.6-36.1-11.6-63.6-11.6-70 0-119.3 37.2-119.7 90.6-.4 39.4 35.1 61.3 62 74.4 27.6 13.5 36.8 22.2 36.7 34.3-.2 18.6-22.3 27.1-42.9 27.1-28.6 0-43.9-4.3-67.3-14.6l-9.2-4.4-10 61.9c16.6 7.7 47.4 14.4 79.3 14.7 74.8 0 123.3-36.9 123.8-94.1.2-31.4-18.7-55.2-59.8-74.9-24.9-12.8-40.2-21.3-40-34.4 0-11.6 13-23.9 41.2-23.9 23.5-.4 40.5 5 53.6 10.7l6.4 3.1 9.5-58.8zm181.7-.2h-54.7c-17 0-29.7 4.9-37.2 22.8L620.4 318.5h74.3l14.8-40.9h90.8l8.6 40.9h65.5l-56.3-273.4zm-64.8 174.5l23.5-64.6c-.3.5 4.8-13.2 7.8-21.7l4 19.5 13.7 66.8h-49zm-463.7-174.3l-69.3 186.3-7.4-37.9c-12.9-44-53.1-91.7-98-115.5l63.5 240.2h74.7l111.1-273.1h-74.6zm-177.3 0H0l1.2 7.6c87.3 22.3 145.1 76.1 169 140.7l-24.5-124.6c-4.2-17.1-16.7-22.5-33.4-23.7z"/>
-        </svg>
-        <!-- Mastercard Oficial (Proporciones Exactas) -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 158" style="height: 20px; width: auto;">
-            <rect fill="#FF5F00" width="67.58" height="121.76" x="94.21" y="18.12"/>
-            <path fill="#EB001B" d="M99.64 79A79 79 0 0 1 128 139.88 79 79 0 1 1 128 18.12 78.7 78.7 0 0 1 99.64 79z"/>
-            <path fill="#F79E1B" d="M256 79a79 79 0 0 1-128 60.88A79 79 0 0 0 156.36 79a78.7 78.7 0 0 0-28.36-60.88A79 79 0 0 1 256 79z"/>
-        </svg>
-        <!-- Amex -->
-        <i class="fa-brands fa-cc-amex" style="font-size: 24px; color: #006fcf;"></i>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 2px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" style="height: 14px; width: auto;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" style="height: 20px; width: auto;">
+                    <i class="fa-brands fa-cc-amex" style="font-size: 1.8rem; color: #006fcf;"></i>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-            </div>
-        </div>
-    </div>
 
     <!-- MAIN SCRIPT -->
     <script src="script.js?v=2"></script>
