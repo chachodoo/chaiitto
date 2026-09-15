@@ -35,12 +35,6 @@ function addToCart(name, price, presentation = '') {
     }
 
     saveCart();
-    
-    // Open cart drawer automatically
-    const drawer = document.getElementById('cart-drawer-backdrop');
-    if (drawer && drawer.style.display !== 'block') {
-        drawer.style.display = 'block';
-    }
 }
 
 function updateCartQty(index, change) {
