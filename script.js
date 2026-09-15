@@ -155,14 +155,57 @@ function renderPayPalButtons() {
     });
 },
             onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    cart = [];
-                    saveCart();
-                    toggleCartDrawer();
+        return actions.order.capture().then(function(details) {
+          // Extraer datos del comprador y envío de PayPal
+          const payer = details.payer || {};
+          const purchaseUnit = (details.purchase_units && details.purchase_units[0]) || {};
+          const shipping = purchaseUnit.shipping || {};
+          const addressObj = shipping.address || {};
+          
+          const customerName = (shipping.name && shipping.name.full_name) 
+            || `${payer.name?.given_name || ''} ${payer.name?.surname || ''}`.trim() 
+            || 'Cliente Chai-itto';
+            
+          const customerEmail = payer.email_address || '';
+          const customerPhone = payer.phone?.phone_number?.national_number || '';
+          
+          const shippingAddress = [
+            addressObj.address_line_1,
+            addressObj.address_line_2,
+            addressObj.admin_area_2,
+            addressObj.admin_area_1,
+            addressObj.postal_code,
+            addressObj.country_code
+          ].filter(Boolean).join(', ') || 'No provista por PayPal';
 
-                    alert(`¡Pago completado con éxito! Recibirás la confirmación de envío en tu correo.`);
-                });
-            },
+          // Resumen de artículos del carrito
+          const itemsSummary = cart.map(item => `• ${item.qty}x ${item.title} ($${item.price} MXN)`).join('\n');
+          const finalTotal = calculateCartTotal() + 100;
+          const orderId = details.id || data.orderID || ('CHAI-' + Date.now());
+
+          // Enviar datos al webhook de Google Sheets
+          const orderPayload = new URLSearchParams({
+            action: 'order',
+            orderId: orderId,
+            customerName: customerName,
+            customerEmail: customerEmail,
+            customerPhone: customerPhone,
+            shippingAddress: shippingAddress,
+            itemsSummary: itemsSummary,
+            total: finalTotal
+          });
+
+          fetch(`${VIP_API_URL}?${orderPayload.toString()}`, { mode: 'no-cors' })
+            .catch(err => console.error('Error registrando pedido en Sheet:', err));
+
+          // Limpiar carrito y cerrar modal
+          cart = [];
+          saveCart();
+          toggleCartDrawer();
+
+          alert(`¡Gracias por tu compra, ${customerName}! Tu pedido #${orderId} ha sido registrado con éxito.`);
+        });
+      },
             onError: function(err) {
                 console.error('PayPal Checkout Error:', err);
                 alert('Ocurrió un problema al procesar el pago. Por favor intenta de nuevo.');
