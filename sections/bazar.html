@@ -1,190 +1,120 @@
 <style>
-  /* Lock Gate Box VIP */
-.vip-login-card {
-    max-width: 400px;
-    margin: 40px auto;
-    padding: 40px 30px;
+  /* Lock Gate Box VIP */<style>
+  /* Tightened, compact gate card */
+  .vip-login-card {
+    max-width: 360px;
+    margin: 20px auto;
+    padding: 24px 20px;
     background: #ffffff;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    border: 1px solid #E2ECE5;
     text-align: center;
     font-family: var(--font-body, 'Montserrat', sans-serif);
-}
-
-.vip-header { margin-bottom: 25px; }
-
-.vip-crown-icon {
-    color: var(--gold-accent, #D4AF37);
-    font-size: 2.2rem;
-    margin-bottom: 15px;
-}
-
-.vip-header h3 {
-    font-family: var(--font-heading, 'Cinzel', serif);
-    color: var(--matcha-deep, #102619);
-    font-size: 1.5rem;
-    font-weight: 700;
-}
-
-.vip-header p {
-    color: #666;
-    font-size: 0.9rem;
-    margin: 0;
-}
-
-.input-wrapper {
-    position: relative;
-    margin-bottom: 15px;
-}
-
-.input-wrapper i {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--matcha-deep, #102619);
-    opacity: 0.5;
-}
-
-.vip-form input {
-    width: 100%;
-    padding: 14px 14px 14px 45px;
-    border: 1px solid #E2ECE5;
-    border-radius: 8px;
-    font-size: 1rem;
-    color: var(--matcha-deep, #102619);
-    font-family: inherit;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-sizing: border-box;
-}
-
-.vip-form input:focus {
-    outline: none;
-    border-color: var(--gold-accent, #D4AF37);
-    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
-}
-
-.btn-unlock {
-    width: 100%;
-    padding: 15px;
-    background: var(--matcha-deep, #102619);
-    color: #F5D061;
-    border: none;
-    border-radius: 8px;
-    font-family: var(--font-heading, 'Cinzel', serif);
-    font-weight: 700;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: transform 0.2s ease, background 0.3s ease;
+  }
+  .vip-gate-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+    background: rgba(7, 81, 26, 0.08);
+    color: var(--matcha-deep, #07511A);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-}
-
-.btn-unlock:hover {
-    background: #1A4E21;
-    transform: translateY(-2px);
-}
-
-.vip-join-link {
-    display: inline-block;
-    margin-top: 25px;
+    font-size: 1.35rem;
+  }
+  .vip-login-card h3 {
+    margin: 0 0 16px;
+    font-size: 1.2rem;
+    line-height: 1.25;
     color: var(--matcha-deep, #102619);
-    text-decoration: none;
-    font-size: 0.85rem;
-    transition: color 0.2s;
-}
-
-.vip-join-link strong {
-    color: var(--gold-accent, #D4AF37);
-    font-weight: 600;
-}
-
-.vip-join-link:hover strong {
-    text-decoration: underline;
-}
-
-  /* Catalog Grid (hidden until PIN is verified) */
-  #bazar-vip-content {
-    display: none;
-  }
-
-  #bazar-dynamic-track {
-    display: grid !important;
-    grid-template-columns: repeat(6, 1fr) !important;
-    gap: 14px !important;
-    width: 100% !important;
-    margin-top: 20px;
-  }
-
-  @media (max-width: 1280px) {
-    #bazar-dynamic-track { grid-template-columns: repeat(4, 1fr) !important; }
-  }
-  @media (max-width: 900px) {
-    #bazar-dynamic-track { grid-template-columns: repeat(3, 1fr) !important; }
-  }
-  @media (max-width: 600px) {
-    #bazar-dynamic-track { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
-    #bazar-dynamic-track .product-card { padding: 10px 8px !important; }
-    #bazar-dynamic-track .product-img-box { height: 110px !important; }
-    #bazar-dynamic-track .product-name { font-size: 0.88rem !important; }
-  }
-
-  .badge-oferta {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: linear-gradient(135deg, #FF1E27 0%, #D60000 100%);
-    color: #FFFFFF;
-    font-size: 0.65rem;
+    font-family: var(--font-heading, inherit);
     font-weight: 800;
-    padding: 2px 7px;
-    border-radius: 10px;
+  }
+  .vip-form .input-wrapper {
+    position: relative;
+    margin-bottom: 12px;
+  }
+  .vip-form .input-wrapper i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 0.9rem;
+  }
+  .vip-form input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px 10px 36px;
+    border: 1px solid #E2ECE5;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    outline: none;
+    background: #f8fafc;
+    color: #1e293b;
+  }
+  .vip-form input:focus {
+    border-color: var(--matcha-deep, #07511A);
+    background: #ffffff;
+  }
+  .btn-unlock {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background: var(--matcha-deep, #07511A);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 0.95rem;
+    cursor: pointer;
     letter-spacing: 0.5px;
-    box-shadow: 0 2px 8px rgba(255, 30, 39, 0.45);
-    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(7, 81, 26, 0.25);
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .btn-unlock:hover {
+    background: #0e3d16;
+    transform: translateY(-1px);
   }
 </style>
 
 <!-- LOCKED STATE: PIN GATE -->
 <div id="bazar-vip-lock" class="vip-login-card">
-    <div class="vip-header">
-        <i class="fa-solid fa-crown vip-crown-icon"></i>
-        <h4 style="margin-bottom: 0; font-size: 1.45rem;">Acceso Exclusivo para Socios VIP Premium</h4>
+  <div class="vip-gate-icon">
+    <i class="fa-solid fa-shield-halved"></i>
+  </div>
+  <h3>Acceso para Socios VIP</h3>
+
+  <form class="vip-form" onsubmit="return false;">
+    <!-- PHONE WITH COUNTRY SELECTOR -->
+    <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+      <select id="bazar-country-select" style="width: 95px; box-sizing: border-box; padding: 10px 6px; border: 1px solid #E2ECE5; border-radius: 8px; font-size: 0.88rem; background: #ffffff; color: var(--matcha-deep, #102619); font-weight: 700; cursor: pointer;">
+        <option value="52" selected>🇲🇽 +52</option>
+        <option value="1">🇺🇸 +1</option>
+      </select>
+      <div class="input-wrapper" style="flex: 1; min-width: 0; margin-bottom: 0;">
+        <i class="fa-solid fa-phone"></i>
+        <input type="tel" id="vip-phone-input" placeholder="10 dígitos WhatsApp" pattern="[0-9]{10}" maxlength="10" onkeydown="if (event.key === 'Enter') verifyVipPin();">
+      </div>
     </div>
 
-    <form class="vip-form" onsubmit="return false;">
-        <!-- PHONE WITH COUNTRY SELECTOR -->
-        <div style="display: flex; gap: 8px; margin-bottom: 15px;">
-            <select id="bazar-country-select" style="width: 105px; box-sizing: border-box; padding: 12px 6px; border: 1px solid #E2ECE5; border-radius: 8px; font-size: 0.88rem; background: #ffffff; color: var(--matcha-deep, #102619); font-weight: 700; cursor: pointer;">
-                <option value="52" selected>🇲🇽 +52</option>
-                <option value="1">🇺🇸 +1</option>
-            </select>
-            <div class="input-wrapper" style="flex: 1; min-width: 0; margin-bottom: 0;">
-                <i class="fa-solid fa-phone"></i>
-                <input type="tel" id="vip-phone-input" placeholder="10 dígitos WhatsApp" pattern="[0-9]{10}" maxlength="10" onkeydown="if (event.key === 'Enter') verifyVipPin();">
-            </div>
-        </div>
+    <!-- PIN INPUT -->
+    <div class="input-wrapper" style="margin-bottom: 8px;">
+      <i class="fa-solid fa-key"></i>
+      <input type="password" id="vip-pin-input" placeholder="PIN VIP" onkeydown="if (event.key === 'Enter') verifyVipPin();">
+    </div>
 
-        <!-- PIN INPUT -->
-        <div class="input-wrapper">
-            <i class="fa-solid fa-key"></i>
-            <input type="password" id="vip-pin-input" placeholder="PIN VIP" onkeydown="if (event.key === 'Enter') verifyVipPin();">
-        </div>
+    <div id="vip-pin-error" style="color: #D9534F; font-size: 0.82rem; font-weight: 700; min-height: 18px; margin-bottom: 10px;"></div>
 
-        <div id="vip-pin-error" style="color: #D9534F; font-size: 0.85rem; font-weight: 700; min-height: 20px; margin-bottom: 12px;"></div>
-
-        <button type="button" class="btn-unlock" onclick="verifyVipPin()">
-            <i class="fa-solid fa-arrow-right-to-bracket"></i> ENTRAR
-        </button>
-    </form>
-
-    <a href="#vip" onclick="window.location.hash='vip';" class="vip-join-link">
-        ¿Aún no eres miembro? <strong>Adquiere tu Membresía aquí</strong>
-    </a>
+    <button type="button" class="btn-unlock" onclick="verifyVipPin()">
+      <i class="fa-solid fa-arrow-right-to-bracket"></i> ENTRAR AL BAZAR
+    </button>
+  </form>
 </div>
 
 <!-- UNLOCKED STATE: VIP SHOWCASE -->
