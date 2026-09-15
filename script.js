@@ -579,10 +579,7 @@ async function verifyVipPin() {
         return;
     }
 
-    let cleanPhone = enteredPhone.replace(/\D/g, "");
-    if (cleanPhone.length === 10) {
-        cleanPhone = countryPrefix + cleanPhone;
-    }
+    const cleanPhone = countryPrefix + enteredPhone.replace(/\D/g, "");
 
     if (errorEl) {
         errorEl.style.color = '';
