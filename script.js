@@ -44,18 +44,40 @@ function saveCart() {
 }
 
 function addToCart(name, price, presentation = '') {
-    if (!name || price === undefined || price === null) return;
-    const numPrice = Number(price);
-    const itemTitle = presentation ? `${name} (${presentation})` : name;
-    const existingIndex = cart.findIndex(item => item.title === itemTitle);
+  if (!name || price === undefined || price === null) return;
+  const numPrice = Number(price);
+  const itemTitle = presentation ? `${name} (${presentation})` : name;
+  const existingIndex = cart.findIndex(item => item.title === itemTitle);
 
-    if (existingIndex > -1) {
-        cart[existingIndex].qty += 1;
-    } else {
-        cart.push({ title: itemTitle, price: numPrice, qty: 1 });
-    }
+  if (existingIndex > -1) {
+    cart[existingIndex].qty += 1;
+  } else {
+    cart.push({ title: itemTitle, price: numPrice, qty: 1 });
+  }
 
-    saveCart();
+  saveCart();
+
+  // 1. Bounce the floating cart button
+  const cartBtn = document.getElementById('floating-cart-btn');
+  if (cartBtn) {
+    cartBtn.style.transform = 'scale(1.25)';
+    setTimeout(() => { cartBtn.style.transform = ''; }, 220);
+  }
+
+  // 2. Micro Toast indicator (disappears after 2s)
+  let toast = document.getElementById('cart-micro-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'cart-micro-toast';
+    toast.style.cssText = 'position:fixed; bottom:85px; right:20px; background:#07511A; color:#FFFFFF; padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:700; z-index:99999; box-shadow:0 4px 12px rgba(0,0,0,0.25); display:flex; align-items:center; gap:8px; border:1.5px solid #D4AF37; transition:opacity 0.25s ease; opacity:0; pointer-events:none;';
+    document.body.appendChild(toast);
+  }
+  toast.innerHTML = '<i class="fa-solid fa-check" style="color:#F5D061;"></i> Agregado al carrito';
+  toast.style.opacity = '1';
+  clearTimeout(window._cartToastTimer);
+  window._cartToastTimer = setTimeout(() => {
+    toast.style.opacity = '0';
+  }, 2000);
 }
 
 function updateCartQty(index, change) {
