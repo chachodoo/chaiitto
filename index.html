@@ -896,11 +896,15 @@ aside.sidebar-menu, .sidebar-menu {
         }
 
 <style>
-/* ========================================================
-   ENTERPRISE HIGH-LUXURY MOBILE CINEMATIC SPLASH
-   ======================================================== */
+/* --- LUXURY CINEMATIC LENS & DRIFTING LEAF SPLASH --- */
 #mobile-splash-screen {
   display: none;
+}
+
+@property --hole-size {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
 }
 
 @media (max-width: 991px) {
@@ -921,31 +925,38 @@ aside.sidebar-menu, .sidebar-menu {
     touch-action: none !important;
     pointer-events: auto;
 
-    /* Full screen cover initially (circle aperture starts closed at 0% transparent hole) */
-    -webkit-mask-image: radial-gradient(circle at 50% 45%, transparent 0%, black 0%);
-    mask-image: radial-gradient(circle at 50% 45%, transparent 0%, black 0%);
-    -webkit-mask-size: 100% 100%;
-    mask-size: 100% 100%;
-
-    /* Slow motion smooth expansion */
-    transition: clip-path 2.4s cubic-bezier(0.25, 1, 0.35, 1), opacity 1s ease 1.4s !important;
-    clip-path: circle(150% at 50% 45%);
-    will-change: clip-path, opacity;
+    /* Radial hole mask: initially 0% transparent (100% covered) */
+    -webkit-mask-image: radial-gradient(circle at 50% 45%, transparent var(--hole-size), black calc(var(--hole-size) + 12%));
+    mask-image: radial-gradient(circle at 50% 45%, transparent var(--hole-size), black calc(var(--hole-size) + 12%));
+    will-change: --hole-size, opacity;
   }
 
-  /* Lens expands outward: a hole opens in the center and grows huge */
+  /* Slow-motion lens aperture expansion (2.4s liquid curve) */
   #mobile-splash-screen.splash-lens-open {
-    /* Hole grows from inside out using clip-path polygon or inverted circle */
-    clip-path: circle(0% at 50% 45%) !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
+    animation: openLensHole 2.4s cubic-bezier(0.25, 1, 0.35, 1) forwards;
   }
 
-  /* Fade the center elements smoothly as the lens expands */
+  @keyframes openLensHole {
+    0% {
+      --hole-size: 0%;
+      opacity: 1;
+    }
+    70% {
+      --hole-size: 110%;
+      opacity: 1;
+    }
+    100% {
+      --hole-size: 160%;
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  /* Center emblem dissolves gracefully as the lens widens */
   #mobile-splash-screen.splash-lens-open .splash-stage {
-    transform: scale(1.15);
     opacity: 0;
-    transition: transform 2s cubic-bezier(0.25, 1, 0.35, 1), opacity 0.8s ease 0.2s;
+    transform: scale(0.92);
+    transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
   }
 
   .splash-stage {
@@ -956,6 +967,8 @@ aside.sidebar-menu, .sidebar-menu {
     text-align: center;
     width: 100%;
     margin-top: -30px;
+    position: relative;
+    z-index: 5;
   }
 
   .splash-emblem-box {
@@ -1024,12 +1037,7 @@ aside.sidebar-menu, .sidebar-menu {
     left: -120%;
     width: 60%;
     height: 200%;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.45) 50%,
-      transparent 100%
-    );
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.45) 50%, transparent 100%);
     transform: rotate(28deg);
     animation: lightSheen 2.2s 0.6s infinite ease-in-out;
   }
@@ -1065,14 +1073,52 @@ aside.sidebar-menu, .sidebar-menu {
     animation: textEmerge 1s 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
+  /* FALLING TEA LEAF */
+  .splash-falling-leaf-track {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+  }
+
   .splash-leaf-emblem {
-    display: inline-block;
+    position: absolute;
     color: #F5D061;
-    font-size: 1.6rem;
-    margin-top: 22px;
-    filter: drop-shadow(0 4px 14px rgba(245, 208, 97, 0.45));
-    transform-origin: bottom center;
-    animation: textEmerge 0.8s 0.4s both, leafDance 1.6s 0.8s infinite ease-in-out;
+    font-size: 1.65rem;
+    filter: drop-shadow(0 4px 14px rgba(245, 208, 97, 0.5));
+    /* Starts above screen, falls gently with realistic sway */
+    animation: leafFallDown 2.4s cubic-bezier(0.35, 0, 0.25, 1) forwards;
+  }
+
+  @keyframes leafFallDown {
+    0% {
+      top: 5%;
+      transform: translateX(-30px) rotate(-45deg) scale(0.7);
+      opacity: 0;
+    }
+    15% {
+      opacity: 1;
+    }
+    30% {
+      top: 25%;
+      transform: translateX(35px) rotate(25deg) scale(1.15);
+    }
+    55% {
+      top: 50%;
+      transform: translateX(-30px) rotate(-20deg) scale(1.05);
+    }
+    80% {
+      top: 72%;
+      transform: translateX(20px) rotate(15deg) scale(1.1);
+    }
+    100% {
+      top: 84%;
+      transform: translateX(-5px) rotate(0deg) scale(1);
+      opacity: 0.95;
+    }
   }
 
   @keyframes emblemEntrance {
@@ -1100,32 +1146,6 @@ aside.sidebar-menu, .sidebar-menu {
     0% { opacity: 0; transform: translateY(16px); letter-spacing: 3px; }
     100% { opacity: 1; transform: translateY(0); }
   }
-
-  @keyframes leafDance {
-    0% {
-      transform: translateY(0) rotate(0deg) scale(1);
-    }
-    15% {
-      transform: translateY(-8px) rotate(-18deg) scale(1.12);
-    }
-    30% {
-      transform: translateY(-2px) rotate(14deg) scale(1.05);
-    }
-    45% {
-      transform: translateY(-11px) rotate(-12deg) scale(1.15);
-      color: #FFF2A8;
-    }
-    60% {
-      transform: translateY(-3px) rotate(16deg) scale(1.08);
-    }
-    75% {
-      transform: translateY(-7px) rotate(-8deg) scale(1.1);
-    }
-    100% {
-      transform: translateY(0) rotate(0deg) scale(1);
-      color: #F5D061;
-    }
-  }
 }
 </style>
 </head>
@@ -1146,6 +1166,9 @@ aside.sidebar-menu, .sidebar-menu {
       <h2>CHAI-ITTO</h2>
       <p>SALUD CON TÉ</p>
     </div>
+  </div>
+  <!-- Floating leaf drifting across the screen -->
+  <div class="splash-falling-leaf-track">
     <div class="splash-leaf-emblem">
       <i class="fa-solid fa-leaf"></i>
     </div>
@@ -1162,14 +1185,14 @@ aside.sidebar-menu, .sidebar-menu {
       return;
     }
 
-    // Give the dancing leaf and pulsing logo 2.6s to shine
+    // 1. Leaf drifts gracefully from top to bottom (2.4 seconds)
+    // 2. Center lens punches open smoothly, showing the homepage underneath
     setTimeout(function() {
       splash.classList.add('splash-lens-open');
-      // Remove after the 2.4s slow lens reveal completes
       setTimeout(function() {
         splash.remove();
-      }, 2500);
-    }, 2600);
+      }, 2450); // Matches the 2.4s slow lens animation
+    }, 2400);
   })();
 </script>
     
