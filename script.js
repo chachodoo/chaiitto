@@ -444,9 +444,9 @@ async function fetchProducts() {
         } else if (pageName === 'galeria') {
             setTimeout(loadGalleryRibbon, 100);
         } else if (pageName === 'menu') {
-            currentMenuPage = targetPage;
-            updateMenuDisplay();
-        }
+  menuNavigationState.currentPage = targetPage;
+  updateMenuDisplay();
+}
 
         // 3. FORCE IMMEDIATE JUMP TO TOP (Removed 'smooth' so it doesn't get stuck)
         window.scrollTo(0, 0);
