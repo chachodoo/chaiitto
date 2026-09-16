@@ -920,31 +920,32 @@ aside.sidebar-menu, .sidebar-menu {
     user-select: none !important;
     touch-action: none !important;
     pointer-events: auto;
-    /* Inverted mask: covers everything initially */
-    mask-image: radial-gradient(circle at 50% 45%, transparent 0%, transparent 0%, black 0%);
-    -webkit-mask-image: radial-gradient(circle at 50% 45%, transparent 0%, transparent 0%, black 0%);
-    transition: opacity 1.8s cubic-bezier(0.22, 1, 0.36, 1), transform 2.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
-    will-change: transform, opacity;
+
+    /* Full screen cover initially (circle aperture starts closed at 0% transparent hole) */
+    -webkit-mask-image: radial-gradient(circle at 50% 45%, transparent 0%, black 0%);
+    mask-image: radial-gradient(circle at 50% 45%, transparent 0%, black 0%);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+
+    /* Slow motion smooth expansion */
+    transition: clip-path 2.4s cubic-bezier(0.25, 1, 0.35, 1), opacity 1s ease 1.4s !important;
+    clip-path: circle(150% at 50% 45%);
+    will-change: clip-path, opacity;
   }
 
-  /* Ultra-soft slow motion zoom reveal */
-  #mobile-splash-screen.splash-iris-out {
+  /* Lens expands outward: a hole opens in the center and grows huge */
+  #mobile-splash-screen.splash-lens-open {
+    /* Hole grows from inside out using clip-path polygon or inverted circle */
+    clip-path: circle(0% at 50% 45%) !important;
     opacity: 0 !important;
-    transform: scale(1.35) !important;
-    filter: blur(14px) !important;
     pointer-events: none !important;
   }
 
-  #mobile-splash-screen.splash-iris-out .splash-emblem-box {
-    transform: scale(1.2);
-    transition: transform 2.2s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  #mobile-splash-screen.splash-iris-out .splash-text-group,
-  #mobile-splash-screen.splash-iris-out .splash-leaf-emblem {
+  /* Fade the center elements smoothly as the lens expands */
+  #mobile-splash-screen.splash-lens-open .splash-stage {
+    transform: scale(1.15);
     opacity: 0;
-    transform: translateY(-12px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transition: transform 2s cubic-bezier(0.25, 1, 0.35, 1), opacity 0.8s ease 0.2s;
   }
 
   .splash-stage {
@@ -1155,16 +1156,20 @@ aside.sidebar-menu, .sidebar-menu {
   (function() {
     var splash = document.getElementById('mobile-splash-screen');
     if (!splash) return;
+
     if (window.innerWidth >= 992) {
       splash.remove();
       return;
     }
+
+    // Give the dancing leaf and pulsing logo 2.6s to shine
     setTimeout(function() {
-      splash.classList.add('splash-iris-out');
+      splash.classList.add('splash-lens-open');
+      // Remove after the 2.4s slow lens reveal completes
       setTimeout(function() {
         splash.remove();
-      }, 2300); // Extended to let the 2.2s cinematic ease finish
-    }, 2800);
+      }, 2500);
+    }, 2600);
   })();
 </script>
     
