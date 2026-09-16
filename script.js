@@ -999,16 +999,22 @@ async function renderBazarCatalog() {
                     <div class="product-ingredients" style="font-size: 0.78rem; min-height: 32px;">${item.descripcion || ''}</div>
                 </div>
                 <div>
-                    <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; margin-top: auto; padding: 6px 4px 2px 4px;">
-                    <div style="display: flex; align-items: baseline; gap: 6px;">
-                        ${isSale ? `<span style="font-size: 0.78rem; text-decoration: line-through; color: #888;">$${originalPrice}</span>` : ''}
-                        <span style="font-family: var(--font-heading, 'Cinzel', serif); font-size: 1.05rem; font-weight: 800; color: var(--matcha-deep, #07511A);">$${price}</span>
-                    </div>
-                    <button onclick="openBazarModal(${index})" title="Ver detalle de la pieza" style="width: 34px; height: 34px; min-width: 34px; border-radius: 50%; border: 1.5px solid var(--matcha-deep, #07511A); background: #FFFFFF; color: var(--matcha-deep, #07511A); display: flex; align-items: center; justify-content: center; font-size: 0.95rem; cursor: pointer; padding: 0; box-shadow: 0 2px 6px rgba(0,0,0,0.06); transition: all 0.15s ease;" onmouseover="this.style.background='#07511A'; this.style.color='#FFFFFF'; this.style.transform='scale(1.08)';" onmouseout="this.style.background='#FFFFFF'; this.style.color='#07511A'; this.style.transform='scale(1)';">
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </div>
-                </div>
+                    <div>
+      <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; margin-top: auto; padding: 6px 4px 2px 4px;">
+        <div style="display: flex; align-items: baseline; gap: 6px;">
+          ${isSale ? `<span style="font-size: 0.78rem; text-decoration: line-through; color: #888;">$${originalPrice}</span>` : ''}
+          <span style="font-family: var(--font-heading, 'Cinzel', serif); font-size: 1.05rem; font-weight: 800; color: var(--matcha-deep, #07511A);">$${price}</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <button onclick="openBazarModal(${index})" title="Ver fotos" style="width: 32px; height: 32px; min-width: 32px; border-radius: 50%; border: 1.5px solid #CBD5E1; background: #FFFFFF; color: #64748B; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; cursor: pointer; padding: 0;">
+            <i class="fa-regular fa-eye"></i>
+          </button>
+          <button onclick="event.stopPropagation(); addToCart('${item.name ? item.name.replace(/'/g, "\\'") : 'Pieza Bazar'}', ${price})" title="Añadir al carrito" style="width: 34px; height: 34px; min-width: 34px; border-radius: 50%; border: 1.5px solid var(--matcha-deep, #07511A); background: #FFFFFF; color: var(--matcha-deep, #07511A); display: flex; align-items: center; justify-content: center; font-size: 0.95rem; cursor: pointer; padding: 0; box-shadow: 0 2px 6px rgba(0,0,0,0.06); transition: all 0.15s ease;" onmouseover="this.style.background='#07511A'; this.style.color='#FFFFFF'; this.style.transform='scale(1.08)';" onmouseout="this.style.background='#FFFFFF'; this.style.color='#07511A'; this.style.transform='scale(1)';">
+            <i class="fa-solid fa-cart-plus"></i>
+          </button>
+        </div>
+      </div>
+    </div>
             `;
             track.appendChild(card);
         });
@@ -1032,9 +1038,16 @@ function openBazarModal(index) {
     const isSale = currentBazarItem.precioOferta !== null && currentBazarItem.precioOferta !== undefined && currentBazarItem.precioOferta > 0;
     const finalPrice = isSale ? currentBazarItem.precioOferta : (currentBazarItem.precio || 0);
     const buyBtn = document.getElementById('bazar-modal-buy-btn');
-    if (buyBtn) {
-        buyBtn.href = `https://wa.me/522212061234?text=${encodeURIComponent('Hola Chai-itto, me interesa apartar la pieza de Bazar: ' + (currentBazarItem.name || '') + ' ($' + finalPrice + ' MXN)')}`;
-    }
+  if (buyBtn) {
+    buyBtn.removeAttribute('href');
+    buyBtn.removeAttribute('target');
+    buyBtn.innerHTML = '<i class="fa-solid fa-cart-plus"></i> Agregar al Carrito';
+    buyBtn.onclick = function() {
+      addToCart(currentBazarItem.name || 'Pieza Bazar', finalPrice);
+      closeBazarModal();
+      toggleCartDrawer();
+    };
+  }
 
     updateBazarModalImage();
     modal.classList.add('active');
