@@ -1,1 +1,62 @@
-[]
+[
+  {
+    "num": "101",
+    "name": "Gafas de Sol",
+    "descripcion": "Marca Laundry",
+    "precio": 600,
+    "precioOferta": 200,
+    "blurPreview": "",
+    "images": [
+      "bazar/bazar-101-1.jpeg",
+      "bazar/bazar-101-2.jpeg"
+    ]
+  },
+  {
+    "num": "102",
+    "name": "Gafas de Sol Vince Camuto",
+    "descripcion": "En color negro que combinan con todo",
+    "precio": 600,
+    "precioOferta": 200,
+    "blurPreview": "",
+    "images": [
+      "bazar/bazar-102-1.jpeg",
+      "bazar/bazar-102-2.jpeg"
+    ]
+  },
+  {
+    "num": "103",
+    "name": "Gafas de Sol True Religion",
+    "descripcion": "Eleva tu estilo con estas gafas iconicas",
+    "precio": 800,
+    "precioOferta": 350,
+    "blurPreview": "",
+    "images": [
+      "bazar/bazar-103-1.jpeg",
+      "bazar/bazar-103-2.jpeg"
+    ]
+  },
+  {
+    "num": "104",
+    "name": "Gafas de sol Vince Camuto",
+    "descripcion": "Diseno ojo de gato que eleva cualquier look",
+    "precio": 600,
+    "precioOferta": 250,
+    "blurPreview": "",
+    "images": [
+      "bazar/bazar-104-1.jpeg",
+      "bazar/bazar-104-2.jpeg"
+    ]
+  },
+  {
+    "num": "105",
+    "name": "Gafas de Sol TH",
+    "descripcion": "Marca Tommy Hilfiger iconicas tipo aviador",
+    "precio": 800,
+    "precioOferta": 350,
+    "blurPreview": "",
+    "images": [
+      "bazar/bazar-105-1.jpeg",
+      "bazar/bazar-105-2.jpeg"
+    ]
+  }
+]
