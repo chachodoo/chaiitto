@@ -304,9 +304,12 @@ function updateMenuDisplay() {
   prevButtons.forEach(btn => {
     if (!btn) return;
     if (isSinglePage) {
-      btn.style.display = 'none';
+      btn.style.display = 'inline-flex';
+      btn.style.visibility = 'hidden';
+      btn.style.pointerEvents = 'none';
     } else {
       btn.style.display = 'inline-flex';
+      btn.style.visibility = 'visible';
       btn.style.opacity = canPrev ? '1' : '0.2';
       btn.style.pointerEvents = canPrev ? 'auto' : 'none';
     }
@@ -315,9 +318,13 @@ function updateMenuDisplay() {
   nextButtons.forEach(btn => {
     if (!btn) return;
     if (isSinglePage) {
-      btn.style.display = 'none';
+      btn.style.display = 'inline-flex';
+      btn.style.visibility = 'hidden';
+      btn.style.pointerEvents = 'none';
+      btn.classList.remove('menu-pulse');
     } else {
       btn.style.display = 'inline-flex';
+      btn.style.visibility = 'visible';
       btn.style.opacity = canNext ? '1' : '0.2';
       btn.style.pointerEvents = canNext ? 'auto' : 'none';
 
