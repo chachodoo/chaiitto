@@ -100,7 +100,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(7, 81, 26, 0.85);
+    background: var(--matcha-deep, #1C3317);
     color: #FFFFFF;
     border: 1.5px solid var(--gold-border, #D4AF37);
     border-radius: 50%;
@@ -109,12 +109,11 @@
     justify-content: center;
     cursor: pointer;
     z-index: 20;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s ease, background-color 0.2s ease;
-    backdrop-filter: blur(4px);
   }
   .menu-mid-arrow:hover {
-    background: #07511A;
+    background: #237A38;
     transform: translateY(-50%) scale(1.08);
   }
 
@@ -150,11 +149,7 @@
       height: 40px;
       font-size: 1rem;
     }
-    .menu-mid-arrow {
-      width: 48px;
-      height: 48px;
-      font-size: 1.25rem;
-    }
+    .menu-mid-arrow { width: 40px; height: 40px; font-size: 1rem; }
   }
 
   /* ================= MOBILE (max-width: 991px) ================= */
@@ -169,10 +164,6 @@
       height: 36px;
       font-size: 0.9rem;
     }
-    .menu-mid-arrow {
-      width: 42px;
-      height: 42px;
-      font-size: 1.05rem;
-    }
+    .menu-mid-arrow { width: 36px; height: 36px; font-size: 0.9rem; }
   }
 </style>
