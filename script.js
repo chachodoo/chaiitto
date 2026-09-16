@@ -1202,19 +1202,19 @@ function initMobileSplash() {
   const splash = document.getElementById('mobile-splash-screen');
   if (!splash) return;
 
-  // Run only on mobile/tablet viewports (< 992px)
+  // Desktop check
   if (window.innerWidth >= 992) {
-    splash.style.display = 'none';
+    splash.remove();
     return;
   }
 
-  // Display for 2.2 seconds, then smoothly reveal the page
+  // Guaranteed exit sequence
   setTimeout(() => {
-    splash.classList.add('splash-fade-out');
+    splash.classList.add('splash-leave');
     setTimeout(() => {
       splash.remove();
-    }, 650);
-  }, 2200);
+    }, 850);
+  }, 2300);
 }
 
 window.addEventListener('hashchange', handleHashNavigation);
