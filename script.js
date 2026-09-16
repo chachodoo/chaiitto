@@ -1191,11 +1191,31 @@ function initVisitorCounter() {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
+    initMobileSplash();
     await fetchProducts();
     handleHashNavigation();
     initVisitorCounter();
     updateCartUI();
 });
+
+function initMobileSplash() {
+  const splash = document.getElementById('mobile-splash-screen');
+  if (!splash) return;
+
+  // Run only on mobile/tablet viewports (< 992px)
+  if (window.innerWidth >= 992) {
+    splash.style.display = 'none';
+    return;
+  }
+
+  // Display for 2.2 seconds, then smoothly reveal the page
+  setTimeout(() => {
+    splash.classList.add('splash-fade-out');
+    setTimeout(() => {
+      splash.remove();
+    }, 650);
+  }, 2200);
+}
 
 window.addEventListener('hashchange', handleHashNavigation);
 
