@@ -1165,6 +1165,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 window.addEventListener('hashchange', handleHashNavigation);
 
 function openFullMenuCatalog(startPage = 1) {
+  window.targetMenuPage = startPage;
   menuNavigationState.mode = 'CATALOG';
   menuNavigationState.currentPage = startPage;
   menuNavigationState.minPage = 1;
@@ -1178,13 +1179,11 @@ function openFullMenuCatalog(startPage = 1) {
   }
 }
 
-
-
-
 // --- JUMP TO MENU FROM A COLLECTION ---
 function jumpToMenuCollection(startPage) {
   const collection = MENU_COLLECTIONS_MAP[startPage];
-  
+  window.targetMenuPage = startPage;
+
   if (collection) {
     menuNavigationState.mode = 'COLLECTION';
     menuNavigationState.currentPage = collection.start;
