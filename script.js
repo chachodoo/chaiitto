@@ -116,7 +116,7 @@ function updateCartUI() {
             totalQty += item.qty;
 
             const itemEl = document.createElement('div');
-            itemEl.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid #E2ECE5;';
+            itemEl.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid #E2ECE5;';
             itemEl.innerHTML = `
                 <div style="flex: 1; padding-right: 15px;">
                     <div style="color: #102619; font-size: 0.95rem; font-family: var(--font-heading, 'Cinzel', serif); font-weight: 800; letter-spacing: 0.5px; margin-bottom: 4px;">${item.title}</div>
