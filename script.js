@@ -960,67 +960,66 @@ async function loadBazarGrid() {
 }
 
 async function renderBazarCatalog() {
-    const track = document.getElementById('bazar-dynamic-track');
-    if (!track) return;
+  const track = document.getElementById('bazar-dynamic-track');
+  if (!track) return;
 
-    try {
-        const response = await fetch('bazar.json?t=' + Date.now());
-        bazarList = await response.json();
-        track.innerHTML = '';
+  try {
+    const response = await fetch('bazar.json?t=' + Date.now());
+    bazarList = await response.json();
+    track.innerHTML = '';
 
-        if (!bazarList || bazarList.length === 0) {
-            track.innerHTML = `
-                <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; color: var(--text-muted);">
-                    <i class="fa-solid fa-crown" style="font-size: 2.5rem; color: var(--gold-accent); margin-bottom: 15px; display: block;"></i>
-                    <h3 style="font-family: var(--font-heading); color: var(--matcha-deep); margin-bottom: 8px;">Inventario VIP en Preparación</h3>
-                    <p style="font-size: 0.95rem;">Actualmente estamos catalogando nuevas piezas exclusivas.</p>
-                </div>
-            `;
-            return;
-        }
-
-        bazarList.forEach((item, index) => {
-            const isSale = item.precioOferta !== null && item.precioOferta !== undefined && item.precioOferta > 0;
-            const price = isSale ? item.precioOferta : (item.precio || 0);
-            const originalPrice = item.precio || 0;
-            const coverImage = (item.images && item.images.length > 0) ? item.images[0] : (item.image || 'logo.png');
-
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            card.style.position = 'relative';
-
-            card.innerHTML = `
-                <div>
-                    ${isSale ? '<span class="badge-oferta">OFERTA</span>' : ''}
-                    <div class="product-img-box gallery-trigger" style="cursor: zoom-in;" title="Ver fotos" onclick="openBazarModal(${index})">
-                        <img src="${coverImage}" alt="${item.name || 'Bazar'}" loading="lazy">
-                    </div>
-                    <div class="product-name" style="margin-top: 8px;">${item.name || 'Artículo Bazar'}</div>
-                    <div class="product-ingredients" style="font-size: 0.78rem; min-height: 32px;">${item.descripcion || ''}</div>
-                </div>
-                <div>
-                    <div>
-      <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; margin-top: auto; padding: 6px 4px 2px 4px;">
-        <div style="display: flex; align-items: baseline; gap: 6px;">
-          ${isSale ? `<span style="font-size: 0.78rem; text-decoration: line-through; color: #888;">$${originalPrice}</span>` : ''}
-          <span style="font-family: var(--font-heading, 'Cinzel', serif); font-size: 1.05rem; font-weight: 800; color: var(--matcha-deep, #07511A);">$${price}</span>
+    if (!bazarList || bazarList.length === 0) {
+      track.innerHTML = `
+        <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; color: var(--text-muted);">
+          <i class="fa-solid fa-crown" style="font-size: 2.5rem; color: var(--gold-accent); margin-bottom: 15px; display: block;"></i>
+          <h3 style="font-family: var(--font-heading); color: var(--matcha-deep); margin-bottom: 8px;">Inventario VIP en Preparación</h3>
+          <p style="font-size: 0.95rem;">Actualmente estamos catalogando nuevas piezas exclusivas.</p>
         </div>
-        <div style="display: flex; align-items: center; gap: 6px;">
-          <button onclick="openBazarModal(${index})" title="Ver fotos" style="width: 32px; height: 32px; min-width: 32px; border-radius: 50%; border: 1.5px solid #CBD5E1; background: #FFFFFF; color: #64748B; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; cursor: pointer; padding: 0;">
-            <i class="fa-regular fa-eye"></i>
-          </button>
-          <button onclick="event.stopPropagation(); addToCart('${item.name ? item.name.replace(/'/g, "\\'") : 'Pieza Bazar'}', ${price})" title="Añadir al carrito" style="width: 34px; height: 34px; min-width: 34px; border-radius: 50%; border: 1.5px solid var(--matcha-deep, #07511A); background: #FFFFFF; color: var(--matcha-deep, #07511A); display: flex; align-items: center; justify-content: center; font-size: 0.95rem; cursor: pointer; padding: 0; box-shadow: 0 2px 6px rgba(0,0,0,0.06); transition: all 0.15s ease;" onmouseover="this.style.background='#07511A'; this.style.color='#FFFFFF'; this.style.transform='scale(1.08)';" onmouseout="this.style.background='#FFFFFF'; this.style.color='#07511A'; this.style.transform='scale(1)';">
-            <i class="fa-solid fa-cart-plus"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-            `;
-            track.appendChild(card);
-        });
-    } catch (error) {
-        console.error('Error cargando bazar.json:', error);
+      `;
+      return;
     }
+
+    bazarList.forEach((item, index) => {
+      const originalPrice = parseFloat(item.precio) || 0;
+      const offerPrice = parseFloat(item.precioOferta) || 0;
+      const isSale = offerPrice > 0 && offerPrice < originalPrice;
+      const finalPrice = isSale ? offerPrice : originalPrice;
+      const images = (item.images && item.images.length > 0) ? item.images : ['logo.png'];
+      const coverImage = images[0];
+      const displayName = item.num ? `#${item.num}. ${item.name || ''}` : (item.name || 'Artículo VIP');
+
+      const card = document.createElement('div');
+      card.className = 'product-card oferta-card';
+      card.style.cursor = 'pointer';
+      card.onclick = () => openBazarModal(index);
+
+      card.innerHTML = `
+        <div>
+          <div class="product-img-box oferta-img-container">
+            ${isSale ? '<span class="badge-oferta" style="position: absolute; top: 6px; right: 6px; background: #D9534F; color: #FFFFFF; font-size: 0.65rem; font-weight: 800; padding: 2px 7px; border-radius: 6px; letter-spacing: 0.5px; z-index: 2;">OFERTA</span>' : ''}
+            <img src="${coverImage}" alt="${item.name || 'Bazar'}" loading="lazy" onerror="this.src='logo.png'">
+          </div>
+          <h3 class="product-name oferta-title">${displayName}</h3>
+          <p class="product-ingredients oferta-subtitle">${item.descripcion || ''}</p>
+        </div>
+        <div>
+          <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; margin-top: auto; padding: 6px 4px 2px 4px;">
+            <div style="display: flex; align-items: baseline; gap: 6px;">
+              ${isSale ? `<span style="font-size: 0.78rem; text-decoration: line-through; color: #888;">$${originalPrice}</span>` : ''}
+              <span style="font-family: var(--font-heading, 'Cinzel', serif); font-size: 1.05rem; font-weight: 800; color: var(--matcha-deep, #07511A);">$${finalPrice}</span>
+            </div>
+            <button onclick="event.stopPropagation(); addToCart('${displayName.replace(/'/g, "\\'")}', ${finalPrice})" title="Añadir al carrito" style="width: 34px; height: 34px; min-width: 34px; border-radius: 50%; border: 1.5px solid var(--matcha-deep, #07511A); background: #FFFFFF; color: var(--matcha-deep, #07511A); display: flex; align-items: center; justify-content: center; font-size: 0.95rem; cursor: pointer; padding: 0; box-shadow: 0 2px 6px rgba(0,0,0,0.06); transition: all 0.15s ease;" onmouseover="this.style.background='#07511A'; this.style.color='#FFFFFF'; this.style.transform='scale(1.08)';" onmouseout="this.style.background='#FFFFFF'; this.style.color='#07511A'; this.style.transform='scale(1)';">
+              <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+        </div>
+      `;
+
+      track.appendChild(card);
+    });
+  } catch (error) {
+    console.error('Error cargando bazar.json:', error);
+  }
 }
 
 /* Modal Functions for Bazar VIP */
