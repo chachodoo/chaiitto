@@ -1171,6 +1171,9 @@ function openFullMenuCatalog(startPage = 1) {
   }
 }
 
+
+
+
 // --- JUMP TO MENU FROM A COLLECTION ---
 function jumpToMenuCollection(startPage) {
   const collection = MENU_COLLECTIONS_MAP[startPage];
