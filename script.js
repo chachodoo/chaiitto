@@ -1,7 +1,28 @@
 let allProducts = {};
 const whatsappPhoneNumber = "522218415466"; 
-let currentMenuPage = 1;        
-const totalMenuPages = 14; 
+const MENU_TOTAL_PAGES = 14;
+
+const MENU_COLLECTIONS_MAP = {
+  1:  { name: "Bienestar",     start: 1,  length: 1 },
+  2:  { name: "Chai Lover",    start: 2,  length: 1 },
+  3:  { name: "Blue Magic",    start: 3,  length: 1 },
+  4:  { name: "Viajes con Té", start: 4,  length: 1 },
+  5:  { name: "Nocturna",      start: 5,  length: 1 },
+  6:  { name: "Especial",      start: 6,  length: 3 },
+  9:  { name: "Wow",           start: 9,  length: 2 },
+  11: { name: "Café",          start: 11, length: 1 },
+  12: { name: "Choco Latte",   start: 12, length: 1 },
+  13: { name: "Tentaciones",   start: 13, length: 1 },
+  14: { name: "Quiero Matcha", start: 14, length: 1 }
+};
+
+let menuNavigationState = {
+  mode: 'CATALOG',
+  currentPage: 1,
+  minPage: 1,
+  maxPage: 14,
+  collectionName: ''
+};
 
 let selectedProductName = '';
 let selectedFrascoPrice = 0;
@@ -231,17 +252,80 @@ function requestDirectPaymentLink() {
 
 // MENU PAGE FLIPPER CONTROLS
 function changeMenuPage(direction) {
-    currentMenuPage += direction;
-    if (currentMenuPage < 1) currentMenuPage = totalMenuPages;
-    if (currentMenuPage > totalMenuPages) currentMenuPage = 1;
+  const target = menuNavigationState.currentPage + direction;
+  if (target >= menuNavigationState.minPage && target <= menuNavigationState.maxPage) {
+    menuNavigationState.currentPage = target;
     updateMenuDisplay();
+  }
 }
 
 function updateMenuDisplay() {
-    const imgElement = document.getElementById('menu-current-image');
-    const indicatorElement = document.getElementById('menu-page-indicator');
-    if (indicatorElement) indicatorElement.textContent = `${currentMenuPage} / ${totalMenuPages}`;
-    if (imgElement) imgElement.src = `menu/page-${currentMenuPage}.webp`;
+  const imgElement = document.getElementById('menu-current-image');
+  const indTop = document.getElementById('menu-page-indicator-top');
+  const indBottom = document.getElementById('menu-page-indicator-bottom');
+
+  // 1. Update the image
+  if (imgElement) {
+    imgElement.src = `menu/page-${menuNavigationState.currentPage}.webp`;
+  }
+
+  // 2. Set the text for both top & bottom indicators
+  let labelText = '';
+  if (menuNavigationState.mode === 'COLLECTION') {
+    const totalInGroup = (menuNavigationState.maxPage - menuNavigationState.minPage) + 1;
+    const currentInGroup = (menuNavigationState.currentPage - menuNavigationState.minPage) + 1;
+    labelText = totalInGroup === 1 
+      ? menuNavigationState.collectionName 
+      : `${menuNavigationState.collectionName} (${currentInGroup} de ${totalInGroup})`;
+  } else {
+    labelText = `${menuNavigationState.currentPage} / ${MENU_TOTAL_PAGES}`;
+  }
+
+  if (indTop) indTop.textContent = labelText;
+  if (indBottom) indBottom.textContent = labelText;
+
+  // 3. Arrow states (disabled / hidden / pulsating)
+  const isSinglePage = menuNavigationState.minPage === menuNavigationState.maxPage;
+  const canPrev = menuNavigationState.currentPage > menuNavigationState.minPage;
+  const canNext = menuNavigationState.currentPage < menuNavigationState.maxPage;
+
+  const prevButtons = [
+    document.getElementById('menu-top-prev'),
+    document.getElementById('menu-mid-prev'),
+    document.getElementById('menu-bot-prev')
+  ];
+
+  const nextButtons = [
+    document.getElementById('menu-top-next'),
+    document.getElementById('menu-mid-next'),
+    document.getElementById('menu-bot-next')
+  ];
+
+  prevButtons.forEach(btn => {
+    if (!btn) return;
+    if (isSinglePage) {
+      btn.style.display = 'none';
+    } else {
+      btn.style.display = 'inline-flex';
+      btn.style.opacity = canPrev ? '1' : '0.2';
+      btn.style.pointerEvents = canPrev ? 'auto' : 'none';
+    }
+  });
+
+  nextButtons.forEach(btn => {
+    if (!btn) return;
+    if (isSinglePage) {
+      btn.style.display = 'none';
+    } else {
+      btn.style.display = 'inline-flex';
+      btn.style.opacity = canNext ? '1' : '0.2';
+      btn.style.pointerEvents = canNext ? 'auto' : 'none';
+
+      // Pulse next arrow only on multi-page collections when on the starting page
+      const shouldPulse = (menuNavigationState.mode === 'COLLECTION') && canNext && (menuNavigationState.currentPage === menuNavigationState.minPage);
+      btn.classList.toggle('menu-pulse', shouldPulse);
+    }
+  });
 }
 
 // ENTERPRISE GALLERY RENDERER
@@ -1074,22 +1158,28 @@ document.addEventListener('DOMContentLoaded', async () => {
 window.addEventListener('hashchange', handleHashNavigation);
 
 // --- JUMP TO MENU FROM A COLLECTION ---
-function jumpToMenuCollection(pageNum) {
-    // 1. Instantly highlight tapped pill in warm gold
-    const eventTarget = window.event ? (window.event.target.closest('button') || window.event.currentTarget) : null;
-    const tappedBtn = eventTarget || document.querySelector(`.inicio-pills-track button[onclick*="${pageNum}"]`);
-    if (tappedBtn) {
-        document.querySelectorAll('.inicio-pills-track .tab-btn').forEach(b => b.classList.remove('active'));
-        tappedBtn.classList.add('active');
-    }
+function jumpToMenuCollection(startPage) {
+  const collection = MENU_COLLECTIONS_MAP[startPage];
+  
+  if (collection) {
+    menuNavigationState.mode = 'COLLECTION';
+    menuNavigationState.currentPage = collection.start;
+    menuNavigationState.minPage = collection.start;
+    menuNavigationState.maxPage = collection.start + collection.length - 1;
+    menuNavigationState.collectionName = collection.name;
+  } else {
+    menuNavigationState.mode = 'CATALOG';
+    menuNavigationState.currentPage = startPage;
+    menuNavigationState.minPage = 1;
+    menuNavigationState.maxPage = MENU_TOTAL_PAGES;
+    menuNavigationState.collectionName = '';
+  }
 
-    window.targetMenuPage = pageNum;
-    window.shouldScrollToCollections = true;
-
-    // 2. 10ms micro-pause so gold registers before page change
-    setTimeout(() => {
-        switchPage('menu');
-    }, 10);
+  if (typeof switchPage === 'function') {
+    switchPage('menu').then(() => updateMenuDisplay());
+  } else {
+    updateMenuDisplay();
+  }
 }
 
 // --- 1-TAP RETURN TO COLLECTIONS ---
