@@ -176,7 +176,8 @@ function renderPayPalButtons() {
                 layout: 'vertical',
                 color:  'gold',
                 shape:  'rect',
-                label:  'checkout'
+                label:  'paypal',
+                height: 30
             },
             createOrder: function(data, actions) {
     const subtotal = calculateCartTotal();
