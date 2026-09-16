@@ -925,9 +925,11 @@ aside.sidebar-menu, .sidebar-menu {
   }
 
   /* Velvet stage curtain upward wipe */
-  #mobile-splash-screen.splash-curtain-up {
-    transform: translateY(-100%) !important;
-    opacity: 0.95 !important;
+ /* Iris Reveal Exit */
+  #mobile-splash-screen.splash-iris-out {
+    clip-path: circle(0% at 50% 45%);
+    transition: clip-path 0.85s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s ease 0.25s !important;
+    opacity: 0 !important;
     pointer-events: none !important;
   }
 
@@ -1049,11 +1051,13 @@ aside.sidebar-menu, .sidebar-menu {
   }
 
   .splash-leaf-emblem {
+    display: inline-block;
     color: #F5D061;
-    font-size: 1.45rem;
+    font-size: 1.6rem;
     margin-top: 22px;
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
-    animation: leafGrace 2.2s ease-in-out infinite alternate, textEmerge 1s 0.55s both;
+    filter: drop-shadow(0 4px 14px rgba(245, 208, 97, 0.45));
+    transform-origin: bottom center;
+    animation: textEmerge 0.8s 0.4s both, leafDance 1.6s 0.8s infinite ease-in-out;
   }
 
   @keyframes emblemEntrance {
@@ -1082,9 +1086,30 @@ aside.sidebar-menu, .sidebar-menu {
     100% { opacity: 1; transform: translateY(0); }
   }
 
-  @keyframes leafGrace {
-    0% { transform: translateY(0) rotate(-6deg) scale(0.95); }
-    100% { transform: translateY(-8px) rotate(8deg) scale(1.1); color: #FFF2A8; }
+  @keyframes leafDance {
+    0% {
+      transform: translateY(0) rotate(0deg) scale(1);
+    }
+    15% {
+      transform: translateY(-8px) rotate(-18deg) scale(1.12);
+    }
+    30% {
+      transform: translateY(-2px) rotate(14deg) scale(1.05);
+    }
+    45% {
+      transform: translateY(-11px) rotate(-12deg) scale(1.15);
+      color: #FFF2A8;
+    }
+    60% {
+      transform: translateY(-3px) rotate(16deg) scale(1.08);
+    }
+    75% {
+      transform: translateY(-7px) rotate(-8deg) scale(1.1);
+    }
+    100% {
+      transform: translateY(0) rotate(0deg) scale(1);
+      color: #F5D061;
+    }
   }
 }
 </style>
@@ -1121,11 +1146,11 @@ aside.sidebar-menu, .sidebar-menu {
       return;
     }
     setTimeout(function() {
-      splash.classList.add('splash-curtain-up');
-      setTimeout(function() {
-        splash.remove();
-      }, 760);
-    }, 2100);
+    splash.classList.add('splash-iris-out');
+    setTimeout(function() {
+      splash.remove();
+    }, 850);
+  }, 2600);
   })();
 </script>
     
