@@ -1157,6 +1157,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 window.addEventListener('hashchange', handleHashNavigation);
 
+function openFullMenuCatalog(startPage = 1) {
+  menuNavigationState.mode = 'CATALOG';
+  menuNavigationState.currentPage = startPage;
+  menuNavigationState.minPage = 1;
+  menuNavigationState.maxPage = MENU_TOTAL_PAGES;
+  menuNavigationState.collectionName = '';
+
+  if (typeof switchPage === 'function') {
+    switchPage('menu').then(() => updateMenuDisplay());
+  } else {
+    updateMenuDisplay();
+  }
+}
+
 // --- JUMP TO MENU FROM A COLLECTION ---
 function jumpToMenuCollection(startPage) {
   const collection = MENU_COLLECTIONS_MAP[startPage];
