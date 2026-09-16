@@ -924,15 +924,17 @@ aside.sidebar-menu, .sidebar-menu {
     user-select: none !important;
     touch-action: none !important;
     pointer-events: auto;
-
-    /* Radial hole mask: initially 0% transparent (100% covered) */
-    -webkit-mask-image: radial-gradient(circle at 50% 45%, transparent var(--hole-size), black calc(var(--hole-size) + 12%));
-    mask-image: radial-gradient(circle at 50% 45%, transparent var(--hole-size), black calc(var(--hole-size) + 12%));
+    
+    /* 100% solid cover: NO mask or hole while the leaf drops */
+    -webkit-mask-image: none;
+    mask-image: none;
     will-change: --hole-size, opacity;
   }
 
-  /* Slow-motion lens aperture expansion (2.4s liquid curve) */
+  /* Lens Aperture Activation ONLY on trigger */
   #mobile-splash-screen.splash-lens-open {
+    -webkit-mask-image: radial-gradient(circle at 50% 45%, transparent var(--hole-size), black calc(var(--hole-size) + 10%)) !important;
+    mask-image: radial-gradient(circle at 50% 45%, transparent var(--hole-size), black calc(var(--hole-size) + 10%)) !important;
     animation: openLensHole 2.4s cubic-bezier(0.25, 1, 0.35, 1) forwards;
   }
 
@@ -1150,7 +1152,6 @@ aside.sidebar-menu, .sidebar-menu {
 </style>
 </head>
 <body class="page-inicio">
-    <!-- MOBILE LUXURY SPLASH SCREEN -->
 <!-- MOBILE LUXURY SPLASH SCREEN -->
 <div id="mobile-splash-screen">
   <div class="splash-stage">
@@ -1185,14 +1186,13 @@ aside.sidebar-menu, .sidebar-menu {
       return;
     }
 
-    // 1. Leaf drifts gracefully from top to bottom (2.4 seconds)
-    // 2. Center lens punches open smoothly, showing the homepage underneath
+    // Wait 2.5s for the leaf to finish its full drop before opening the lens
     setTimeout(function() {
       splash.classList.add('splash-lens-open');
       setTimeout(function() {
         splash.remove();
-      }, 2450); // Matches the 2.4s slow lens animation
-    }, 2400);
+      }, 2450);
+    }, 2500);
   })();
 </script>
     
