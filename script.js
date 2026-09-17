@@ -333,13 +333,11 @@ function updateMenuDisplay() {
 
   const prevButtons = [
     document.getElementById('menu-top-prev'),
-    document.getElementById('menu-mid-prev'),
     document.getElementById('menu-bot-prev')
   ];
 
   const nextButtons = [
     document.getElementById('menu-top-next'),
-    document.getElementById('menu-mid-next'),
     document.getElementById('menu-bot-next')
   ];
 
