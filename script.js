@@ -542,16 +542,25 @@ function selectCollection(colName) {
   }
 
   // RESET SCROLL TO TOP OF PRODUCT GRID SAFELY
+  // EXACT MATHEMATICAL SCROLL (NO BAND-AIDS, NO DELAYS)
   const container = document.getElementById('products-container');
-  if (container) {
-    const header = document.getElementById('main-master-header');
-    const headerHeight = header ? header.offsetHeight : 80;
-    const sidebar = document.querySelector('.sidebar-menu');
-    const pillsHeight = sidebar ? sidebar.offsetHeight : 50;
-    const totalOffset = headerHeight + pillsHeight + 120;
+  const sidebar = document.querySelector('.sidebar-menu');
+  const header = document.getElementById('main-master-header');
 
-    const containerTop = container.getBoundingClientRect().top + window.pageYOffset;
-    const targetY = Math.max(0, containerTop - totalOffset);
+  if (container && sidebar) {
+    const isDesktop = window.innerWidth >= 992;
+    
+    // 1. Exact sticky height currently occupying the top of the screen
+    let stickyHeight = 35; // Marquee is always 35px
+    if (isDesktop && header) {
+      stickyHeight += header.offsetHeight; // Desktop adds the green header
+    }
+
+    // 2. Read the exact absolute Y position of the pills track in the document
+    const sidebarTopY = sidebar.getBoundingClientRect().top + window.pageYOffset;
+    
+    // 3. Subtract sticky headers and an 8px visual gap to find the exact snap point
+    const targetY = Math.max(0, sidebarTopY - stickyHeight - 8);
 
     if (window.pageYOffset > targetY) {
       window.scrollTo({ top: targetY, behavior: 'instant' });
