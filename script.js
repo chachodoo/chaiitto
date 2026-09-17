@@ -648,7 +648,7 @@ function loadCollection(colName) {
             card.innerHTML = `
                 <div>
                     <img src="${imageSrc}" onerror="this.src='logo.png'" alt="${prod.name || ''}" style="width: 100%; max-width: 180px; max-height: 88%; object-fit: contain; margin: auto; display: block; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));">
-                    <h3 style="font-size: 1.1em; margin-bottom: 10px; color: var(--text-dark); display: flex; align-items: center; justify-content: center; text-transform: uppercase;">
+                    <h3 style="font-size: 0.92rem; margin-bottom: 8px; color: var(--text-dark); text-align: center; text-transform: uppercase;">
                         ${numLabel} ${prod.name || ''}
                     </h3>
                     <p style="font-size: 0.85em; color: #666; margin-bottom: 20px; line-height: 1.4; min-height: 40px;">${prod.ingredients || ''}</p>
