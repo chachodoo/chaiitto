@@ -712,10 +712,14 @@ async function loadAccesoriosGrid() {
 
             card.innerHTML = `
                 <div>
-                    ${isSale ? '<span class="badge-oferta">OFERTA</span>' : ''}
-                    <div class="product-img-box gallery-trigger" style="cursor: zoom-in;" title="Ver galería de fotos">
-                        <img src="${coverImage}" alt="${item.name || 'Accesorio'}">
-                    </div>
+  <div class="product-img-box gallery-trigger" style="position: relative; cursor: zoom-in;" title="Ver galería de fotos">
+    ${isSale ? '<span class="badge-oferta">OFERTA</span>' : ''}
+    ${imageList.length > 1 ? `
+      <span style="position: absolute; top: 6px; left: 6px; background: rgba(16, 38, 25, 0.78); backdrop-filter: blur(4px); color: #FFFFFF; font-size: 0.65rem; font-weight: 700; padding: 2px 6px; border-radius: 6px; z-index: 2; display: inline-flex; align-items: center; gap: 4px; border: 1px solid rgba(212, 175, 55, 0.4);">
+        <i class="fa-solid fa-camera" style="color: #F5D061; font-size: 0.6rem;"></i> ${imageList.length}
+      </span>` : ''}
+    <img src="${coverImage}" alt="${item.name || 'Accesorio'}">
+  </div>
                     <h3 class="product-name">${titleText}</h3>
                     <p class="product-ingredients">${descText}</p>
                 </div>
