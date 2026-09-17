@@ -1082,19 +1082,19 @@ async function renderBazarCatalog() {
 
 /* Modal Functions for Bazar VIP */
 function openBazarModal(index) {
-    currentBazarItem = bazarList[index];
-    if (!currentBazarItem) return;
-    currentBazarImgIdx = 0;
+  currentBazarItem = bazarList[index];
+  if (!currentBazarItem) return;
+  currentBazarImgIdx = 0;
+  const modal = document.getElementById('bazar-modal');
+  if (!modal) return;
 
-    const modal = document.getElementById('bazar-modal');
-    if (!modal) return;
+  document.getElementById('bazar-modal-title').textContent = currentBazarItem.name || 'Pieza Bazar';
+  document.getElementById('bazar-modal-subtitle').textContent = currentBazarItem.descripcion || '';
 
-    document.getElementById('bazar-modal-title').textContent = currentBazarItem.name || 'Pieza Bazar';
-    document.getElementById('bazar-modal-subtitle').textContent = currentBazarItem.descripcion || '';
-    
-    const isSale = currentBazarItem.precioOferta !== null && currentBazarItem.precioOferta !== undefined && currentBazarItem.precioOferta > 0;
-    const finalPrice = isSale ? currentBazarItem.precioOferta : (currentBazarItem.precio || 0);
-    const buyBtn = document.getElementById('bazar-modal-buy-btn');
+  const isSale = currentBazarItem.precioOferta !== null && currentBazarItem.precioOferta !== undefined && currentBazarItem.precioOferta > 0;
+  const finalPrice = isSale ? currentBazarItem.precioOferta : (currentBazarItem.precio || 0);
+
+  const buyBtn = document.getElementById('bazar-modal-buy-btn');
   if (buyBtn) {
     buyBtn.removeAttribute('href');
     buyBtn.removeAttribute('target');
@@ -1106,36 +1106,69 @@ function openBazarModal(index) {
     };
   }
 
-    updateBazarModalImage();
-    modal.classList.add('active');
+  const imgEl = document.getElementById('bazar-modal-img');
+  if (imgEl && !imgEl._hasBazarSwipe) {
+    imgEl._hasBazarSwipe = true;
+    let touchStartX = 0;
+    imgEl.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].clientX;
+    }, { passive: true });
+    imgEl.addEventListener('touchend', e => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 35) {
+        changeBazarModalImage(diff > 0 ? 1 : -1);
+      }
+    }, { passive: true });
+  }
+
+  updateBazarModalImage();
+  modal.classList.add('active');
 }
 
 function updateBazarModalImage() {
-    if (!currentBazarItem) return;
-    const images = currentBazarItem.images || [currentBazarItem.image || 'logo.png'];
-    const imgEl = document.getElementById('bazar-modal-img');
-    const counterEl = document.getElementById('bazar-modal-counter');
-    const prevBtn = document.getElementById('bazar-modal-prev-btn');
-    const nextBtn = document.getElementById('bazar-modal-next-btn');
+  if (!currentBazarItem) return;
+  const images = currentBazarItem.images || [currentBazarItem.image || 'logo.png'];
+  const imgEl = document.getElementById('bazar-modal-img');
+  const counterEl = document.getElementById('bazar-modal-counter');
+  const prevBtn = document.getElementById('bazar-modal-prev-btn');
+  const nextBtn = document.getElementById('bazar-modal-next-btn');
+  const isMobile = window.innerWidth < 992;
 
-    imgEl.src = images[currentBazarImgIdx];
-    counterEl.textContent = `${currentBazarImgIdx + 1} / ${images.length}`;
+  if (imgEl) imgEl.src = images[currentBazarImgIdx];
 
-    if (images.length <= 1) {
-        if (prevBtn) prevBtn.style.display = 'none';
-        if (nextBtn) nextBtn.style.display = 'none';
-    } else {
-        if (prevBtn) prevBtn.style.display = 'flex';
-        if (nextBtn) nextBtn.style.display = 'flex';
+  if (images.length <= 1) {
+    if (prevBtn) prevBtn.style.display = 'none';
+    if (nextBtn) nextBtn.style.display = 'none';
+    if (counterEl) counterEl.style.display = 'none';
+  } else {
+    // Chevrons: hidden on mobile, visible on desktop
+    if (prevBtn) prevBtn.style.display = isMobile ? 'none' : 'flex';
+    if (nextBtn) nextBtn.style.display = isMobile ? 'none' : 'flex';
+
+    // RENDER INTERACTIVE GOLD PILL DOTS
+    if (counterEl) {
+      counterEl.style.display = 'flex';
+      counterEl.style.alignItems = 'center';
+      counterEl.style.justifyContent = 'center';
+      counterEl.style.gap = '6px';
+      counterEl.style.marginTop = '12px';
+
+      let dotsHtml = '';
+      for (let i = 0; i < images.length; i++) {
+        const active = i === currentBazarImgIdx;
+        dotsHtml += `<span onclick="event.stopPropagation(); currentBazarImgIdx=${i}; updateBazarModalImage();" style="display:inline-block; width:${active ? '18px' : '7px'}; height:7px; border-radius:4px; background:${active ? 'var(--gold-accent, #D4AF37)' : 'rgba(7,81,26,0.25)'}; cursor:pointer; transition:all 0.25s ease;"></span>`;
+      }
+      counterEl.innerHTML = dotsHtml;
     }
+  }
 }
 
 function changeBazarModalImage(dir) {
-    if (!currentBazarItem) return;
-    const images = currentBazarItem.images || [];
-    if (images.length <= 1) return;
-    currentBazarImgIdx = (currentBazarImgIdx + dir + images.length) % images.length;
-    updateBazarModalImage();
+  if (!currentBazarItem) return;
+  const images = currentBazarItem.images || [];
+  if (images.length <= 1) return;
+  currentBazarImgIdx = (currentBazarImgIdx + dir + images.length) % images.length;
+  updateBazarModalImage();
 }
 
 function closeBazarModal() {
