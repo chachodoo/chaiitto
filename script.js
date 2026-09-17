@@ -605,7 +605,7 @@ function loadCollection(colName) {
     if (list.length > 0) {
         list.forEach(prod => {
             const imageSrc = 'frasco.webp'; 
-            const numLabel = prod.num ? `<span style="color: var(--matcha-deep); font-weight: 900; font-size: 1.2em; margin-right: 8px;">${prod.num}.</span>` : '';
+            const numLabel = prod.num ? `<span style="color: var(--matcha-deep, #07511A); font-weight: 800; font-size: 1em; margin-right: 4px;">${prod.num}.</span>` : '';
 
             const frascoPrice = Number(prod.frasco) || 0;
             let sobrePrice = Number(prod.sobre) || (frascoPrice > 0 ? frascoPrice - 45 : 0);
@@ -648,10 +648,11 @@ function loadCollection(colName) {
             card.innerHTML = `
                 <div>
                     <img src="${imageSrc}" onerror="this.src='logo.png'" alt="${prod.name || ''}" style="width: 100%; max-width: 180px; max-height: 88%; object-fit: contain; margin: auto; display: block; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));">
-                    <h3 style="font-size: 0.92rem; margin-bottom: 8px; color: var(--text-dark); text-align: center; text-transform: uppercase;">
-                        ${numLabel} ${prod.name || ''}
-                    </h3>
-                    <p style="font-size: 0.78rem; color: #4A5D4E; margin-bottom: 12px; flex-grow: 1; min-height: 38px; line-height: 1.35;">${prod.ingredients || ''}</p>
+                    <h3 style="font-size: 0.84rem; font-weight: 700; margin-bottom: 6px; color: var(--text-dark, #1C3317); text-align: center; text-transform: uppercase; line-height: 1.25; min-height: 32px; display: flex; align-items: center; justify-content: center;">
+  ${numLabel}${prod.name || ''}
+</h3>
+<p style="font-size: 0.76rem; color: #4A5D4E; margin-bottom: 10px; flex-grow: 1; min-height: 48px; line-height: 1.35; display: flex; align-items: center; justify-content: center; text-align: center;">${prod.ingredients || ''}
+</p>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 6px; width: 100%; margin-top: auto;">
                     ${purchaseHtml}
