@@ -520,15 +520,17 @@
 }
 
 aside.sidebar-menu, .sidebar-menu {
-    display: block !important;
-    position: relative !important;
-    top: auto !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 0 12px 0 !important;
-    padding: 0 !important;
-    box-sizing: border-box !important;
-  }        
+  display: block !important;
+  position: sticky !important;
+  top: 115px !important; /* Adjust this slightly if needed to sit perfectly flush with the green header */
+  background-color: var(--matcha-bg) !important; /* Creates a solid wall to hide the sliding jars */
+  z-index: 100 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 0 12px 0 !important;
+  padding: 8px 0 !important;
+  box-sizing: border-box !important;
+}        
 /* 1. General Hover (Only applies when NOT already active) */
 .nav-btn:hover {
     background: rgba(255, 255, 255, 0.18) !important;
