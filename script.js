@@ -646,9 +646,10 @@ function loadCollection(colName) {
             card.onmouseout = function() { this.style.transform = 'translateY(0)'; this.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)'; };
 
             card.innerHTML = `
-                <div>
-                    <img src="${imageSrc}" onerror="this.src='frasco.webp'" alt="${prod.name || ''}" ...>
-                    <h3 style="font-size: 0.84rem; font-weight: 700; margin-bottom: 6px; color: var(--text-dark, #1C3317); text-align: center; text-transform: uppercase; line-height: 1.25; min-height: 32px; display: flex; align-items: center; justify-content: center;">
+                <<div>
+  <div class="product-img-box">
+    <img src="${imageSrc}" onerror="this.src='frasco.webp'" alt="${prod.name || ''}" loading="lazy">
+  </div>
   ${numLabel}${prod.name || ''}
 </h3>
 <p style="font-size: 0.76rem; color: #4A5D4E; margin-bottom: 10px; flex-grow: 1; min-height: 48px; line-height: 1.35; display: flex; align-items: center; justify-content: center; text-align: center;">${prod.ingredients || ''}
