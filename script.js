@@ -651,7 +651,7 @@ function loadCollection(colName) {
                     <h3 style="font-size: 0.92rem; margin-bottom: 8px; color: var(--text-dark); text-align: center; text-transform: uppercase;">
                         ${numLabel} ${prod.name || ''}
                     </h3>
-                    <p style="font-size: 0.85em; color: #666; margin-bottom: 20px; line-height: 1.4; min-height: 40px;">${prod.ingredients || ''}</p>
+                    <p style="font-size: 0.78rem; color: #4A5D4E; margin-bottom: 12px; flex-grow: 1; min-height: 38px; line-height: 1.35;">${prod.ingredients || ''}</p>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 6px; width: 100%; margin-top: auto;">
                     ${purchaseHtml}
