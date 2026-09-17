@@ -292,20 +292,32 @@ function updateMenuDisplay() {
     imgElement.src = `menu/page-${menuNavigationState.currentPage}.webp`;
   }
 
-  // 2. Set the text for both top & bottom indicators
-  let labelText = '';
-  if (menuNavigationState.mode === 'COLLECTION') {
-    const totalInGroup = (menuNavigationState.maxPage - menuNavigationState.minPage) + 1;
-    const currentInGroup = (menuNavigationState.currentPage - menuNavigationState.minPage) + 1;
-    labelText = totalInGroup === 1 
-      ? menuNavigationState.collectionName 
-      : `${menuNavigationState.collectionName} (${currentInGroup} de ${totalInGroup})`;
-  } else {
-    labelText = `${menuNavigationState.currentPage} / ${MENU_TOTAL_PAGES}`;
-  }
+  // 2. Smart Indicators: Hide redundant labels on 1-page collections
+  const isSinglePage = menuNavigationState.minPage === menuNavigationState.maxPage;
+  const isCollectionMode = menuNavigationState.mode === 'COLLECTION';
 
-  if (indTop) indTop.textContent = labelText;
-  if (indBottom) indBottom.textContent = labelText;
+  if (isCollectionMode && isSinglePage) {
+    // Zero redundancy: Graphic already shows the title
+    if (indTop) indTop.style.display = 'none';
+    if (indBottom) indBottom.style.display = 'none';
+  } else {
+    let labelText = '';
+    if (isCollectionMode) {
+      const totalInGroup = (menuNavigationState.maxPage - menuNavigationState.minPage) + 1;
+      const currentInGroup = (menuNavigationState.currentPage - menuNavigationState.minPage) + 1;
+      labelText = `${menuNavigationState.collectionName} (${currentInGroup} de ${totalInGroup})`;
+    } else {
+      labelText = `${menuNavigationState.currentPage} / ${MENU_TOTAL_PAGES}`;
+    }
+    if (indTop) {
+      indTop.style.display = 'inline-flex';
+      indTop.textContent = labelText;
+    }
+    if (indBottom) {
+      indBottom.style.display = 'inline-flex';
+      indBottom.textContent = labelText;
+    }
+  }
 
   // 3. Arrow states (disabled / hidden / pulsating)
   const isSinglePage = menuNavigationState.minPage === menuNavigationState.maxPage;
