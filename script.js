@@ -533,25 +533,30 @@ function selectCollection(colName) {
     }
     loadCollection(colName);
     if (tappedBtn) {
-        tappedBtn.scrollIntoView({ inline: 'nearest', block: 'nearest', behavior: 'instant' });
+    // Only scroll the pill track horizontally. Prevent the browser from yanking the page vertically.
+    const track = tappedBtn.parentElement;
+    if (track) {
+      const scrollLeftTarget = tappedBtn.offsetLeft - (track.clientWidth / 2) + (tappedBtn.clientWidth / 2);
+      track.scrollTo({ left: scrollLeftTarget, behavior: 'smooth' });
     }
+  }
 
-    // RESET SCROLL TO TOP OF PRODUCT GRID SAFELY
-    const container = document.getElementById('products-container');
-    if (container) {
-      const header = document.getElementById('main-master-header');
-      const headerHeight = header ? header.offsetHeight : 80;
-      const sidebar = document.querySelector('.sidebar-menu');
-      const pillsHeight = sidebar ? sidebar.offsetHeight : 50;
-      const totalOffset = headerHeight + pillsHeight + 120;
+  // RESET SCROLL TO TOP OF PRODUCT GRID SAFELY
+  const container = document.getElementById('products-container');
+  if (container) {
+    const header = document.getElementById('main-master-header');
+    const headerHeight = header ? header.offsetHeight : 80;
+    const sidebar = document.querySelector('.sidebar-menu');
+    const pillsHeight = sidebar ? sidebar.offsetHeight : 50;
+    const totalOffset = headerHeight + pillsHeight + 20;
 
-      const containerTop = container.getBoundingClientRect().top + window.pageYOffset;
-      const targetY = Math.max(0, containerTop - totalOffset);
+    const containerTop = container.getBoundingClientRect().top + window.pageYOffset;
+    const targetY = Math.max(0, containerTop - totalOffset);
 
-      if (window.pageYOffset > targetY) {
-        window.scrollTo({ top: targetY, behavior: 'instant' });
-      }
+    if (window.pageYOffset > targetY) {
+      window.scrollTo({ top: targetY, behavior: 'instant' });
     }
+  }
 }
 
 function loadCollection(colName) {
