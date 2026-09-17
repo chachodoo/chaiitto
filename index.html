@@ -177,15 +177,17 @@
 .hero-master-menu-btn i { color: #F5D061 !important; }
 .hero-master-menu-btn:active { transform: scale(0.97) !important; }
 
-/* MOBILE EDGE-TO-EDGE FULL TOUCH CAROUSEL WITH ARTISTIC EDGE FADE */
+/* MOBILE INICIO PILLS: 2 SYNCHRONIZED ROWS WITH TRUE EDGE FADE (ZERO PAGE WOBBLE) */
 .inicio-pills-wrapper {
-  width: calc(100% + 24px) !important;
-  margin: 4px -12px 16px -12px !important; /* Breaks out past parent padding to glass edge */
-  overflow: hidden !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 6px 0 16px 0 !important;
   padding: 0 !important;
-  /* Feathered gradient masks on both left and right edges */
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20px, black calc(100% - 20px), transparent 100%) !important;
-  mask-image: linear-gradient(to right, transparent 0%, black 20px, black calc(100% - 20px), transparent 100%) !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  /* Fades outer 24px on left and right into transparency */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 24px, black calc(100% - 24px), transparent 100%) !important;
+  mask-image: linear-gradient(to right, transparent 0%, black 24px, black calc(100% - 24px), transparent 100%) !important;
 }
 
 .inicio-pills-track {
@@ -198,8 +200,12 @@
   scrollbar-width: none !important;
   -webkit-overflow-scrolling: touch !important;
   gap: 8px !important;
-  padding: 6px 20px !important; /* Centers the resting state away from the edge fade */
+  padding: 4px 18px !important;
   box-sizing: border-box !important;
+}
+
+.inicio-pills-track::-webkit-scrollbar {
+  display: none !important;
 }
 
 .inicio-pills-track::-webkit-scrollbar { display: none !important; }
