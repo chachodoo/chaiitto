@@ -177,12 +177,15 @@
 .hero-master-menu-btn i { color: #F5D061 !important; }
 .hero-master-menu-btn:active { transform: scale(0.97) !important; }
 
-/* MOBILE EDGE-TO-EDGE FULL TOUCH CAROUSEL */
+/* MOBILE EDGE-TO-EDGE FULL TOUCH CAROUSEL WITH ARTISTIC EDGE FADE */
 .inicio-pills-wrapper {
-    width: 100% !important;
-    overflow: hidden !important;
-    padding: 0 !important;
-    margin: 4px 0 16px 0 !important;
+  width: calc(100% + 24px) !important;
+  margin: 4px -12px 16px -12px !important; /* Breaks out past parent padding to glass edge */
+  overflow: hidden !important;
+  padding: 0 !important;
+  /* Feathered gradient masks on both left and right edges */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20px, black calc(100% - 20px), transparent 100%) !important;
+  mask-image: linear-gradient(to right, transparent 0%, black 20px, black calc(100% - 20px), transparent 100%) !important;
 }
 
 .inicio-pills-track {
@@ -195,7 +198,7 @@
   scrollbar-width: none !important;
   -webkit-overflow-scrolling: touch !important;
   gap: 8px !important;
-  padding: 6px 16px !important;
+  padding: 6px 20px !important; /* Centers the resting state away from the edge fade */
   box-sizing: border-box !important;
 }
 
