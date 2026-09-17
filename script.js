@@ -630,7 +630,7 @@ function loadCollection(colName) {
 
             card.innerHTML = `
                 <div>
-                    <img src="${imageSrc}" onerror="this.src='logo.png'" alt="${prod.name || ''}" style="width: 100%; max-width: 180px; height: auto; object-fit: contain; margin: 0 auto 15px auto; display: block; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));">
+                    <img src="${imageSrc}" onerror="this.src='logo.png'" alt="${prod.name || ''}" style="width: 100%; max-width: 180px; max-height: 88%; object-fit: contain; margin: auto; display: block; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));">
                     <h3 style="font-size: 1.1em; margin-bottom: 10px; color: var(--text-dark); display: flex; align-items: center; justify-content: center; text-transform: uppercase;">
                         ${numLabel} ${prod.name || ''}
                     </h3>
