@@ -294,18 +294,37 @@ function updateMenuDisplay() {
 
   // 2. Set the text for both top & bottom indicators
   let labelText = '';
+  const topNav = document.getElementById('menu-nav-top');
+  const bottomNav = document.getElementById('menu-nav-bottom');
+
   if (menuNavigationState.mode === 'COLLECTION') {
     const totalInGroup = (menuNavigationState.maxPage - menuNavigationState.minPage) + 1;
     const currentInGroup = (menuNavigationState.currentPage - menuNavigationState.minPage) + 1;
-    labelText = totalInGroup === 1 
-      ? menuNavigationState.collectionName 
-      : `${menuNavigationState.collectionName} (${currentInGroup} de ${totalInGroup})`;
-  } else {
-    labelText = `${menuNavigationState.currentPage} / ${MENU_TOTAL_PAGES}`;
-  }
 
-  if (indTop) indTop.textContent = labelText;
-  if (indBottom) indBottom.textContent = labelText;
+    // 1. Bottom capsule is never displayed in collection mode
+    if (bottomNav) bottomNav.style.display = 'none';
+
+    // 2. Single-page collections: remove top capsule completely
+    if (totalInGroup <= 1) {
+      if (topNav) topNav.style.display = 'none';
+    } else {
+      // 3. Multi-page collections: show dots + page counter (no repeating title)
+      if (topNav) topNav.style.display = 'flex';
+      let dots = '';
+      for (let i = 1; i <= totalInGroup; i++) {
+        const active = i === currentInGroup;
+        dots += `<span style="display:inline-block;width:${active ? '14px' : '6px'};height:6px;border-radius:3px;background:${active ? '#D4AF37' : 'rgba(255,255,255,0.35)'};margin:0 2px;transition:all 0.2s;"></span>`;
+      }
+      if (indTop) indTop.innerHTML = `<span style="display:inline-flex;align-items:center;gap:8px;"><span>${dots}</span><span>${currentInGroup} / ${totalInGroup}</span></span>`;
+    }
+  } else {
+    // CATALOG MODE: Full 1 / 14 menu stays intact
+    if (topNav) topNav.style.display = 'flex';
+    if (bottomNav) bottomNav.style.display = 'flex';
+    labelText = `${menuNavigationState.currentPage} / ${MENU_TOTAL_PAGES}`;
+    if (indTop) indTop.textContent = labelText;
+    if (indBottom) indBottom.textContent = labelText;
+  }
 
   // 3. Arrow states (disabled / hidden / pulsating)
   const isSinglePage = menuNavigationState.minPage === menuNavigationState.maxPage;
