@@ -1049,10 +1049,14 @@ async function renderBazarCatalog() {
 
       card.innerHTML = `
         <div>
-          <div class="product-img-box oferta-img-container">
-            ${isSale ? '<span class="badge-oferta" style="position: absolute; top: 6px; right: 6px; background: #D9534F; color: #FFFFFF; font-size: 0.65rem; font-weight: 800; padding: 2px 7px; border-radius: 6px; letter-spacing: 0.5px; z-index: 2;">OFERTA</span>' : ''}
-            <img src="${coverImage}" alt="${item.name || 'Bazar'}" loading="lazy" onerror="this.src='logo.png'">
-          </div>
+  <div class="product-img-box oferta-img-container" style="position: relative;">
+    ${isSale ? '<span class="badge-oferta" style="position: absolute; top: 6px; right: 6px; background: #D9534F; color: #FFFFFF; font-size: 0.65rem; font-weight: 800; padding: 2px 7px; border-radius: 6px; letter-spacing: 0.5px; z-index: 2;">OFERTA</span>' : ''}
+    ${images.length > 1 ? `
+      <span style="position: absolute; top: 6px; left: 6px; background: rgba(16, 38, 25, 0.78); backdrop-filter: blur(4px); color: #FFFFFF; font-size: 0.65rem; font-weight: 700; padding: 2px 6px; border-radius: 6px; z-index: 2; display: inline-flex; align-items: center; gap: 4px; border: 1px solid rgba(212, 175, 55, 0.4);">
+        <i class="fa-solid fa-camera" style="color: #F5D061; font-size: 0.6rem;"></i> ${images.length}
+      </span>` : ''}
+    <img src="${coverImage}" alt="${item.name || 'Bazar'}" loading="lazy" onerror="this.src='logo.png'">
+  </div>
           <h3 class="product-name oferta-title">${displayName}</h3>
           <p class="product-ingredients oferta-subtitle">${item.descripcion || ''}</p>
         </div>
