@@ -604,7 +604,7 @@ function loadCollection(colName) {
 
     if (list.length > 0) {
         list.forEach(prod => {
-            const imageSrc = 'frasco.webp'; 
+            const imageSrc = prod.image || (prod.num ? `${prod.num}f.jpeg` : 'frasco.webp');
             const numLabel = prod.num ? `<span style="color: var(--matcha-deep, #07511A); font-weight: 800; font-size: 1em; margin-right: 4px;">${prod.num}.</span>` : '';
 
             const frascoPrice = Number(prod.frasco) || 0;
@@ -647,7 +647,7 @@ function loadCollection(colName) {
 
             card.innerHTML = `
                 <div>
-                    <img src="${imageSrc}" onerror="this.src='logo.png'" alt="${prod.name || ''}" style="width: 100%; max-width: 180px; max-height: 88%; object-fit: contain; margin: auto; display: block; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));">
+                    <img src="${imageSrc}" onerror="this.src='frasco.webp'" alt="${prod.name || ''}" ...>
                     <h3 style="font-size: 0.84rem; font-weight: 700; margin-bottom: 6px; color: var(--text-dark, #1C3317); text-align: center; text-transform: uppercase; line-height: 1.25; min-height: 32px; display: flex; align-items: center; justify-content: center;">
   ${numLabel}${prod.name || ''}
 </h3>
