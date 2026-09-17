@@ -1,16 +1,16 @@
 {
   "BIENESTAR": [
-    {"num": "1", "name": "DÉTOX", "ingredients": "Té verde, aronia, zacate limón, bayas de goji, espino amarillo, higo.", "taza": 95, "frasco": 295},
-    {"num": "2", "name": "BIENESTAR", "ingredients": "Anís, caléndula, hoja de zarza, hinojo, baya de saúco, girasol, jamaica.", "taza": 95, "frasco": 295},
-    {"num": "3", "name": "MATCHA LATTE", "ingredients": "Polvo fino de hojas de té verde matcha japonés, polvo de leche descremado.", "taza": 95, "frasco": 295},
-    {"num": "4", "name": "MATCHA AZUL", "ingredients": "Campanita azul en polvo.", "taza": 105, "frasco": 445},
-    {"num": "5", "name": "TÉ VERDE", "ingredients": "Té verde floral o puro.", "taza": 105, "frasco": 295},
-    {"num": "6", "name": "TÉ BLANCO", "ingredients": "Té blanco, caléndula, durazno.", "taza": 95, "frasco": 295},
-    {"num": "7", "name": "TÉ ROJO", "ingredients": "Té rojo, betabel, cacao.", "taza": 95, "frasco": 295},
-    {"num": "8", "name": "TÉ NEGRO", "ingredients": "Té negro, caléndula.", "taza": 95, "frasco": 295},
-    {"num": "9", "name": "RELAJANTE", "ingredients": "Manzanilla, lavanda, melisa, flor de brezo.", "taza": 95, "frasco": 295},
-    {"num": "10", "name": "SIN ESTRÉS", "ingredients": "Zacate limón, menta, tila, hoja de fresa.", "taza": 95, "frasco": 295},
-    {"num": "11", "name": "ROOIBOS", "ingredients": "Infusión herbal sudafricana sin teína.", "taza": 95, "frasco": 295}
+    {"num": "1", "name": "DÉTOX", "ingredients": "Té verde, aronia, zacate limón, bayas de goji, espino amarillo, higo.", "taza": 95, "frasco": 295, "image": "productos/1f.jpeg"},
+    {"num": "2", "name": "BIENESTAR", "ingredients": "Anís, caléndula, hoja de zarza, hinojo, baya de saúco, girasol, jamaica.", "taza": 95, "frasco": 295, "image": "productos/2f.jpeg"},
+    {"num": "3", "name": "MATCHA LATTE", "ingredients": "Polvo fino de hojas de té verde matcha japonés, polvo de leche descremado.", "taza": 95, "frasco": 295, "image": "productos/3f.jpeg"},
+    {"num": "4", "name": "MATCHA AZUL", "ingredients": "Campanita azul en polvo.", "taza": 105, "frasco": 445, "image": "productos/4f.jpeg"},
+    {"num": "5", "name": "TÉ VERDE", "ingredients": "Té verde floral o puro.", "taza": 105, "frasco": 295, "image": "productos/5f.jpeg"},
+    {"num": "6", "name": "TÉ BLANCO", "ingredients": "Té blanco, caléndula, durazno.", "taza": 95, "frasco": 295, "image": "productos/6f.jpeg"},
+    {"num": "7", "name": "TÉ ROJO", "ingredients": "Té rojo, betabel, cacao.", "taza": 95, "frasco": 295, "image": "productos/7f.jpeg"},
+    {"num": "8", "name": "TÉ NEGRO", "ingredients": "Té negro, caléndula.", "taza": 95, "frasco": 295, "image": "productos/8f.jpeg"},
+    {"num": "9", "name": "RELAJANTE", "ingredients": "Manzanilla, lavanda, melisa, flor de brezo.", "taza": 95, "frasco": 295, "image": "productos/9f.jpeg"},
+    {"num": "10", "name": "SIN ESTRÉS", "ingredients": "Zacate limón, menta, tila, hoja de fresa.", "taza": 95, "frasco": 295, "image": "productos/10f.jpeg"},
+    {"num": "11", "name": "ROOIBOS", "ingredients": "Infusión herbal sudafricana sin teína.", "taza": 95, "frasco": 295, "image": "productos/11f.jpeg"}
   ],
   "CHAI LOVER": [
     {"num": "12", "name": "HAPPY CHAI", "ingredients": "Cáscara de naranja, canela, jengibre, hinojo, regaliz, clavo, anís, betabel, rosas.", "taza": 95, "frasco": 295},
