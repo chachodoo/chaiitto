@@ -541,27 +541,29 @@ function selectCollection(colName) {
     }
   }
 
-  // RESET SCROLL TO TOP OF PRODUCT GRID SAFELY
-  // EXACT MATHEMATICAL SCROLL (NO BAND-AIDS, NO DELAYS)
+  // EXACT MATHEMATICAL SCROLL (TOP-TO-BOTTOM)
   const container = document.getElementById('products-container');
-  const sidebar = document.querySelector('.sidebar-menu');
-  const header = document.getElementById('main-master-header');
+  if (container) {
+    const marquee = document.querySelector('.hero-marquee-wrapper');
+    const header = document.getElementById('main-master-header');
+    const sidebar = document.querySelector('.sidebar-menu');
 
-  if (container && sidebar) {
-    const isDesktop = window.innerWidth >= 992;
-    
-    // 1. Exact sticky height currently occupying the top of the screen
-    let stickyHeight = 35; // Marquee is always 35px
-    if (isDesktop && header) {
-      stickyHeight += header.offsetHeight; // Desktop adds the green header
-    }
+    // 1. Read the exact physical pixel height of the UI layers
+    const marqueeH = marquee ? marquee.offsetHeight : 35;
+    const headerH = header ? header.offsetHeight : 80;
+    const sidebarH = sidebar ? sidebar.offsetHeight : 55;
 
-    // 2. Read the exact absolute Y position of the pills track in the document
-    const sidebarTopY = sidebar.getBoundingClientRect().top + window.pageYOffset;
-    
-    // 3. Subtract sticky headers and an 8px visual gap to find the exact snap point
-    const targetY = Math.max(0, sidebarTopY - stickyHeight - 8);
+    // 2. Restore the exact 82px grid clearance previously provided by the old Hero Banner
+    const gridClearance = 82; 
 
+    // 3. Sum them up for the true top-to-bottom offset
+    const totalOffset = marqueeH + headerH + sidebarH + gridClearance;
+
+    // 4. Anchor to the static product grid
+    const containerTop = container.getBoundingClientRect().top + window.pageYOffset;
+    const targetY = Math.max(0, containerTop - totalOffset);
+
+    // 5. Snap to the exact pixel
     if (window.pageYOffset > targetY) {
       window.scrollTo({ top: targetY, behavior: 'instant' });
     }
