@@ -177,25 +177,27 @@
 .hero-master-menu-btn i { color: #F5D061 !important; }
 .hero-master-menu-btn:active { transform: scale(0.97) !important; }
 
-/* MOBILE EDGE-TO-EDGE FULL TOUCH CAROUSEL */
+/* ENTERPRISE 2-ROW MOBILE PILL CAROUSEL */
 .inicio-pills-wrapper {
-    width: 100% !important;
-    overflow: hidden !important;
-    padding: 0 !important;
-    margin: 4px 0 16px 0 !important;
+  width: 100% !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  margin: 4px 0 16px 0 !important;
+  -webkit-mask-image: linear-gradient(to right, black 86%, transparent 100%);
+  mask-image: linear-gradient(to right, black 86%, transparent 100%);
 }
-
 .inicio-pills-track {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    scrollbar-width: none !important;
-    -webkit-overflow-scrolling: touch !important;
-    gap: 8px !important;
-    padding: 6px 16px !important;
-    box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-rows: repeat(2, 38px) !important;
+  grid-auto-flow: column !important;
+  grid-auto-columns: max-content !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scrollbar-width: none !important;
+  -webkit-overflow-scrolling: touch !important;
+  gap: 8px 10px !important;
+  padding: 6px 16px !important;
+  box-sizing: border-box !important;
 }
 
 .inicio-pills-track::-webkit-scrollbar { display: none !important; }
