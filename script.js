@@ -548,7 +548,7 @@ function selectCollection(colName) {
     const headerHeight = header ? header.offsetHeight : 80;
     const sidebar = document.querySelector('.sidebar-menu');
     const pillsHeight = sidebar ? sidebar.offsetHeight : 50;
-    const totalOffset = headerHeight + pillsHeight + 20;
+    const totalOffset = headerHeight + pillsHeight + 120;
 
     const containerTop = container.getBoundingClientRect().top + window.pageYOffset;
     const targetY = Math.max(0, containerTop - totalOffset);
