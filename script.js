@@ -1095,16 +1095,7 @@ function openBazarModal(index) {
   const finalPrice = isSale ? currentBazarItem.precioOferta : (currentBazarItem.precio || 0);
 
   const buyBtn = document.getElementById('bazar-modal-buy-btn');
-  if (buyBtn) {
-    buyBtn.removeAttribute('href');
-    buyBtn.removeAttribute('target');
-    buyBtn.innerHTML = '<i class="fa-solid fa-cart-plus"></i> Agregar al Carrito';
-    buyBtn.onclick = function() {
-      addToCart(currentBazarItem.name || 'Pieza Bazar', finalPrice);
-      closeBazarModal();
-      toggleCartDrawer();
-    };
-  }
+  if (buyBtn) buyBtn.style.display = 'none';
 
   const imgEl = document.getElementById('bazar-modal-img');
   if (imgEl && !imgEl._hasBazarSwipe) {
