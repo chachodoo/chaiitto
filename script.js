@@ -1149,60 +1149,112 @@ function closeBazarModalOnBackdrop(e) {
 
 
 // ==========================================
-// BULLETPROOF LIGHTBOX MODAL LOGIC
+// BULLETPROOF LIGHTBOX MODAL (DOTS + SWIPE + DESKTOP ARROWS)
 // ==========================================
 let currentModalImages = [];
 let currentModalIndex = 0;
 
-function openOfertaModal(title, subtitle, imageArray, prodName, price) {
-    currentModalImages = imageArray && imageArray.length > 0 ? imageArray : ['logo.png'];
-    currentModalIndex = 0;
-
-    // 1. Open the photo galleries
-    const modals = document.querySelectorAll('.oferta-modal');
-    modals.forEach(modal => {
-        const titleEl = modal.querySelector('#modal-title, .oferta-title');
-        if (titleEl) titleEl.textContent = title;
-
-        const subEl = modal.querySelector('#modal-subtitle, .oferta-subtitle');
-        if (subEl) subEl.textContent = subtitle;
-
-        const buyBtn = modal.querySelector('#modal-buy-btn, .oferta-buy-btn');
-        if (buyBtn) buyBtn.style.display = 'none';
-
-        const imgEl = modal.querySelector('#modal-img, img');
-        if (imgEl) imgEl.src = currentModalImages[0];
-
-        modal.classList.add('active');
-    });
-
-    document.querySelectorAll('#modal-counter, .modal-counter').forEach(el => {
-        el.textContent = `1 / ${currentModalImages.length}`;
-    });
-
-    // 2. ASSASSINATE THE BAD MODAL: If the old Frasco/Sobre popup accidentally tried to open, instantly kill it and hide it forever!
-    const badModal = document.getElementById('checkout-modal');
-    if (badModal) {
-        badModal.classList.remove('active');
-        badModal.style.display = 'none';
+function renderModalDots() {
+  const counterContainers = document.querySelectorAll('#modal-counter, .modal-counter');
+  counterContainers.forEach(container => {
+    if (!currentModalImages || currentModalImages.length <= 1) {
+      container.style.display = 'none';
+      return;
     }
+    container.style.display = 'flex';
+    container.style.alignItems = 'center';
+    container.style.justifyContent = 'center';
+    container.style.gap = '6px';
+    container.style.marginTop = '10px';
+
+    let html = '';
+    for (let i = 0; i < currentModalImages.length; i++) {
+      const active = i === currentModalIndex;
+      html += `<span onclick="event.stopPropagation(); setModalImage(${i})" style="display:inline-block; width:${active ? '18px' : '7px'}; height:7px; border-radius:4px; background:${active ? 'var(--gold-accent, #D4AF37)' : 'rgba(7,81,26,0.25)'}; cursor:pointer; transition:all 0.25s ease;"></span>`;
+    }
+    container.innerHTML = html;
+  });
+}
+
+function setModalImage(index) {
+  if (!currentModalImages || index < 0 || index >= currentModalImages.length) return;
+  currentModalIndex = index;
+  document.querySelectorAll('.oferta-modal img, #modal-img').forEach(img => {
+    img.src = currentModalImages[currentModalIndex];
+  });
+  renderModalDots();
+}
+
+function openOfertaModal(title, subtitle, imageArray, prodName, price) {
+  currentModalImages = imageArray && imageArray.length > 0 ? imageArray : ['logo.png'];
+  currentModalIndex = 0;
+
+  const isMobile = window.innerWidth < 992;
+  const modals = document.querySelectorAll('.oferta-modal');
+  modals.forEach(modal => {
+    const titleEl = modal.querySelector('#modal-title, .oferta-title');
+    if (titleEl) titleEl.textContent = title;
+    const subEl = modal.querySelector('#modal-subtitle, .oferta-subtitle');
+    if (subEl) subEl.textContent = subtitle;
+    const buyBtn = modal.querySelector('#modal-buy-btn, .oferta-buy-btn');
+    if (buyBtn) buyBtn.style.display = 'none';
+    const imgEl = modal.querySelector('#modal-img, img');
+    if (imgEl) {
+      imgEl.src = currentModalImages[0];
+      attachModalSwipe(imgEl);
+    }
+
+    // Hide chevron buttons on mobile; show only on desktop when 2+ photos exist
+    modal.querySelectorAll('.modal-arrow, .modal-prev, .modal-next, #modal-prev-btn, #modal-next-btn').forEach(btn => {
+      btn.style.display = (isMobile || currentModalImages.length <= 1) ? 'none' : 'flex';
+    });
+
+    modal.classList.add('active');
+  });
+
+  renderModalDots();
+
+  const badModal = document.getElementById('checkout-modal');
+  if (badModal) {
+    badModal.classList.remove('active');
+    badModal.style.display = 'none';
+  }
 }
 
 function changeModalImage(direction) {
-    if (!currentModalImages || currentModalImages.length <= 1) return;
-    
-    currentModalIndex += direction;
-    if (currentModalIndex < 0) currentModalIndex = currentModalImages.length - 1;
-    if (currentModalIndex >= currentModalImages.length) currentModalIndex = 0;
-    
-    document.querySelectorAll('.oferta-modal img, #modal-img').forEach(img => {
-        img.src = currentModalImages[currentModalIndex];
-    });
-    
-    document.querySelectorAll('#modal-counter, .modal-counter').forEach(el => {
-        el.textContent = `${currentModalIndex + 1} / ${currentModalImages.length}`;
-    });
+  if (!currentModalImages || currentModalImages.length <= 1) return;
+  let nextIdx = currentModalIndex + direction;
+  if (nextIdx < 0) nextIdx = currentModalImages.length - 1;
+  if (nextIdx >= currentModalImages.length) nextIdx = 0;
+  setModalImage(nextIdx);
 }
+
+// Mobile natural thumb swipe
+let modalTouchStartX = 0;
+function attachModalSwipe(element) {
+  if (element._hasSwipe) return;
+  element._hasSwipe = true;
+  element.addEventListener('touchstart', e => {
+    modalTouchStartX = e.changedTouches[0].clientX;
+  }, { passive: true });
+  element.addEventListener('touchend', e => {
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = modalTouchStartX - touchEndX;
+    if (Math.abs(diff) > 35) {
+      if (diff > 0) changeModalImage(1);
+      else changeModalImage(-1);
+    }
+  }, { passive: true });
+}
+
+// Keyboard shortcuts for desktop (Escape, Left Arrow, Right Arrow)
+window.addEventListener('keydown', e => {
+  const activeModal = document.querySelector('.oferta-modal.active, #bazar-modal.active');
+  if (!activeModal) return;
+  if (e.key === 'ArrowRight') changeModalImage(1);
+  if (e.key === 'ArrowLeft') changeModalImage(-1);
+  if (e.key === 'Escape') closeOfertaModal();
+});
 
 function closeOfertaModal() {
     document.querySelectorAll('.oferta-modal').forEach(m => m.classList.remove('active'));
