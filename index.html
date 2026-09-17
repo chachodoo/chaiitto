@@ -186,16 +186,17 @@
 }
 
 .inicio-pills-track {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    scrollbar-width: none !important;
-    -webkit-overflow-scrolling: touch !important;
-    gap: 8px !important;
-    padding: 6px 16px !important;
-    box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-rows: repeat(2, 38px) !important;
+  grid-auto-flow: column !important;
+  grid-auto-columns: max-content !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scrollbar-width: none !important;
+  -webkit-overflow-scrolling: touch !important;
+  gap: 8px !important;
+  padding: 6px 16px !important;
+  box-sizing: border-box !important;
 }
 
 .inicio-pills-track::-webkit-scrollbar { display: none !important; }
