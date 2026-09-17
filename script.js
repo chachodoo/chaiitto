@@ -536,28 +536,21 @@ function selectCollection(colName) {
         tappedBtn.scrollIntoView({ inline: 'nearest', block: 'nearest', behavior: 'instant' });
     }
 
-    // RESET DESKTOP & MOBILE SCROLL TO JAR #1
+    // RESET SCROLL TO TOP OF PRODUCT GRID SAFELY
     const container = document.getElementById('products-container');
     if (container) {
-        const sidebar = document.querySelector('.sidebar-menu');
-        const isDesktop = window.innerWidth >= 992;
-        let stickyOffset = 0;
-        
-        if (isDesktop && sidebar) {
-            // Header (197px) + sticky pills height + margin
-            stickyOffset = 197 + (sidebar.offsetHeight || 110) + 15;
-        } else {
-            const header = document.querySelector('header');
-            stickyOffset = (header ? header.offsetHeight : 70) + 15;
-        }
-        
-        const containerTop = container.getBoundingClientRect().top + window.pageYOffset;
-        const targetY = Math.max(0, containerTop - stickyOffset);
-        
-        // Only reset if user has scrolled down past the top of the grid
-        if (window.pageYOffset > targetY + 20) {
-            window.scrollTo({ top: targetY, behavior: 'instant' });
-        }
+      const header = document.getElementById('main-master-header');
+      const headerHeight = header ? header.offsetHeight : 80;
+      const sidebar = document.querySelector('.sidebar-menu');
+      const pillsHeight = sidebar ? sidebar.offsetHeight : 50;
+      const totalOffset = headerHeight + pillsHeight + 20;
+
+      const containerTop = container.getBoundingClientRect().top + window.pageYOffset;
+      const targetY = Math.max(0, containerTop - totalOffset);
+
+      if (window.pageYOffset > targetY) {
+        window.scrollTo({ top: targetY, behavior: 'instant' });
+      }
     }
 }
 
