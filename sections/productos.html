@@ -12,21 +12,20 @@
         gap: 0 !important;
     }
 
-    /* 2. The Solid Block: Locks flawlessly with perfectly centered visual balance */
-    .dashboard-layout .sidebar-menu {
-        width: 100% !important;
-        position: sticky !important;
-        top: 197px !important; /* The anti-glide lock stays untouched */
-        z-index: 999 !important;
-        background: var(--matcha-bg) !important;
-        /* Even 35px top/bottom padding for perfect vertical centering */
-        padding: 35px 0 35px 0 !important; 
-        margin: 0 0 15px 0 !important; 
-        flex: none !important;
-        max-height: unset !important;
-        overflow: visible !important;
-        box-shadow: none !important;
-    }
+    /* 2. The Solid Block: Locks flush against the header without gaps */
+  .dashboard-layout .sidebar-menu {
+    width: 100% !important;
+    position: sticky !important;
+    top: 165px !important; /* Raised from 197px to sit flush under the green header */
+    z-index: 999 !important;
+    background: var(--matcha-bg) !important;
+    padding: 16px 0 16px 0 !important; /* Tightens padding to raise the entire card */
+    margin: 0 0 12px 0 !important;
+    flex: none !important;
+    max-height: unset !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+  }
 
     /* Hide vertical sidebar title and desktop scroll arrow */
     .dashboard-layout .collections-title,
