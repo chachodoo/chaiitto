@@ -585,6 +585,50 @@
   .nav-btn:hover .nav-caret {
     opacity: 1;
   }
+
+  /* DESKTOP TIENDA DROPDOWN */
+  .nav-dropdown {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+  .nav-dropdown:hover .nav-caret {
+    transform: rotate(180deg) !important;
+  }
+  .nav-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #081F10;
+    border: 1.5px solid var(--gold-border, #D4AF37);
+    border-radius: 12px;
+    padding: 8px 0;
+    min-width: 210px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+    z-index: 10050;
+  }
+  .nav-dropdown:hover .nav-dropdown-menu {
+    display: flex;
+    flex-direction: column;
+  }
+  .nav-dropdown-menu a {
+    padding: 10px 20px;
+    color: rgba(255, 255, 255, 0.88);
+    font-family: var(--font-body, 'Montserrat', sans-serif);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: left;
+    white-space: nowrap;
+    transition: background 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
+  }
+  .nav-dropdown-menu a:hover {
+    background: rgba(212, 175, 55, 0.18);
+    color: #F5D061;
+    padding-left: 24px;
+  }  
     
 /* 2. Refined hover: warm gold sheen + delicate hairline */
 .nav-btn:hover {
@@ -773,6 +817,10 @@
             .nav-caret {
                  display: none !important;
             }
+            .nav-dropdown-menu {
+                display: none !important;
+            }
+            
         }
 
         /* Reviews Grid: 3 on desktop, 1 on mobile */
@@ -1310,9 +1358,20 @@
         <button class="nav-btn" data-page="inicio" onclick="window.location.hash='inicio'; if(typeof loadSection==='function'){loadSection('inicio');}else if(typeof switchPage==='function'){switchPage('inicio');}">
             <i class="fa-solid fa-house"></i> Inicio
         </button>
-        <button class="nav-btn" data-page="productos" onclick="window.location.hash='productos';">
-            <i class="fa-solid fa-leaf"></i> Tienda <i class="fa-solid fa-chevron-down nav-caret"></i>
-        </button>
+        <div class="nav-dropdown">
+            <button class="nav-btn" data-page="productos" onclick="window.location.hash='productos';">
+                <i class="fa-solid fa-leaf"></i> Tienda <i class="fa-solid fa-chevron-down nav-caret"></i>
+            </button>
+            <div class="nav-dropdown-menu">
+                <a href="javascript:void(0)" onclick="openTiendaCollection('BIENESTAR')">🌿 Bienestar</a>
+                <a href="javascript:void(0)" onclick="openTiendaCollection('CHAI LOVER')">☕ Chai Lover</a>
+                <a href="javascript:void(0)" onclick="openTiendaCollection('BLUE MAGIC')">💙 Blue Magic</a>
+                <a href="javascript:void(0)" onclick="openTiendaCollection('VIAJES CON TÉ')">✈️ Viajes con Té</a>
+                <a href="javascript:void(0)" onclick="openTiendaCollection('NOCTURNA')">🌙 Nocturna</a>
+                <a href="javascript:void(0)" onclick="openTiendaCollection('ESPECIAL')">✨ Especial</a>
+                <a href="javascript:void(0)" onclick="openTiendaCollection('WOW')">🔥 Wow</a>
+            </div>
+        </div>
         <button class="nav-btn" data-page="accesorios" onclick="window.location.hash='accesorios';">
             <i class="fa-solid fa-mug-hot"></i> Accesorios
         </button>
