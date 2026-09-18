@@ -337,3 +337,17 @@
     selectCollection('BIENESTAR');
   }
 </script>
+<!-- ZOOM MODAL FOR TIENDA -->
+<div id="oferta-modal" class="oferta-modal" onclick="if(event.target === this) closeOfertaModal();">
+  <div class="oferta-modal-content">
+    <span class="oferta-modal-close" onclick="closeOfertaModal()">&times;</span>
+    <h3 id="modal-title" class="oferta-title"></h3>
+    <div class="oferta-modal-viewer">
+      <img id="modal-img" src="" alt="Producto">
+      <button id="modal-prev-btn" class="modal-arrow prev" onclick="event.stopPropagation(); changeModalImage(-1)">&#10094;</button>
+      <button id="modal-next-btn" class="modal-arrow next" onclick="event.stopPropagation(); changeModalImage(1)">&#10095;</button>
+    </div>
+    <div id="modal-counter"></div>
+    <p id="modal-subtitle" class="oferta-subtitle"></p>
+  </div>
+</div>
