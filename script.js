@@ -1701,5 +1701,16 @@ function goToBazarVip(e) {
     if (typeof loadBazarGrid === "function") {
         loadBazarGrid();
     }
+
+  
 }
+
+window.openTiendaCollection = function(collectionName) {
+  sessionStorage.setItem('targetCollection', collectionName);
+  if (typeof selectCollection === 'function' && document.getElementById('products-container')) {
+    selectCollection(collectionName);
+  } else {
+    window.location.hash = 'productos';
+  }
+};
 
