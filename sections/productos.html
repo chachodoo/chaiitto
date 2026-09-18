@@ -15,6 +15,39 @@
     display: none !important;
   }
 
+  /* EDITORIAL COLLECTION BANNER (DESKTOP) */
+  .desktop-collection-banner {
+    display: block !important;
+    text-align: center;
+    margin: 6px auto 22px auto;
+    width: 100%;
+  }
+  .desktop-collection-banner h2 {
+    font-family: var(--font-heading, 'Cinzel', serif);
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: var(--matcha-deep, #07511A);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin: 0 0 6px 0;
+  }
+  .desktop-collection-banner .gold-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    opacity: 0.85;
+  }
+  .desktop-collection-banner .hairline {
+    height: 1px;
+    width: 40px;
+    background: var(--gold-border, #D4AF37);
+  }
+  .desktop-collection-banner .gold-star {
+    color: var(--gold-accent, #B8860B);
+    font-size: 0.75rem;
+  }    
+
     /* Hide vertical sidebar title and desktop scroll arrow */
     .dashboard-layout .collections-title,
     .dashboard-layout .mobile-scroll-arrow {
@@ -146,6 +179,10 @@
     .sidebar-promo {
       display: none !important;
     }
+
+     .desktop-collection-banner {
+    display: none !important;
+  }
 
     /* 2 Jars per row: minmax(0, 1fr) prevents cards from blowing out screen width */
     #products-container,
@@ -316,7 +353,15 @@
   </aside>
 
   <main class="dashboard-content">
-    
+    <!-- DESKTOP-ONLY EDITORIAL COLLECTION HEADER (SINENSIS STYLE) -->
+    <div class="desktop-collection-banner">
+      <h2 id="current-collection-title">BIENESTAR</h2>
+      <div class="gold-divider">
+        <span class="hairline"></span>
+        <span class="gold-star">✦</span>
+        <span class="hairline"></span>
+      </div>
+    </div>
     <div id="products-container" class="products-grid">
       <!-- Dynamic Products Injected via JS -->
     </div>
