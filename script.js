@@ -483,7 +483,9 @@ async function fetchProducts() {
         if (activeBtn) activeBtn.classList.add('active');
 
         if (pageName === 'productos') {
-            selectCollection('BIENESTAR');
+            const targetCol = sessionStorage.getItem('targetCollection') || 'BIENESTAR';
+            sessionStorage.removeItem('targetCollection');
+            selectCollection(targetCol);
         } else if (pageName === 'accesorios') {
             loadAccesoriosGrid();
         } else if (pageName === 'bazar') {
