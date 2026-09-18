@@ -573,6 +573,19 @@
 .nav-btn i {
   display: none !important;
 }
+/* Render the chevron exclusively on desktop */
+  .nav-btn .nav-caret {
+    display: inline-block !important;
+    font-size: 0.65rem !important;
+    margin-left: 6px !important;
+    vertical-align: 1px !important;
+    opacity: 0.75;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .nav-btn:hover .nav-caret {
+    opacity: 1;
+  }
+    
 /* 2. Refined hover: warm gold sheen + delicate hairline */
 .nav-btn:hover {
     background: transparent !important;
@@ -756,6 +769,9 @@
             #ofertas-dynamic-track {
                 grid-template-columns: repeat(2, minmax(0, 1fr)) !important; /* Screen divided by 2 */
                 gap: 8px !important;
+            }
+            .nav-caret {
+                 display: none !important;
             }
         }
 
@@ -1295,7 +1311,7 @@
             <i class="fa-solid fa-house"></i> Inicio
         </button>
         <button class="nav-btn" data-page="productos" onclick="window.location.hash='productos';">
-            <i class="fa-solid fa-leaf"></i> Tienda
+            <i class="fa-solid fa-leaf"></i> Tienda <i class="fa-solid fa-chevron-down nav-caret"></i>
         </button>
         <button class="nav-btn" data-page="accesorios" onclick="window.location.hash='accesorios';">
             <i class="fa-solid fa-mug-hot"></i> Accesorios
