@@ -5,26 +5,14 @@
    @media (min-width: 992px) {
 /* 1. Exact Math: Pull up exactly 40px to cancel both global padding AND global margin */
     .dashboard-layout {
-        display: flex !important;
-        flex-direction: column !important;
-        width: 100% !important;
-        margin: -40px 0 0 0 !important; 
-        gap: 0 !important;
-    }
-
-    /* 2. The Solid Block: Locks flush against the header without gaps */
-  .dashboard-layout .sidebar-menu {
+    display: block !important;
     width: 100% !important;
-    position: sticky !important;
-    top: 165px !important; /* Raised from 197px to sit flush under the green header */
-    z-index: 999 !important;
-    background: var(--matcha-bg) !important;
-    padding: 16px 0 16px 0 !important; /* Tightens padding to raise the entire card */
-    margin: 0 0 12px 0 !important;
-    flex: none !important;
-    max-height: unset !important;
-    overflow: visible !important;
-    box-shadow: none !important;
+    margin: 15px 0 0 0 !important;
+    gap: 0 !important;
+  }
+  /* HIDE THE PILL TRAY ON DESKTOP */
+  .dashboard-layout .sidebar-menu {
+    display: none !important;
   }
 
     /* Hide vertical sidebar title and desktop scroll arrow */
@@ -336,9 +324,11 @@
 </div>
 
 <script>
-  if (typeof selectCollection === 'function') {
-    selectCollection('BIENESTAR');
-  }
+if (typeof selectCollection === 'function') {
+  const target = sessionStorage.getItem('targetCollection') || 'BIENESTAR';
+  sessionStorage.removeItem('targetCollection');
+  selectCollection(target);
+}
 </script>
 <!-- ZOOM MODAL FOR TIENDA -->
 <div id="oferta-modal" class="oferta-modal" onclick="if(event.target === this) closeOfertaModal();">
