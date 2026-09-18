@@ -646,7 +646,7 @@ function loadCollection(colName) {
             card.onmouseout = function() { this.style.transform = 'translateY(0)'; this.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)'; };
 
             card.innerHTML = `
-                <<div>
+                <div>
   <div class="product-img-box">
     <img src="${imageSrc}" onerror="this.src='frasco.webp'" alt="${prod.name || ''}" loading="lazy">
   </div>
