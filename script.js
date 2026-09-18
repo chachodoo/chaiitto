@@ -639,28 +639,40 @@ function loadCollection(colName) {
                 </button>` : '';
 
             const card = document.createElement('div');
-            card.className = 'product-card';
-            
-            card.style.cssText = 'background: #fff; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; height: 100%; border: 1px solid #f0f0f0; transition: transform 0.2s ease, box-shadow 0.2s ease;';
-            card.onmouseover = function() { this.style.transform = 'translateY(-3px)'; this.style.boxShadow = '0 8px 20px rgba(0,0,0,0.08)'; };
-            card.onmouseout = function() { this.style.transform = 'translateY(0)'; this.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)'; };
+    card.className = 'product-card';
+    card.style.cssText = 'background: #fff; border-radius: 12px; padding: 10px 8px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; height: 100%; border: 1px solid rgba(7, 81, 26, 0.12); box-sizing: border-box; transition: transform 0.2s ease, box-shadow 0.2s ease;';
+    card.onmouseover = function() { this.style.transform = 'translateY(-3px)'; this.style.boxShadow = '0 8px 20px rgba(0,0,0,0.08)'; };
+    card.onmouseout = function() { this.style.transform = 'translateY(0)'; this.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)'; };
+    
+    card.innerHTML = `
+      <div>
+        <div class="product-img-box gallery-trigger" style="position: relative; width: 100%; aspect-ratio: 1/1; overflow: hidden; border-radius: 10px; cursor: zoom-in; padding: 0; display: flex; align-items: center; justify-content: center; background: #FAFBF9;" title="Toca para ver en grande">
+          <img src="${imageSrc}" onerror="this.src='frasco.webp'" alt="${prod.name || ''}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease;">
+        </div>
+        <h3 class="product-name" style="font-family: var(--font-heading, 'Cinzel', serif); font-size: 0.82rem; font-weight: 700; margin: 6px 0 4px 0; color: var(--matcha-deep, #07511A); text-align: center; text-transform: uppercase; line-height: 1.25;">
+          ${numLabel}${prod.name || ''}
+        </h3>
+        <p class="product-ingredients" style="font-size: 0.74rem; color: #4A5D4E; margin-bottom: 8px; flex-grow: 1; min-height: 44px; line-height: 1.35; display: flex; align-items: center; justify-content: center; text-align: center;">
+          ${prod.ingredients || ''}
+        </p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px; width: 100%; margin-top: auto;">
+        ${purchaseHtml}
+        ${fallbackHtml}
+      </div>`;
 
-            card.innerHTML = `
-                <div>
-  <div class="product-img-box">
-    <img src="${imageSrc}" onerror="this.src='frasco.webp'" alt="${prod.name || ''}" loading="lazy">
-  </div>
-  ${numLabel}${prod.name || ''}
-</h3>
-<p style="font-size: 0.76rem; color: #4A5D4E; margin-bottom: 10px; flex-grow: 1; min-height: 48px; line-height: 1.35; display: flex; align-items: center; justify-content: center; text-align: center;">${prod.ingredients || ''}
-</p>
-                </div>
-                <div style="display: flex; flex-direction: column; gap: 6px; width: 100%; margin-top: auto;">
-                    ${purchaseHtml}
-                    ${fallbackHtml}
-                </div>`;
-                
-            container.appendChild(card);
+    // WIRE UP THE LIGHTBOX POPUP ON CLICK
+    const imgTrigger = card.querySelector('.gallery-trigger');
+    if (imgTrigger) {
+      imgTrigger.onclick = (e) => {
+        e.stopPropagation();
+        const modalTitle = (prod.num ? `${prod.num}. ` : '') + (prod.name || '');
+        const modalPrice = frascoPrice > 0 ? frascoPrice : sobrePrice;
+        openOfertaModal(modalTitle, prod.ingredients || '', [imageSrc], safeName, modalPrice);
+      };
+    }
+
+    container.appendChild(card);
         });
     } else {
         container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px; color: var(--text-muted);">Próximamente agregando productos a <strong>${colName}</strong>...</div>`;
