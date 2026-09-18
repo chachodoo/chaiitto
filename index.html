@@ -552,43 +552,44 @@
     grid-column: 2 !important;
     justify-self: center !important;
   }
-.nav-btn {
-  background: transparent !important;
-  border: none !important;
-  border-bottom: 2px solid transparent !important; /* Reserved space to prevent hover bounce */
-  border-radius: 0 !important;
-  padding: 6px 2px 8px 2px !important;
-  font-family: var(--font-heading, 'Cinzel', serif);
-  font-size: 0.86rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.82) !important;
-  text-transform: uppercase;
-  letter-spacing: 2px; /* Luxury editorial tracking */
-  cursor: pointer;
-  box-shadow: none !important;
-  transition: color 0.25s ease, border-color 0.25s ease;
-}
+/* LUXURY EDITORIAL SANS-SERIF (SINENSIS STYLE) */
+  .nav-btn {
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 2px solid transparent !important;
+    border-radius: 0 !important;
+    padding: 6px 4px 8px 4px !important;
+    font-family: var(--font-body, 'Montserrat', sans-serif) !important;
+    font-size: 0.80rem !important;
+    font-weight: 500 !important;
+    color: rgba(255, 255, 255, 0.78) !important;
+    text-transform: uppercase;
+    letter-spacing: 2.2px !important;
+    cursor: pointer;
+    box-shadow: none !important;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
 /* 1. Hide icons on Desktop for pure typography */
 .nav-btn i {
   display: none !important;
 }
 /* 2. Refined hover: warm gold sheen + delicate hairline */
 .nav-btn:hover {
-  background: transparent !important;
-  color: #F5D061 !important;
-  border-bottom: 2px solid rgba(245, 208, 97, 0.5) !important;
-  transform: none !important;
-  box-shadow: none !important;
-}
+    background: transparent !important;
+    color: #F5D061 !important;
+    border-bottom: 2px solid rgba(245, 208, 97, 0.4) !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
 /* 3. Active page: Solid antique gold underline */
 .nav-btn.active, .nav-btn.active:hover {
-  background: transparent !important;
-  color: #F5D061 !important;
-  border-bottom: 2px solid var(--gold-border, #D4AF37) !important;
-  font-weight: 700 !important;
-  transform: none !important;
-  box-shadow: none !important;
-}
+    background: transparent !important;
+    color: #FFFFFF !important;
+    border-bottom: 2px solid var(--gold-border, #D4AF37) !important;
+    font-weight: 600 !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
 }
         
         .nav-btn.nav-ofertas { color: #A93226; }
