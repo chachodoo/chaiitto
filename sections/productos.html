@@ -142,15 +142,18 @@
     }
 
     aside.sidebar-menu, .sidebar-menu {
-    display: block !important;
-    position: relative !important;
-    top: auto !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 0 12px 0 !important;
-    padding: 0 !important;
-    box-sizing: border-box !important;
-  }
+  display: block !important;
+  position: sticky !important;
+  top: 34px !important;
+  z-index: 100 !important;
+  background: var(--matcha-bg, #ECE8DE) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 0 10px 0 !important;
+  padding: 6px 0 8px 0 !important;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.35) !important;
+  box-sizing: border-box !important;
+}
     
     .sidebar-promo {
       display: none !important;
