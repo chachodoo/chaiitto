@@ -57,12 +57,13 @@ function addToCart(name, price, presentation = '') {
 
   saveCart();
   // Desktop Tethered Toast
-  const toast = document.getElementById('cart-toast');
-  if (toast) {
-    toast.classList.add('show');
+  // Desktop Tethered Toast
+  const desktopToast = document.getElementById('cart-toast');
+  if (desktopToast) {
+    desktopToast.classList.add('show');
     clearTimeout(window._toastTimeout);
     window._toastTimeout = setTimeout(() => {
-      toast.classList.remove('show');
+      desktopToast.classList.remove('show');
     }, 2200);
   }
 
