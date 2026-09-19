@@ -1719,7 +1719,17 @@ function goToBazarVip(e) {
   
 }
 
-window.openTiendaCollection = function(collectionName) {
+window.openTiendaCollection = function (collectionName) {
+  // 1. Immediately vanish the dropdown so it never lingers over the jars
+  const menu = document.querySelector('.nav-dropdown-menu');
+  if (menu) {
+    menu.style.setProperty('display', 'none', 'important');
+    setTimeout(() => {
+      menu.style.removeProperty('display');
+    }, 350);
+  }
+
+  // 2. Load the requested collection
   sessionStorage.setItem('targetCollection', collectionName);
   if (typeof selectCollection === 'function' && document.getElementById('products-container')) {
     selectCollection(collectionName);
