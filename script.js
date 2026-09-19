@@ -56,6 +56,15 @@ function addToCart(name, price, presentation = '') {
   }
 
   saveCart();
+  // Desktop Tethered Toast
+  const toast = document.getElementById('cart-toast');
+  if (toast) {
+    toast.classList.add('show');
+    clearTimeout(window._toastTimeout);
+    window._toastTimeout = setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2200);
+  }
 
   // 1. Bounce the floating cart button
   const cartBtn = document.getElementById('floating-cart-btn');
@@ -100,6 +109,7 @@ function calculateCartTotal() {
 function updateCartUI() {
     const container = document.getElementById('cart-items-container');
     const badge = document.getElementById('cart-count-badge');
+    const desktopBadge = document.getElementById('desktop-cart-badge');
     const totalEl = document.getElementById('cart-total-price');
     const subtotalEl = document.getElementById('cart-subtotal-price');
     const shippingEl = document.getElementById('cart-shipping-price');
@@ -133,6 +143,7 @@ function updateCartUI() {
     }
 
     if (badge) badge.textContent = totalQty;
+    if (desktopBadge) desktopBadge.textContent = totalQty;
 
 
 const shippingCost = totalPrice > 0 ? 100 : 0;
