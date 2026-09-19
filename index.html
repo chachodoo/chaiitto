@@ -629,6 +629,88 @@
     color: #F5D061;
     padding-left: 24px;
   }  
+
+   /* HIDE MOBILE FLOATING BUTTON ON DESKTOP */
+  #floating-cart-btn {
+    display: none !important;
+  }
+
+  /* DESKTOP HEADER CART WRAPPER & ANCHOR */
+  .header-cart-wrapper {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-left: auto !important;
+    grid-column: 3 !important;
+    justify-self: end !important;
+  }
+
+  #desktop-cart-btn {
+    background: transparent !important;
+    border: none !important;
+    color: #FFFFFF !important;
+    font-size: 1.25rem !important;
+    cursor: pointer !important;
+    padding: 8px 12px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    transition: color 0.2s ease, transform 0.2s ease !important;
+  }
+
+  #desktop-cart-btn:hover {
+    color: #F5D061 !important;
+    transform: scale(1.1) !important;
+  }
+
+  #desktop-cart-badge {
+    position: absolute !important;
+    top: 2px !important;
+    right: 2px !important;
+    background: #D4AF37 !important;
+    color: #07511A !important;
+    font-size: 0.72rem !important;
+    font-weight: 800 !important;
+    width: 18px !important;
+    height: 18px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: 1.5px solid #07511A !important;
+  }
+
+  /* TETHERED TOAST: Locks precisely 12px below the desktop cart */
+  .header-cart-toast {
+    position: absolute !important;
+    top: calc(100% + 12px) !important;
+    right: 0 !important;
+    background: #081F10 !important;
+    color: #FFFFFF !important;
+    border: 1.5px solid var(--gold-border, #D4AF37) !important;
+    border-radius: 8px !important;
+    padding: 8px 14px !important;
+    font-family: var(--font-body, 'Montserrat', sans-serif) !important;
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    white-space: nowrap !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    z-index: 10060 !important;
+  }
+
+  .header-cart-toast.show {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  } 
     
 /* 2. Refined hover: warm gold sheen + delicate hairline */
 .nav-btn:hover {
@@ -820,6 +902,11 @@
             .nav-dropdown-menu {
                 display: none !important;
             }
+            /* PREVENT DESKTOP HEADER CART FROM SHOWING ON MOBILE */
+            .header-cart-wrapper {
+                display: none !important;
+            }
+            
             
         }
 
@@ -1385,6 +1472,17 @@
             <i class="fa-solid fa-lock"></i> Bazar VIP
         </button>
     </nav>
+    <!-- DESKTOP HEADER CART & RELATIVE TOAST -->
+    <div class="header-cart-wrapper">
+        <button id="desktop-cart-btn" class="desktop-cart-icon" onclick="toggleCartDrawer()" aria-label="Ver Carrito">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span id="desktop-cart-badge" class="header-cart-badge">0</span>
+        </button>
+        <div id="cart-toast" class="header-cart-toast">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>¡Agregado al carrito!</span>
+        </div>
+    </div>    
     </header>
 
    <!-- 1. THE NEW MASTER HERO BANNER (Top of the screen, controlled by JS) -->
