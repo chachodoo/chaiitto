@@ -291,5 +291,20 @@
       "accesorios/accesorios-509-4.jpeg",
       "accesorios/accesorios-509-5.jpeg"
     ]
+  },
+  {
+    "num": "510",
+    "name": "Tetera Cuadrada",
+    "descripcion": "Tetera transparente de Borosilicato, con capacidad de 400ml, incluye infusor de acero inoxidable grado alimenticio.",
+    "precio": 390,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-510-1.jpeg",
+      "accesorios/accesorios-510-2.jpeg",
+      "accesorios/accesorios-510-3.jpeg",
+      "accesorios/accesorios-510-4.jpeg",
+      "accesorios/accesorios-510-5.jpeg"
+    ]
   }
 ]
