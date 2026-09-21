@@ -276,5 +276,20 @@
       "accesorios/accesorios-508-4.jpeg",
       "accesorios/accesorios-508-5.jpeg"
     ]
+  },
+  {
+    "num": "509",
+    "name": "Tetera Redonda con Relieve",
+    "descripcion": "Tetera transparente de Borosilicato con detalles dorados, capacidad de 350ml, incluye infusor de acero inoxidable grado alimenticio.",
+    "precio": 390,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-509-1.jpeg",
+      "accesorios/accesorios-509-2.jpeg",
+      "accesorios/accesorios-509-3.jpeg",
+      "accesorios/accesorios-509-4.jpeg",
+      "accesorios/accesorios-509-5.jpeg"
+    ]
   }
 ]
