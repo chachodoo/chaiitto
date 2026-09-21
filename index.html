@@ -679,6 +679,59 @@
       text-transform: uppercase;
     }
 
+    /* SUBMENU FLYOUT (COLLECTIONS) */
+    .nav-has-submenu {
+      position: relative;
+    }
+    .submenu-arrow {
+      font-size: 0.65rem !important;
+      color: #F5D061 !important;
+      opacity: 0.85;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    .nav-has-submenu:hover .submenu-arrow {
+      transform: translateX(3px);
+      opacity: 1;
+    }
+    .nav-sub-dropdown-menu {
+      display: none;
+      position: absolute;
+      top: -4px;
+      left: calc(100% + 4px);
+      min-width: 220px;
+      background: #0E2A12;
+      border: 1.5px solid rgba(212, 175, 55, 0.45);
+      border-radius: 14px;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45);
+      padding: 8px 6px;
+      z-index: 10060;
+    }
+    .nav-sub-dropdown-menu::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -14px;
+      width: 16px;
+      height: 100%;
+    }
+    .nav-has-submenu:hover .nav-sub-dropdown-menu {
+      display: flex;
+      flex-direction: column;
+    }
+    .nav-sub-dropdown-menu a {
+      padding: 8px 14px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: #FFFFFF;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+    .nav-sub-dropdown-menu a:hover {
+      background: rgba(212, 175, 55, 0.18);
+      color: #F5D061;
+    }
+    
+
    /* HIDE MOBILE FLOATING BUTTON ON DESKTOP */
   #floating-cart-btn {
     display: none !important;
@@ -1500,16 +1553,33 @@
                     TIENDA EN LÍNEA <i class="fa-solid fa-chevron-down nav-caret"></i>
                 </button>
                 <div class="nav-dropdown-menu">
-                    <!-- 1. TÉS -->
-                    <a href="javascript:void(0)" onclick="openStoreSection('productos')">
-                        <div class="dropdown-row">
-                            <span class="dropdown-label">
-                                <i class="fa-solid fa-leaf" style="color: #25D366;"></i>
-                                <strong>Tés de Hoja Suelta</strong>
-                            </span>
-                            <span class="dropdown-meta">120+ Mezclas</span>
+                    
+                    <!-- 1. TÉS WITH SUBMENU FLYOUT -->
+                    <div class="nav-has-submenu">
+                        <a href="javascript:void(0)" onclick="openStoreSection('productos')">
+                            <div class="dropdown-row">
+                                <span class="dropdown-label">
+                                    <i class="fa-solid fa-leaf" style="color: #25D366;"></i>
+                                    <strong>Tés de Hoja Suelta</strong>
+                                </span>
+                                <span style="display: inline-flex; align-items: center; gap: 6px;">
+                                    <span class="dropdown-meta">120+ Mezclas</span>
+                                    <i class="fa-solid fa-chevron-right submenu-arrow"></i>
+                                </span>
+                            </div>
+                        </a>
+
+                        <!-- FLYOUT: 7 COLLECTIONS -->
+                        <div class="nav-sub-dropdown-menu">
+                            <a href="javascript:void(0)" onclick="openTiendaCollection('Bienestar')">🌿 Bienestar</a>
+                            <a href="javascript:void(0)" onclick="openTiendaCollection('Chai Lover')">☕ Chai Lover</a>
+                            <a href="javascript:void(0)" onclick="openTiendaCollection('Blue Magic')">💙 Blue Magic</a>
+                            <a href="javascript:void(0)" onclick="openTiendaCollection('Viajes con Té')">✈️ Viajes con Té</a>
+                            <a href="javascript:void(0)" onclick="openTiendaCollection('Nocturna')">🌙 Nocturna</a>
+                            <a href="javascript:void(0)" onclick="openTiendaCollection('Especial')">✨ Especial</a>
+                            <a href="javascript:void(0)" onclick="openTiendaCollection('Wow')">🔥 Wow</a>
                         </div>
-                    </a>
+                    </div>
 
                     <!-- 2. ACCESORIOS -->
                     <a href="javascript:void(0)" onclick="openStoreSection('accesorios')">
