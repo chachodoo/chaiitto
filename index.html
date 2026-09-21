@@ -662,13 +662,14 @@
       width: 16px;
       text-align: center;
       font-size: 0.95rem;
-      transition: transform 0.2s ease;
+      transition: transform 0.2s ease, margin-right 0.2s ease;
     }
 
-    /* Restores the 1.25x zoom and dynamic text push */
+    /* 1.25x zoom AND physically pushes the text sideways */
     .nav-dropdown-menu a:hover .dropdown-label i,
     .nav-has-submenu:hover > a .dropdown-label i {
       transform: scale(1.25);
+      margin-right: 6px;
     }
     .dropdown-meta {
       font-size: 0.72rem;
