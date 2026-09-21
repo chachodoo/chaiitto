@@ -231,5 +231,21 @@
       "accesorios/accesorios-505-4.jpeg",
       "accesorios/accesorios-505-5.jpeg"
     ]
+  },
+  {
+    "num": "506",
+    "name": "Set de Tetera Inglesa",
+    "descripcion": "Set de Tetera de Borosilicato (800ml) con infusor y base de porcelana decorado, incluye un filtro adicional.",
+    "precio": 950,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-506-1.jpeg",
+      "accesorios/accesorios-506-2.jpeg",
+      "accesorios/accesorios-506-3.jpeg",
+      "accesorios/accesorios-506-4.jpeg",
+      "accesorios/accesorios-506-5.jpeg",
+      "accesorios/accesorios-506-6.jpeg"
+    ]
   }
 ]
