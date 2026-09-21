@@ -174,5 +174,19 @@
       "accesorios/accesorios-501-3.jpeg",
       "accesorios/accesorios-501-4.jpeg"
     ]
+  },
+  {
+    "num": "502",
+    "name": "Tetera de Ceramica Personal",
+    "descripcion": "Tetera de Ceramica color Lila, con capacidad de 350ml e infusor de acero inoxidable incluido.",
+    "precio": 350,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-502-1.jpeg",
+      "accesorios/accesorios-502-2.jpeg",
+      "accesorios/accesorios-502-3.jpeg",
+      "accesorios/accesorios-502-4.jpeg"
+    ]
   }
 ]
