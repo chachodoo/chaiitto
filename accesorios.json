@@ -216,5 +216,20 @@
       "accesorios/accesorios-504-3.jpeg",
       "accesorios/accesorios-504-4.jpeg"
     ]
+  },
+  {
+    "num": "505",
+    "name": "Set de Tetera y Taza \"Caffe Latte\"",
+    "descripcion": "Set Personal de Tetera y Taza de Ceramica, decorado en tonos crema, cafe y blanco. Incluye tetera (350ml), taza y plato a juego ademas de contar con filtro integrado en su interior.",
+    "precio": 450,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-505-1.jpeg",
+      "accesorios/accesorios-505-2.jpeg",
+      "accesorios/accesorios-505-3.jpeg",
+      "accesorios/accesorios-505-4.jpeg",
+      "accesorios/accesorios-505-5.jpeg"
+    ]
   }
 ]
