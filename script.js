@@ -1737,4 +1737,37 @@ window.openTiendaCollection = function (collectionName) {
     window.location.hash = 'productos';
   }
 };
+window.openStoreSection = function (sectionId) {
+  const menu = document.querySelector('.nav-dropdown-menu');
+  if (menu) {
+    menu.style.setProperty('display', 'none', 'important');
+    setTimeout(() => {
+      menu.style.removeProperty('display');
+    }, 350);
+  }
+
+  window.location.hash = sectionId;
+  if (typeof switchPage === 'function') {
+    switchPage(sectionId);
+  }
+};
+
+// MASTER STORE NAVIGATION ROUTER
+window.openStoreSection = function (sectionId) {
+  // 1. Instantly hide dropdown so it never lingers over content
+  const menu = document.querySelector('.nav-dropdown-menu');
+  if (menu) {
+    menu.style.setProperty('display', 'none', 'important');
+    setTimeout(() => {
+      menu.style.removeProperty('display');
+    }, 350);
+  }
+
+  // 2. Route directly to the requested section (productos, accesorios, or bazar)
+  window.location.hash = sectionId;
+  if (typeof switchPage === 'function') {
+    switchPage(sectionId);
+  }
+};
+
 
