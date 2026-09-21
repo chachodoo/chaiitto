@@ -306,5 +306,20 @@
       "accesorios/accesorios-510-4.jpeg",
       "accesorios/accesorios-510-5.jpeg"
     ]
+  },
+  {
+    "num": "511",
+    "name": "Tetera Redonda (400ml)",
+    "descripcion": "Tetera transparente de Borosilicato, con capacidad de 400ml, incluye infusor de acero inoxidable grado alimenticio.",
+    "precio": 390,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-511-1.jpeg",
+      "accesorios/accesorios-511-2.jpeg",
+      "accesorios/accesorios-511-3.jpeg",
+      "accesorios/accesorios-511-4.jpeg",
+      "accesorios/accesorios-511-5.jpeg"
+    ]
   }
 ]
