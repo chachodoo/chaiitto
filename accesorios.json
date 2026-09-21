@@ -202,5 +202,19 @@
       "accesorios/accesorios-503-3.jpeg",
       "accesorios/accesorios-503-4.jpeg"
     ]
+  },
+  {
+    "num": "504",
+    "name": "Tetera de Ceramica 'You're Awesome\"",
+    "descripcion": "Tetera de Ceramica color Azul Pastel, con capacidad de 700ml e infusor de acero inoxidable incluido.",
+    "precio": 450,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-504-1.jpeg",
+      "accesorios/accesorios-504-2.jpeg",
+      "accesorios/accesorios-504-3.jpeg",
+      "accesorios/accesorios-504-4.jpeg"
+    ]
   }
 ]
