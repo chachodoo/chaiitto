@@ -1018,8 +1018,8 @@
             .nav-caret {
                  display: none !important;
             }
-            /* =======================================================
-     MOBILE OPTION 1: THE STACKED HEADER (NO HAMBURGER)
+           /* =======================================================
+     MOBILE OPTION 1: THE STACKED HEADER (FLEX COLUMN FIX)
      ======================================================= */
   @media (max-width: 991px) {
     /* 1. Hide the Hamburger completely */
@@ -1027,78 +1027,98 @@
       display: none !important;
     }
     
-    /* 2. Top Row: Logo centered, Cart on the right */
-    .mobile-header-row {
+    /* 2. Top Row: Logo centered, Nav drops below */
+    .header-square-layout {
       display: flex !important;
-      justify-content: center !important;
+      flex-direction: column !important; /* <--- THIS FIXES THE BREAK (Stacks Logo & Tabs) */
       align-items: center !important;
-      padding: 12px 15px !important;
+      padding: 12px 0 0 0 !important; 
       position: relative !important;
       width: 100% !important;
       background: #0E2A12 !important;
     }
+
+    /* 3. Force Cart to Top Right Edge */
     .header-cart-wrapper {
+      display: inline-flex !important;
       position: absolute !important;
-      top: 50% !important;
+      top: 20px !important; 
       right: 15px !important;
-      transform: translateY(-50%) !important;
+      transform: none !important;
+      z-index: 1000 !important;
     }
 
-    /* 3. Bottom Row: Edge-to-edge Navigation Bar */
+    /* 4. Bottom Row: Edge-to-edge Navigation Bar */
     #main-nav-menu {
       display: flex !important;
       flex-direction: row !important;
-      justify-content: space-evenly !important;
+      justify-content: center !important;
       align-items: center !important;
+      gap: 15px !important;
       width: 100% !important;
-      background: #0E2A12 !important;
-      padding: 6px 0 !important;
+      background: #081F10 !important;
+      padding: 8px 0 !important;
+      margin-top: 12px !important; /* Space between logo and bar */
       border-top: 1px solid rgba(212, 175, 55, 0.2) !important;
       border-bottom: 1.5px solid rgba(212, 175, 55, 0.4) !important;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
       position: relative !important;
-      top: 0 !important;
-      left: 0 !important;
-      height: auto !important;
-      box-shadow: none !important;
-      gap: 0 !important;
       opacity: 1 !important;
       visibility: visible !important;
       pointer-events: auto !important;
     }
 
-    /* 4. Drop "INICIO" from the bar (Logo acts as home) */
+    /* 5. Drop "INICIO" from the bar */
     #main-nav-menu > button[onclick*="inicio"] {
       display: none !important;
     }
 
-    /* 5. Size the text for thumbs to fit 3 items cleanly */
-    .nav-btn {
-      font-size: 0.70rem !important;
-      padding: 8px 4px !important;
+    /* 6. FORCE WHITE TEXT & FIX SIZING */
+    #main-nav-menu .nav-btn,
+    #main-nav-menu .nav-dropdown > .nav-btn {
+      font-family: var(--font-body, 'Montserrat', sans-serif) !important;
+      font-size: 0.72rem !important;
+      font-weight: 700 !important;
+      color: #FFFFFF !important; 
+      background: transparent !important;
+      border: none !important;
+      padding: 6px 8px !important;
+      margin: 0 !important;
+      text-transform: uppercase !important;
       letter-spacing: 0.5px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
       white-space: nowrap !important;
+      box-shadow: none !important;
     }
-    
-    /* 6. Fix Dropdowns for Mobile Touch */
+
+    /* Restore Gold Caret on Mobile */
+    #main-nav-menu .nav-btn i.nav-caret {
+      display: inline-block !important;
+      margin-left: 4px !important;
+      color: #F5D061 !important;
+    }
+
+    /* 7. Fix Dropdown Mobile Behavior */
+    .nav-dropdown {
+      position: static !important;
+    }
     .nav-dropdown-menu {
       position: absolute !important;
       top: 100% !important;
-      left: -15vw !important; /* Centers the menu under the thumb */
-      width: 100vw !important;
-      min-width: 100vw !important;
+      left: 0 !important;
+      width: 100% !important;
+      min-width: 100% !important;
       border-radius: 0 0 14px 14px !important;
       display: none; 
+      z-index: 9999 !important;
     }
-    
-    /* iOS/Android register a tap as a :hover state */
     .nav-dropdown:hover .nav-dropdown-menu,
     .nav-dropdown:active .nav-dropdown-menu {
       display: flex !important;
       flex-direction: column !important;
     }
-    
-    /* Hide the 7-collection side-flyout on mobile so the screen doesn't break horizontally.
-       Tapping "Tés" will just route directly to the master store page. */
     .nav-sub-dropdown-menu {
       display: none !important;
     }
