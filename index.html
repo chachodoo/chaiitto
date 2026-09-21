@@ -1019,15 +1019,18 @@
                  display: none !important;
             }
            /* =======================================================
-     REVERT TO MOBILE HAMBURGER MENU
+     /* =======================================================
+     MOBILE HAMBURGER MENU (WITH ACCORDION TOGGLE)
      ======================================================= */
   @media (max-width: 991px) {
     .nav-dropdown {
       position: static !important;
     }
+    
+    /* 1. Hides the submenu by default */
     .nav-dropdown-menu {
-      display: flex !important;
-      flex-direction: column !important; /* Stacks items vertically */
+      display: none !important; 
+      flex-direction: column !important; 
       gap: 18px !important;
       position: relative !important;
       top: 0 !important;
@@ -1038,7 +1041,18 @@
       box-shadow: none !important;
       padding: 15px 0 15px 25px !important;
     }
-    /* Kills the default blue link styling */
+    
+    /* 2. Shows the submenu when the button is tapped */
+    .nav-dropdown-menu.show-mobile-menu {
+      display: flex !important;
+    }
+    
+    /* 3. Rotates the caret arrow upwards when open */
+    .flip-caret {
+      transform: rotate(180deg) !important;
+    }
+
+    /* 4. Kills the default blue link styling */
     .nav-dropdown-menu a {
       text-decoration: none !important;
       color: #1C3317 !important;
@@ -1047,8 +1061,12 @@
       font-size: 0.85rem !important;
       text-transform: uppercase !important;
     }
-    /* Hides the extra desktop text so mobile stays clean */
-    .dropdown-meta, .vip-premium-pill, .submenu-arrow, .dropdown-divider {
+    
+    /* 5. Hides the extra desktop text so mobile stays clean */
+    .dropdown-meta,
+    .vip-premium-pill,
+    .submenu-arrow,
+    .dropdown-divider {
       display: none !important;
     }
     .nav-sub-dropdown-menu {
@@ -1599,11 +1617,11 @@
             <button class="nav-btn" onclick="switchPage('inicio')">INICIO</button>
 
             <!-- MASTER STORE DROPDOWN -->
-            <div class="nav-dropdown">
-                <button class="nav-btn" type="button">
-                    TIENDA EN LÍNEA <i class="fa-solid fa-chevron-down nav-caret"></i>
-                </button>
-                <div class="nav-dropdown-menu">
+        <div class="nav-dropdown">
+            <button class="nav-btn" type="button" onclick="this.nextElementSibling.classList.toggle('show-mobile-menu'); this.querySelector('.nav-caret').classList.toggle('flip-caret');">
+                TIENDA EN LÍNEA <i class="fa-solid fa-chevron-down nav-caret" style="display: inline-block !important; margin-left: 6px; transition: transform 0.3s ease;"></i>
+            </button>
+            <div class="nav-dropdown-menu">
                     
                     <!-- 1. TÉS WITH SUBMENU FLYOUT -->
                     <div class="nav-has-submenu">
