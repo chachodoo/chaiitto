@@ -160,5 +160,19 @@
       "accesorios/accesorios-500-3.jpeg",
       "accesorios/accesorios-500-4.jpeg"
     ]
+  },
+  {
+    "num": "501",
+    "name": "Tetera de Ceramica Personal",
+    "descripcion": "Tetera de Ceramica color Negro, con capacidad de 350ml e infusor de acero inoxidable incluido.",
+    "precio": 350,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-501-1.jpeg",
+      "accesorios/accesorios-501-2.jpeg",
+      "accesorios/accesorios-501-3.jpeg",
+      "accesorios/accesorios-501-4.jpeg"
+    ]
   }
 ]
