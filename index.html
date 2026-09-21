@@ -541,124 +541,143 @@
   height: 76px !important;
   width: auto !important;
 } 
-        nav.main-nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 32px;
-    margin: 0 !important;
-    width: auto !important;
-    grid-column: 2 !important;
-    justify-self: center !important;
-  }
-/* LUXURY EDITORIAL SANS-SERIF (SINENSIS STYLE) */
-  .nav-btn {
-    background: transparent !important;
-    border: none !important;
-    border-bottom: 2px solid transparent !important;
-    border-radius: 0 !important;
-    padding: 6px 4px 8px 4px !important;
-    font-family: var(--font-body, 'Montserrat', sans-serif) !important;
-    font-size: 0.80rem !important;
-    font-weight: 500 !important;
-    color: rgba(255, 255, 255, 0.78) !important;
-    text-transform: uppercase;
-    letter-spacing: 2.2px !important;
-    cursor: pointer;
-    box-shadow: none !important;
-    transition: color 0.2s ease, border-color 0.2s ease;
-  }
-/* 1. Hide icons on Desktop for pure typography */
-.nav-btn i {
-  display: none !important;
-}
-/* Render the chevron exclusively on desktop */
-  .nav-btn .nav-caret {
-    display: inline-block !important;
-    font-size: 0.65rem !important;
-    margin-left: 6px !important;
-    vertical-align: 1px !important;
-    opacity: 0.75;
-    transition: transform 0.25s ease, opacity 0.25s ease;
-  }
-  .nav-btn:hover .nav-caret {
-    opacity: 1;
-  }
+      nav.main-nav,
+    nav.nav-menu {
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      flex-wrap: nowrap !important;
+      gap: 36px !important;
+      margin: 0 !important;
+      width: auto !important;
+      grid-column: 2 !important;
+      justify-self: center !important;
+    }
 
-  /* DESKTOP TIENDA EN LÍNEA MASTER DROPDOWN */
-  .nav-dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  .nav-dropdown-menu {
-    display: none;
-    position: absolute;
-    top: calc(100% + 4px);
-    left: 0;
-    min-width: 320px;
-    background: #0E2A12;
-    border: 1.5px solid rgba(212, 175, 55, 0.45);
-    border-radius: 14px;
-    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.4);
-    padding: 8px 6px;
-    z-index: 10050;
-  }
-  .nav-dropdown:hover .nav-dropdown-menu {
-    display: flex;
-    flex-direction: column;
-  }
-  .nav-dropdown-menu a {
-    display: block;
-    padding: 10px 14px;
-    border-radius: 8px;
-    text-decoration: none;
-    color: #FFFFFF;
-    transition: background 0.2s ease;
-  }
-  .nav-dropdown-menu a:hover {
-    background: rgba(212, 175, 55, 0.14);
-  }
-  .dropdown-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    width: 100%;
-  }
-  .dropdown-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.88rem;
-    color: #FFFFFF;
-  }
-  .dropdown-label i {
-    width: 16px;
-    text-align: center;
-    font-size: 0.95rem;
-  }
-  .dropdown-meta {
-    font-size: 0.72rem;
-    color: #A3B899;
-    font-weight: 500;
-  }
-  .dropdown-divider {
-    height: 1px;
-    background: rgba(212, 175, 55, 0.25);
-    margin: 6px 10px;
-  }
-  .vip-premium-pill {
-    background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%);
-    color: #102619;
-    font-size: 0.65rem;
-    font-weight: 800;
-    padding: 3px 8px;
-    border-radius: 12px;
-    letter-spacing: 0.5px;
-    white-space: nowrap;
-    text-transform: uppercase;
-  }
+    /* LUXURY EDITORIAL TYPOGRAPHY */
+    .nav-btn {
+      background: transparent !important;
+      border: none !important;
+      border-bottom: 2px solid transparent !important;
+      border-radius: 0 !important;
+      padding: 8px 6px !important;
+      font-family: var(--font-body, 'Montserrat', sans-serif) !important;
+      font-size: 0.82rem !important;
+      font-weight: 500 !important;
+      color: rgba(255, 255, 255, 0.78) !important;
+      text-transform: uppercase;
+      letter-spacing: 2px !important;
+      cursor: pointer;
+      box-shadow: none !important;
+      transition: color 0.2s ease, border-color 0.2s ease;
+      display: inline-flex !important;
+      align-items: center !important;
+    }
+
+    /* Hide standard icons on Desktop, show ONLY the caret */
+    .nav-btn i {
+      display: none !important;
+    }
+    .nav-btn i.nav-caret {
+      display: inline-block !important;
+      font-size: 0.65rem !important;
+      margin-left: 6px !important;
+      color: #F5D061 !important;
+      opacity: 0.85;
+      transition: transform 0.25s ease;
+    }
+    .nav-dropdown:hover .nav-btn i.nav-caret {
+      transform: rotate(180deg);
+      opacity: 1;
+    }
+
+    /* DESKTOP TIENDA EN LÍNEA MASTER DROPDOWN */
+    .nav-dropdown {
+      position: relative;
+      display: inline-block;
+      padding-bottom: 12px;
+      margin-bottom: -12px;
+    }
+    .nav-dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 320px;
+      background: #0E2A12;
+      border: 1.5px solid rgba(212, 175, 55, 0.45);
+      border-radius: 14px;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45);
+      padding: 8px 6px;
+      z-index: 10050;
+    }
+
+    /* Invisible hover bridge: prevents the cursor from dropping hover between button & menu */
+    .nav-dropdown-menu::before {
+      content: '';
+      position: absolute;
+      top: -12px;
+      left: 0;
+      width: 100%;
+      height: 12px;
+    }
+
+    .nav-dropdown:hover .nav-dropdown-menu {
+      display: flex;
+      flex-direction: column;
+    }
+    .nav-dropdown-menu a {
+      display: block;
+      padding: 10px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #FFFFFF;
+      transition: background 0.2s ease;
+    }
+    .nav-dropdown-menu a:hover {
+      background: rgba(212, 175, 55, 0.14);
+    }
+    .dropdown-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+    }
+    .dropdown-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: #FFFFFF;
+    }
+    .dropdown-label i {
+      display: inline-block !important;
+      width: 16px;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+    .dropdown-meta {
+      font-size: 0.72rem;
+      color: #A3B899;
+      font-weight: 500;
+    }
+    .dropdown-divider {
+      height: 1px;
+      background: rgba(212, 175, 55, 0.25);
+      margin: 6px 10px;
+    }
+    .vip-premium-pill {
+      background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%);
+      color: #102619;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 12px;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
 
    /* HIDE MOBILE FLOATING BUTTON ON DESKTOP */
   #floating-cart-btn {
@@ -1471,14 +1490,14 @@
     <div class="header-spacer"></div>
 </div>
 
-       <!-- UNIFIED CLEAN NAVIGATION (TIENDA EN LÍNEA MASTER) -->
-        <nav id="main-nav-menu" class="nav-menu">
+       <!-- UNIFIED CLEAN NAVIGATION -->
+        <nav id="main-nav-menu" class="main-nav nav-menu">
             <button class="nav-btn" onclick="switchPage('inicio')">INICIO</button>
 
             <!-- MASTER STORE DROPDOWN -->
             <div class="nav-dropdown">
-                <button class="nav-btn" type="button" style="display: inline-flex; align-items: center; gap: 6px;">
-                    TIENDA EN LÍNEA <i class="fa-solid fa-chevron-down" style="font-size: 0.72rem;"></i>
+                <button class="nav-btn" type="button">
+                    TIENDA EN LÍNEA <i class="fa-solid fa-chevron-down nav-caret"></i>
                 </button>
                 <div class="nav-dropdown-menu">
                     <!-- 1. TÉS -->
