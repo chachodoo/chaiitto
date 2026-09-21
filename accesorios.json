@@ -146,5 +146,19 @@
       "accesorios/oferta-13-2.webp",
       "accesorios/oferta-13-3.webp"
     ]
+  },
+  {
+    "num": "500",
+    "name": "Tetera de Ceramica",
+    "descripcion": "Tetera de Ceramica roja, capacidad de 350ml, con infusor para hojas de Te incluido.",
+    "precio": 350,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-500-1.jpeg",
+      "accesorios/accesorios-500-2.jpeg",
+      "accesorios/accesorios-500-3.jpeg",
+      "accesorios/accesorios-500-4.jpeg"
+    ]
   }
 ]
