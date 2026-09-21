@@ -662,7 +662,13 @@
       width: 16px;
       text-align: center;
       font-size: 0.95rem;
-      /* Removed the scale(1.25) rule so icons stay perfectly still */
+      transition: transform 0.2s ease;
+    }
+
+    /* Restores the 1.25x zoom and dynamic text push */
+    .nav-dropdown-menu a:hover .dropdown-label i,
+    .nav-has-submenu:hover > a .dropdown-label i {
+      transform: scale(1.25);
     }
     .dropdown-meta {
       font-size: 0.72rem;
