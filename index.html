@@ -1022,12 +1022,13 @@
      REVERT TO MOBILE HAMBURGER MENU
      ======================================================= */
   @media (max-width: 991px) {
-    /* 1. Allows the desktop dropdown to render as a native list inside the hamburger */
     .nav-dropdown {
       position: static !important;
     }
     .nav-dropdown-menu {
       display: flex !important;
+      flex-direction: column !important; /* Stacks items vertically */
+      gap: 18px !important;
       position: relative !important;
       top: 0 !important;
       left: 0 !important;
@@ -1035,10 +1036,21 @@
       background: transparent !important;
       border: none !important;
       box-shadow: none !important;
-      padding: 5px 0 5px 15px !important;
+      padding: 15px 0 15px 25px !important;
     }
-    
-    /* 2. Hides the complex desktop side-flyout to keep mobile clean */
+    /* Kills the default blue link styling */
+    .nav-dropdown-menu a {
+      text-decoration: none !important;
+      color: #1C3317 !important;
+      font-family: var(--font-heading) !important;
+      font-weight: 700 !important;
+      font-size: 0.85rem !important;
+      text-transform: uppercase !important;
+    }
+    /* Hides the extra desktop text so mobile stays clean */
+    .dropdown-meta, .vip-premium-pill, .submenu-arrow, .dropdown-divider {
+      display: none !important;
+    }
     .nav-sub-dropdown-menu {
       display: none !important;
     }
