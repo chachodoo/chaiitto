@@ -586,27 +586,22 @@
     opacity: 1;
   }
 
-  /* DESKTOP TIENDA DROPDOWN */
+  /* DESKTOP TIENDA EN LÍNEA MASTER DROPDOWN */
   .nav-dropdown {
     position: relative;
-    display: inline-flex;
-    align-items: center;
-  }
-  .nav-dropdown:hover .nav-caret {
-    transform: rotate(180deg) !important;
+    display: inline-block;
   }
   .nav-dropdown-menu {
     display: none;
     position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #081F10;
-    border: 1.5px solid var(--gold-border, #D4AF37);
-    border-radius: 12px;
-    padding: 8px 0;
-    min-width: 210px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+    top: calc(100% + 4px);
+    left: 0;
+    min-width: 320px;
+    background: #0E2A12;
+    border: 1.5px solid rgba(212, 175, 55, 0.45);
+    border-radius: 14px;
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.4);
+    padding: 8px 6px;
     z-index: 10050;
   }
   .nav-dropdown:hover .nav-dropdown-menu {
@@ -614,21 +609,56 @@
     flex-direction: column;
   }
   .nav-dropdown-menu a {
-    padding: 10px 20px;
-    color: rgba(255, 255, 255, 0.88);
-    font-family: var(--font-body, 'Montserrat', sans-serif);
-    font-size: 0.82rem;
-    font-weight: 600;
+    display: block;
+    padding: 10px 14px;
+    border-radius: 8px;
     text-decoration: none;
-    text-align: left;
-    white-space: nowrap;
-    transition: background 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
+    color: #FFFFFF;
+    transition: background 0.2s ease;
   }
   .nav-dropdown-menu a:hover {
-    background: rgba(212, 175, 55, 0.18);
-    color: #F5D061;
-    padding-left: 24px;
-  }  
+    background: rgba(212, 175, 55, 0.14);
+  }
+  .dropdown-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+  }
+  .dropdown-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.88rem;
+    color: #FFFFFF;
+  }
+  .dropdown-label i {
+    width: 16px;
+    text-align: center;
+    font-size: 0.95rem;
+  }
+  .dropdown-meta {
+    font-size: 0.72rem;
+    color: #A3B899;
+    font-weight: 500;
+  }
+  .dropdown-divider {
+    height: 1px;
+    background: rgba(212, 175, 55, 0.25);
+    margin: 6px 10px;
+  }
+  .vip-premium-pill {
+    background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%);
+    color: #102619;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 12px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
 
    /* HIDE MOBILE FLOATING BUTTON ON DESKTOP */
   #floating-cart-btn {
@@ -1441,37 +1471,56 @@
     <div class="header-spacer"></div>
 </div>
 
-        <nav class="main-nav" id="main-nav-menu">
-        <button class="nav-btn" data-page="inicio" onclick="window.location.hash='inicio'; if(typeof loadSection==='function'){loadSection('inicio');}else if(typeof switchPage==='function'){switchPage('inicio');}">
-            <i class="fa-solid fa-house"></i> Inicio
-        </button>
-        <div class="nav-dropdown">
-            <button class="nav-btn" data-page="productos" onclick="window.location.hash='productos';">
-                <i class="fa-solid fa-leaf"></i> Tienda <i class="fa-solid fa-chevron-down nav-caret"></i>
-            </button>
-            <div class="nav-dropdown-menu">
-                <a href="javascript:void(0)" onclick="openTiendaCollection('BIENESTAR')">🌿 Bienestar</a>
-                <a href="javascript:void(0)" onclick="openTiendaCollection('CHAI LOVER')">☕ Chai Lover</a>
-                <a href="javascript:void(0)" onclick="openTiendaCollection('BLUE MAGIC')">💙 Blue Magic</a>
-                <a href="javascript:void(0)" onclick="openTiendaCollection('VIAJES CON TÉ')">✈️ Viajes con Té</a>
-                <a href="javascript:void(0)" onclick="openTiendaCollection('NOCTURNA')">🌙 Nocturna</a>
-                <a href="javascript:void(0)" onclick="openTiendaCollection('ESPECIAL')">✨ Especial</a>
-                <a href="javascript:void(0)" onclick="openTiendaCollection('WOW')">🔥 Wow</a>
+       <!-- UNIFIED CLEAN NAVIGATION (TIENDA EN LÍNEA MASTER) -->
+        <nav id="main-nav-menu" class="nav-menu">
+            <button class="nav-btn" onclick="switchPage('inicio')">INICIO</button>
+
+            <!-- MASTER STORE DROPDOWN -->
+            <div class="nav-dropdown">
+                <button class="nav-btn" type="button" style="display: inline-flex; align-items: center; gap: 6px;">
+                    TIENDA EN LÍNEA <i class="fa-solid fa-chevron-down" style="font-size: 0.72rem;"></i>
+                </button>
+                <div class="nav-dropdown-menu">
+                    <!-- 1. TÉS -->
+                    <a href="javascript:void(0)" onclick="openStoreSection('productos')">
+                        <div class="dropdown-row">
+                            <span class="dropdown-label">
+                                <i class="fa-solid fa-leaf" style="color: #25D366;"></i>
+                                <strong>Tés de Hoja Suelta</strong>
+                            </span>
+                            <span class="dropdown-meta">120+ Mezclas</span>
+                        </div>
+                    </a>
+
+                    <!-- 2. ACCESORIOS -->
+                    <a href="javascript:void(0)" onclick="openStoreSection('accesorios')">
+                        <div class="dropdown-row">
+                            <span class="dropdown-label">
+                                <i class="fa-solid fa-mug-hot" style="color: #D4AF37;"></i>
+                                <strong>Accesorios de Té</strong>
+                            </span>
+                            <span class="dropdown-meta">Teteras y Sets</span>
+                        </div>
+                    </a>
+
+                    <div class="dropdown-divider"></div>
+
+                    <!-- 3. BAZAR VIP -->
+                    <a href="javascript:void(0)" onclick="openStoreSection('bazar')">
+                        <div class="dropdown-row">
+                            <span class="dropdown-label">
+                                <i class="fa-solid fa-lock" style="color: #F5D061;"></i>
+                                <strong>Bazar VIP</strong>
+                            </span>
+                            <span class="vip-premium-pill">Miembros Premium</span>
+                        </div>
+                    </a>
+                </div>
             </div>
-        </div>
-        <button class="nav-btn" data-page="accesorios" onclick="window.location.hash='accesorios';">
-            <i class="fa-solid fa-mug-hot"></i> Accesorios
-        </button>
-        <button class="nav-btn" data-page="galeria" onclick="window.location.hash='galeria';">
-            <i class="fa-solid fa-images"></i> Galería
-        </button>
-        <button class="nav-btn nav-vip" data-page="vip" onclick="window.location.hash='vip';">
-            <i class="fa-solid fa-crown"></i> Club VIP
-        </button>
-        <button class="nav-btn" data-page="bazar" onclick="window.location.hash='bazar';">
-            <i class="fa-solid fa-lock"></i> Bazar VIP
-        </button>
-    </nav>
+
+            <button class="nav-btn" onclick="switchPage('vip')">CLUB VIP</button>
+            <button class="nav-btn" onclick="switchPage('galeria')">GALERÍA</button>
+        </nav>
     <!-- DESKTOP HEADER CART & RELATIVE TOAST -->
     <div class="header-cart-wrapper">
         <button id="desktop-cart-btn" class="desktop-cart-icon" onclick="toggleCartDrawer()" aria-label="Ver Carrito">
