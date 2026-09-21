@@ -247,5 +247,19 @@
       "accesorios/accesorios-506-5.jpeg",
       "accesorios/accesorios-506-6.jpeg"
     ]
+  },
+  {
+    "num": "507",
+    "name": "Tetera Inglesa",
+    "descripcion": "Tetera de Porcelana decorada y con detalles en Oro, capacidad de 1500ml, cuenta con filtro integrado en su interior.",
+    "precio": 1100,
+    "precioOferta": 800,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-507-1.jpeg",
+      "accesorios/accesorios-507-2.jpeg",
+      "accesorios/accesorios-507-3.jpeg",
+      "accesorios/accesorios-507-4.jpeg"
+    ]
   }
 ]
