@@ -495,5 +495,19 @@
       "accesorios/accesorios-523-3.jpeg",
       "accesorios/accesorios-523-4.jpeg"
     ]
+  },
+  {
+    "num": "524",
+    "name": "Tetera de Hierro Ovalada",
+    "descripcion": "Tetera de Hierro color Negro con destellos Dorados, capacidad de 400ml e infusor de acero inoxidable incluido.",
+    "precio": 990,
+    "precioOferta": 900,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-524-1.jpeg",
+      "accesorios/accesorios-524-2.jpeg",
+      "accesorios/accesorios-524-3.jpeg",
+      "accesorios/accesorios-524-4.jpeg"
+    ]
   }
 ]
