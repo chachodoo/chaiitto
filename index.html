@@ -1568,17 +1568,19 @@ nav.main-nav {
         display: flex !important;
         flex-direction: row !important;
         align-items: center !important;
-        justify-content: space-around !important;
+        justify-content: space-between !important;
         width: 100% !important;
         background: rgba(0, 0, 0, 0.25) !important;
         border-top: 1px solid rgba(212, 175, 55, 0.25) !important;
         border-bottom: 1px solid rgba(212, 175, 55, 0.35) !important;
-        padding: 6px 4px !important;
+        padding: 6px 2px !important;
         margin: 4px 0 0 0 !important;
         box-sizing: border-box !important;
     }
 
     .row2-tab-btn {
+        flex: 1 1 0 !important;
+        width: 100% !important;
         background: transparent !important;
         border: none !important;
         outline: none !important;
@@ -1587,11 +1589,11 @@ nav.main-nav {
         appearance: none !important;
         color: rgba(255, 255, 255, 0.95) !important;
         font-family: var(--font-heading, 'Cinzel', serif) !important;
-        font-size: 0.74rem !important;
+        font-size: clamp(0.62rem, 2.5vw, 0.70rem) !important;
         font-weight: 700 !important;
-        letter-spacing: 0.8px !important;
+        letter-spacing: 0.3px !important;
         text-transform: uppercase !important;
-        padding: 6px 8px !important;
+        padding: 6px 2px !important;
         cursor: pointer !important;
         white-space: nowrap !important;
         display: inline-flex !important;
@@ -1606,11 +1608,12 @@ nav.main-nav {
     }
 
     .row2-dropdown-wrapper {
+        flex: 1 1 0 !important;
         position: relative;
         display: inline-flex;
         align-items: center;
+        justify-content: center;
     }
-
     #mobile-tienda-trigger i {
         font-size: 0.6rem;
         margin-left: 4px;
