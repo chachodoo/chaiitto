@@ -452,5 +452,20 @@
       "accesorios/accesorios-520-4.jpeg",
       "accesorios/accesorios-520-5.jpeg"
     ]
+  },
+  {
+    "num": "521",
+    "name": "Set de Tetera \"Rose\"",
+    "descripcion": "Set de Tetera de Borosilicato, con decoracion metalica de rosas rojas, capacidad de 400ml, filtro incluido.",
+    "precio": 1100,
+    "precioOferta": 900,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-521-1.jpeg",
+      "accesorios/accesorios-521-2.jpeg",
+      "accesorios/accesorios-521-3.jpeg",
+      "accesorios/accesorios-521-4.jpeg",
+      "accesorios/accesorios-521-5.jpeg"
+    ]
   }
 ]
