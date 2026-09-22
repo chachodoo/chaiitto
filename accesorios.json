@@ -408,5 +408,19 @@
       "accesorios/accesorios-517-3.jpeg",
       "accesorios/accesorios-517-4.jpeg"
     ]
+  },
+  {
+    "num": "518",
+    "name": "Tetera Doble Turca",
+    "descripcion": "Tetera doble piso Turca con infusor de vidrio de borosilicato de alta transparencia, diseñado para resistir altas temperaturas y cambios térmicos, capacidad 1500ml (Base: 1000ml, Superior: 500ml).",
+    "precio": 1100,
+    "precioOferta": 950,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-518-1.jpeg",
+      "accesorios/accesorios-518-2.jpeg",
+      "accesorios/accesorios-518-3.jpeg",
+      "accesorios/accesorios-518-4.jpeg"
+    ]
   }
 ]
