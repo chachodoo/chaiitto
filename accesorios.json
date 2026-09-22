@@ -422,5 +422,20 @@
       "accesorios/accesorios-518-3.jpeg",
       "accesorios/accesorios-518-4.jpeg"
     ]
+  },
+  {
+    "num": "519",
+    "name": "Tetera Magica \"Tulipan\"",
+    "descripcion": "Tetera echa de vidrio de Borosilicato color Humo con sistema de filtrado doble semiautomático por gravedad activado por magnetismo, capacidad de 200ml y base de Madera.",
+    "precio": 1200,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-519-1.jpeg",
+      "accesorios/accesorios-519-2.jpeg",
+      "accesorios/accesorios-519-3.jpeg",
+      "accesorios/accesorios-519-4.jpeg",
+      "accesorios/accesorios-519-5.jpeg"
+    ]
   }
 ]
