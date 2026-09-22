@@ -742,8 +742,7 @@
     
 
    /* HIDE MOBILE BUTTONS ON DESKTOP */
-#floating-cart-btn, #mobile-header-cart-btn, .mobile-cart-btn {display: none !important; }
-    
+#floating-cart-btn, #floating-whatsapp-btn, #mobile-header-cart-btn, .mobile-cart-btn, .mobile-header-actions { display: none !important; } 
 
   /* DESKTOP HEADER CART WRAPPER & ANCHOR */
   .header-cart-wrapper {
@@ -1641,13 +1640,14 @@ nav.main-nav {
         <img src="logo.png" alt="Logo Chai-itto" class="logo-main" onclick="switchPage('inicio')">
       </div>
       
-      <!-- 3. Mobile Header Actions (WhatsApp + Cart) -->
-      <div class="mobile-header-actions">
+      <!-- 3. Mobile Header Actions (WhatsApp + Cart Side-by-Side) -->
+      <div class="mobile-header-actions" style="display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: flex-end !important; gap: 12px !important; z-index: 10001;">
         <a href="https://wa.me/522218415466?text=Hola%20Chai-itto!%20Me%20gustar%C3%ADa%20hacer%20una%20consulta." 
            target="_blank" 
            rel="noopener noreferrer" 
            class="mobile-header-wa-btn" 
-           aria-label="Contactar por WhatsApp">
+           aria-label="Contactar por WhatsApp"
+           style="display: flex !important; align-items: center !important; justify-content: center !important; width: 36px !important; height: 36px !important; color: #25D366 !important; font-size: 1.5rem !important; text-decoration: none !important; line-height: 1 !important;">
           <i class="fa-brands fa-whatsapp"></i>
         </a>
 
