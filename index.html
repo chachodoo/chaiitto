@@ -1570,11 +1570,10 @@ nav.main-nav {
         align-items: center !important;
         justify-content: space-between !important;
         width: 100% !important;
-        background: rgba(0, 0, 0, 0.25) !important;
-        border-top: 1px solid rgba(212, 175, 55, 0.25) !important;
-        border-bottom: 1px solid rgba(212, 175, 55, 0.35) !important;
-        padding: 6px 2px !important;
-        margin: 4px 0 0 0 !important;
+        background: transparent !important;
+        border: none !important;
+        padding: 0 4px 6px 4px !important;
+        margin: 0 !important;
         box-sizing: border-box !important;
     }
 
@@ -1587,11 +1586,11 @@ nav.main-nav {
         box-shadow: none !important;
         -webkit-appearance: none !important;
         appearance: none !important;
-        color: rgba(255, 255, 255, 0.95) !important;
-        font-family: var(--font-heading, 'Cinzel', serif) !important;
-        font-size: clamp(0.62rem, 2.5vw, 0.70rem) !important;
-        font-weight: 700 !important;
-        letter-spacing: 0.3px !important;
+        color: rgba(255, 255, 255, 0.88) !important;
+        font-family: var(--font-body, 'Montserrat', sans-serif) !important;
+        font-size: clamp(0.72rem, 2.7vw, 0.82rem) !important;
+        font-weight: 500 !important;
+        letter-spacing: 1px !important;
         text-transform: uppercase !important;
         padding: 6px 2px !important;
         cursor: pointer !important;
@@ -1604,7 +1603,7 @@ nav.main-nav {
 
     .row2-tab-btn:active {
         color: #F5D061 !important;
-        transform: scale(0.95);
+        transform: scale(0.96);
     }
 
     .row2-dropdown-wrapper {
@@ -1614,9 +1613,12 @@ nav.main-nav {
         align-items: center;
         justify-content: center;
     }
+
     #mobile-tienda-trigger i {
-        font-size: 0.6rem;
-        margin-left: 4px;
+        font-size: 0.6rem !important;
+        color: #F5D061 !important;
+        margin-left: 5px !important;
+        opacity: 0.85;
         transition: transform 0.2s ease;
     }
 
@@ -1626,11 +1628,11 @@ nav.main-nav {
         top: calc(100% + 6px);
         left: 50%;
         transform: translateX(-50%);
-        background: #0d2216;
+        background: #0E2A12;
         border: 1.5px solid var(--gold-border, #D4AF37);
-        border-radius: 10px;
+        border-radius: 12px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65);
-        min-width: 195px;
+        min-width: 200px;
         z-index: 10005;
         overflow: hidden;
         padding: 4px 0;
@@ -1644,12 +1646,12 @@ nav.main-nav {
         display: flex;
         align-items: center;
         gap: 10px;
-        padding: 10px 14px;
+        padding: 11px 14px;
         color: #FFFFFF !important;
         text-decoration: none;
-        font-family: var(--font-heading, 'Cinzel', serif);
-        font-size: 0.74rem;
-        font-weight: 700;
+        font-family: var(--font-body, 'Montserrat', sans-serif);
+        font-size: 0.78rem;
+        font-weight: 600;
         letter-spacing: 0.5px;
         text-transform: uppercase;
         border-bottom: 1px solid rgba(212, 175, 55, 0.15);
@@ -1666,7 +1668,7 @@ nav.main-nav {
     }
 
     .mobile-tienda-dropdown a:active {
-        background: rgba(212, 175, 55, 0.22);
+        background: rgba(212, 175, 55, 0.25);
         color: #F5D061 !important;
     }
 }
