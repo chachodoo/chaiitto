@@ -435,23 +435,13 @@
     box-shadow: 0 12px 22px -3px rgba(14, 38, 16, 0.45),
                 0 0 12px rgba(212, 175, 55, 0.35);
 }
-
-        /* --- FLOATING BUTTONS --- */
-        #floating-cart-btn {
-            position: fixed; bottom: 25px; right: 25px; width: 52px; height: 52px;
-            background: linear-gradient(135deg, #2D5A27 0%, #4A7C36 100%); color: #FFFFFF;
-            border-radius: 50%; border: 2px solid var(--gold-border); cursor: pointer; z-index: 9999;
-            box-shadow: 0 6px 20px rgba(45, 90, 39, 0.35); display: flex; align-items: center; justify-content: center;
-            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
-            animation: cartGlow 2.5s infinite alternate;
-        }
+        
         @keyframes cartGlow {
             0% { box-shadow: 0 6px 18px rgba(74, 124, 54, 0.3); }
             50% { box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5); }
             100% { box-shadow: 0 6px 18px rgba(74, 124, 54, 0.3); }
         }
-        #floating-cart-btn:hover { transform: scale(1.1) translateY(-2px); box-shadow: 0 10px 25px rgba(45, 90, 39, 0.5); }
-
+         #mobile-header-cart-btn:hover { transform: scale(1.1) translateY(-2px); box-shadow: 0 10px 25px rgba(45, 90, 39, 0.5); }
         #floating-whatsapp-btn {
             position: fixed; bottom: 25px; left: 25px; width: 52px; height: 52px;
             background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: #FFFFFF;
@@ -902,10 +892,10 @@
                 z-index: 10001;
                 transition: color 0.2s ease;
             }
-            .mobile-cart-btn {
+    .mobile-cart-btn {
     display: flex !important;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     width: 36px;
     height: 36px;
     background: transparent;
@@ -916,7 +906,14 @@
     cursor: pointer;
     padding: 0;
     z-index: 10001;
-    transition: transform 0.15s ease;
+    border-radius: 50%;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    animation: cartGlow 2.5s infinite alternate;
+}
+
+.mobile-cart-btn:hover {
+    transform: scale(1.1) translateY(-2px);
+    box-shadow: 0 10px 25px rgba(45, 90, 39, 0.5);
 }
 .mobile-cart-btn:active {
     transform: scale(0.92);
@@ -1599,11 +1596,6 @@ nav.main-nav {
     <a id="floating-whatsapp-btn" href="https://wa.me/522218415466" target="_blank" aria-label="Chat en WhatsApp">
         <i class="fa-brands fa-whatsapp fa-xl"></i>
     </a>
-
-    <button id="floating-cart-btn" onclick="toggleCartDrawer()" aria-label="Ver Carrito de Compras">
-        <i class="fa-solid fa-cart-shopping fa-lg"></i>
-        <span id="cart-count-badge">0</span>
-    </button>
 
 <div class="hero-marquee-wrapper" title="Desliza para pausar">
   <div class="hero-marquee-content">
