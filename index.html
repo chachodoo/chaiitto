@@ -1601,16 +1601,23 @@
     <header id="main-master-header">
         <!-- Enterprise Marquee Ribbon -->
 
-        <!-- Logo & Nav Row (Header Layout) -->
-<div class="header-square-layout" id="header-logo-container">
-    <button id="floating-hamburger-btn" class="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Menú">
+        <div class="header-square-layout" id="header-logo-container">
+      <!-- 1. Hamburger on Left (Retained) -->
+      <button id="floating-hamburger-btn" class="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Menú">
         <i class="fa-solid fa-bars"></i>
-    </button>
-    <div class="logo-wrapper">
+      </button>
+      
+      <!-- 2. Logo Centered -->
+      <div class="logo-wrapper">
         <img src="logo.png" alt="Logo Chai-itto" class="logo-main" onclick="switchPage('inicio')">
+      </div>
+      
+      <!-- 3. Mobile Cart on Right (Replaces dummy spacer) -->
+      <button id="mobile-header-cart-btn" class="mobile-cart-btn" onclick="toggleCartDrawer()" aria-label="Ver Carrito">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span id="mobile-cart-badge">0</span>
+      </button>
     </div>
-    <div class="header-spacer"></div>
-</div>
 
        <!-- UNIFIED CLEAN NAVIGATION -->
         <nav id="main-nav-menu" class="main-nav nav-menu">
