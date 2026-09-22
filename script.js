@@ -467,10 +467,10 @@ async function fetchProducts() {
             document.body.style.overflow = 'auto';
             document.body.className = ''; // Strips any body-level blur classes
     
-            // Properly close specific modals by removing their 'active' class
-    document.querySelectorAll('.oferta-modal, #checkout-modal, #main-nav-menu').forEach(el => {
-        if (el) el.classList.remove('active');
-    });
+           // Properly close specific modals and mobile header flyouts
+document.querySelectorAll('.oferta-modal, #checkout-modal, #main-nav-menu, #mobile-tienda-flyout').forEach(el => {if (el) el.classList.remove('active'); });
+const mobileTiendaCaret = document.querySelector('#mobile-tienda-trigger i');
+if (mobileTiendaCaret) mobileTiendaCaret.style.transform = 'rotate(0deg)';
 
     // Hard-hide the cart drawer
     const cartDrawer = document.getElementById('cart-drawer-backdrop');
@@ -1783,6 +1783,16 @@ window.openStoreSection = function (sectionId) {
 /* ===================================================
    MOBILE ROW 2 TIENDA DROPDOWN CONTROLLER
    =================================================== */
+function closeMobileTienda() {
+  const flyout = document.getElementById('mobile-tienda-flyout');
+  if (flyout) flyout.classList.remove('active');
+  const trigger = document.getElementById('mobile-tienda-trigger');
+  if (trigger) {
+    const icon = trigger.querySelector('i');
+    if (icon) icon.style.transform = 'rotate(0deg)';
+  }
+}
+
 function toggleMobileTienda(e) {
   if (e) {
     e.stopPropagation();
@@ -1802,39 +1812,32 @@ function toggleMobileTienda(e) {
 }
 
 function openStoreSection(sectionId, e) {
-  const evt = e || window.event;
-  if (evt) {
-    evt.stopPropagation();
-    evt.preventDefault();
+  if (e) {
+    e.stopPropagation();
+    e.preventDefault();
   }
-
-  // 1. Close flyout menu immediately
-  const flyout = document.getElementById('mobile-tienda-flyout');
-  if (flyout) flyout.classList.remove('active');
-
-  const trigger = document.getElementById('mobile-tienda-trigger');
-  if (trigger) {
-    const icon = trigger.querySelector('i');
-    if (icon) icon.style.transform = 'rotate(0deg)';
-  }
-
-  // 2. Route dynamically to the requested section
+  closeMobileTienda();
   if (typeof switchPage === 'function') {
     switchPage(sectionId);
   }
 }
 
-// 3. Auto-close dropdown when tapping anywhere else on the screen
-document.addEventListener('click', function(e) {
-  const flyout = document.getElementById('mobile-tienda-flyout');
-  const trigger = document.getElementById('mobile-tienda-trigger');
-  if (flyout && flyout.classList.contains('active')) {
-    if (!flyout.contains(e.target) && (!trigger || !trigger.contains(e.target))) {
-      flyout.classList.remove('active');
-      if (trigger) {
-        const icon = trigger.querySelector('i');
-        if (icon) icon.style.transform = 'rotate(0deg)';
-      }
+// Auto-close when choosing an option OR tapping anywhere outside
+['click', 'touchstart'].forEach(evtType => {
+  document.addEventListener(evtType, function(e) {
+    const flyout = document.getElementById('mobile-tienda-flyout');
+    const trigger = document.getElementById('mobile-tienda-trigger');
+    if (!flyout || !flyout.classList.contains('active')) return;
+
+    // 1. Tapped an option inside the dropdown: close immediately
+    if (e.target.closest && e.target.closest('#mobile-tienda-flyout a')) {
+      closeMobileTienda();
+      return;
     }
-  }
+
+    // 2. Tapped outside the dropdown and trigger: close immediately
+    if (!flyout.contains(e.target) && (!trigger || !trigger.contains(e.target))) {
+      closeMobileTienda();
+    }
+  }, { passive: true });
 });
