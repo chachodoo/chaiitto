@@ -467,5 +467,19 @@
       "accesorios/accesorios-521-4.jpeg",
       "accesorios/accesorios-521-5.jpeg"
     ]
+  },
+  {
+    "num": "522",
+    "name": "Set de Tetera Mini",
+    "descripcion": "Tetera y cuenco (doble pared) de Borosilicato, con capacidad de 100ml, incluye filtro.",
+    "precio": 310,
+    "precioOferta": 280,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-522-1.jpeg",
+      "accesorios/accesorios-522-2.jpeg",
+      "accesorios/accesorios-522-3.jpeg",
+      "accesorios/accesorios-522-4.jpeg"
+    ]
   }
 ]
