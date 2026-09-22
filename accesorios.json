@@ -537,5 +537,19 @@
       "accesorios/accesorios-526-3.jpeg",
       "accesorios/accesorios-526-4.jpeg"
     ]
+  },
+  {
+    "num": "527",
+    "name": "Tetera de Hierro Japonesa",
+    "descripcion": "Tetera de Hierro, color Oro envejecido con relieve de peces Koi, capacidad de 800ml e infusor de acero inoxidable incluido.",
+    "precio": 1600,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-527-1.jpeg",
+      "accesorios/accesorios-527-2.jpeg",
+      "accesorios/accesorios-527-3.jpeg",
+      "accesorios/accesorios-527-4.jpeg"
+    ]
   }
 ]
