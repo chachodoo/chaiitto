@@ -1765,7 +1765,7 @@ window.openStoreSection = function (sectionId) {
 
 // MASTER STORE NAVIGATION ROUTER
 window.openStoreSection = function (sectionId) {
-  // 1. Instantly hide dropdown so it never lingers over content
+  // 1. Instantly hide desktop dropdown so it never lingers over content
   const menu = document.querySelector('.nav-dropdown-menu');
   if (menu) {
     menu.style.setProperty('display', 'none', 'important');
@@ -1774,11 +1774,45 @@ window.openStoreSection = function (sectionId) {
     }, 350);
   }
 
-  // 2. Route directly to the requested section (productos, accesorios, or bazar)
+  // 2. Close mobile Tienda flyout if open
+  const flyout = document.getElementById('mobile-tienda-flyout');
+  if (flyout) flyout.classList.remove('active');
+  const trigger = document.getElementById('mobile-tienda-trigger');
+  if (trigger) {
+    const icon = trigger.querySelector('.fa-chevron-down');
+    if (icon) icon.style.transform = 'rotate(0deg)';
+  }
+
+  // 3. Route directly to the requested section (productos, accesorios, or bazar)
   window.location.hash = sectionId;
   if (typeof switchPage === 'function') {
     switchPage(sectionId);
   }
 };
+// MOBILE ROW 2 TIENDA FLYOUT CONTROLLER
+function toggleMobileTienda(event) {
+  if (event) event.stopPropagation();
+  const flyout = document.getElementById('mobile-tienda-flyout');
+  const trigger = document.getElementById('mobile-tienda-trigger');
+  if (!flyout) return;
+  
+  const isOpen = flyout.classList.toggle('active');
+  if (trigger) {
+    const icon = trigger.querySelector('.fa-chevron-down');
+    if (icon) icon.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+  }
+}
 
+// Close flyout when tapping anywhere else on the screen
+document.addEventListener('click', function(e) {
+  const flyout = document.getElementById('mobile-tienda-flyout');
+  const trigger = document.getElementById('mobile-tienda-trigger');
+  if (flyout && flyout.classList.contains('active') && !e.target.closest('.row2-dropdown-wrapper')) {
+    flyout.classList.remove('active');
+    if (trigger) {
+      const icon = trigger.querySelector('.fa-chevron-down');
+      if (icon) icon.style.transform = 'rotate(0deg)';
+    }
+  }
+});
 
