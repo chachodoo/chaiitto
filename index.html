@@ -151,6 +151,71 @@
                 display: flex; 
                 flex-direction: column; 
             }
+
+            /* ==========================================
+   MOBILE ROW 2 TIENDA FLYOUT MENU
+   ========================================== */
+.row2-dropdown-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+#mobile-tienda-trigger i {
+    font-size: 0.6rem;
+    margin-left: 4px;
+    transition: transform 0.2s ease;
+}
+
+.mobile-tienda-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #0d2216;
+    border: 1.5px solid var(--gold-border, #D4AF37);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65);
+    min-width: 195px;
+    z-index: 10005;
+    overflow: hidden;
+    padding: 4px 0;
+}
+
+.mobile-tienda-dropdown.active {
+    display: block;
+}
+
+.mobile-tienda-dropdown a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    color: #FFFFFF !important;
+    text-decoration: none;
+    font-family: var(--font-heading, 'Cinzel', serif);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    white-space: nowrap;
+}
+
+.mobile-tienda-dropdown a i {
+    color: #F5D061;
+    width: 14px;
+}
+
+.mobile-tienda-dropdown a:last-child {
+    border-bottom: none;
+}
+
+.mobile-tienda-dropdown a:active {
+    background: rgba(212, 175, 55, 0.22);
+    color: #F5D061 !important;
+}
             
             /* Hide the Envíos promo box ONLY on mobile */
             .sidebar-promo { display: none; }
@@ -1671,6 +1736,32 @@ nav.main-nav {
           <span id="mobile-cart-badge">0</span>
         </button>
       </div>
+            <!-- TEST ROW 2: PERMANENT MOBILE NAVIGATION BAR WITH TIENDA FLYOUT -->
+      <nav id="mobile-row2-bar" class="mobile-row2-nav">
+        <button type="button" class="row2-tab-btn" onclick="switchPage('inicio')">Inicio</button>
+
+        <div class="row2-dropdown-wrapper">
+          <button type="button" class="row2-tab-btn" id="mobile-tienda-trigger" onclick="toggleMobileTienda(event)">
+            Tienda <i class="fa-solid fa-chevron-down"></i>
+          </button>
+
+          <div id="mobile-tienda-flyout" class="mobile-tienda-dropdown">
+            <a href="#productos" onclick="openStoreSection('productos')">
+              <i class="fa-solid fa-leaf"></i> Tés de Hoja Suelta
+            </a>
+            <a href="#accesorios" onclick="openStoreSection('accesorios')">
+              <i class="fa-solid fa-mug-hot"></i> Accesorios
+            </a>
+            <a href="#bazar" onclick="openStoreSection('bazar')">
+              <i class="fa-solid fa-crown"></i> Bazar VIP
+            </a>
+          </div>
+        </div>
+
+        <button type="button" class="row2-tab-btn" onclick="switchPage('vip')">Club VIP</button>
+        <button type="button" class="row2-tab-btn" onclick="switchPage('galeria')">Galería</button>
+      </nav>
+            
     </div>
 
        <!-- UNIFIED CLEAN NAVIGATION -->
