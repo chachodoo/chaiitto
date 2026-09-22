@@ -730,7 +730,21 @@
       transform: translateX(6px);
       color: #FFFFFF;
     }
-    
+    /* ===================================================
+   HEADER ISOLATION: DESKTOP VS MOBILE BOUNDARIES
+   =================================================== */
+#mobile-header-wrapper {
+    display: none !important;
+}
+
+@media (max-width: 991px) {
+    #desktop-header-wrapper {
+        display: none !important;
+    }
+    #mobile-header-wrapper {
+        display: block !important;
+    }
+}
 
    /* HIDE MOBILE BUTTONS ON DESKTOP */
 #floating-cart-btn, #floating-whatsapp-btn, #mobile-header-cart-btn, .mobile-cart-btn, .mobile-header-actions { display: none !important; } 
