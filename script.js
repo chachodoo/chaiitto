@@ -1334,13 +1334,19 @@ function initVisitorCounter() {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-    initMobileSplash();
-    await fetchProducts();
-    handleHashNavigation();
-    initVisitorCounter();
-    updateCartUI();
-});
+  initMobileSplash();
+  await fetchProducts();
 
+  // If there's a hash (and it's not a Clip payment return), reset to home
+  const isPaymentReturn = window.location.search.includes('clip_status') || window.location.hash.includes('vip-');
+  if (!isPaymentReturn && window.location.hash) {
+    history.replaceState(null, document.title, window.location.pathname);
+  }
+
+  handleHashNavigation();
+  initVisitorCounter();
+  updateCartUI();
+});
 function initMobileSplash() {
   const splash = document.getElementById('mobile-splash-screen');
   if (!splash) return;
