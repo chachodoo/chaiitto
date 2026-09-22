@@ -1563,34 +1563,40 @@ nav.main-nav {
     0% { opacity: 0; transform: translateY(16px); letter-spacing: 3px; }
     100% { opacity: 1; transform: translateY(0); }
   }
-    /* MOBILE ROW 2 PERMANENT NAVIGATION BAR */
+   /* MOBILE ROW 2 PERMANENT NAVIGATION BAR */
     #mobile-header-wrapper {
-        display: flex !important;
-        flex-direction: row !important;
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
         align-items: center !important;
-        justify-content: space-between !important;
         width: 100% !important;
         background: transparent !important;
         border: none !important;
-        padding: 2px 4px 6px 4px !important;
+        padding: 0 4px 6px 4px !important;
         margin: 0 !important;
         box-sizing: border-box !important;
     }
 
-    /* 4 DISTINCT NAVIGATION CELLS WITH GOLD HAIRLINE SEPARATORS */
+    /* 4 MATHEMATICALLY EQUAL CELLS WITH PURE SOLID WHITE DIVIDERS */
     #mobile-header-wrapper > * {
-        flex: 1 1 0 !important;
-        display: inline-flex !important;
+        display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        height: 16px !important;
-        border-right: 1px solid rgba(255, 255, 255, 0.35) !important;
+        height: 13px !important;
+        border-right: 1px solid #FFFFFF !important;
         box-sizing: border-box !important;
         position: relative !important;
+        min-width: 0 !important;
+        width: 100% !important;
     }
 
     #mobile-header-wrapper > *:last-child {
         border-right: none !important;
+    }
+
+    .row2-dropdown-wrapper {
+        position: relative !important;
+        width: 100% !important;
+        height: 100% !important;
     }
 
     .row2-tab-btn {
@@ -1602,13 +1608,13 @@ nav.main-nav {
         box-shadow: none !important;
         -webkit-appearance: none !important;
         appearance: none !important;
-        color: rgba(255, 255, 255, 0.92) !important;
+        color: #FFFFFF !important;
         font-family: var(--font-body, 'Montserrat', sans-serif) !important;
-        font-size: clamp(0.60rem, 2.2vw, 0.67rem) !important;
+        font-size: clamp(0.58rem, 2.2vw, 0.64rem) !important;
         font-weight: 600 !important;
-        letter-spacing: 0.6px !important;
+        letter-spacing: 0.2px !important;
         text-transform: uppercase !important;
-        padding: 0 2px !important;
+        padding: 0 !important;
         cursor: pointer !important;
         white-space: nowrap !important;
         display: inline-flex !important;
