@@ -523,5 +523,19 @@
       "accesorios/accesorios-525-3.jpeg",
       "accesorios/accesorios-525-4.jpeg"
     ]
+  },
+  {
+    "num": "526",
+    "name": "Tetera de Hierro Ovalada",
+    "descripcion": "Tetera de Hierro, color Azul Pastel con detalles Dorados, capacidad de 700ml e infusor de acero inoxidable incluido.",
+    "precio": 1350,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-526-1.jpeg",
+      "accesorios/accesorios-526-2.jpeg",
+      "accesorios/accesorios-526-3.jpeg",
+      "accesorios/accesorios-526-4.jpeg"
+    ]
   }
 ]
