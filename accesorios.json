@@ -551,5 +551,19 @@
       "accesorios/accesorios-527-3.jpeg",
       "accesorios/accesorios-527-4.jpeg"
     ]
+  },
+  {
+    "num": "528",
+    "name": "Tetera de Hierro Floral (1200ml)",
+    "descripcion": "Tetera de Hierro, color Verde Aqua con detalles Dorados, capacidad de 1200ml e infusor de acero inoxidable incluido.",
+    "precio": 1600,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-528-1.jpeg",
+      "accesorios/accesorios-528-2.jpeg",
+      "accesorios/accesorios-528-3.jpeg",
+      "accesorios/accesorios-528-4.jpeg"
+    ]
   }
 ]
