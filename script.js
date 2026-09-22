@@ -1822,22 +1822,14 @@ function openStoreSection(sectionId, e) {
   }
 }
 
-// Auto-close when choosing an option OR tapping anywhere outside
-['click', 'touchstart'].forEach(evtType => {
-  document.addEventListener(evtType, function(e) {
-    const flyout = document.getElementById('mobile-tienda-flyout');
-    const trigger = document.getElementById('mobile-tienda-trigger');
-    if (!flyout || !flyout.classList.contains('active')) return;
+// Auto-close ONLY when tapping outside (Fixed touch bug)
+document.addEventListener('click', function(e) {
+  const flyout = document.getElementById('mobile-tienda-flyout');
+  const trigger = document.getElementById('mobile-tienda-trigger');
+  if (!flyout || !flyout.classList.contains('active')) return;
 
-    // 1. Tapped an option inside the dropdown: close immediately
-    if (e.target.closest && e.target.closest('#mobile-tienda-flyout a')) {
-      closeMobileTienda();
-      return;
-    }
-
-    // 2. Tapped outside the dropdown and trigger: close immediately
-    if (!flyout.contains(e.target) && (!trigger || !trigger.contains(e.target))) {
-      closeMobileTienda();
-    }
-  }, { passive: true });
+  // If clicked outside both the menu and the trigger button, close it
+  if (!flyout.contains(e.target) && (!trigger || !trigger.contains(e.target))) {
+    closeMobileTienda();
+  }
 });
