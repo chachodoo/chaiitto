@@ -351,5 +351,19 @@
       "accesorios/accesorios-513-4.jpeg",
       "accesorios/accesorios-513-5.jpeg"
     ]
+  },
+  {
+    "num": "514",
+    "name": "Tetera \"Calabaza\"",
+    "descripcion": "Tetera transparente de Borosilicato con aplicaciones en madera, capacidad de 800ml, filtro incluido.",
+    "precio": 450,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-514-1.jpeg",
+      "accesorios/accesorios-514-2.jpeg",
+      "accesorios/accesorios-514-3.jpeg",
+      "accesorios/accesorios-514-4.jpeg"
+    ]
   }
 ]
