@@ -365,5 +365,19 @@
       "accesorios/accesorios-514-3.jpeg",
       "accesorios/accesorios-514-4.jpeg"
     ]
+  },
+  {
+    "num": "515",
+    "name": "Tetera Arabe Moderna",
+    "descripcion": "Tetera con filtro de Borosilicato, aplicaciones en Madera, capacidad de 400ml.",
+    "precio": 600,
+    "precioOferta": 450,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-515-1.jpeg",
+      "accesorios/accesorios-515-2.jpeg",
+      "accesorios/accesorios-515-3.jpeg",
+      "accesorios/accesorios-515-4.jpeg"
+    ]
   }
 ]
