@@ -394,5 +394,19 @@
       "accesorios/accesorios-516-4.jpeg",
       "accesorios/accesorios-516-5.jpeg"
     ]
+  },
+  {
+    "num": "517",
+    "name": "Cafetera estilo Marroqui",
+    "descripcion": "Cafetera transparente fabricada con vidrio de borosilicato de alta transparencia, diseñado para resistir altas temperaturas y cambios térmicos., con capacidad de 1L y filtro incluido.",
+    "precio": 850,
+    "precioOferta": 650,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-517-1.jpeg",
+      "accesorios/accesorios-517-2.jpeg",
+      "accesorios/accesorios-517-3.jpeg",
+      "accesorios/accesorios-517-4.jpeg"
+    ]
   }
 ]
