@@ -336,5 +336,20 @@
       "accesorios/accesorios-512-4.jpeg",
       "accesorios/accesorios-512-5.jpeg"
     ]
+  },
+  {
+    "num": "513",
+    "name": "Tetera Diamante",
+    "descripcion": "Tetera transparete de Borosilicato con detalles en dorado, capacidad de 1L, incluye infusor de acero inoxidable grado alimenticio.",
+    "precio": 450,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-513-1.jpeg",
+      "accesorios/accesorios-513-2.jpeg",
+      "accesorios/accesorios-513-3.jpeg",
+      "accesorios/accesorios-513-4.jpeg",
+      "accesorios/accesorios-513-5.jpeg"
+    ]
   }
 ]
