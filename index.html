@@ -442,16 +442,7 @@
             100% { box-shadow: 0 6px 18px rgba(74, 124, 54, 0.3); }
         }
          #mobile-header-cart-btn:hover { transform: scale(1.1) translateY(-2px); box-shadow: 0 10px 25px rgba(45, 90, 39, 0.5); }
-        #floating-whatsapp-btn {
-            position: fixed; bottom: 25px; left: 25px; width: 52px; height: 52px;
-            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: #FFFFFF;
-            border-radius: 50%; border: 2px solid var(--gold-border); text-decoration: none;
-            cursor: pointer; z-index: 9999; box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
-            display: flex; align-items: center; justify-content: center;
-            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
-        }
-        #floating-whatsapp-btn:hover { transform: scale(1.1) translateY(-2px); box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5); }
-
+        
         @media (max-width: 991px) {
                 #floating-cart-btn {
                     top: auto !important;
@@ -891,7 +882,35 @@
                 z-index: 10001;
                 transition: color 0.2s ease;
             }
-    .mobile-cart-btn {
+    .mobile-header-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    z-index: 10001;
+}
+
+.mobile-header-wa-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    color: #FFFFFF !important;
+    font-size: 1.35rem;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.mobile-header-wa-btn:active {
+    transform: scale(0.92);
+}
+
+.mobile-cart-btn {
     display: flex !important;
     align-items: center;
     justify-content: center;
@@ -899,7 +918,7 @@
     height: 36px;
     background: transparent;
     border: none;
-    color: #FFFFFF;
+    color: #FFFFFF !important;
     font-size: 1.25rem;
     position: relative;
     cursor: pointer;
@@ -914,6 +933,7 @@
     transform: scale(1.1) translateY(-2px);
     box-shadow: 0 10px 25px rgba(45, 90, 39, 0.5);
 }
+
 .mobile-cart-btn:active {
     transform: scale(0.92);
 }
@@ -1591,10 +1611,6 @@ nav.main-nav {
     }, 2500);
   })();
 </script>
-    
-    <a id="floating-whatsapp-btn" href="https://wa.me/522218415466" target="_blank" aria-label="Chat en WhatsApp">
-        <i class="fa-brands fa-whatsapp fa-xl"></i>
-    </a>
 
 <div class="hero-marquee-wrapper" title="Desliza para pausar">
   <div class="hero-marquee-content">
@@ -1640,14 +1656,13 @@ nav.main-nav {
         <img src="logo.png" alt="Logo Chai-itto" class="logo-main" onclick="switchPage('inicio')">
       </div>
       
-      <!-- 3. Mobile Header Actions (WhatsApp + Cart Side-by-Side) -->
-      <div class="mobile-header-actions" style="display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: flex-end !important; gap: 12px !important; z-index: 10001;">
+      <!-- 3. Mobile Header Actions (WhatsApp + Cart) -->
+      <div class="mobile-header-actions">
         <a href="https://wa.me/522218415466?text=Hola%20Chai-itto!%20Me%20gustar%C3%ADa%20hacer%20una%20consulta." 
            target="_blank" 
            rel="noopener noreferrer" 
            class="mobile-header-wa-btn" 
-           aria-label="Contactar por WhatsApp"
-           style="display: flex !important; align-items: center !important; justify-content: center !important; width: 36px !important; height: 36px !important; color: #25D366 !important; font-size: 1.5rem !important; text-decoration: none !important; line-height: 1 !important;">
+           aria-label="Contactar por WhatsApp">
           <i class="fa-brands fa-whatsapp"></i>
         </a>
 
