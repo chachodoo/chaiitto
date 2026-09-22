@@ -565,5 +565,20 @@
       "accesorios/accesorios-528-3.jpeg",
       "accesorios/accesorios-528-4.jpeg"
     ]
+  },
+  {
+    "num": "529",
+    "name": "Tetera Doble Turca",
+    "descripcion": "Tetera Doble Turca de acero inoxidable con mango de plastico, capacidad de 2500ml (Base: 1800ml, Superior: 700ml) y filtro integrado.",
+    "precio": 1200,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-529-1.jpeg",
+      "accesorios/accesorios-529-2.jpeg",
+      "accesorios/accesorios-529-3.jpeg",
+      "accesorios/accesorios-529-4.jpeg",
+      "accesorios/accesorios-529-5.jpeg"
+    ]
   }
 ]
