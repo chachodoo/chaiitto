@@ -1780,4 +1780,61 @@ window.openStoreSection = function (sectionId) {
     switchPage(sectionId);
   }
 };
+/* ===================================================
+   MOBILE ROW 2 TIENDA DROPDOWN CONTROLLER
+   =================================================== */
+function toggleMobileTienda(e) {
+  if (e) {
+    e.stopPropagation();
+    e.preventDefault();
+  }
+  const flyout = document.getElementById('mobile-tienda-flyout');
+  const trigger = document.getElementById('mobile-tienda-trigger');
+  if (!flyout) return;
 
+  const isOpen = flyout.classList.toggle('active');
+  if (trigger) {
+    const icon = trigger.querySelector('i');
+    if (icon) {
+      icon.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+    }
+  }
+}
+
+function openStoreSection(sectionId, e) {
+  const evt = e || window.event;
+  if (evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+  }
+
+  // 1. Close flyout menu immediately
+  const flyout = document.getElementById('mobile-tienda-flyout');
+  if (flyout) flyout.classList.remove('active');
+
+  const trigger = document.getElementById('mobile-tienda-trigger');
+  if (trigger) {
+    const icon = trigger.querySelector('i');
+    if (icon) icon.style.transform = 'rotate(0deg)';
+  }
+
+  // 2. Route dynamically to the requested section
+  if (typeof switchPage === 'function') {
+    switchPage(sectionId);
+  }
+}
+
+// 3. Auto-close dropdown when tapping anywhere else on the screen
+document.addEventListener('click', function(e) {
+  const flyout = document.getElementById('mobile-tienda-flyout');
+  const trigger = document.getElementById('mobile-tienda-trigger');
+  if (flyout && flyout.classList.contains('active')) {
+    if (!flyout.contains(e.target) && (!trigger || !trigger.contains(e.target))) {
+      flyout.classList.remove('active');
+      if (trigger) {
+        const icon = trigger.querySelector('i');
+        if (icon) icon.style.transform = 'rotate(0deg)';
+      }
+    }
+  }
+});
