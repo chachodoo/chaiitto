@@ -67,21 +67,24 @@ function addToCart(name, price, presentation = '') {
     }, 2200);
   }
 
-  // 1. Bounce the floating cart button
-  const cartBtn = document.getElementById('floating-cart-btn');
-  if (cartBtn) {
-    cartBtn.style.transform = 'scale(1.25)';
-    setTimeout(() => { cartBtn.style.transform = ''; }, 220);
-  }
+  // 1. Bounce cart buttons (both top mobile header & bottom floating)
+  const mobileTopBtn = document.getElementById('mobile-header-cart-btn') || document.querySelector('.mobile-cart-btn');
+  [document.getElementById('floating-cart-btn'), mobileTopBtn].forEach(btn => {
+    if (btn) {
+      btn.style.transform = 'scale(1.25)';
+      setTimeout(() => { btn.style.transform = ''; }, 220);
+    }
+  });
 
-  // 2. Micro Toast indicator (disappears after 2s)
+  // 2. Micro Toast indicator (appears beneath top header on mobile)
   let toast = document.getElementById('cart-micro-toast');
+  const isMobile = window.innerWidth < 992;
   if (!toast) {
     toast = document.createElement('div');
     toast.id = 'cart-micro-toast';
-    toast.style.cssText = 'position:fixed; bottom:85px; right:20px; background:#07511A; color:#FFFFFF; padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:700; z-index:99999; box-shadow:0 4px 12px rgba(0,0,0,0.25); display:flex; align-items:center; gap:8px; border:1.5px solid #D4AF37; transition:opacity 0.25s ease; opacity:0; pointer-events:none;';
     document.body.appendChild(toast);
   }
+  toast.style.cssText = `position:fixed; ${isMobile ? 'top:75px;' : 'bottom:85px;'} right:16px; background:#07511A; color:#FFFFFF; padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:700; z-index:99999; box-shadow:0 4px 12px rgba(0,0,0,0.25); display:flex; align-items:center; gap:8px; border:1.5px solid #D4AF37; transition:opacity 0.25s ease; opacity:0; pointer-events:none;`;
   toast.innerHTML = '<i class="fa-solid fa-check" style="color:#F5D061;"></i> Agregado al carrito';
   toast.style.opacity = '1';
   clearTimeout(window._cartToastTimer);
@@ -111,6 +114,7 @@ function updateCartUI() {
     const container = document.getElementById('cart-items-container');
     const badge = document.getElementById('cart-count-badge');
     const desktopBadge = document.getElementById('desktop-cart-badge');
+    const mobileBadge = document.getElementById('mobile-cart-badge');
     const totalEl = document.getElementById('cart-total-price');
     const subtotalEl = document.getElementById('cart-subtotal-price');
     const shippingEl = document.getElementById('cart-shipping-price');
@@ -145,6 +149,7 @@ function updateCartUI() {
 
     if (badge) badge.textContent = totalQty;
     if (desktopBadge) desktopBadge.textContent = totalQty;
+    if (mobileBadge) mobileBadge.textContent = totalQty;
 
 
 const shippingCost = totalPrice > 0 ? 100 : 0;
