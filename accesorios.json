@@ -481,5 +481,19 @@
       "accesorios/accesorios-522-3.jpeg",
       "accesorios/accesorios-522-4.jpeg"
     ]
+  },
+  {
+    "num": "523",
+    "name": "Tetera de Hierro Esferica",
+    "descripcion": "Tetera de Hierro color Azul con detalles Dorados, capacidad de 350ml e infusor de acero inoxidable incluido.",
+    "precio": 900,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-523-1.jpeg",
+      "accesorios/accesorios-523-2.jpeg",
+      "accesorios/accesorios-523-3.jpeg",
+      "accesorios/accesorios-523-4.jpeg"
+    ]
   }
 ]
