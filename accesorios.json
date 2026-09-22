@@ -580,5 +580,18 @@
       "accesorios/accesorios-529-4.jpeg",
       "accesorios/accesorios-529-5.jpeg"
     ]
+  },
+  {
+    "num": "530",
+    "name": "Tetera de Arcilla Yixing",
+    "descripcion": "Tetera de Arcilla Artesanal de origen Chino, de Jiangsu desde el siglo XV, famoso por estar hecho de barro poroso (\"arena púrpura\") que mejora el sabor del té con el tiempo, capacidad de 200ml.",
+    "precio": 375,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-530-1.jpeg",
+      "accesorios/accesorios-530-2.jpeg",
+      "accesorios/accesorios-530-3.jpeg"
+    ]
   }
 ]
