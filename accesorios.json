@@ -809,5 +809,17 @@
       "accesorios/accesorios-547-1.jpeg",
       "accesorios/accesorios-547-2.jpeg"
     ]
+  },
+  {
+    "num": "548",
+    "name": "Cuenco \"Corazon Poblano\"",
+    "descripcion": "Cuenco color Lila con relieve Blanco para Te o Matcha (No incluye Batidor).",
+    "precio": 250,
+    "precioOferta": 200,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-548-1.jpeg",
+      "accesorios/accesorios-548-2.jpeg"
+    ]
   }
 ]
