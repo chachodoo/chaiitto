@@ -662,5 +662,18 @@
       "accesorios/accesorios-535-7.jpeg",
       "accesorios/accesorios-535-8.jpeg"
     ]
+  },
+  {
+    "num": "536",
+    "name": "Bandeja Dorada con Cuencos",
+    "descripcion": "Servicio Arabe para Cafe o Te, Base de Metal Dorado y Cuencos de Porselana.",
+    "precio": 450,
+    "precioOferta": 400,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-536-1.jpeg",
+      "accesorios/accesorios-536-2.jpeg",
+      "accesorios/accesorios-536-3.jpeg"
+    ]
   }
 ]
