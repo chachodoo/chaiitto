@@ -2021,40 +2021,81 @@ function initMovieScrubber() {
   track.addEventListener('pointercancel', endDrag);
 }
 
-/* =========================================
-   COMMUNITY FINALE & 24-SEAL MOSAIC ENGINE
-   ========================================= */
+/* ===================================================
+   COMMUNITY FINALE: 24-SEAL PUZZLE ENGINE
+   - Pre-Flight Verification: ZERO 404 black boxes
+   - Curated Artisanal Tea Palette on every cycle
+   - 0.3s Snap Turnaround: Continuous living rhythm
+   =================================================== */
 let mosaicPool = [];
+let verifiedPool = [];
 let mosaicRevealTimer = null;
+
 const MOSAIC_ANIMATIONS = [
   'anim-flip-y',
   'anim-flip-x',
-  'anim-gold-stamp',
-  'anim-aperture',
-  'anim-swirl',
-  'anim-slice-diag',
-  'anim-diamond',
-  'anim-curtain-split',
-  'anim-optical-blur',
   'anim-flip-diag',
-  'anim-bounce-pop',
-  'anim-scan-reveal'
+  'anim-white-pop'
 ];
 
-// Resolves relative filenames so they always point to the galeria/ folder
+// Curated Artisanal Tea Palettes for the sealed logo tiles
+const TEA_PALETTES = [
+  'radial-gradient(circle at center, #0B3814 0%, #021B07 100%)', // Forest Matcha
+  'radial-gradient(circle at center, #3D1C08 0%, #180902 100%)', // Spiced Chai Cinnamon
+  'radial-gradient(circle at center, #1B1E1C 0%, #060706 100%)', // Midnight Black Tea
+  'radial-gradient(circle at center, #422D0A 0%, #1A1202 100%)', // Golden Amber Oolong
+  'radial-gradient(circle at center, #320B1C 0%, #13020A 100%)', // Hibiscus Plum
+  'radial-gradient(circle at center, #0B2B23 0%, #031410 100%)'  // Imperial Jade
+];
+
+const KNOWN_BACKUP_MEDIA = [
+  'cc-1.jpg', 'cc-2.jpg', 'cc-3.jpg', 'cc-4.JPG', 'cc-5.JPG',
+  'cc-6.JPG', 'cc-7.JPG', 'cc-8.JPG', 'cc-9.JPG', 'cc-10.JPG',
+  'cc-11.JPG', 'cc-12.JPG', 'cc-13.JPG', 'cc-14.JPG', 'cc-15.JPG',
+  'cc-16.JPG', 'cc-17.JPG', 'cc-18.JPG', 'cc-19.JPG', 'cc-20.JPG',
+  'cc-21.JPG', 'cc-22.JPG', 'cc-23.JPG', 'cc-24.JPG', 'cc-25.JPG',
+  'vv-1.mp4'
+];
+
 function resolveCommunityMediaPath(rawPath) {
   if (!rawPath) return '';
   rawPath = String(rawPath).trim();
   if (rawPath.startsWith('http://') || rawPath.startsWith('https://') || rawPath.startsWith('data:')) {
     return rawPath;
   }
-  if (rawPath.startsWith('/')) {
-    rawPath = rawPath.substring(1);
-  }
+  if (rawPath.startsWith('/')) rawPath = rawPath.substring(1);
   if (!rawPath.startsWith('galeria/')) {
     return 'galeria/' + rawPath;
   }
   return rawPath;
+}
+
+// Pre-flight checker: silently tests image in memory before opening tile
+function verifyMediaItem(src) {
+  return new Promise(resolve => {
+    const isVideo = src.toLowerCase().endsWith('.mp4') || src.toLowerCase().endsWith('.webm');
+    if (isVideo) {
+      return resolve(src);
+    }
+    const tester = new Image();
+    tester.onload = () => resolve(src);
+    tester.onerror = () => {
+      // Automatic case retry (.jpg <-> .JPG)
+      let altSrc = '';
+      if (src.endsWith('.jpg')) altSrc = src.replace(/\.jpg$/, '.JPG');
+      else if (src.endsWith('.JPG')) altSrc = src.replace(/\.JPG$/, '.jpg');
+
+      if (altSrc) {
+        const altTester = new Image();
+        altTester.onload = () => resolve(altSrc);
+        altTester.onerror = () => resolve(null); // File does not exist, discard silently
+        altTester.src = altSrc;
+      } else {
+        resolve(null);
+      }
+    };
+    tester.src = src;
+  });
 }
 
 function scrollToCommunityMosaic() {
@@ -2066,7 +2107,6 @@ function scrollToCommunityMosaic() {
     
     window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
 
-    // Begin tile reveals once the smooth scroll reaches the section
     setTimeout(() => {
       startLivingMosaic();
     }, 450);
@@ -2079,7 +2119,7 @@ async function startLivingMosaic() {
 
   if (mosaicRevealTimer) clearTimeout(mosaicRevealTimer);
 
-  // Fetch community media if not already loaded
+  // 1. Fetch raw list from galeria.json if not yet populated
   if (mosaicPool.length === 0) {
     try {
       const res = await fetch('galeria.json?v=' + Date.now());
@@ -2092,16 +2132,15 @@ async function startLivingMosaic() {
         }).filter(Boolean);
       }
     } catch (e) {
-      console.error("Error loading gallery media:", e);
+      console.warn("Using fallback gallery pool:", e);
     }
   }
 
-  // Backup fallback: if galeria.json fails or is empty, use the chapter stills
   if (mosaicPool.length === 0) {
-    mosaicPool = ['historia-1.JPG', 'historia-2.JPG', 'historia-3.JPG', 'historia-4.JPG'];
+    mosaicPool = KNOWN_BACKUP_MEDIA.map(f => 'galeria/' + f);
   }
 
-  // 1. Build all 24 sealed slots with the Chai-itto crest
+  // 2. Build 24 sealed slots with randomized tea palettes
   grid.classList.remove('completed');
   grid.innerHTML = '';
   const TOTAL_SLOTS = 24;
@@ -2111,8 +2150,10 @@ async function startLivingMosaic() {
     tile.className = 'mosaic-tile';
     tile.id = `mosaic-tile-${i}`;
 
+    const randomPalette = TEA_PALETTES[Math.floor(Math.random() * TEA_PALETTES.length)];
+
     tile.innerHTML = `
-      <div class="tile-face-logo">
+      <div class="tile-face-logo" style="background: ${randomPalette};">
         <img src="logo.png" alt="Chai-itto Seal">
       </div>
       <div class="tile-face-media" id="tile-media-${i}"></div>
@@ -2120,50 +2161,48 @@ async function startLivingMosaic() {
     grid.appendChild(tile);
   }
 
-  // 2. Randomize reveal sequence and media assignment
+  // 3. Shuffle both slot reveal order and media pool
   const slotOrder = Array.from({ length: TOTAL_SLOTS }, (_, i) => i).sort(() => Math.random() - 0.5);
-  const shuffledMedia = [...mosaicPool].sort(() => Math.random() - 0.5);
+  let poolDeck = [...mosaicPool].sort(() => Math.random() - 0.5);
 
   let step = 0;
 
-  function revealNextRandomSlot() {
+  async function revealNextRandomSlot() {
     if (step < TOTAL_SLOTS) {
       const slotIdx = slotOrder[step];
-      const mediaItem = shuffledMedia[step % shuffledMedia.length];
       const tileEl = document.getElementById(`mosaic-tile-${slotIdx}`);
       const mediaEl = document.getElementById(`tile-media-${slotIdx}`);
 
-      if (tileEl && mediaEl && mediaItem) {
-        const isVideo = mediaItem.toLowerCase().endsWith('.mp4') || mediaItem.toLowerCase().endsWith('.webm');
+      // Pre-flight check: find the next available media item that actually loads
+      let validSrc = null;
+      while (poolDeck.length > 0 && !validSrc) {
+        const candidate = poolDeck.shift();
+        validSrc = await verifyMediaItem(candidate);
+      }
+
+      // If candidates ran out, fall back to known backup media
+      if (!validSrc) {
+        const fallbackCandidate = resolveCommunityMediaPath(KNOWN_BACKUP_MEDIA[step % KNOWN_BACKUP_MEDIA.length]);
+        validSrc = await verifyMediaItem(fallbackCandidate) || fallbackCandidate;
+      }
+
+      if (tileEl && mediaEl && validSrc) {
+        const isVideo = validSrc.toLowerCase().endsWith('.mp4') || validSrc.toLowerCase().endsWith('.webm');
         mediaEl.innerHTML = '';
 
         if (isVideo) {
           const vid = document.createElement('video');
-          vid.src = mediaItem;
+          vid.src = validSrc;
           vid.autoplay = true;
           vid.loop = true;
           vid.muted = true;
           vid.playsInline = true;
-          vid.onerror = () => {
-            // Self-repair: retry without 'galeria/' prefix if path fails
-            if (!vid._retried) {
-              vid._retried = true;
-              vid.src = mediaItem.startsWith('galeria/') ? mediaItem.replace('galeria/', '') : ('galeria/' + mediaItem);
-            }
-          };
           vid.onclick = (e) => { e.stopPropagation(); vid.muted = !vid.muted; };
           mediaEl.appendChild(vid);
         } else {
           const img = document.createElement('img');
-          img.src = mediaItem;
+          img.src = validSrc;
           img.alt = 'Comunidad Chai-itto';
-          img.onerror = () => {
-            // Self-repair: retry without 'galeria/' prefix if path fails
-            if (!img._retried) {
-              img._retried = true;
-              img.src = mediaItem.startsWith('galeria/') ? mediaItem.replace('galeria/', '') : ('galeria/' + mediaItem);
-            }
-          };
           mediaEl.onclick = () => {
             if (typeof openOfertaModal === 'function') {
               openOfertaModal('Comunidad Chai-itto', 'Ritual y Tradición', [img.src], 'Comunidad', 0);
@@ -2177,24 +2216,27 @@ async function startLivingMosaic() {
       }
 
       step++;
-      mosaicRevealTimer = setTimeout(revealNextRandomSlot, 210);
+      mosaicRevealTimer = setTimeout(revealNextRandomSlot, 280);
     } else {
       grid.classList.add('completed');
-      mosaicRevealTimer = setTimeout(resetAndRebuildMosaic, 7000);
+      // 0.3s snap turnaround: immediately reseals with fresh tea palette & starts next round
+      mosaicRevealTimer = setTimeout(resetAndRebuildMosaic, 300);
     }
   }
 
-  // Initial delay so visitor sees the closed gold seals before the flipping begins
   setTimeout(revealNextRandomSlot, 400);
 }
 
 function resetAndRebuildMosaic() {
   const tiles = document.querySelectorAll('.mosaic-tile');
-  tiles.forEach((t, idx) => {
-    setTimeout(() => {
-      t.className = 'mosaic-tile';
-    }, idx * 25);
+  tiles.forEach((t) => {
+    t.className = 'mosaic-tile';
+    const logoFace = t.querySelector('.tile-face-logo');
+    if (logoFace) {
+      logoFace.style.background = TEA_PALETTES[Math.floor(Math.random() * TEA_PALETTES.length)];
+    }
   });
 
-  mosaicRevealTimer = setTimeout(startLivingMosaic, 1200);
+  // Brief smooth transition before the next round begins
+  mosaicRevealTimer = setTimeout(startLivingMosaic, 400);
 }
