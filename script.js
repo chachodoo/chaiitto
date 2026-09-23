@@ -1835,36 +1835,99 @@ document.addEventListener('click', function(e) {
 });
 
 /* =========================================
-   EXPERIENCIA SLIDESHOW & TRAP CONTROLLER
+   EXPERIENCIA EDITORIAL SLIDESHOW & TIMER
    ========================================= */
 let currentStorySlide = 0;
+let storyTimer = null;
+let storyProgress = 0;
+let isStoryPaused = false;
+const STORY_DURATION = 7000; // 7 seconds per slide for relaxed reading
+const STORY_TICK = 50;
 
 function unlockExperiencia() {
   const trap = document.getElementById('video-trap');
   const story = document.getElementById('story-content');
   if (trap) {
     trap.style.opacity = '0';
-    setTimeout(() => { trap.style.display = 'none'; }, 600);
+    setTimeout(() => { trap.style.display = 'none'; }, 800);
   }
   if (story) {
     story.style.display = 'block';
-    setTimeout(() => { story.style.opacity = '1'; }, 50);
+    setTimeout(() => { 
+      story.style.opacity = '1';
+      startStoryAutoPlay();
+    }, 50);
+  }
+}
+
+function startStoryAutoPlay() {
+  stopStoryAutoPlay();
+  storyProgress = 0;
+  isStoryPaused = false;
+  
+  storyTimer = setInterval(() => {
+    if (isStoryPaused) return;
+    storyProgress += STORY_TICK;
+    const pct = Math.min(100, (storyProgress / STORY_DURATION) * 100);
+    const activeFill = document.getElementById(`bar-fill-${currentStorySlide}`);
+    if (activeFill) activeFill.style.width = pct + '%';
+    
+    if (storyProgress >= STORY_DURATION) {
+      if (currentStorySlide < 3) {
+        nextSlide();
+      } else {
+        stopStoryAutoPlay(); // Stop when reaching Etapa 04 so user can tap to explore gallery
+      }
+    }
+  }, STORY_TICK);
+}
+
+function stopStoryAutoPlay() {
+  if (storyTimer) {
+    clearInterval(storyTimer);
+    storyTimer = null;
+  }
+}
+
+function pauseStoryTimer() {
+  isStoryPaused = true;
+}
+
+function resumeStoryTimer() {
+  isStoryPaused = false;
+}
+
+function updateProgressBars() {
+  for (let i = 0; i < 4; i++) {
+    const fill = document.getElementById(`bar-fill-${i}`);
+    if (!fill) continue;
+    if (i < currentStorySlide) fill.style.width = '100%';
+    else if (i > currentStorySlide) fill.style.width = '0%';
+    else fill.style.width = '0%';
   }
 }
 
 function setSlide(index) {
   const slides = document.querySelectorAll('.story-slide');
   if (!slides.length) return;
-  currentStorySlide = (index + slides.length) % slides.length;
+  currentStorySlide = Math.max(0, Math.min(index, slides.length - 1));
   slides.forEach((s, idx) => {
     s.classList.toggle('active', idx === currentStorySlide);
   });
+  updateProgressBars();
+  storyProgress = 0;
 }
 
 function nextSlide() {
-  setSlide(currentStorySlide + 1);
+  if (currentStorySlide < 3) {
+    setSlide(currentStorySlide + 1);
+  } else {
+    const galleryEl = document.querySelector('.experiencia-finale');
+    if (galleryEl) galleryEl.scrollIntoView({ behavior: 'smooth' });
+  }
 }
 
 function prevSlide() {
   setSlide(currentStorySlide - 1);
 }
+
