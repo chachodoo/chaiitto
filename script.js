@@ -1838,7 +1838,7 @@ document.addEventListener('click', function(e) {
    CONTINUOUS MOVIE TIMELINE & SCRUBBER ENGINE
    ========================================= */
 let movieCurrentMs = 0;
-const MOVIE_TOTAL_MS = 24000; // 24 seconds total (6s per Chapter)
+const MOVIE_TOTAL_MS = 40000; // 40 seconds total (10s per Chapter)
 const MOVIE_TICK = 40;
 let movieTimer = null;
 let isDraggingScrubber = false;
@@ -1944,10 +1944,12 @@ function updateMovieUI() {
 
   // Digital timecode update
   if (timeReadout) {
-    const curSec = Math.floor(movieCurrentMs / 1000);
-    const secStr = curSec < 10 ? '0' + curSec : curSec;
-    timeReadout.textContent = `0:${secStr} / 0:24`;
-  }
+      const curSec = Math.floor(movieCurrentMs / 1000);
+      const secStr = curSec < 10 ? '0' + curSec : curSec;
+      const totSec = Math.floor(MOVIE_TOTAL_MS / 1000);
+      const totStr = totSec < 10 ? '0' + totSec : totSec;
+      timeReadout.textContent = `0:${secStr} / 0:${totStr}`;
+    }
 
   // Active Chapter calculation
   let activeIndex = Math.floor((pct / 100) * 4);
