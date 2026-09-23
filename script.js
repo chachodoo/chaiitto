@@ -2041,14 +2041,32 @@ const MOSAIC_ANIMATIONS = [
   'anim-scan-reveal'
 ];
 
+// Resolves relative filenames so they always point to the galeria/ folder
+function resolveCommunityMediaPath(rawPath) {
+  if (!rawPath) return '';
+  rawPath = String(rawPath).trim();
+  if (rawPath.startsWith('http://') || rawPath.startsWith('https://') || rawPath.startsWith('data:')) {
+    return rawPath;
+  }
+  if (rawPath.startsWith('/')) {
+    rawPath = rawPath.substring(1);
+  }
+  if (!rawPath.startsWith('galeria/')) {
+    return 'galeria/' + rawPath;
+  }
+  return rawPath;
+}
+
 function scrollToCommunityMosaic() {
   const el = document.querySelector('.experiencia-finale');
   if (el) {
-    const headerOffset = 70;
-    const targetY = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
-    window.scrollTo({ top: targetY, behavior: 'smooth' });
+    const headerEl = document.getElementById('main-master-header') || document.querySelector('header');
+    const headerH = headerEl ? headerEl.offsetHeight : 70;
+    const targetY = el.getBoundingClientRect().top + window.pageYOffset - headerH;
+    
+    window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
 
-    // Wait for the smooth scroll to finish, then begin flipping the 24 seals
+    // Begin tile reveals once the smooth scroll reaches the section
     setTimeout(() => {
       startLivingMosaic();
     }, 450);
@@ -2061,22 +2079,29 @@ async function startLivingMosaic() {
 
   if (mosaicRevealTimer) clearTimeout(mosaicRevealTimer);
 
+  // Fetch community media if not already loaded
   if (mosaicPool.length === 0) {
     try {
       const res = await fetch('galeria.json?v=' + Date.now());
       if (res.ok) {
         const data = await res.json();
-        mosaicPool = Array.isArray(data) ? data : (data.images || data.galeria || Object.values(data));
+        const rawList = Array.isArray(data) ? data : (data.images || data.galeria || data.items || Object.values(data).flat());
+        mosaicPool = rawList.map(item => {
+          const path = typeof item === 'string' ? item : (item.src || item.image || item.url || item.file || '');
+          return resolveCommunityMediaPath(path);
+        }).filter(Boolean);
       }
     } catch (e) {
       console.error("Error loading gallery media:", e);
-      return;
     }
   }
 
-  if (mosaicPool.length === 0) return;
+  // Backup fallback: if galeria.json fails or is empty, use the chapter stills
+  if (mosaicPool.length === 0) {
+    mosaicPool = ['historia-1.JPG', 'historia-2.JPG', 'historia-3.JPG', 'historia-4.JPG'];
+  }
 
-  // 1. Build all 24 closed tiles displaying the Chai-itto crest
+  // 1. Build all 24 sealed slots with the Chai-itto crest
   grid.classList.remove('completed');
   grid.innerHTML = '';
   const TOTAL_SLOTS = 24;
@@ -2095,7 +2120,7 @@ async function startLivingMosaic() {
     grid.appendChild(tile);
   }
 
-  // 2. Randomize order of slots and shuffle media
+  // 2. Randomize reveal sequence and media assignment
   const slotOrder = Array.from({ length: TOTAL_SLOTS }, (_, i) => i).sort(() => Math.random() - 0.5);
   const shuffledMedia = [...mosaicPool].sort(() => Math.random() - 0.5);
 
@@ -2105,36 +2130,48 @@ async function startLivingMosaic() {
     if (step < TOTAL_SLOTS) {
       const slotIdx = slotOrder[step];
       const mediaItem = shuffledMedia[step % shuffledMedia.length];
-      const cleanPath = typeof mediaItem === 'string' ? mediaItem : (mediaItem.src || mediaItem.image || mediaItem.url || mediaItem.file || '');
       const tileEl = document.getElementById(`mosaic-tile-${slotIdx}`);
       const mediaEl = document.getElementById(`tile-media-${slotIdx}`);
 
-      if (tileEl && mediaEl && cleanPath) {
-        const isVideo = cleanPath.toLowerCase().endsWith('.mp4') || cleanPath.toLowerCase().endsWith('.webm');
+      if (tileEl && mediaEl && mediaItem) {
+        const isVideo = mediaItem.toLowerCase().endsWith('.mp4') || mediaItem.toLowerCase().endsWith('.webm');
         mediaEl.innerHTML = '';
 
         if (isVideo) {
           const vid = document.createElement('video');
-          vid.src = cleanPath;
+          vid.src = mediaItem;
           vid.autoplay = true;
           vid.loop = true;
           vid.muted = true;
           vid.playsInline = true;
+          vid.onerror = () => {
+            // Self-repair: retry without 'galeria/' prefix if path fails
+            if (!vid._retried) {
+              vid._retried = true;
+              vid.src = mediaItem.startsWith('galeria/') ? mediaItem.replace('galeria/', '') : ('galeria/' + mediaItem);
+            }
+          };
           vid.onclick = (e) => { e.stopPropagation(); vid.muted = !vid.muted; };
           mediaEl.appendChild(vid);
         } else {
           const img = document.createElement('img');
-          img.src = cleanPath;
+          img.src = mediaItem;
           img.alt = 'Comunidad Chai-itto';
+          img.onerror = () => {
+            // Self-repair: retry without 'galeria/' prefix if path fails
+            if (!img._retried) {
+              img._retried = true;
+              img.src = mediaItem.startsWith('galeria/') ? mediaItem.replace('galeria/', '') : ('galeria/' + mediaItem);
+            }
+          };
           mediaEl.onclick = () => {
             if (typeof openOfertaModal === 'function') {
-              openOfertaModal('Comunidad Chai-itto', 'Ritual y Tradición', [cleanPath], 'Comunidad', 0);
+              openOfertaModal('Comunidad Chai-itto', 'Ritual y Tradición', [img.src], 'Comunidad', 0);
             }
           };
           mediaEl.appendChild(img);
         }
 
-        // Pick one of the 12 random animations
         const randomAnim = MOSAIC_ANIMATIONS[Math.floor(Math.random() * MOSAIC_ANIMATIONS.length)];
         tileEl.classList.add('revealed', randomAnim);
       }
@@ -2142,14 +2179,13 @@ async function startLivingMosaic() {
       step++;
       mosaicRevealTimer = setTimeout(revealNextRandomSlot, 210);
     } else {
-      // Climax: all 24 revealed
       grid.classList.add('completed');
       mosaicRevealTimer = setTimeout(resetAndRebuildMosaic, 7000);
     }
   }
 
-  // Brief pause to display the closed gold seals before the first one opens
-  setTimeout(revealNextRandomSlot, 500);
+  // Initial delay so visitor sees the closed gold seals before the flipping begins
+  setTimeout(revealNextRandomSlot, 400);
 }
 
 function resetAndRebuildMosaic() {
