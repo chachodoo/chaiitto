@@ -1832,23 +1832,4 @@ document.addEventListener('click', function(e) {
   if (!flyout.contains(e.target) && (!trigger || !trigger.contains(e.target))) {
     closeMobileTienda();
   }
-}); // <-- THIS WAS MISSING!
-
-/* =========================================
-   EXPERIENCIA VIDEO TRAP UNLOCK
-   ========================================= */
-function unlockExperiencia() {
-  const trap = document.getElementById('video-trap');
-  const story = document.getElementById('story-content');
-  
-  if (trap) {
-    trap.style.opacity = '0';
-    trap.style.pointerEvents = 'none';
-    setTimeout(() => { trap.style.display = 'none'; }, 800);
-  }
-  if (story) {
-    story.style.opacity = '1';
-    story.style.pointerEvents = 'auto';
-  }
-}
 });
