@@ -2019,3 +2019,144 @@ function initMovieScrubber() {
   track.addEventListener('pointercancel', endDrag);
 }
 
+/* =========================================
+   COMMUNITY FINALE & 24-SEAL MOSAIC ENGINE
+   ========================================= */
+let mosaicPool = [];
+let mosaicRevealTimer = null;
+const MOSAIC_ANIMATIONS = [
+  'anim-flip-y',
+  'anim-flip-x',
+  'anim-gold-stamp',
+  'anim-aperture',
+  'anim-swirl',
+  'anim-slice-diag',
+  'anim-diamond',
+  'anim-curtain-split',
+  'anim-optical-blur',
+  'anim-flip-diag',
+  'anim-bounce-pop',
+  'anim-scan-reveal'
+];
+
+function scrollToCommunityMosaic() {
+  const el = document.querySelector('.experiencia-finale');
+  if (el) {
+    const headerOffset = 70;
+    const targetY = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+    window.scrollTo({ top: targetY, behavior: 'smooth' });
+
+    // Wait for the smooth scroll to finish, then begin flipping the 24 seals
+    setTimeout(() => {
+      startLivingMosaic();
+    }, 450);
+  }
+}
+
+async function startLivingMosaic() {
+  const grid = document.getElementById('mosaic-grid');
+  if (!grid) return;
+
+  if (mosaicRevealTimer) clearTimeout(mosaicRevealTimer);
+
+  if (mosaicPool.length === 0) {
+    try {
+      const res = await fetch('galeria.json?v=' + Date.now());
+      if (res.ok) {
+        const data = await res.json();
+        mosaicPool = Array.isArray(data) ? data : (data.images || data.galeria || Object.values(data));
+      }
+    } catch (e) {
+      console.error("Error loading gallery media:", e);
+      return;
+    }
+  }
+
+  if (mosaicPool.length === 0) return;
+
+  // 1. Build all 24 closed tiles displaying the Chai-itto crest
+  grid.classList.remove('completed');
+  grid.innerHTML = '';
+  const TOTAL_SLOTS = 24;
+
+  for (let i = 0; i < TOTAL_SLOTS; i++) {
+    const tile = document.createElement('div');
+    tile.className = 'mosaic-tile';
+    tile.id = `mosaic-tile-${i}`;
+
+    tile.innerHTML = `
+      <div class="tile-face-logo">
+        <img src="logo.png" alt="Chai-itto Seal">
+      </div>
+      <div class="tile-face-media" id="tile-media-${i}"></div>
+    `;
+    grid.appendChild(tile);
+  }
+
+  // 2. Randomize order of slots and shuffle media
+  const slotOrder = Array.from({ length: TOTAL_SLOTS }, (_, i) => i).sort(() => Math.random() - 0.5);
+  const shuffledMedia = [...mosaicPool].sort(() => Math.random() - 0.5);
+
+  let step = 0;
+
+  function revealNextRandomSlot() {
+    if (step < TOTAL_SLOTS) {
+      const slotIdx = slotOrder[step];
+      const mediaItem = shuffledMedia[step % shuffledMedia.length];
+      const cleanPath = typeof mediaItem === 'string' ? mediaItem : (mediaItem.src || mediaItem.image || mediaItem.url || mediaItem.file || '');
+      const tileEl = document.getElementById(`mosaic-tile-${slotIdx}`);
+      const mediaEl = document.getElementById(`tile-media-${slotIdx}`);
+
+      if (tileEl && mediaEl && cleanPath) {
+        const isVideo = cleanPath.toLowerCase().endsWith('.mp4') || cleanPath.toLowerCase().endsWith('.webm');
+        mediaEl.innerHTML = '';
+
+        if (isVideo) {
+          const vid = document.createElement('video');
+          vid.src = cleanPath;
+          vid.autoplay = true;
+          vid.loop = true;
+          vid.muted = true;
+          vid.playsInline = true;
+          vid.onclick = (e) => { e.stopPropagation(); vid.muted = !vid.muted; };
+          mediaEl.appendChild(vid);
+        } else {
+          const img = document.createElement('img');
+          img.src = cleanPath;
+          img.alt = 'Comunidad Chai-itto';
+          mediaEl.onclick = () => {
+            if (typeof openOfertaModal === 'function') {
+              openOfertaModal('Comunidad Chai-itto', 'Ritual y Tradición', [cleanPath], 'Comunidad', 0);
+            }
+          };
+          mediaEl.appendChild(img);
+        }
+
+        // Pick one of the 12 random animations
+        const randomAnim = MOSAIC_ANIMATIONS[Math.floor(Math.random() * MOSAIC_ANIMATIONS.length)];
+        tileEl.classList.add('revealed', randomAnim);
+      }
+
+      step++;
+      mosaicRevealTimer = setTimeout(revealNextRandomSlot, 210);
+    } else {
+      // Climax: all 24 revealed
+      grid.classList.add('completed');
+      mosaicRevealTimer = setTimeout(resetAndRebuildMosaic, 7000);
+    }
+  }
+
+  // Brief pause to display the closed gold seals before the first one opens
+  setTimeout(revealNextRandomSlot, 500);
+}
+
+function resetAndRebuildMosaic() {
+  const tiles = document.querySelectorAll('.mosaic-tile');
+  tiles.forEach((t, idx) => {
+    setTimeout(() => {
+      t.className = 'mosaic-tile';
+    }, idx * 25);
+  });
+
+  mosaicRevealTimer = setTimeout(startLivingMosaic, 1200);
+}
