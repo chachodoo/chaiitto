@@ -2024,11 +2024,12 @@ function initMovieScrubber() {
 
 /* ===================================================
    COMMUNITY FINALE: 3D SHATTER & REBUILD ENGINE
-   - Hardcoded Relative Grids (All 6 mobile rows visible)
-   - 1px hairline seams
-   - Active Media Pool (Includes vv-1.mp4 with dark base)
-   - 120ms reveal cadence
-   - 1.2s showcase hold -> 3D Shatter -> Rebuild Snap
+   - Mobile: 304px x 384px (All 6 rows 100% visible)
+   - Desktop: 750px x 440px (Clearance below marquee + header)
+   - 1px hairline seams with zero phantom borders
+   - Video properly initialized & playing (No black box)
+   - 300ms cadence & 2.5s completion showcase hold
+   - 1.1s graceful 3D shatter & 0.95s crystal rebuild wave
    =================================================== */
 let activeCommunityPool = [];
 let isMosaicRunning = false;
@@ -2077,7 +2078,6 @@ async function loadActiveMediaList() {
     if (res.ok) {
       const data = await res.json();
       const rawList = Array.isArray(data) ? data : (data.images || data.galeria || Object.values(data).flat());
-      // Accepts both cc- photos and vv- video, rejects all no- files
       activeCommunityPool = rawList
         .map(resolvePath)
         .filter(p => !p.includes('/no-') && (p.includes('/cc-') || p.includes('/vv-')));
@@ -2095,14 +2095,18 @@ function scrollToCommunityMosaic() {
   const grid = document.getElementById('mosaic-grid');
   const targetEl = grid || document.querySelector('.experiencia-finale');
   if (targetEl) {
-    const headerEl = document.querySelector('header');
-    const headerH = headerEl ? headerEl.offsetHeight : 65;
-    const targetY = targetEl.getBoundingClientRect().top + window.pageYOffset - (headerH + 12);
+    const marqueeEl = document.querySelector('.hero-marquee-wrapper');
+    const marqueeH = (marqueeEl && window.getComputedStyle(marqueeEl).display !== 'none') ? marqueeEl.offsetHeight : 0;
+    const headerEl = document.querySelector('header') || document.getElementById('main-master-header');
+    const headerH = headerEl ? headerEl.offsetHeight : (window.innerWidth >= 992 ? 96 : 70);
+    const topOffset = marqueeH + headerH + 12;
+
+    const targetY = targetEl.getBoundingClientRect().top + window.pageYOffset - topOffset;
     window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
 
     setTimeout(() => {
       startLivingMosaic();
-    }, 350);
+    }, 400);
   }
 }
 
@@ -2117,7 +2121,7 @@ async function startLivingMosaic() {
 
   const TOTAL_SLOTS = 24;
 
-  // Build grid once
+  // Build grid structure once
   if (grid.children.length !== TOTAL_SLOTS) {
     grid.innerHTML = '';
     for (let i = 0; i < TOTAL_SLOTS; i++) {
@@ -2134,7 +2138,7 @@ async function startLivingMosaic() {
     }
   }
 
-  // Pick single unified tea palette for this round
+  // 1 UNIFIED COLOR PER ROUND FOR ALL 24 TILES
   const roundPalette = TEA_PALETTES[currentPaletteIndex % TEA_PALETTES.length];
   currentPaletteIndex++;
 
@@ -2142,7 +2146,7 @@ async function startLivingMosaic() {
   const shuffled = [...activeCommunityPool].sort(() => Math.random() - 0.5);
   const deck = shuffled.slice(0, TOTAL_SLOTS);
 
-  // Pre-mount media behind closed seals
+  // Mount media behind closed seals
   for (let i = 0; i < TOTAL_SLOTS; i++) {
     const tileEl = document.getElementById(`mosaic-tile-${i}`);
     tileEl.className = 'mosaic-tile';
@@ -2157,16 +2161,29 @@ async function startLivingMosaic() {
     const isVideo = mediaSrc.toLowerCase().endsWith('.mp4') || mediaSrc.toLowerCase().endsWith('.webm');
 
     if (isVideo) {
-      mediaEl.innerHTML = `<video src="${mediaSrc}" autoplay loop muted playsinline webkit-playsinline preload="auto"></video>`;
-      const vid = mediaEl.querySelector('video');
-      if (vid) {
-        vid.muted = true;
+      mediaEl.innerHTML = '';
+      const vid = document.createElement('video');
+      vid.muted = true;
+      vid.defaultMuted = true;
+      vid.playsInline = true;
+      vid.autoplay = true;
+      vid.loop = true;
+      vid.setAttribute('muted', '');
+      vid.setAttribute('playsinline', '');
+      vid.setAttribute('webkit-playsinline', '');
+      vid.setAttribute('autoplay', '');
+      vid.setAttribute('loop', '');
+      vid.setAttribute('preload', 'auto');
+      vid.src = mediaSrc; // Set src after attributes to avoid WebKit autoplay block
+
+      vid.addEventListener('canplay', () => {
         vid.play().catch(() => {});
-      }
+      });
+
+      mediaEl.appendChild(vid);
       mediaEl.onclick = (e) => {
         e.stopPropagation();
-        const v = mediaEl.querySelector('video');
-        if (v) v.muted = !v.muted;
+        vid.muted = !vid.muted;
       };
     } else {
       mediaEl.innerHTML = `<img src="${mediaSrc}" alt="Comunidad Chai-itto">`;
@@ -2178,7 +2195,7 @@ async function startLivingMosaic() {
     }
   }
 
-  // 120ms sequential reveal cadence
+  // 300ms sequential reveal cadence (Smooth, readable, enjoyable)
   const slotOrder = Array.from({ length: TOTAL_SLOTS }, (_, i) => i).sort(() => Math.random() - 0.5);
   let step = 0;
 
@@ -2189,40 +2206,47 @@ async function startLivingMosaic() {
       if (tileEl) {
         const randomAnim = MOSAIC_ANIMATIONS[Math.floor(Math.random() * MOSAIC_ANIMATIONS.length)];
         tileEl.className = `mosaic-tile revealed ${randomAnim}`;
+
+        // Ensure video is playing when revealed
+        const vid = tileEl.querySelector('video');
+        if (vid) {
+          vid.muted = true;
+          vid.play().catch(() => {});
+        }
       }
       step++;
-      mosaicLoopTimer = setTimeout(revealNext, 120); // 120ms cadence
+      mosaicLoopTimer = setTimeout(revealNext, 300); // 300ms cadence
     } else {
       grid.classList.add('completed');
-      // Hold completed 24-piece tapestry for 1.2s, then trigger 3D Shatter
-      mosaicLoopTimer = setTimeout(shatterAndRebuild, 1200);
+      // Hold completed 24-piece tapestry for 2.5s before 3D shatter
+      mosaicLoopTimer = setTimeout(shatterAndRebuild, 2500);
     }
   }
 
-  setTimeout(revealNext, 180);
+  setTimeout(revealNext, 250);
 }
 
-// 3D Shatter & Rebuild sequence
+// 1.1s Shatter & 0.95s Crystal Rebuild sequence
 function shatterAndRebuild() {
   const grid = document.getElementById('mosaic-grid');
   if (grid) grid.classList.remove('completed');
 
   const tiles = document.querySelectorAll('.mosaic-tile');
 
-  // Phase 1: 3D Shatter outwards (0.55s)
+  // Phase 1: 3D Shatter outwards (1.1s graceful flight)
   tiles.forEach((tile, idx) => {
     const shatterVariant = idx % 6;
     tile.className = `mosaic-tile shatter-${shatterVariant}`;
   });
 
-  // Phase 2: Rebuild & Snap into place with the next unified color
+  // Phase 2: Staggered Crystal Rebuild wave (0.95s)
   setTimeout(() => {
     tiles.forEach((tile, idx) => {
       tile.className = 'mosaic-tile rebuilding';
-      tile.style.animationDelay = `${(idx % 6) * 35}ms`;
+      tile.style.animationDelay = `${(idx % 6) * 70}ms`;
     });
 
-    // Phase 3: Launch next round once seals have snapped in
+    // Phase 3: Launch next round once seals have snapped into place
     setTimeout(() => {
       tiles.forEach(tile => {
         tile.className = 'mosaic-tile';
@@ -2230,8 +2254,8 @@ function shatterAndRebuild() {
       });
       isMosaicRunning = false;
       startLivingMosaic();
-    }, 550);
-  }, 550);
+    }, 950);
+  }, 1100);
 }
 
 // Global scroll observer
