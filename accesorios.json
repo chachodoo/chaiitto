@@ -632,5 +632,17 @@
       "accesorios/accesorios-533-1.jpeg",
       "accesorios/accesorios-533-2.jpeg"
     ]
+  },
+  {
+    "num": "534",
+    "name": "Set Gong Fu Cha",
+    "descripcion": "Cristal de alta calidad para servicio de Te chino, incluye 6 piezas (Gaiwan, Jarra y 4 cuencos).",
+    "precio": 840,
+    "precioOferta": 600,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-534-1.jpeg",
+      "accesorios/accesorios-534-2.jpeg"
+    ]
   }
 ]
