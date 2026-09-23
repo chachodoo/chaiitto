@@ -2,6 +2,16 @@
   /* =========================================
      MASTER STAGE (VIEWPORT-LOCKED & ZERO SCROLL)
      ========================================= */
+  /* HIDE TOP MARQUEE ON MOBILE SO MOVIE TAKES FULL SCREEN WITHOUT SCROLLING */
+  @media (max-width: 991px) {
+    .hero-marquee-wrapper {
+      display: none !important;
+    }
+    #video-trap,
+    .slideshow-viewport {
+      height: calc(100dvh - 105px) !important;
+    }
+  }
   .experiencia-master {
     width: calc(100% + 24px) !important;
     max-width: 100vw !important;
