@@ -484,7 +484,9 @@
 
   <!-- THE TRAP -->
   <div id="video-trap">
-    <video class="video-bg" src="intro.mp4" autoplay loop muted playsinline></video>
+    <video class="video-bg" autoplay loop muted playsinline preload="auto">
+       <source src="intro.mp4" type="video/mp4">
+    </video>
     <div class="trap-inner">
       <h1 class="trap-question">¿Sigues tomando té con sabor a papel?</h1>
       <button class="trap-btn" onclick="unlockExperiencia()">DESCUBRIR</button>
