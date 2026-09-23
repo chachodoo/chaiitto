@@ -508,11 +508,13 @@ if (mobileTiendaCaret) mobileTiendaCaret.style.transform = 'rotate(0deg)';
         } else if (pageName === 'bazar') {
             loadBazarGrid();
         } else if (pageName === 'experiencia') {
-            setTimeout(startLivingMosaic, 100);
+          setTimeout(() => {
+            if (typeof unlockExperiencia === 'function') unlockExperiencia();
+            }, 100);
         } else if (pageName === 'menu') {
-  menuNavigationState.currentPage = targetPage;
-  updateMenuDisplay();
-}
+            menuNavigationState.currentPage = targetPage;
+            updateMenuDisplay();
+        }
 
         // 3. FORCE IMMEDIATE JUMP TO TOP (Removed 'smooth' so it doesn't get stuck)
         window.scrollTo(0, 0);
