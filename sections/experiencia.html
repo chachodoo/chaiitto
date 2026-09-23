@@ -87,7 +87,7 @@
   }
 
   /* =========================================
-     2. EDITORIAL CINEMATIC SLIDESHOW
+     2. MOVIE PLAYER STAGE
      ========================================= */
   #story-content {
     display: none;
@@ -110,35 +110,7 @@
     .slideshow-viewport { height: calc(100vh - 120px); }
   }
 
-  /* STORY PROGRESS BARS */
-  .story-progress-bar-container {
-    position: absolute;
-    top: 14px;
-    left: 16px;
-    right: 16px;
-    z-index: 30;
-    display: flex;
-    gap: 8px;
-    max-width: 960px;
-    margin: 0 auto;
-  }
-  .story-bar-track {
-    flex: 1;
-    height: 3px;
-    background: rgba(255, 255, 255, 0.25);
-    border-radius: 3px;
-    overflow: hidden;
-    cursor: pointer;
-  }
-  .story-bar-fill {
-    width: 0%;
-    height: 100%;
-    background: linear-gradient(90deg, #F5D061, #D4AF37);
-    border-radius: 3px;
-    transition: width 0.1s linear;
-  }
-
-  /* INDIVIDUAL SLIDES (CROSSFADE ENGINE) */
+  /* INDIVIDUAL CHAPTERS */
   .story-slide {
     position: absolute;
     inset: 0;
@@ -146,7 +118,7 @@
     height: 100%;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.85s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: opacity 0.75s ease;
     display: flex;
     box-sizing: border-box;
   }
@@ -156,7 +128,6 @@
     z-index: 10;
   }
 
-  /* KEN BURNS SLOW DRIFT ANIMATION ON ACTIVE VISUAL */
   .slide-visual-wrapper {
     position: relative;
     overflow: hidden;
@@ -169,61 +140,25 @@
     background-size: cover;
     background-position: center;
     transform: scale(1.0);
-    transition: transform 7.5s cubic-bezier(0.2, 0.1, 0.3, 1);
+    transition: transform 6.5s ease-out;
   }
   .story-slide.active .slide-visual-bg {
-    transform: scale(1.08);
+    transform: scale(1.07);
   }
 
-  /* MOBILE LAYOUT (MAX 991px) */
+  /* Mobile Layout */
   @media (max-width: 991px) {
-    .story-slide {
-      flex-direction: column;
-    }
-    .slide-visual-wrapper {
-      width: 100%;
-      height: 48%;
-    }
+    .story-slide { flex-direction: column; }
+    .slide-visual-wrapper { width: 100%; height: 48%; }
     .slide-visual-wrapper::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(2,27,7,0.3) 0%, transparent 40%, #021B07 100%);
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, #021B07 100%);
       z-index: 2;
     }
     .slide-copy {
       width: 100%;
       height: 52%;
-      padding: 16px 20px 20px 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-sizing: border-box;
-      background: #021B07;
-      z-index: 3;
-    }
-  }
-
-  /* DESKTOP LAYOUT (MIN 992px) */
-  @media (min-width: 992px) {
-    .story-slide {
-      flex-direction: row;
-    }
-    .slide-visual-wrapper {
-      width: 50%;
-      height: 100%;
-    }
-    .slide-visual-wrapper::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, rgba(2,27,7,0.2) 0%, transparent 60%, #021B07 100%);
-      z-index: 2;
-    }
-    .slide-copy {
-      width: 50%;
-      height: 100%;
-      padding: 70px 9%;
+      padding: 16px 20px 55px 20px; /* Room for bottom scrubber */
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -233,22 +168,37 @@
     }
   }
 
-  /* TYPOGRAPHY WITH SMOOTH UPWARD FLOAT */
+  /* Desktop Layout */
+  @media (min-width: 992px) {
+    .story-slide { flex-direction: row; }
+    .slide-visual-wrapper { width: 50%; height: 100%; }
+    .slide-visual-wrapper::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to right, transparent 65%, #021B07 100%);
+      z-index: 2;
+    }
+    .slide-copy {
+      width: 50%;
+      height: 100%;
+      padding: 70px 8% 80px 8%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-sizing: border-box;
+      background: #021B07;
+      z-index: 3;
+    }
+  }
+
   .slide-stage-badge {
-    color: #F5D061;
+    color: #FFFFFF;
     font-family: var(--font-heading, 'Cinzel', serif);
-    font-size: 0.76rem;
-    letter-spacing: 2.5px;
+    font-size: 0.78rem;
+    letter-spacing: 3px;
     text-transform: uppercase;
     font-weight: 700;
     margin-bottom: 8px;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.6s ease 0.15s;
-  }
-  .story-slide.active .slide-stage-badge {
-    opacity: 1;
-    transform: translateY(0);
+    opacity: 0.85;
   }
 
   .slide-copy h2 {
@@ -257,13 +207,6 @@
     font-size: clamp(1.6rem, 3.4vw, 2.8rem);
     line-height: 1.15;
     margin: 0 0 14px 0;
-    opacity: 0;
-    transform: translateY(12px);
-    transition: all 0.65s ease 0.25s;
-  }
-  .story-slide.active .slide-copy h2 {
-    opacity: 1;
-    transform: translateY(0);
   }
 
   .slide-copy p {
@@ -272,62 +215,124 @@
     line-height: 1.65;
     margin: 0 0 12px 0;
     font-weight: 300;
-    opacity: 0;
-    transform: translateY(14px);
-    transition: all 0.7s ease 0.35s;
-  }
-  .story-slide.active .slide-copy p {
-    opacity: 1;
-    transform: translateY(0);
   }
   .slide-copy p strong {
     color: #F5D061;
     font-weight: 700;
   }
 
-  /* CONTROLS BAR */
-  .slide-controls {
+  /* =========================================
+     3. UNIFIED CONTINUOUS SCRUBBER (NETFLIX / YOUTUBE)
+     ========================================= */
+  .movie-timeline-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    z-index: 40;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding-top: 14px;
-    border-top: 1px solid rgba(245, 208, 97, 0.2);
-    margin-top: auto;
-  }
-
-  .slide-nav-btn {
-    background: transparent;
-    border: 1px solid rgba(245, 208, 97, 0.6);
-    color: #FFFFFF;
-    padding: 8px 18px;
-    border-radius: 20px;
-    font-family: var(--font-heading, 'Cinzel', serif);
-    font-size: 0.75rem;
-    letter-spacing: 1px;
+    padding: 0 20px;
     cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: all 0.2s ease;
+    touch-action: none;
   }
-  .slide-nav-btn:hover {
-    background: #F5D061;
-    color: #021B07;
+  @media (min-width: 992px) {
+    .movie-timeline-wrapper { padding: 0 48px; }
   }
 
-  .pause-indicator {
-    color: rgba(245, 208, 97, 0.7);
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  .movie-timeline-track {
+    position: relative;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 4px;
+    transition: height 0.15s ease;
+  }
+  .movie-timeline-wrapper:hover .movie-timeline-track,
+  .movie-timeline-wrapper.dragging .movie-timeline-track {
+    height: 6px;
+  }
+
+  .movie-timeline-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: #FFFFFF;
+    border-radius: 4px;
+    pointer-events: none;
+  }
+
+  /* THE SCRUBBER BALL (PLAYHEAD THUMB) */
+  .movie-timeline-thumb {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6), 0 0 4px rgba(255, 255, 255, 0.8);
+    pointer-events: none;
+    transition: transform 0.15s ease;
+  }
+  .movie-timeline-wrapper:hover .movie-timeline-thumb,
+  .movie-timeline-wrapper.dragging .movie-timeline-thumb {
+    transform: translate(-50%, -50%) scale(1.35);
   }
 
   /* =========================================
-     3. FINALE GALLERY (HORIZONTAL SCROLL)
+     4. MOVIE FINALE OVERLAY (REPLAY CARD)
+     ========================================= */
+  #movie-end-card {
+    position: absolute;
+    inset: 0;
+    background: rgba(2, 27, 7, 0.92);
+    backdrop-filter: blur(8px);
+    z-index: 50;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  #movie-end-card.active {
+    display: flex;
+  }
+
+  .end-card-btn {
+    background: transparent;
+    border: 1.5px solid #FFFFFF;
+    color: #FFFFFF;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-family: var(--font-heading, 'Cinzel', serif);
+    font-size: 0.82rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin: 8px;
+    transition: all 0.25s ease;
+  }
+  .end-card-btn:hover {
+    background: #FFFFFF;
+    color: #021B07;
+  }
+  .end-card-btn.btn-gold {
+    background: #F5D061;
+    border-color: #F5D061;
+    color: #021B07;
+    font-weight: 800;
+  }
+
+  /* =========================================
+     5. GALLERY FINALE
      ========================================= */
   .experiencia-finale {
     padding: 60px 20px 80px 20px;
@@ -346,10 +351,6 @@
     scrollbar-width: thin;
     scrollbar-color: #A3C4AF #f0f0f0;
   }
-  .enterprise-scroll-row::-webkit-scrollbar { height: 8px; }
-  .enterprise-scroll-row::-webkit-scrollbar-track { background: #f0f0f0; border-radius: 10px; }
-  .enterprise-scroll-row::-webkit-scrollbar-thumb { background-color: #A3C4AF; border-radius: 10px; }
-
   .gallery-item-card {
     flex: 0 0 auto;
     width: 180px;
@@ -388,107 +389,85 @@
     </div>
   </div>
 
-  <!-- THE EDITORIAL SLIDESHOW -->
+  <!-- THE MOVIE CONTAINER -->
   <div id="story-content">
-    
-    <!-- PROGRESS BARS (STORY STATUS) -->
-    <div class="story-progress-bar-container">
-      <div class="story-bar-track" onclick="setSlide(0)"><div class="story-bar-fill" id="bar-fill-0"></div></div>
-      <div class="story-bar-track" onclick="setSlide(1)"><div class="story-bar-fill" id="bar-fill-1"></div></div>
-      <div class="story-bar-track" onclick="setSlide(2)"><div class="story-bar-fill" id="bar-fill-2"></div></div>
-      <div class="story-bar-track" onclick="setSlide(3)"><div class="story-bar-fill" id="bar-fill-3"></div></div>
-    </div>
+    <div class="slideshow-viewport">
 
-    <!-- TOUCH / MOUSE INTERACTION CONTAINER (HOLD TO PAUSE) -->
-    <div class="slideshow-viewport"
-         onmousedown="pauseStoryTimer()" onmouseup="resumeStoryTimer()"
-         ontouchstart="pauseStoryTimer()" ontouchend="resumeStoryTimer()">
-
-      <!-- ETAPA 1 -->
+      <!-- CHAPTER 1 -->
       <div class="story-slide active" id="slide-0">
         <div class="slide-visual-wrapper">
           <div class="slide-visual-bg" style="background-image: url('historia-1.JPG');"></div>
         </div>
         <div class="slide-copy">
-          <div>
-            <div class="slide-stage-badge">Etapa 01 / 04</div>
-            <h2>La Decepción</h2>
-            <p>“Todo empezó con la incredulidad de mi esposo… y un Té de bolsita de 5 pesos.”</p>
-            <p>En Cholula, era casi imposible encontrar Té de calidad. Todo se reducía al típico Té comercial lleno de polvo. ¡Ni en las cafeterías gourmet nos servían algo real!</p>
-          </div>
-          <div class="slide-controls">
-            <span class="pause-indicator"><i class="fa-solid fa-hand-pointer"></i> Mantén presionado para leer</span>
-            <button class="slide-nav-btn" onclick="nextSlide()">Siguiente <i class="fa-solid fa-chevron-right"></i></button>
-          </div>
+          <div class="slide-stage-badge">CHAPTER 01 / 04</div>
+          <h2>La Decepción</h2>
+          <p>“Todo empezó con la incredulidad de mi esposo… y un Té de bolsita de 5 pesos.”</p>
+          <p>En Cholula, era casi imposible encontrar Té de calidad. Todo se reducía al típico Té comercial lleno de polvo. ¡Ni en las cafeterías gourmet nos servían algo real!</p>
         </div>
       </div>
 
-      <!-- ETAPA 2 -->
+      <!-- CHAPTER 2 -->
       <div class="story-slide" id="slide-1">
         <div class="slide-visual-wrapper">
           <div class="slide-visual-bg" style="background-image: url('historia-2.JPG');"></div>
         </div>
         <div class="slide-copy">
-          <div>
-            <div class="slide-stage-badge">Etapa 02 / 04</div>
-            <h2>El Choque Cultural</h2>
-            <p>“Mi esposo es Libanés. Para él, el Té es <strong>CULTURA Y RITUAL</strong>. No podía creer que nos sirvieran hojas pulverizadas sin alma.”</p>
-            <p>Decidimos que no podíamos seguir bebiendo polvo blanqueado. Teníamos que cambiarlo desde la raíz.</p>
-          </div>
-          <div class="slide-controls">
-            <button class="slide-nav-btn" onclick="prevSlide()"><i class="fa-solid fa-chevron-left"></i> Atrás</button>
-            <span class="pause-indicator"><i class="fa-solid fa-hand-pointer"></i> Mantén presionado</span>
-            <button class="slide-nav-btn" onclick="nextSlide()">Siguiente <i class="fa-solid fa-chevron-right"></i></button>
-          </div>
+          <div class="slide-stage-badge">CHAPTER 02 / 04</div>
+          <h2>El Choque Cultural</h2>
+          <p>“Mi esposo es Libanés. Para él, el Té es <strong>CULTURA Y RITUAL</strong>. No podía creer que nos sirvieran hojas pulverizadas sin alma.”</p>
+          <p>Decidimos que no podíamos seguir bebiendo polvo blanqueado. Teníamos que cambiarlo desde la raíz.</p>
         </div>
       </div>
 
-      <!-- ETAPA 3 -->
+      <!-- CHAPTER 3 -->
       <div class="story-slide" id="slide-2">
         <div class="slide-visual-wrapper">
           <div class="slide-visual-bg" style="background-image: url('historia-3.JPG');"></div>
         </div>
         <div class="slide-copy">
-          <div>
-            <div class="slide-stage-badge">Etapa 03 / 04</div>
-            <h2>El Despertar</h2>
-            <p>Decidimos importar la hoja entera, pura y viva.</p>
-            <p>Queríamos devolverle el respeto a la bebida más antigua del mundo y demostrar que el té de verdad cuida tu cuerpo, tiene aroma profundo y sabor real.</p>
-          </div>
-          <div class="slide-controls">
-            <button class="slide-nav-btn" onclick="prevSlide()"><i class="fa-solid fa-chevron-left"></i> Atrás</button>
-            <span class="pause-indicator"><i class="fa-solid fa-hand-pointer"></i> Mantén presionado</span>
-            <button class="slide-nav-btn" onclick="nextSlide()">Siguiente <i class="fa-solid fa-chevron-right"></i></button>
-          </div>
+          <div class="slide-stage-badge">CHAPTER 03 / 04</div>
+          <h2>El Despertar</h2>
+          <p>Decidimos importar la hoja entera, pura y viva.</p>
+          <p>Queríamos devolverle el respeto a la bebida más antigua del mundo y demostrar que el té de verdad cuida tu cuerpo, tiene aroma profundo y sabor real.</p>
         </div>
       </div>
 
-      <!-- ETAPA 4 -->
+      <!-- CHAPTER 4 -->
       <div class="story-slide" id="slide-3">
         <div class="slide-visual-wrapper">
           <div class="slide-visual-bg" style="background-image: url('historia-4.JPG');"></div>
         </div>
         <div class="slide-copy">
-          <div>
-            <div class="slide-stage-badge">Etapa 04 / 04</div>
-            <h2>Bienvenido a Casa</h2>
-            <p>Así nació Chai-itto. Un santuario en el corazón de San Pedro Cholula donde la hoja suelta es la única regla.</p>
-            <p>Hoy, con más de 120 mezclas, somos una comunidad que entiende que el Té no es solo una bebida... <strong>es una experiencia.</strong></p>
-          </div>
-          <div class="slide-controls">
-            <button class="slide-nav-btn" onclick="prevSlide()"><i class="fa-solid fa-chevron-left"></i> Atrás</button>
-            <button class="slide-nav-btn" style="background:#F5D061; color:#021B07; font-weight:800;" onclick="document.querySelector('.experiencia-finale').scrollIntoView({behavior:'smooth'})">
-              Ver Comunidad <i class="fa-solid fa-arrow-down"></i>
-            </button>
-          </div>
+          <div class="slide-stage-badge">CHAPTER 04 / 04</div>
+          <h2>Bienvenido a Casa</h2>
+          <p>Así nació Chai-itto. Un santuario en el corazón de San Pedro Cholula donde la hoja suelta es la única regla.</p>
+          <p>Hoy, con más de 120 mezclas, somos una comunidad que entiende que el Té no es solo una bebida... <strong>es una experiencia.</strong></p>
+        </div>
+      </div>
+
+      <!-- CONTINUOUS NETFLIX / YOUTUBE SCRUBBER -->
+      <div class="movie-timeline-wrapper" id="timeline-wrapper">
+        <div class="movie-timeline-track" id="timeline-track">
+          <div class="movie-timeline-fill" id="timeline-fill"></div>
+          <div class="movie-timeline-thumb" id="timeline-thumb"></div>
+        </div>
+      </div>
+
+      <!-- MOVIE FINALE OVERLAY (REPLAY CARD) -->
+      <div id="movie-end-card">
+        <h2 style="font-family: var(--font-heading); color:#FFFFFF; font-size: 2.2rem; margin-bottom: 10px;">Chai-itto</h2>
+        <p style="color: #D6E4DB; margin-bottom: 24px; font-size: 1rem;">Salud con Té • San Pedro Cholula</p>
+        <div>
+          <button class="end-card-btn" onclick="replayMovie()"><i class="fa-solid fa-rotate-left"></i> Reproducir de Nuevo</button>
+          <button class="end-card-btn btn-gold" onclick="document.querySelector('.experiencia-finale').scrollIntoView({behavior:'smooth'})">Ver Comunidad <i class="fa-solid fa-arrow-down"></i></button>
         </div>
       </div>
 
     </div>
 
-    <!-- COMMUNITY GALLERY FINALE -->
+    <!-- GALLERY SECTION -->
     <div class="experiencia-finale">
-      <h2 style="font-family: var(--font-heading, 'Cinzel', serif); color: #07511A; font-size: 2rem; margin: 0 0 10px 0;">
+      <h2 style="font-family: var(--font-heading); color: #07511A; font-size: 2rem; margin: 0 0 10px 0;">
         La Comunidad Chai-itto
       </h2>
       <p style="color: #556B60; max-width: 600px; margin: 0 auto 30px auto; font-size: 1rem;">
