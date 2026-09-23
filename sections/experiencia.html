@@ -578,52 +578,57 @@
     </div>
 
 <!-- =========================================
-         LIVING 24-SEAL 12-ANIMATION MOSAIC
+         LIVING 24-SEAL MOSAIC (FULL VIEWPORT FIT)
          ========================================= -->
     <style>
       .experiencia-finale {
-        padding: 40px 16px 80px 16px;
+        padding: 16px 12px 28px 12px !important;
         background: #021B07;
         text-align: center;
         width: 100%;
         box-sizing: border-box;
         border-top: 1px solid rgba(212, 175, 55, 0.25);
+        min-height: calc(100vh - 120px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
       }
       .mosaic-header {
         max-width: 650px;
-        margin: 0 auto 24px auto;
+        margin: 0 auto 12px auto !important;
       }
       .mosaic-badge {
         color: #F5D061;
         font-family: var(--font-heading, 'Cinzel', serif);
-        font-size: 0.72rem;
-        letter-spacing: 3px;
+        font-size: 0.68rem !important;
+        letter-spacing: 2.5px;
         text-transform: uppercase;
         font-weight: 700;
-        margin-bottom: 6px;
+        margin-bottom: 2px !important;
         display: inline-block;
       }
       .mosaic-title {
         font-family: var(--font-heading, 'Cinzel', serif);
         color: #FFFFFF;
-        font-size: clamp(1.5rem, 3.4vw, 2.3rem);
-        margin: 0 0 8px 0;
+        font-size: clamp(1.25rem, 2.6vw, 1.85rem) !important;
+        margin: 0 0 3px 0 !important;
+        line-height: 1.2 !important;
       }
       .mosaic-subtitle {
         color: #A3C4AF;
-        font-size: 0.9rem;
-        margin: 0;
+        font-size: 0.8rem !important;
+        margin: 0 !important;
         font-weight: 300;
       }
 
-      /* 24-GRID WITH LOCKED PROPORTIONS */
+      /* DYNAMIC GRID: SCALES WITH SCREEN HEIGHT SO ALL TILES FIT IN VIEW */
       .mosaic-grid {
         display: grid !important;
         grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-        grid-auto-rows: 85px !important;
-        gap: 6px !important;
+        grid-auto-rows: clamp(55px, 8.5vh, 78px) !important;
+        gap: 5px !important;
         width: 100% !important;
-        max-width: 1150px !important;
+        max-width: 1100px !important;
         margin: 0 auto !important;
         box-sizing: border-box !important;
         perspective: 1200px !important;
@@ -631,8 +636,8 @@
       @media (min-width: 768px) {
         .mosaic-grid {
           grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
-          grid-auto-rows: 130px !important;
-          gap: 10px !important;
+          grid-auto-rows: clamp(75px, 11vh, 110px) !important;
+          gap: 8px !important;
         }
       }
 
@@ -644,9 +649,10 @@
         overflow: hidden !important;
         box-sizing: border-box !important;
         transform-style: preserve-3d !important;
+        background: #0B3814;
       }
 
-      /* CLOSED CHAI-ITTO LOGO SEAL (FIXED SIZE) */
+      /* SEAL FACE */
       .tile-face-logo {
         position: absolute !important;
         inset: 0 !important;
@@ -661,45 +667,44 @@
         box-sizing: border-box !important;
         z-index: 2 !important;
         overflow: hidden !important;
-        transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease !important;
+        transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.45s ease !important;
         -webkit-backface-visibility: hidden !important;
         backface-visibility: hidden !important;
       }
       .tile-face-logo img {
-        width: 44px !important;
-        height: 44px !important;
-        max-width: 44px !important;
-        max-height: 44px !important;
+        width: 38px !important;
+        height: 38px !important;
+        max-width: 38px !important;
+        max-height: 38px !important;
         object-fit: contain !important;
         display: block !important;
         margin: auto !important;
         opacity: 0.85 !important;
-        filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)) !important;
       }
       @media (min-width: 768px) {
         .tile-face-logo img {
-          width: 58px !important;
-          height: 58px !important;
-          max-width: 58px !important;
-          max-height: 58px !important;
+          width: 50px !important;
+          height: 50px !important;
+          max-width: 50px !important;
+          max-height: 50px !important;
         }
       }
 
-      /* REVEALED MEDIA FACE */
+      /* MEDIA FACE (GUARANTEED VISIBLE ON REVEAL) */
       .tile-face-media {
         position: absolute !important;
         inset: 0 !important;
         width: 100% !important;
         height: 100% !important;
-        background: #000000 !important;
+        background: #051A0A !important;
         border: 1.5px solid #F5D061 !important;
         border-radius: 8px !important;
         overflow: hidden !important;
         box-sizing: border-box !important;
         z-index: 1 !important;
-        opacity: 0 !important;
+        opacity: 0;
         cursor: pointer !important;
-        transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease !important;
+        transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.45s ease !important;
       }
       .tile-face-media img,
       .tile-face-media video {
@@ -709,74 +714,60 @@
         display: block !important;
       }
 
+      /* REVEAL STATES */
+      .mosaic-tile.revealed .tile-face-logo {
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+      .mosaic-tile.revealed .tile-face-media {
+        opacity: 1 !important;
+        z-index: 4 !important;
+        pointer-events: auto !important;
+      }
+
       /* 12 REVEAL ANIMATIONS */
-      .mosaic-tile.revealed.anim-flip-y .tile-face-logo { transform: rotateY(180deg); opacity: 0; }
-      .mosaic-tile.revealed.anim-flip-y .tile-face-media { opacity: 1; z-index: 3; animation: aFlipY 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
-      @keyframes aFlipY { from { transform: rotateY(-180deg); opacity: 0; } to { transform: rotateY(0deg); opacity: 1; } }
+      .mosaic-tile.revealed.anim-flip-y .tile-face-logo { transform: rotateY(180deg); }
+      .mosaic-tile.revealed.anim-flip-y .tile-face-media { animation: aFlipY 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+      @keyframes aFlipY { from { transform: rotateY(-180deg); } to { transform: rotateY(0deg); } }
 
-      .mosaic-tile.revealed.anim-flip-x .tile-face-logo { transform: rotateX(180deg); opacity: 0; }
-      .mosaic-tile.revealed.anim-flip-x .tile-face-media { opacity: 1; z-index: 3; animation: aFlipX 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
-      @keyframes aFlipX { from { transform: rotateX(-180deg); opacity: 0; } to { transform: rotateX(0deg); opacity: 1; } }
+      .mosaic-tile.revealed.anim-flip-x .tile-face-logo { transform: rotateX(180deg); }
+      .mosaic-tile.revealed.anim-flip-x .tile-face-media { animation: aFlipX 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+      @keyframes aFlipX { from { transform: rotateX(-180deg); } to { transform: rotateX(0deg); } }
 
-      .mosaic-tile.revealed.anim-gold-stamp .tile-face-logo { animation: aStampOut 0.5s ease forwards; }
-      .mosaic-tile.revealed.anim-gold-stamp .tile-face-media { z-index: 3; animation: aStampIn 0.55s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-      @keyframes aStampOut { 50% { transform: scale(0.9); box-shadow: 0 0 20px #F5D061; opacity: 0.8; } 100% { transform: scale(0.6); opacity: 0; } }
-      @keyframes aStampIn { 0% { transform: scale(1.3); opacity: 0; filter: brightness(2.2); } 70% { transform: scale(0.97); filter: brightness(1.2); } 100% { transform: scale(1); opacity: 1; filter: brightness(1); } }
+      .mosaic-tile.revealed.anim-gold-stamp .tile-face-media { animation: aStampIn 0.55s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+      @keyframes aStampIn { 0% { transform: scale(1.3); filter: brightness(2); } 100% { transform: scale(1); filter: brightness(1); } }
 
-      .mosaic-tile.revealed.anim-aperture .tile-face-logo { animation: aApertureOut 0.6s ease forwards; }
-      .mosaic-tile.revealed.anim-aperture .tile-face-media { z-index: 3; animation: aApertureIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-      @keyframes aApertureOut { to { clip-path: circle(0% at 50% 50%); opacity: 0; } }
-      @keyframes aApertureIn { from { clip-path: circle(0% at 50% 50%); opacity: 1; } to { clip-path: circle(100% at 50% 50%); opacity: 1; } }
+      .mosaic-tile.revealed.anim-aperture .tile-face-media { animation: aApertureIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+      @keyframes aApertureIn { from { clip-path: circle(0% at 50% 50%); } to { clip-path: circle(100% at 50% 50%); } }
 
-      .mosaic-tile.revealed.anim-swirl .tile-face-logo { animation: aSwirlOut 0.6s ease forwards; }
-      .mosaic-tile.revealed.anim-swirl .tile-face-media { z-index: 3; animation: aSwirlIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-      @keyframes aSwirlOut { to { transform: rotate(90deg) scale(0.5); opacity: 0; filter: blur(4px); } }
-      @keyframes aSwirlIn { from { transform: rotate(-90deg) scale(1.2); opacity: 0; filter: blur(4px); } to { transform: rotate(0deg); scale(1); opacity: 1; filter: blur(0); } }
+      .mosaic-tile.revealed.anim-swirl .tile-face-media { animation: aSwirlIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+      @keyframes aSwirlIn { from { transform: rotate(-90deg) scale(1.2); filter: blur(4px); } to { transform: rotate(0deg) scale(1); filter: blur(0); } }
 
-      .mosaic-tile.revealed.anim-slice-diag .tile-face-logo { animation: aSliceOut 0.55s ease forwards; }
-      .mosaic-tile.revealed.anim-slice-diag .tile-face-media { z-index: 3; animation: aSliceIn 0.55s ease forwards; }
-      @keyframes aSliceOut { to { transform: translate(-35%, -35%); opacity: 0; } }
-      @keyframes aSliceIn { from { transform: translate(35%, 35%); opacity: 0; } to { transform: translate(0, 0); opacity: 1; } }
+      .mosaic-tile.revealed.anim-slice-diag .tile-face-media { animation: aSliceIn 0.55s ease forwards; }
+      @keyframes aSliceIn { from { transform: translate(35%, 35%); } to { transform: translate(0, 0); } }
 
-      .mosaic-tile.revealed.anim-diamond .tile-face-logo { animation: aDiamondOut 0.6s ease forwards; }
-      .mosaic-tile.revealed.anim-diamond .tile-face-media { z-index: 3; animation: aDiamondIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-      @keyframes aDiamondOut { to { clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%); opacity: 0; } }
-      @keyframes aDiamondIn { from { clip-path: polygon(50% 50%, 50% 50%, 50% 50%); opacity: 1; } to { clip-path: polygon(50% -20%, 120% 50%, 50% 120%, -20% 50%); opacity: 1; } }
+      .mosaic-tile.revealed.anim-diamond .tile-face-media { animation: aDiamondIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+      @keyframes aDiamondIn { from { clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%); } to { clip-path: polygon(50% -20%, 120% 50%, 50% 120%, -20% 50%); } }
 
-      .mosaic-tile.revealed.anim-curtain-split .tile-face-logo { animation: aCurtainOut 0.6s ease forwards; }
-      .mosaic-tile.revealed.anim-curtain-split .tile-face-media { z-index: 3; animation: aCurtainIn 0.6s ease forwards; }
-      @keyframes aCurtainOut { to { transform: scaleX(0); opacity: 0; } }
-      @keyframes aCurtainIn { from { transform: scaleX(0); opacity: 0; } to { transform: scaleX(1); opacity: 1; } }
+      .mosaic-tile.revealed.anim-curtain-split .tile-face-media { animation: aCurtainIn 0.6s ease forwards; }
+      @keyframes aCurtainIn { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
-      .mosaic-tile.revealed.anim-optical-blur .tile-face-logo { animation: aBlurOut 0.6s ease forwards; }
-      .mosaic-tile.revealed.anim-optical-blur .tile-face-media { z-index: 3; animation: aBlurIn 0.6s ease forwards; }
-      @keyframes aBlurOut { to { filter: blur(12px); opacity: 0; transform: scale(1.15); } }
-      @keyframes aBlurIn { from { filter: blur(12px); opacity: 0; transform: scale(0.9); } to { filter: blur(0); opacity: 1; transform: scale(1); } }
+      .mosaic-tile.revealed.anim-optical-blur .tile-face-media { animation: aBlurIn 0.6s ease forwards; }
+      @keyframes aBlurIn { from { filter: blur(10px); transform: scale(0.9); } to { filter: blur(0); transform: scale(1); } }
 
-      .mosaic-tile.revealed.anim-flip-diag .tile-face-logo { transform: rotate3d(1, 1, 0, 180deg); opacity: 0; }
-      .mosaic-tile.revealed.anim-flip-diag .tile-face-media { opacity: 1; z-index: 3; animation: aFlipDiag 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
-      @keyframes aFlipDiag { from { transform: rotate3d(1, 1, 0, -180deg); opacity: 0; } to { transform: rotate3d(1, 1, 0, 0deg); opacity: 1; } }
+      .mosaic-tile.revealed.anim-flip-diag .tile-face-media { animation: aFlipDiag 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+      @keyframes aFlipDiag { from { transform: rotate3d(1, 1, 0, -180deg); } to { transform: rotate3d(1, 1, 0, 0deg); } }
 
-      .mosaic-tile.revealed.anim-bounce-pop .tile-face-logo { animation: aPopOut 0.4s ease forwards; }
-      .mosaic-tile.revealed.anim-bounce-pop .tile-face-media { z-index: 3; animation: aPopIn 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
-      @keyframes aPopOut { to { transform: scale(0.2); opacity: 0; } }
-      @keyframes aPopIn { 0% { transform: scale(0.3); opacity: 0; box-shadow: 0 0 30px #F5D061; } 100% { transform: scale(1); opacity: 1; } }
+      .mosaic-tile.revealed.anim-bounce-pop .tile-face-media { animation: aPopIn 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+      @keyframes aPopIn { 0% { transform: scale(0.3); } 100% { transform: scale(1); } }
 
-      .mosaic-tile.revealed.anim-scan-reveal .tile-face-logo { animation: aScanOut 0.55s linear forwards; }
-      .mosaic-tile.revealed.anim-scan-reveal .tile-face-media { z-index: 3; animation: aScanIn 0.55s linear forwards; }
-      @keyframes aScanOut { to { clip-path: inset(100% 0 0 0); opacity: 0; } }
-      @keyframes aScanIn { from { clip-path: inset(0 0 100% 0); opacity: 1; } to { clip-path: inset(0 0 0% 0); opacity: 1; } }
+      .mosaic-tile.revealed.anim-scan-reveal .tile-face-media { animation: aScanIn 0.55s linear forwards; }
+      @keyframes aScanIn { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0% 0); } }
 
-      .mosaic-grid.completed .tile-face-media { box-shadow: 0 0 12px rgba(245, 208, 97, 0.5); }
+      .mosaic-grid.completed .tile-face-media { box-shadow: 0 0 12px rgba(245, 208, 97, 0.45); }
     </style>
 
     <div class="experiencia-finale">
-      <div class="mosaic-header">
-        <span class="mosaic-badge">Mosaico Vivo</span>
-        <h2 class="mosaic-title">La Comunidad Chai-itto</h2>
-        <p class="mosaic-subtitle">Nuestra tribu cobra vida taza por taza.</p>
-      </div>
-
       <div id="mosaic-grid" class="mosaic-grid"></div>
     </div>
   </div>
