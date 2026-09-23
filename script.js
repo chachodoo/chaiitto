@@ -508,9 +508,11 @@ if (mobileTiendaCaret) mobileTiendaCaret.style.transform = 'rotate(0deg)';
         } else if (pageName === 'bazar') {
             loadBazarGrid();
         } else if (pageName === 'experiencia') {
-          setTimeout(() => {
-            if (typeof unlockExperiencia === 'function') unlockExperiencia();
-            }, 100);
+            // Let the trap video play. The movie will unlock only when the user taps "DESCUBRIR".
+            const trapVideo = document.querySelector('#video-trap video');
+            if (trapVideo) {
+              trapVideo.play().catch(() => {});
+            }
         } else if (pageName === 'menu') {
             menuNavigationState.currentPage = targetPage;
             updateMenuDisplay();
