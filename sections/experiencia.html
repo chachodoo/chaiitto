@@ -255,6 +255,32 @@
     color: #F5D061;
     font-weight: 700;
   }
+  
+/* CINEMATIC LIQUID GOLD SHEEN */
+  .climax-highlight {
+    display: inline-block;
+    font-weight: 800;
+    background: linear-gradient(
+      110deg,
+      #F5D061 0%,
+      #FFFFFF 25%,
+      #D4AF37 50%,
+      #FFFFFF 75%,
+      #F5D061 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: goldSheenSweep 3.2s linear infinite;
+    filter: drop-shadow(0 0 10px rgba(245, 208, 97, 0.4));
+    letter-spacing: 0.5px;
+  }
+
+  @keyframes goldSheenSweep {
+    0% { background-position: 200% center; }
+    100% { background-position: -200% center; }
+  }
+  
 
   /* =========================================
      3. CENTER PLAY / PAUSE HUD ICON
@@ -468,7 +494,7 @@
           <div class="slide-visual-bg" style="background-image: url('historia-1.JPG');"></div>
         </div>
         <div class="slide-copy">
-          <div class="slide-stage-badge">CHAPTER 01 / 04</div>
+          <div class="slide-stage-badge">CAPÍTULO 1/4</div>
           <h2>La Decepción</h2>
           <p>“Todo empezó con la incredulidad de mi esposo… y un Té de bolsita de 5 pesos.”</p>
           <p>En Cholula, era casi imposible encontrar Té de calidad. Todo se reducía al típico Té comercial lleno de polvo. ¡Ni en las cafeterías gourmet nos servían algo real!</p>
@@ -481,7 +507,7 @@
           <div class="slide-visual-bg" style="background-image: url('historia-2.JPG');"></div>
         </div>
         <div class="slide-copy">
-          <div class="slide-stage-badge">CHAPTER 02 / 04</div>
+          <div class="slide-stage-badge">CAPÍTULO 2/4</div>
           <h2>El Choque Cultural</h2>
           <p>“Mi esposo es Libanés. Para él, el Té es <strong>CULTURA Y RITUAL</strong>. No podía creer que nos sirvieran hojas pulverizadas sin alma.”</p>
           <p>Decidimos que no podíamos seguir bebiendo polvo blanqueado. Teníamos que cambiarlo desde la raíz.</p>
@@ -494,7 +520,7 @@
           <div class="slide-visual-bg" style="background-image: url('historia-3.JPG');"></div>
         </div>
         <div class="slide-copy">
-          <div class="slide-stage-badge">CHAPTER 03 / 04</div>
+          <div class="slide-stage-badge">CAPÍTULO 3/4</div>
           <h2>El Despertar</h2>
           <p>Decidimos importar la hoja entera, pura y viva.</p>
           <p>Queríamos devolverle el respeto a la bebida más antigua del mundo y demostrar que el té de verdad cuida tu cuerpo, tiene aroma profundo y sabor real.</p>
@@ -507,10 +533,10 @@
           <div class="slide-visual-bg" style="background-image: url('historia-4.JPG');"></div>
         </div>
         <div class="slide-copy">
-          <div class="slide-stage-badge">CHAPTER 04 / 04</div>
+          <div class="slide-stage-badge">CAPÍTULO FINAL</div>
           <h2>Bienvenido a Casa</h2>
           <p>Así nació Chai-itto. Un santuario en el corazón de San Pedro Cholula donde la hoja suelta es la única regla.</p>
-          <p>Hoy, con más de 120 mezclas, somos una comunidad que entiende que el Té no es solo una bebida... <strong>es una experiencia.</strong></p>
+         <p>Hoy, con más de 120 mezclas, somos una comunidad que entiende que el Té no es solo una bebida... <span class="climax-highlight">es una experiencia.</span></p>
         </div>
       </div>
 
