@@ -701,5 +701,17 @@
       "accesorios/accesorios-538-1.jpeg",
       "accesorios/accesorios-538-2.jpeg"
     ]
+  },
+  {
+    "num": "539",
+    "name": "Matcha Set \"Sakura\" 4 Piezas",
+    "descripcion": "Set para Matcha Blanco con decoracion de Sakuras, incluye Tazon (Grande), Cuchara y Batidor con base.",
+    "precio": 900,
+    "precioOferta": 750,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-539-1.jpeg",
+      "accesorios/accesorios-539-2.jpeg"
+    ]
   }
 ]
