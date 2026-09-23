@@ -749,5 +749,17 @@
       "accesorios/accesorios-542-1.jpeg",
       "accesorios/accesorios-542-2.jpeg"
     ]
+  },
+  {
+    "num": "543",
+    "name": "Cuenco \"Corazon Poblano\"",
+    "descripcion": "Cuenco color Verde Menta con relieve Blanco para Te o Matcha (No incluye Batidor).",
+    "precio": 250,
+    "precioOferta": 200,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-543-1.jpeg",
+      "accesorios/accesorios-543-2.jpeg"
+    ]
   }
 ]
