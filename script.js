@@ -1835,14 +1835,13 @@ document.addEventListener('click', function(e) {
 });
 
 /* =========================================
-   EXPERIENCIA EDITORIAL SLIDESHOW & TIMER
+   CONTINUOUS MOVIE TIMELINE & SCRUBBER ENGINE
    ========================================= */
-let currentStorySlide = 0;
-let storyTimer = null;
-let storyProgress = 0;
-let isStoryPaused = false;
-const STORY_DURATION = 7000; // 7 seconds per slide for relaxed reading
-const STORY_TICK = 50;
+let movieCurrentMs = 0;
+const MOVIE_TOTAL_MS = 24000; // 24 seconds total (6s per Chapter)
+const MOVIE_TICK = 40;
+let movieTimer = null;
+let isDraggingScrubber = false;
 
 function unlockExperiencia() {
   const trap = document.getElementById('video-trap');
@@ -1853,81 +1852,112 @@ function unlockExperiencia() {
   }
   if (story) {
     story.style.display = 'block';
-    setTimeout(() => { 
+    setTimeout(() => {
       story.style.opacity = '1';
-      startStoryAutoPlay();
+      initMovieScrubber();
+      playMovie();
     }, 50);
   }
 }
 
-function startStoryAutoPlay() {
-  stopStoryAutoPlay();
-  storyProgress = 0;
-  isStoryPaused = false;
-  
-  storyTimer = setInterval(() => {
-    if (isStoryPaused) return;
-    storyProgress += STORY_TICK;
-    const pct = Math.min(100, (storyProgress / STORY_DURATION) * 100);
-    const activeFill = document.getElementById(`bar-fill-${currentStorySlide}`);
-    if (activeFill) activeFill.style.width = pct + '%';
-    
-    if (storyProgress >= STORY_DURATION) {
-      if (currentStorySlide < 3) {
-        nextSlide();
-      } else {
-        stopStoryAutoPlay(); // Stop when reaching Etapa 04 so user can tap to explore gallery
-      }
+function playMovie() {
+  stopMovieTimer();
+  const endCard = document.getElementById('movie-end-card');
+  if (endCard) {
+    endCard.style.opacity = '0';
+    endCard.classList.remove('active');
+  }
+
+  movieTimer = setInterval(() => {
+    if (isDraggingScrubber) return;
+    movieCurrentMs += MOVIE_TICK;
+    if (movieCurrentMs >= MOVIE_TOTAL_MS) {
+      movieCurrentMs = MOVIE_TOTAL_MS;
+      updateMovieUI();
+      stopMovieTimer();
+      showMovieEndCard();
+    } else {
+      updateMovieUI();
     }
-  }, STORY_TICK);
+  }, MOVIE_TICK);
 }
 
-function stopStoryAutoPlay() {
-  if (storyTimer) {
-    clearInterval(storyTimer);
-    storyTimer = null;
+function stopMovieTimer() {
+  if (movieTimer) {
+    clearInterval(movieTimer);
+    movieTimer = null;
   }
 }
 
-function pauseStoryTimer() {
-  isStoryPaused = true;
-}
+function updateMovieUI() {
+  const pct = Math.min(100, Math.max(0, (movieCurrentMs / MOVIE_TOTAL_MS) * 100));
+  const fill = document.getElementById('timeline-fill');
+  const thumb = document.getElementById('timeline-thumb');
+  if (fill) fill.style.width = pct + '%';
+  if (thumb) thumb.style.left = pct + '%';
 
-function resumeStoryTimer() {
-  isStoryPaused = false;
-}
+  // Calculate active chapter index (0, 1, 2, or 3)
+  let activeIndex = Math.floor((pct / 100) * 4);
+  if (activeIndex >= 4) activeIndex = 3;
 
-function updateProgressBars() {
-  for (let i = 0; i < 4; i++) {
-    const fill = document.getElementById(`bar-fill-${i}`);
-    if (!fill) continue;
-    if (i < currentStorySlide) fill.style.width = '100%';
-    else if (i > currentStorySlide) fill.style.width = '0%';
-    else fill.style.width = '0%';
-  }
-}
-
-function setSlide(index) {
   const slides = document.querySelectorAll('.story-slide');
-  if (!slides.length) return;
-  currentStorySlide = Math.max(0, Math.min(index, slides.length - 1));
   slides.forEach((s, idx) => {
-    s.classList.toggle('active', idx === currentStorySlide);
+    s.classList.toggle('active', idx === activeIndex);
   });
-  updateProgressBars();
-  storyProgress = 0;
 }
 
-function nextSlide() {
-  if (currentStorySlide < 3) {
-    setSlide(currentStorySlide + 1);
-  } else {
-    const galleryEl = document.querySelector('.experiencia-finale');
-    if (galleryEl) galleryEl.scrollIntoView({ behavior: 'smooth' });
+function showMovieEndCard() {
+  const endCard = document.getElementById('movie-end-card');
+  if (endCard) {
+    endCard.classList.add('active');
+    setTimeout(() => { endCard.style.opacity = '1'; }, 20);
   }
 }
 
-function prevSlide() {
-  setSlide(currentStorySlide - 1);
+function replayMovie() {
+  movieCurrentMs = 0;
+  updateMovieUI();
+  playMovie();
+}
+
+function initMovieScrubber() {
+  const wrapper = document.getElementById('timeline-wrapper');
+  const track = document.getElementById('timeline-track');
+  if (!wrapper || !track || wrapper._hasScrubberBound) return;
+  wrapper._hasScrubberBound = true;
+
+  function scrubToPosition(clientX) {
+    const rect = track.getBoundingClientRect();
+    const pos = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+    movieCurrentMs = pos * MOVIE_TOTAL_MS;
+    updateMovieUI();
+  }
+
+  // Pointer / Mouse events
+  wrapper.addEventListener('pointerdown', (e) => {
+    isDraggingScrubber = true;
+    wrapper.classList.add('dragging');
+    scrubToPosition(e.clientX);
+    wrapper.setPointerCapture(e.pointerId);
+  });
+
+  wrapper.addEventListener('pointermove', (e) => {
+    if (!isDraggingScrubber) return;
+    scrubToPosition(e.clientX);
+  });
+
+  const endDrag = (e) => {
+    if (!isDraggingScrubber) return;
+    isDraggingScrubber = false;
+    wrapper.classList.remove('dragging');
+    if (movieCurrentMs >= MOVIE_TOTAL_MS) {
+      showMovieEndCard();
+    } else {
+      playMovie();
+    }
+  };
+
+  wrapper.addEventListener('pointerup', endDrag);
+  wrapper.addEventListener('pointercancel', endDrag);
 }
 
