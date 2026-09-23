@@ -719,12 +719,15 @@
         transform: scale(1.02) !important; /* Micro-bleed touches 1px white line with zero dark fringe */
       }
 
-      /* REVEALED STATE */
+      /* REVEALED STATE: FORCES GPU VIDEO TEXTURE VISIBILITY */
       .mosaic-tile.revealed .tile-face-logo {
         opacity: 0 !important;
         pointer-events: none !important;
       }
-      .mosaic-tile.revealed .tile-face-media {
+      .mosaic-tile.revealed .tile-face-media,
+      .mosaic-tile.revealed .tile-face-media video {
+        -webkit-backface-visibility: visible !important;
+        backface-visibility: visible !important;
         opacity: 1 !important;
         z-index: 4 !important;
         pointer-events: auto !important;
