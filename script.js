@@ -2153,6 +2153,7 @@ async function startLivingMosaic() {
   // 1 UNIFIED COLOR PER ROUND FOR ALL 24 TILES
   const roundPalette = TEA_PALETTES[currentPaletteIndex % TEA_PALETTES.length];
   currentPaletteIndex++;
+  grid.dataset.roundPalette = roundPalette;
 
   // Shuffle and deal 24 unique items (Zero Duplicates)
   const shuffled = [...activeCommunityPool].sort(() => Math.random() - 0.5);
@@ -2265,61 +2266,33 @@ async function startLivingMosaic() {
   setTimeout(revealNext, 200);
 }
 
-  // Sequential reveal cadence
-  const slotOrder = Array.from({ length: TOTAL_SLOTS }, (_, i) => i).sort(() => Math.random() - 0.5);
-  let step = 0;
-
-  function revealNext() {
-    if (step < TOTAL_SLOTS) {
-      const slotIdx = slotOrder[step];
-      const tileEl = document.getElementById(`mosaic-tile-${slotIdx}`);
-      if (tileEl) {
-        const vid = tileEl.querySelector('video');
-        // Prevent Chrome/Safari 3D flips from dropping hardware video textures; photos keep their 3D flips
-        const randomAnim = vid 
-          ? 'anim-white-pop' 
-          : MOSAIC_ANIMATIONS[Math.floor(Math.random() * MOSAIC_ANIMATIONS.length)];
-
-        tileEl.className = `mosaic-tile revealed ${randomAnim}`;
-
-        if (vid) {
-          vid.muted = true;
-          vid.defaultMuted = true;
-          vid.playsInline = true;
-          const mediaBox = tileEl.querySelector('.tile-face-media');
-          if (mediaBox) mediaBox.style.background = '#021B07';
-          vid.play().catch(() => {});
-        }
-      }
-      step++;
-      mosaicLoopTimer = setTimeout(revealNext, 200);
-    } else {
-      grid.classList.add('completed');
-      mosaicLoopTimer = setTimeout(shatterAndRebuild, 2000);
-    }
-  }
-
-  setTimeout(revealNext, 200);
-}
-
-// 1.1s Shatter & 0.95s Crystal Rebuild sequence
+// 0.85s 3D dark shatter & 0.75s crystal rebuild sequence
 function shatterAndRebuild() {
   const grid = document.getElementById('mosaic-grid');
-  if (grid) grid.classList.remove('completed');
+  const activeColor = grid ? (grid.dataset.roundPalette || TEA_PALETTES[0]) : '#021B07';
+
+  if (grid) {
+    grid.classList.remove('completed');
+    grid.classList.add('shattering');
+    // Prevents white flash: grid takes the round's ambient tea color while tiles fly away
+    grid.style.setProperty('background', activeColor, 'important');
+  }
 
   const tiles = document.querySelectorAll('.mosaic-tile');
 
-  // Phase 1: 3D Shatter outwards (1.1s graceful flight)
+  // Phase 1: 3D Shatter into dark botanical background (0.85s)
   tiles.forEach((tile, idx) => {
     const shatterVariant = idx % 6;
     tile.className = `mosaic-tile shatter-${shatterVariant}`;
   });
 
-  // Phase 2: Staggered Crystal Rebuild wave (0.95s)
+  // Phase 2: Staggered Crystal Rebuild wave (0.75s)
   setTimeout(() => {
+    if (grid) grid.classList.remove('shattering');
+
     tiles.forEach((tile, idx) => {
       tile.className = 'mosaic-tile rebuilding';
-      tile.style.animationDelay = `${(idx % 6) * 70}ms`;
+      tile.style.animationDelay = `${(idx % 6) * 50}ms`;
     });
 
     // Phase 3: Launch next round once seals have snapped into place
@@ -2328,10 +2301,14 @@ function shatterAndRebuild() {
         tile.className = 'mosaic-tile';
         tile.style.animationDelay = '';
       });
+      // Restore crisp 1px hairline grid seams
+      if (grid) {
+        grid.style.setProperty('background', '#FFFFFF', 'important');
+      }
       isMosaicRunning = false;
       startLivingMosaic();
-    }, 950);
-  }, 1100);
+    }, 750);
+  }, 850);
 }
 
 // Global scroll observer
