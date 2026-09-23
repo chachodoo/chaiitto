@@ -586,7 +586,7 @@
          6. FINALE CONTAINER: VIEWPORT FIT & ZERO PHANTOM GAPS
          =================================================== */
       .experiencia-finale {
-        padding: 8px 12px 24px 12px !important;
+        padding: 0 12px 24px 12px !important;
         background: #ECE8DE !important;
         text-align: center;
         width: 100%;
@@ -594,16 +594,16 @@
       }
 
       /* MASTER PUZZLE GRID: MOBILE (4 COLS x 6 ROWS = 24 TILES) */
-      /* 304px x 384px: Lifts Row 6 completely above the bottom browser toolbar */
+      /* Sits exactly 1px below header & lifts row 6 above bottom toolbar */
       .mosaic-grid {
         position: relative !important;
         display: grid !important;
         grid-template-columns: repeat(4, 1fr) !important;
         grid-template-rows: repeat(6, 1fr) !important;
         width: 304px !important;
-        height: 384px !important;
+        height: 380px !important;
         max-width: 90vw !important;
-        margin: 6px auto 0 auto !important;
+        margin: 1px auto 0 auto !important; /* EXACTLY 1PX BELOW HEADER */
         gap: 1px !important; /* Strict 1px Razor Hairline Seam */
         box-sizing: border-box !important;
         background: #FFFFFF !important;
@@ -615,10 +615,11 @@
       }
 
       /* DESKTOP (6 COLS x 4 ROWS = 24 TILES) */
-      /* 750px x 440px: Fits all 4 rows squarely below the sticky header */
+      /* Sits exactly 1px below header & fits all 4 rows on screen */
       @media (min-width: 992px) {
         .experiencia-finale {
-          padding: 10px 20px 24px 20px !important;
+          padding: 0 20px 24px 20px !important;
+          background: #ECE8DE !important;
         }
         .mosaic-grid {
           grid-template-columns: repeat(6, 1fr) !important;
@@ -626,7 +627,7 @@
           width: 750px !important;
           height: 440px !important;
           max-width: 92vw !important;
-          margin: 8px auto 0 auto !important;
+          margin: 1px auto 0 auto !important; /* EXACTLY 1PX BELOW HEADER */
           gap: 1px !important;
           border-radius: 12px !important;
           box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4) !important;
