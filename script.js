@@ -507,7 +507,7 @@ if (mobileTiendaCaret) mobileTiendaCaret.style.transform = 'rotate(0deg)';
             loadAccesoriosGrid();
         } else if (pageName === 'bazar') {
             loadBazarGrid();
-        } else if (pageName === 'galeria') {
+        } else if (pageName === 'experiencia') {
             setTimeout(loadGalleryRibbon, 100);
         } else if (pageName === 'menu') {
   menuNavigationState.currentPage = targetPage;
