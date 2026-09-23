@@ -2093,21 +2093,18 @@ async function loadActiveMediaList() {
 
 function scrollToCommunityMosaic() {
   const grid = document.getElementById('mosaic-grid');
-  const targetEl = grid || document.querySelector('.experiencia-finale');
-  if (targetEl) {
-    const marqueeEl = document.querySelector('.hero-marquee-wrapper');
-    const marqueeH = (marqueeEl && window.getComputedStyle(marqueeEl).display !== 'none') ? marqueeEl.offsetHeight : 0;
-    const headerEl = document.querySelector('header') || document.getElementById('main-master-header');
-    const headerH = headerEl ? headerEl.offsetHeight : (window.innerWidth >= 992 ? 96 : 70);
-    const topOffset = marqueeH + headerH + 12;
+  const header = document.querySelector('header') || document.getElementById('main-master-header');
+  if (!grid || !header) return;
 
-    const targetY = targetEl.getBoundingClientRect().top + window.pageYOffset - topOffset;
-    window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
+  // Exact live gap between the bottom of the green header and the top of the grid
+  const currentGap = grid.getBoundingClientRect().top - header.getBoundingClientRect().bottom;
+  const targetY = window.pageYOffset + currentGap - 1;
 
-    setTimeout(() => {
-      startLivingMosaic();
-    }, 400);
-  }
+  window.scrollTo({ top: Math.max(0, Math.round(targetY)), behavior: 'smooth' });
+
+  setTimeout(() => {
+    startLivingMosaic();
+  }, 400);
 }
 
 async function startLivingMosaic() {
