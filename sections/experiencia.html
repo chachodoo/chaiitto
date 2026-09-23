@@ -1,10 +1,13 @@
 <style>
   /* =========================================
-     MASTER STAGE (ZERO OVERFLOW / ANTI-STRETCH)
+     MASTER STAGE (VIEWPORT-LOCKED & ZERO SCROLL)
      ========================================= */
   .experiencia-master {
-    width: 100%;
-    max-width: 100vw;
+    width: calc(100% + 24px) !important;
+    max-width: 100vw !important;
+    /* Cancels the parent padding so it fits screen edge-to-edge */
+    margin: -8px -12px -60px -12px !important;
+    padding: 0 !important;
     overflow-x: hidden;
     background: #021B07;
     position: relative;
@@ -17,7 +20,8 @@
   #video-trap {
     position: relative;
     width: 100%;
-    height: calc(100dvh - 95px);
+    /* Mobile: 100dvh minus exact top bars */
+    height: calc(100dvh - 142px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -28,7 +32,7 @@
     z-index: 20;
   }
   @media (min-width: 992px) {
-    #video-trap { height: calc(100vh - 120px); }
+    #video-trap { height: calc(100vh - 155px); }
   }
 
   .video-bg {
@@ -44,13 +48,13 @@
   .trap-inner {
     position: relative;
     z-index: 2;
-    padding: 0 24px;
+    padding: 0 20px;
     max-width: 820px;
   }
 
   .trap-question {
     font-family: var(--font-heading, 'Cinzel', serif);
-    font-size: clamp(1.8rem, 4.8vw, 3rem);
+    font-size: clamp(1.6rem, 4.5vw, 2.8rem);
     color: #FFFFFF;
     font-weight: 800;
     line-height: 1.25;
@@ -59,14 +63,14 @@
   }
 
   .trap-btn {
-    margin-top: 36px;
+    margin-top: 28px;
     background: transparent;
     border: 2px solid #F5D061;
     color: #F5D061;
-    padding: 13px 38px;
+    padding: 12px 34px;
     border-radius: 50px;
     font-family: var(--font-body, 'Montserrat', sans-serif);
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -101,13 +105,14 @@
   .slideshow-viewport {
     position: relative;
     width: 100%;
-    height: calc(100dvh - 95px);
+    height: calc(100dvh - 142px);
     overflow: hidden;
     background: #021B07;
     user-select: none;
+    cursor: pointer;
   }
   @media (min-width: 992px) {
-    .slideshow-viewport { height: calc(100vh - 120px); }
+    .slideshow-viewport { height: calc(100vh - 155px); }
   }
 
   /* INDIVIDUAL CHAPTERS */
@@ -118,7 +123,7 @@
     height: 100%;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.75s ease;
+    transition: opacity 0.65s ease;
     display: flex;
     box-sizing: border-box;
   }
@@ -146,10 +151,10 @@
     transform: scale(1.07);
   }
 
-  /* Mobile Layout */
+  /* Mobile Layout: 38% Visual / 62% Text & Controls */
   @media (max-width: 991px) {
     .story-slide { flex-direction: column; }
-    .slide-visual-wrapper { width: 100%; height: 48%; }
+    .slide-visual-wrapper { width: 100%; height: 38%; }
     .slide-visual-wrapper::after {
       content: ''; position: absolute; inset: 0;
       background: linear-gradient(to bottom, transparent 40%, #021B07 100%);
@@ -157,8 +162,8 @@
     }
     .slide-copy {
       width: 100%;
-      height: 52%;
-      padding: 16px 20px 55px 20px; /* Room for bottom scrubber */
+      height: 62%;
+      padding: 10px 18px 58px 18px; /* Safe space for bottom timeline */
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -180,7 +185,7 @@
     .slide-copy {
       width: 50%;
       height: 100%;
-      padding: 70px 8% 80px 8%;
+      padding: 50px 8% 70px 8%;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -193,27 +198,27 @@
   .slide-stage-badge {
     color: #FFFFFF;
     font-family: var(--font-heading, 'Cinzel', serif);
-    font-size: 0.78rem;
-    letter-spacing: 3px;
+    font-size: 0.72rem;
+    letter-spacing: 2.5px;
     text-transform: uppercase;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     opacity: 0.85;
   }
 
   .slide-copy h2 {
     font-family: var(--font-heading, 'Cinzel', serif);
     color: #FFFFFF;
-    font-size: clamp(1.6rem, 3.4vw, 2.8rem);
+    font-size: clamp(1.25rem, 5vw, 2.4rem);
     line-height: 1.15;
-    margin: 0 0 14px 0;
+    margin: 0 0 8px 0;
   }
 
   .slide-copy p {
-    font-size: clamp(0.88rem, 1.15vw, 1.05rem);
+    font-size: clamp(0.78rem, 3.4vw, 0.98rem);
     color: #D6E4DB;
-    line-height: 1.65;
-    margin: 0 0 12px 0;
+    line-height: 1.5;
+    margin: 0 0 8px 0;
     font-weight: 300;
   }
   .slide-copy p strong {
@@ -222,34 +227,100 @@
   }
 
   /* =========================================
-     3. UNIFIED CONTINUOUS SCRUBBER (NETFLIX / YOUTUBE)
+     3. CENTER PLAY / PAUSE HUD ICON
+     ========================================= */
+  .movie-center-hud {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 64px;
+    height: 64px;
+    background: rgba(2, 27, 7, 0.8);
+    border: 2px solid #FFFFFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    font-size: 1.5rem;
+    z-index: 45;
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+    transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .movie-center-hud.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  /* =========================================
+     4. UNMISTAKABLE MOVIE TIMELINE BAR
      ========================================= */
   .movie-timeline-wrapper {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 48px;
+    bottom: 8px;
+    left: 12px;
+    right: 12px;
+    height: 42px;
     z-index: 40;
     display: flex;
     align-items: center;
-    padding: 0 20px;
-    cursor: pointer;
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 25px;
+    padding: 0 14px;
+    box-sizing: border-box;
+    cursor: default;
     touch-action: none;
   }
   @media (min-width: 992px) {
-    .movie-timeline-wrapper { padding: 0 48px; }
+    .movie-timeline-wrapper {
+      bottom: 16px;
+      left: 40px;
+      right: 40px;
+      padding: 0 20px;
+    }
+  }
+
+  .movie-btn-play-toggle {
+    background: transparent;
+    border: none;
+    color: #FFFFFF;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.15s ease;
+  }
+  .movie-btn-play-toggle:hover {
+    color: #F5D061;
+  }
+
+  .movie-time-readout {
+    font-family: var(--font-body, 'Montserrat', sans-serif);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
   }
 
   .movie-timeline-track {
     position: relative;
-    width: 100%;
+    flex: 1;
     height: 4px;
     background: rgba(255, 255, 255, 0.25);
     border-radius: 4px;
+    cursor: pointer;
     transition: height 0.15s ease;
   }
-  .movie-timeline-wrapper:hover .movie-timeline-track,
+  .movie-timeline-track:hover,
   .movie-timeline-wrapper.dragging .movie-timeline-track {
     height: 6px;
   }
@@ -265,27 +336,25 @@
     pointer-events: none;
   }
 
-  /* THE SCRUBBER BALL (PLAYHEAD THUMB) */
   .movie-timeline-thumb {
     position: absolute;
     top: 50%;
     left: 0%;
     transform: translate(-50%, -50%);
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     background: #FFFFFF;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6), 0 0 4px rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7), 0 0 4px rgba(255, 255, 255, 0.9);
     pointer-events: none;
     transition: transform 0.15s ease;
   }
-  .movie-timeline-wrapper:hover .movie-timeline-thumb,
   .movie-timeline-wrapper.dragging .movie-timeline-thumb {
     transform: translate(-50%, -50%) scale(1.35);
   }
 
   /* =========================================
-     4. MOVIE FINALE OVERLAY (REPLAY CARD)
+     5. MOVIE END CARD
      ========================================= */
   #movie-end-card {
     position: absolute;
@@ -310,10 +379,10 @@
     background: transparent;
     border: 1.5px solid #FFFFFF;
     color: #FFFFFF;
-    padding: 12px 30px;
+    padding: 12px 28px;
     border-radius: 30px;
     font-family: var(--font-heading, 'Cinzel', serif);
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     letter-spacing: 2px;
     text-transform: uppercase;
     cursor: pointer;
@@ -332,7 +401,7 @@
   }
 
   /* =========================================
-     5. GALLERY FINALE
+     6. FINALE CONTAINER
      ========================================= */
   .experiencia-finale {
     padding: 60px 20px 80px 20px;
@@ -341,41 +410,6 @@
     width: 100%;
     box-sizing: border-box;
   }
-
-  .enterprise-scroll-row {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    padding-bottom: 15px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: #A3C4AF #f0f0f0;
-  }
-  .gallery-item-card {
-    flex: 0 0 auto;
-    width: 180px;
-    height: 180px;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    background: #F4F7F5;
-  }
-  .gallery-item-card img, .gallery-item-card video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .gallery-nav-btn {
-    position: absolute; top: 45%; transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.95);
-    color: #07511A; border: 1px solid #D4AF37; border-radius: 50%;
-    width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
-    cursor: pointer; z-index: 10; box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  }
-  .gallery-nav-left { left: -10px; }
-  .gallery-nav-right { right: -10px; }
 </style>
 
 <div class="experiencia-master">
@@ -391,7 +425,12 @@
 
   <!-- THE MOVIE CONTAINER -->
   <div id="story-content">
-    <div class="slideshow-viewport">
+    <div class="slideshow-viewport" id="movie-viewport" onclick="handleViewportClick(event)">
+
+      <!-- CENTER HUD (PAUSE / PLAY ICON) -->
+      <div id="movie-center-hud" class="movie-center-hud">
+        <i class="fa-solid fa-pause" id="movie-hud-icon"></i>
+      </div>
 
       <!-- CHAPTER 1 -->
       <div class="story-slide active" id="slide-0">
@@ -445,8 +484,12 @@
         </div>
       </div>
 
-      <!-- CONTINUOUS NETFLIX / YOUTUBE SCRUBBER -->
+      <!-- VISIBLE BOTTOM MOVIE CONTROLS -->
       <div class="movie-timeline-wrapper" id="timeline-wrapper">
+        <button type="button" class="movie-btn-play-toggle" id="movie-toggle-btn" onclick="toggleMoviePlay(event)">
+          <i class="fa-solid fa-pause" id="movie-play-icon"></i>
+        </button>
+        <span class="movie-time-readout" id="movie-time-readout">0:00 / 0:24</span>
         <div class="movie-timeline-track" id="timeline-track">
           <div class="movie-timeline-fill" id="timeline-fill"></div>
           <div class="movie-timeline-thumb" id="timeline-thumb"></div>
@@ -455,8 +498,8 @@
 
       <!-- MOVIE FINALE OVERLAY (REPLAY CARD) -->
       <div id="movie-end-card">
-        <h2 style="font-family: var(--font-heading); color:#FFFFFF; font-size: 2.2rem; margin-bottom: 10px;">Chai-itto</h2>
-        <p style="color: #D6E4DB; margin-bottom: 24px; font-size: 1rem;">Salud con Té • San Pedro Cholula</p>
+        <h2 style="font-family: var(--font-heading); color:#FFFFFF; font-size: 2.2rem; margin-bottom: 8px;">Chai-itto</h2>
+        <p style="color: #D6E4DB; margin-bottom: 22px; font-size: 0.95rem;">Salud con Té • San Pedro Cholula</p>
         <div>
           <button class="end-card-btn" onclick="replayMovie()"><i class="fa-solid fa-rotate-left"></i> Reproducir de Nuevo</button>
           <button class="end-card-btn btn-gold" onclick="document.querySelector('.experiencia-finale').scrollIntoView({behavior:'smooth'})">Ver Comunidad <i class="fa-solid fa-arrow-down"></i></button>
@@ -465,26 +508,8 @@
 
     </div>
 
-    <!-- GALLERY SECTION -->
-    <div class="experiencia-finale">
-      <h2 style="font-family: var(--font-heading); color: #07511A; font-size: 2rem; margin: 0 0 10px 0;">
-        La Comunidad Chai-itto
-      </h2>
-      <p style="color: #556B60; max-width: 600px; margin: 0 auto 30px auto; font-size: 1rem;">
-        Momentos reales capturados por la tribu.
-      </p>
-
-      <div style="position: relative; width: 100%; max-width: 1200px; margin: 0 auto;">
-        <button class="gallery-nav-btn gallery-nav-left" onclick="scrollGallery('left')">
-          <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <div id="gallery-dynamic-container" class="enterprise-scroll-row"></div>
-        <button class="gallery-nav-btn gallery-nav-right" onclick="scrollGallery('right')">
-          <i class="fa-solid fa-chevron-right"></i>
-        </button>
-      </div>
-    </div>
-
+    <!-- GALLERY FINALE ANCHOR -->
+    <div class="experiencia-finale"></div>
   </div>
 
 </div>
