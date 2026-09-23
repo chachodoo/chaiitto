@@ -1,32 +1,31 @@
 <style>
   /* =========================================
-     MASTER STAGE (ANTI-STRETCH)
+     STAGE CONTAINER (ANTI-STRETCH)
      ========================================= */
-  .wow-experiencia-stage {
+  .experiencia-master {
     width: 100%;
     max-width: 100vw;
     overflow-x: hidden;
     background: #021B07;
     position: relative;
-    display: flex;
-    flex-direction: column;
+    box-sizing: border-box;
   }
 
   /* =========================================
-     THE VIDEO TRAP
+     1. VIDEO TRAP
      ========================================= */
   #video-trap {
-    position: absolute;
-    inset: 0;
-    z-index: 20;
+    position: relative;
+    width: 100%;
+    height: calc(100dvh - 95px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     background: #021B07;
-    transition: opacity 0.8s ease, filter 0.8s ease;
-    height: calc(100dvh - 95px); /* Matches mobile header offset */
+    transition: opacity 0.6s ease;
+    z-index: 10;
   }
   @media (min-width: 992px) {
     #video-trap { height: calc(100vh - 120px); }
@@ -38,261 +37,389 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.5;
-    z-index: -1;
+    opacity: 0.45;
+    z-index: 1;
+  }
+
+  .trap-inner {
+    position: relative;
+    z-index: 2;
+    padding: 0 20px;
+    max-width: 800px;
   }
 
   .trap-question {
     font-family: var(--font-heading, 'Cinzel', serif);
-    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-size: clamp(1.7rem, 4.5vw, 2.9rem);
     color: #FFFFFF;
     font-weight: 800;
-    line-height: 1.2;
-    padding: 0 20px;
-    text-shadow: 0 4px 15px rgba(0,0,0,0.8);
-    max-width: 800px;
+    line-height: 1.25;
+    text-shadow: 0 4px 18px rgba(0,0,0,0.85);
+    margin: 0 auto;
   }
 
   .trap-btn {
-    margin-top: 40px;
+    margin-top: 36px;
     background: transparent;
     border: 2px solid #F5D061;
     color: #F5D061;
-    padding: 14px 32px;
+    padding: 13px 36px;
     border-radius: 50px;
     font-family: var(--font-body, 'Montserrat', sans-serif);
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 2px;
     cursor: pointer;
-    box-shadow: 0 0 15px rgba(245, 208, 97, 0.2);
-    animation: pulseGlow 2s infinite;
-    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(245, 208, 97, 0.25);
+    transition: all 0.25s ease;
   }
-  .trap-btn:hover { background: #F5D061; color: #021B07; }
-
-  @keyframes pulseGlow {
-    0% { box-shadow: 0 0 0 0 rgba(245, 208, 97, 0.4); }
-    70% { box-shadow: 0 0 0 15px rgba(245, 208, 97, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(245, 208, 97, 0); }
+  .trap-btn:hover {
+    background: #F5D061;
+    color: #021B07;
   }
 
   /* =========================================
-     STORY CONTENT WRAPPER
+     2. THE 4-STAGE SLIDESHOW
      ========================================= */
   #story-content {
+    display: none; /* Hidden until trap unlocks: 0 height, no page stretch */
+    width: 100%;
+    background: #021B07;
     opacity: 0;
-    pointer-events: none;
-    background: #021B07;
-    transition: opacity 1s ease 0.3s;
-    width: 100%;
+    transition: opacity 0.6s ease;
   }
 
-  .wow-frame {
-    display: flex;
-    width: 100%;
+  .slideshow-viewport {
     position: relative;
-    border-bottom: 1px solid rgba(245, 208, 97, 0.15);
-  }
-
-  .wow-visual {
-    background-size: cover;
-    background-position: center;
-    position: relative;
-  }
-
-  .wow-copy {
-    background: #021B07;
+    width: 100%;
+    height: calc(100dvh - 95px);
+    overflow: hidden;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    align-items: center;
+  }
+  @media (min-width: 992px) {
+    .slideshow-viewport { height: calc(100vh - 120px); }
   }
 
-  .wow-copy h2 {
-    font-family: var(--font-heading, 'Cinzel', serif);
-    color: #F5D061;
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    line-height: 1.1;
-    margin-bottom: 24px;
-    text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  .story-slide {
+    display: none;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+  }
+  .story-slide.active {
+    display: flex;
   }
 
-  .wow-copy p {
-    font-size: clamp(1rem, 1.2vw, 1.15rem);
-    color: #E2ECE5;
-    line-height: 1.7;
-    margin-bottom: 20px;
-    font-weight: 300;
-  }
-
-  .wow-copy p strong { color: #FFFFFF; font-weight: 700; }
-
-  /* =========================================
-     STRICT MOBILE LAYOUT (MAX 991px)
-     ========================================= */
+  /* Mobile: 50% photo top, 50% story bottom */
   @media (max-width: 991px) {
-    .wow-frame {
+    .story-slide {
       flex-direction: column;
-      min-height: calc(100dvh - 95px);
     }
-    .wow-visual {
-      flex: 1;
+    .slide-visual {
       width: 100%;
-      min-height: 50vh;
+      height: 48%;
+      background-size: cover;
+      background-position: center;
+      position: relative;
     }
-    .wow-copy {
-      flex: 1;
-      width: 100%;
-      padding: 40px 20px;
-    }
-    .wow-visual::after {
+    .slide-visual::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, transparent 60%, #021B07 100%);
+      background: linear-gradient(to bottom, transparent 65%, #021B07 100%);
+    }
+    .slide-copy {
+      width: 100%;
+      height: 52%;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-sizing: border-box;
     }
   }
 
-  /* =========================================
-     STRICT DESKTOP LAYOUT (MIN 992px)
-     ========================================= */
+  /* Desktop: 50/50 Split Screen */
   @media (min-width: 992px) {
-    .wow-frame {
+    .story-slide {
       flex-direction: row;
-      min-height: calc(100vh - 120px);
     }
-    .wow-frame:nth-child(even) {
-      flex-direction: row-reverse;
-    }
-    .wow-visual, .wow-copy {
+    .slide-visual {
       width: 50%;
-      flex: 1;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      position: relative;
     }
-    .wow-copy {
-      padding: 60px 10%;
+    .slide-visual::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, transparent 70%, #021B07 100%);
     }
-    .wow-frame:nth-child(odd) .wow-visual::after { 
-      content: ''; position: absolute; inset: 0; background: linear-gradient(to right, transparent 60%, #021B07 100%); 
-    }
-    .wow-frame:nth-child(even) .wow-visual::after { 
-      content: ''; position: absolute; inset: 0; background: linear-gradient(to left, transparent 60%, #021B07 100%); 
+    .slide-copy {
+      width: 50%;
+      height: 100%;
+      padding: 60px 8%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-sizing: border-box;
     }
   }
 
+  .slide-stage-badge {
+    color: #F5D061;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .slide-copy h2 {
+    font-family: var(--font-heading, 'Cinzel', serif);
+    color: #FFFFFF;
+    font-size: clamp(1.6rem, 3.2vw, 2.8rem);
+    line-height: 1.15;
+    margin: 0 0 14px 0;
+  }
+
+  .slide-copy p {
+    font-size: clamp(0.85rem, 1.1vw, 1.05rem);
+    color: #D6E4DB;
+    line-height: 1.6;
+    margin: 0 0 12px 0;
+    font-weight: 300;
+  }
+
+  .slide-copy p strong {
+    color: #F5D061;
+    font-weight: 700;
+  }
+
+  /* SLIDESHOW NAVIGATION BAR */
+  .slide-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid rgba(245, 208, 97, 0.2);
+    margin-top: auto;
+  }
+
+  .slide-nav-btn {
+    background: transparent;
+    border: 1px solid rgba(245, 208, 97, 0.6);
+    color: #FFFFFF;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+  }
+  .slide-nav-btn:hover {
+    background: #F5D061;
+    color: #021B07;
+  }
+
+  .slide-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .slide-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .slide-dot.active {
+    width: 24px;
+    background: #F5D061;
+  }
+
   /* =========================================
-     FINALE GALLERY (HORIZONTAL SCROLL)
+     3. FINALE GALLERY (HORIZONTAL SCROLL)
      ========================================= */
   .experiencia-finale {
-    padding: 80px 20px;
+    padding: 60px 20px;
     background: #ECE8DE;
     text-align: center;
     width: 100%;
     box-sizing: border-box;
   }
-  
+
   .enterprise-scroll-row {
-    display: flex; 
-    gap: 5px; 
-    overflow-x: auto; 
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
     padding-bottom: 15px;
-    -webkit-overflow-scrolling: touch; 
-    scrollbar-width: thin; 
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
     scrollbar-color: #A3C4AF #f0f0f0;
-    width: 100%;
   }
   .enterprise-scroll-row::-webkit-scrollbar { height: 8px; }
   .enterprise-scroll-row::-webkit-scrollbar-track { background: #f0f0f0; border-radius: 10px; }
   .enterprise-scroll-row::-webkit-scrollbar-thumb { background-color: #A3C4AF; border-radius: 10px; }
-  
+
   .gallery-item-card {
-    flex: 0 0 auto; 
-    width: 180px; 
-    height: 180px; 
-    border-radius: 8px; 
+    flex: 0 0 auto;
+    width: 180px;
+    height: 180px;
+    border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1); 
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     background: #F4F7F5;
   }
-  .gallery-item-card img, .gallery-item-card video { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
-    display: block; 
+  .gallery-item-card img, .gallery-item-card video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
-  
+
   .gallery-nav-btn {
-    position: absolute; top: 45%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.95);
-    color: var(--matcha-deep); border: 1px solid var(--gold-border); border-radius: 50%;
+    position: absolute; top: 45%; transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    color: #07511A; border: 1px solid #D4AF37; border-radius: 50%;
     width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
-    cursor: pointer; z-index: 10; box-shadow: 0 4px 10px rgba(0,0,0,0.15); transition: all 0.2s ease;
+    cursor: pointer; z-index: 10; box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   }
-  .gallery-nav-btn:hover { background: var(--matcha-deep); color: #fff; }
   .gallery-nav-left { left: -10px; }
   .gallery-nav-right { right: -10px; }
 </style>
 
-<div class="wow-experiencia-stage">
-  
-  <!-- THE BAIT: VIDEO TRAP -->
+<div class="experiencia-master">
+
+  <!-- THE TRAP -->
   <div id="video-trap">
     <video class="video-bg" src="intro.mp4" autoplay loop muted playsinline></video>
-    <h1 class="trap-question">¿Sigues tomando té con sabor a papel?</h1>
-    <button class="trap-btn" onclick="unlockExperiencia()">DESCUBRIR</button>  </div>
+    <div class="trap-inner">
+      <h1 class="trap-question">¿Sigues tomando té con sabor a papel?</h1>
+      <button class="trap-btn" onclick="unlockExperiencia()">DESCUBRIR</button>
+    </div>
+  </div>
 
-  <!-- THE PAYOFF: STORY SCROLL -->
+  <!-- THE 4-STAGE SLIDESHOW -->
   <div id="story-content">
-    
-    <!-- FRAME 1 -->
-    <div class="wow-frame">
-      <div class="wow-visual" style="background-image: url('historia-1.JPG');"></div>
-      <div class="wow-copy">
-        <h2>La<br>Decepción</h2>
-        <p>“Todo empezó con la incredulidad de mi esposo… y un Té de bolsita de 5 pesos.”</p>
-        <p>En Cholula, era casi imposible encontrar Té de calidad. Todo se reducía al típico Té comercial lleno de polvo. ¡Ni en las cafeterías gourmet nos servían algo real!</p>
+    <div class="slideshow-viewport">
+
+      <!-- STAGE 1 -->
+      <div class="story-slide active" id="slide-0">
+        <div class="slide-visual" style="background-image: url('historia-1.JPG');"></div>
+        <div class="slide-copy">
+          <div>
+            <div class="slide-stage-badge">Etapa 01 / 04</div>
+            <h2>La Decepción</h2>
+            <p>“Todo empezó con la incredulidad de mi esposo… y un Té de bolsita de 5 pesos.”</p>
+            <p>En Cholula, era casi imposible encontrar Té de calidad. Todo se reducía al típico Té comercial lleno de polvo. ¡Ni en las cafeterías gourmet nos servían algo real!</p>
+          </div>
+          <div class="slide-controls">
+            <div style="width: 70px;"></div>
+            <div class="slide-dots">
+              <span class="slide-dot active" onclick="setSlide(0)"></span>
+              <span class="slide-dot" onclick="setSlide(1)"></span>
+              <span class="slide-dot" onclick="setSlide(2)"></span>
+              <span class="slide-dot" onclick="setSlide(3)"></span>
+            </div>
+            <button class="slide-nav-btn" onclick="nextSlide()">Siguiente <i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
       </div>
+
+      <!-- STAGE 2 -->
+      <div class="story-slide" id="slide-1">
+        <div class="slide-visual" style="background-image: url('historia-2.JPG');"></div>
+        <div class="slide-copy">
+          <div>
+            <div class="slide-stage-badge">Etapa 02 / 04</div>
+            <h2>El Choque Cultural</h2>
+            <p>“Mi esposo es Libanés. Para él, el Té es <strong>CULTURA Y RITUAL</strong>. No podía creer que nos sirvieran hojas pulverizadas sin alma.”</p>
+            <p>Decidimos que no podíamos seguir bebiendo polvo blanqueado. Teníamos que cambiarlo desde la raíz.</p>
+          </div>
+          <div class="slide-controls">
+            <button class="slide-nav-btn" onclick="prevSlide()"><i class="fa-solid fa-chevron-left"></i> Atrás</button>
+            <div class="slide-dots">
+              <span class="slide-dot" onclick="setSlide(0)"></span>
+              <span class="slide-dot active" onclick="setSlide(1)"></span>
+              <span class="slide-dot" onclick="setSlide(2)"></span>
+              <span class="slide-dot" onclick="setSlide(3)"></span>
+            </div>
+            <button class="slide-nav-btn" onclick="nextSlide()">Siguiente <i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGE 3 -->
+      <div class="story-slide" id="slide-2">
+        <div class="slide-visual" style="background-image: url('historia-3.JPG');"></div>
+        <div class="slide-copy">
+          <div>
+            <div class="slide-stage-badge">Etapa 03 / 04</div>
+            <h2>El Despertar</h2>
+            <p>Decidimos importar la hoja entera, pura y viva.</p>
+            <p>Queríamos devolverle el respeto a la bebida más antigua del mundo y demostrar que el té de verdad cuida tu cuerpo, tiene aroma profundo y sabor real.</p>
+          </div>
+          <div class="slide-controls">
+            <button class="slide-nav-btn" onclick="prevSlide()"><i class="fa-solid fa-chevron-left"></i> Atrás</button>
+            <div class="slide-dots">
+              <span class="slide-dot" onclick="setSlide(0)"></span>
+              <span class="slide-dot" onclick="setSlide(1)"></span>
+              <span class="slide-dot active" onclick="setSlide(2)"></span>
+              <span class="slide-dot" onclick="setSlide(3)"></span>
+            </div>
+            <button class="slide-nav-btn" onclick="nextSlide()">Siguiente <i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGE 4 -->
+      <div class="story-slide" id="slide-3">
+        <div class="slide-visual" style="background-image: url('historia-4.JPG');"></div>
+        <div class="slide-copy">
+          <div>
+            <div class="slide-stage-badge">Etapa 04 / 04</div>
+            <h2>Bienvenido a Casa</h2>
+            <p>Así nació Chai-itto. Un santuario en el corazón de San Pedro Cholula donde la hoja suelta es la única regla.</p>
+            <p>Hoy, con más de 120 mezclas, somos una comunidad que entiende que el Té no es solo una bebida... <strong>es una experiencia.</strong></p>
+          </div>
+          <div class="slide-controls">
+            <button class="slide-nav-btn" onclick="prevSlide()"><i class="fa-solid fa-chevron-left"></i> Atrás</button>
+            <div class="slide-dots">
+              <span class="slide-dot" onclick="setSlide(0)"></span>
+              <span class="slide-dot" onclick="setSlide(1)"></span>
+              <span class="slide-dot" onclick="setSlide(2)"></span>
+              <span class="slide-dot active" onclick="setSlide(3)"></span>
+            </div>
+            <button class="slide-nav-btn" onclick="document.querySelector('.experiencia-finale').scrollIntoView({behavior:'smooth'})">Galería <i class="fa-solid fa-arrow-down"></i></button>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <!-- FRAME 2 -->
-    <div class="wow-frame">
-      <div class="wow-visual" style="background-image: url('historia-2.JPG');"></div>
-      <div class="wow-copy">
-        <h2>El Choque<br>Cultural</h2>
-        <p>“Mi esposo es Libanés. Para él, el Té es <strong>CULTURA Y RITUAL</strong>. No podía creer que nos sirvieran hojas pulverizadas sin alma.”</p>
-        <p>Decidimos que no podíamos seguir bebiendo polvo blanqueado. Teníamos que cambiarlo desde la raíz.</p>
-      </div>
-    </div>
-
-    <!-- FRAME 3 -->
-    <div class="wow-frame">
-      <div class="wow-visual" style="background-image: url('historia-3.JPG');"></div>
-      <div class="wow-copy">
-        <h2>El<br>Despertar</h2>
-        <p>Decidimos importar la hoja entera, pura y viva.</p>
-        <p>Queríamos devolverle el respeto a la bebida más antigua del mundo y demostrar que el té de verdad cuida tu cuerpo, tiene aroma profundo y sabor real.</p>
-      </div>
-    </div>
-
-    <!-- FRAME 4 -->
-    <div class="wow-frame">
-      <div class="wow-visual" style="background-image: url('historia-4.JPG');"></div>
-      <div class="wow-copy">
-        <h2>Bienvenido<br>a Casa</h2>
-        <p>Así nació Chai-itto. Un santuario en el corazón de San Pedro Cholula donde la hoja suelta es la única regla.</p>
-        <p>Hoy, con más de 120 mezclas, somos una comunidad que entiende que el Té no es solo una bebida... <strong>es una experiencia.</strong></p>
-      </div>
-    </div>
-
-    <!-- THE FINALE: RESTORED GALLERY SCROLL -->
+    <!-- COMMUNITY GALLERY FINALE -->
     <div class="experiencia-finale">
-      <h2 style="font-family: var(--font-heading); color: #07511A; font-size: 2.2rem; margin-bottom: 30px;">
+      <h2 style="font-family: var(--font-heading); color: #07511A; font-size: 2rem; margin: 0 0 10px 0;">
         La Comunidad Chai-itto
       </h2>
-      <p style="color: #556B60; max-width: 600px; margin: 0 auto 40px auto; font-size: 1.1rem;">
+      <p style="color: #556B60; max-width: 600px; margin: 0 auto 30px auto; font-size: 1rem;">
         Momentos reales capturados por la tribu.
       </p>
-      
-      <div class="gallery-enterprise-wrapper" style="position: relative; width: 100%; max-width: 1200px; margin: 0 auto;">
+
+      <div style="position: relative; width: 100%; max-width: 1200px; margin: 0 auto;">
         <button class="gallery-nav-btn gallery-nav-left" onclick="scrollGallery('left')">
           <i class="fa-solid fa-chevron-left"></i>
         </button>
@@ -304,5 +431,5 @@
     </div>
 
   </div>
-</div>
 
+</div>
