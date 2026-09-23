@@ -620,5 +620,17 @@
       "accesorios/accesorios-225-2.jpeg",
       "accesorios/accesorios-225-3.jpeg"
     ]
+  },
+  {
+    "num": "533",
+    "name": "Set Gaiwan 3 pz.",
+    "descripcion": "Tazón de Borosilicato con tapa y 2 cuencos, para preparar té Gongfu Cha método tradicional chino, capacidad de 150ml.",
+    "precio": 530,
+    "precioOferta": 450,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-533-1.jpeg",
+      "accesorios/accesorios-533-2.jpeg"
+    ]
   }
 ]
