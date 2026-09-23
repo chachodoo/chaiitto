@@ -2226,6 +2226,13 @@ async function startLivingMosaic() {
       }
       step++;
       mosaicLoopTimer = setTimeout(revealNext, 250);
+      } else {
+      grid.classList.add('completed');
+      mosaicLoopTimer = setTimeout(shatterAndRebuild, 2000);
+    }
+  }
+
+  setTimeout(revealNext, 200);
 }
 
 // 1.1s Shatter & 0.95s Crystal Rebuild sequence
