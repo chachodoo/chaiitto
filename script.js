@@ -2158,27 +2158,31 @@ async function startLivingMosaic() {
   const shuffled = [...activeCommunityPool].sort(() => Math.random() - 0.5);
   const deck = shuffled.slice(0, TOTAL_SLOTS);
 
-  // Mount media behind closed seals
+  // Mount media with unified palette applied to tile, logo, and flip face
   for (let i = 0; i < TOTAL_SLOTS; i++) {
     const tileEl = document.getElementById(`mosaic-tile-${i}`);
     tileEl.className = 'mosaic-tile';
+    tileEl.style.setProperty('background', roundPalette, 'important');
 
     const logoFace = tileEl.querySelector('.tile-face-logo');
     if (logoFace) {
-      logoFace.style.background = roundPalette;
+      logoFace.style.setProperty('background', roundPalette, 'important');
     }
 
     const mediaEl = document.getElementById(`tile-media-${i}`);
+    if (mediaEl) {
+      mediaEl.style.setProperty('background', roundPalette, 'important');
+    }
+
     const mediaSrc = deck[i];
     const isVideo = mediaSrc.toLowerCase().endsWith('.mp4') || mediaSrc.toLowerCase().endsWith('.webm');
 
     if (isVideo) {
       mediaEl.innerHTML = '';
-      mediaEl.style.background = '#021B07'; // Prevents white canvas from showing through
 
       const video = document.createElement('video');
       
-      // 1. MUST set attributes BEFORE setting src for Chrome/Safari autoplay
+      // 1. Critical DOM attributes set BEFORE src for Safari/Chrome autoplay
       video.setAttribute('muted', '');
       video.setAttribute('playsinline', '');
       video.setAttribute('webkit-playsinline', '');
@@ -2206,7 +2210,7 @@ async function startLivingMosaic() {
 
       mediaEl.appendChild(video);
 
-      // 4. Direct play trigger
+      // 4. Play trigger
       video.play().catch(err => {
         console.warn("Autoplay wait:", err);
       });
@@ -2225,6 +2229,41 @@ async function startLivingMosaic() {
       };
     }
   }
+
+  // Sequential reveal cadence
+  const slotOrder = Array.from({ length: TOTAL_SLOTS }, (_, i) => i).sort(() => Math.random() - 0.5);
+  let step = 0;
+
+  function revealNext() {
+    if (step < TOTAL_SLOTS) {
+      const slotIdx = slotOrder[step];
+      const tileEl = document.getElementById(`mosaic-tile-${slotIdx}`);
+      if (tileEl) {
+        const vid = tileEl.querySelector('video');
+        // Video uses 2D pop so WebKit/Chrome GPU compositor doesn't drop texture; photos keep 3D flips
+        const randomAnim = vid 
+          ? 'anim-white-pop' 
+          : MOSAIC_ANIMATIONS[Math.floor(Math.random() * MOSAIC_ANIMATIONS.length)];
+
+        tileEl.className = `mosaic-tile revealed ${randomAnim}`;
+
+        if (vid) {
+          vid.muted = true;
+          vid.defaultMuted = true;
+          vid.playsInline = true;
+          vid.play().catch(() => {});
+        }
+      }
+      step++;
+      mosaicLoopTimer = setTimeout(revealNext, 200);
+    } else {
+      grid.classList.add('completed');
+      mosaicLoopTimer = setTimeout(shatterAndRebuild, 2000);
+    }
+  }
+
+  setTimeout(revealNext, 200);
+}
 
   // Sequential reveal cadence
   const slotOrder = Array.from({ length: TOTAL_SLOTS }, (_, i) => i).sort(() => Math.random() - 0.5);
