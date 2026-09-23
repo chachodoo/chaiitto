@@ -1,0 +1,160 @@
+<style>
+  /* SAFE-ZONE MASTER STAGE */
+  .wow-experiencia-stage {
+    width: 100%;
+    background: #021B07; /* Deep cinematic dark green */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* INDIVIDUAL SCROLL FRAMES */
+  .wow-frame {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* 95px offsets the mobile header perfectly */
+    min-height: calc(100dvh - 95px); 
+    position: relative;
+    border-bottom: 1px solid rgba(245, 208, 97, 0.15);
+  }
+
+  /* DESKTOP SPLIT-SCREEN LAYOUT */
+  @media(min-width: 992px) {
+    .wow-frame { 
+      flex-direction: row; 
+      /* 120px offsets the desktop header perfectly */
+      min-height: calc(100vh - 120px); 
+    }
+    .wow-frame:nth-child(even) { flex-direction: row-reverse; }
+    .wow-visual, .wow-copy { width: 50%; }
+  }
+
+  /* THE VISUAL HALF */
+  .wow-visual {
+    flex: 1;
+    min-height: 55vh;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+
+  /* Gradient overlay to blend images into the dark theme */
+  .wow-visual::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 60%, #021B07 100%);
+  }
+  @media(min-width: 992px) {
+    .wow-frame:nth-child(odd) .wow-visual::after { background: linear-gradient(to right, transparent 60%, #021B07 100%); }
+    .wow-frame:nth-child(even) .wow-visual::after { background: linear-gradient(to left, transparent 60%, #021B07 100%); }
+  }
+
+  /* THE TEXT HALF */
+  .wow-copy {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 10%;
+    background: #021B07;
+  }
+
+  .wow-copy h2 {
+    font-family: var(--font-heading, 'Cinzel', serif);
+    color: #F5D061; /* Gold */
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    margin-bottom: 24px;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  }
+
+  .wow-copy p {
+    font-size: clamp(1rem, 1.2vw, 1.15rem);
+    color: #E2ECE5;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-weight: 300;
+  }
+
+  .wow-copy p strong {
+    color: #FFFFFF;
+    font-weight: 700;
+  }
+
+  /* GALLERY FINALE OVERRIDES */
+  .experiencia-finale {
+    padding: 80px 20px;
+    background: #ECE8DE; /* Fades back into your normal site color */
+    text-align: center;
+  }
+</style>
+
+<div class="wow-experiencia-stage">
+
+  <!-- FRAME 1: The Sad Tea Bag -->
+  <div class="wow-frame">
+    <!-- Replace with your actual photo file name -->
+    <div class="wow-visual" style="background-image: url('foto-te-bolsita.jpg');"></div>
+    <div class="wow-copy">
+      <h2>La<br>Decepción</h2>
+      <p>“Todo empezó con la incredulidad de mi esposo… y un Té de bolsita de 5 pesos.”</p>
+      <p>En Cholula, era casi imposible encontrar Té de calidad. Todo se reducía al típico Té comercial lleno de polvo. ¡Ni en las cafeterías gourmet nos servían algo real!</p>
+    </div>
+  </div>
+
+  <!-- FRAME 2: The Frustration -->
+  <div class="wow-frame">
+    <div class="wow-visual" style="background-image: url('foto-frustracion.jpg');"></div>
+    <div class="wow-copy">
+      <h2>El Choque<br>Cultural</h2>
+      <p>“Mi esposo es Libanés. Para él, el Té es <strong>CULTURA Y RITUAL</strong>. No podía creer que nos sirvieran hojas pulverizadas sin alma.”</p>
+      <p>Decidimos que no podíamos seguir bebiendo polvo blanqueado. Teníamos que cambiarlo desde la raíz.</p>
+    </div>
+  </div>
+
+  <!-- FRAME 3: The Idea -->
+  <div class="wow-frame">
+    <div class="wow-visual" style="background-image: url('foto-idea.jpg');"></div>
+    <div class="wow-copy">
+      <h2>El<br>Despertar</h2>
+      <p>Decidimos importar la hoja entera, pura y viva.</p>
+      <p>Queríamos devolverle el respeto a la bebida más antigua del mundo y demostrar que el té de verdad cuida tu cuerpo, tiene aroma profundo y sabor real.</p>
+    </div>
+  </div>
+
+  <!-- FRAME 4: Chai-itto is Born -->
+  <div class="wow-frame">
+    <div class="wow-visual" style="background-image: url('foto-tienda.jpg');"></div>
+    <div class="wow-copy">
+      <h2>Bienvenido<br>a Casa</h2>
+      <p>Así nació Chai-itto. Un santuario en el corazón de San Pedro Cholula donde la hoja suelta es la única regla.</p>
+      <p>Hoy, con más de 120 mezclas, somos una comunidad que entiende que el Té no es solo una bebida... <strong>es una experiencia.</strong></p>
+    </div>
+  </div>
+
+</div>
+
+<!-- FINALE: The Gallery Grid unlocks below the dark cinematic scrolls -->
+<div class="experiencia-finale">
+  <h2 style="font-family: var(--font-heading); color: #07511A; font-size: 2.2rem; margin-bottom: 30px;">
+    La Comunidad Chai-itto
+  </h2>
+  <p style="color: #556B60; max-width: 600px; margin: 0 auto 40px auto; font-size: 1.1rem;">
+    Momentos reales capturados por la tribu.
+  </p>
+  
+  <div class="gallery-enterprise-wrapper" style="position: relative; width: 100%; max-width: 1200px; margin: 0 auto;">
+    <button class="gallery-nav-btn gallery-nav-left" onclick="scrollGallery('left')">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+
+    <!-- Your existing JS will automatically inject photos right here -->
+    <div id="gallery-dynamic-container" class="enterprise-scroll-row"></div>
+
+    <button class="gallery-nav-btn gallery-nav-right" onclick="scrollGallery('right')">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+</div>
