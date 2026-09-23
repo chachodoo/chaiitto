@@ -2096,8 +2096,16 @@ function scrollToCommunityMosaic() {
   const header = document.querySelector('header') || document.getElementById('main-master-header');
   if (!grid || !header) return;
 
-  // Exact live gap between the bottom of the green header and the top of the grid
-  const currentGap = grid.getBoundingClientRect().top - header.getBoundingClientRect().bottom;
+  const headerBottom = header.getBoundingClientRect().bottom;
+
+  // On desktop: Dynamically size height to fit between header bottom and viewport bottom
+  if (window.innerWidth >= 992) {
+    const dynamicHeight = Math.floor(window.innerHeight - headerBottom - 2);
+    grid.style.setProperty('height', `${dynamicHeight}px`, 'important');
+  }
+
+  // Exact 1px top clearance below header
+  const currentGap = grid.getBoundingClientRect().top - headerBottom;
   const targetY = window.pageYOffset + currentGap - 1;
 
   window.scrollTo({ top: Math.max(0, Math.round(targetY)), behavior: 'smooth' });
