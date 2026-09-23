@@ -1969,6 +1969,7 @@ function showMovieEndCard() {
   const endCard = document.getElementById('movie-end-card');
   if (endCard) {
     endCard.classList.add('active');
+    endCard.style.display = 'flex';
     setTimeout(() => { endCard.style.opacity = '1'; }, 20);
   }
 }
@@ -2240,3 +2241,15 @@ function resetAndRebuildMosaic() {
   // Brief smooth transition before the next round begins
   mosaicRevealTimer = setTimeout(startLivingMosaic, 400);
 }
+// Auto-build the puzzle immediately if the visitor scrolls down before clicking the button
+window.addEventListener('scroll', () => {
+  const finale = document.querySelector('.experiencia-finale');
+  const grid = document.getElementById('mosaic-grid');
+  if (finale && grid && grid.children.length === 0) {
+    const rect = finale.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom >= 0) {
+      startLivingMosaic();
+    }
+  }
+}, { passive: true });
+
