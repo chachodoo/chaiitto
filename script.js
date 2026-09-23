@@ -2168,24 +2168,22 @@ async function startLivingMosaic() {
     if (isVideo) {
       mediaEl.innerHTML = '';
       const vid = document.createElement('video');
+      vid.src = mediaSrc;
+      vid.autoplay = true;
+      vid.loop = true;
       vid.muted = true;
       vid.defaultMuted = true;
       vid.playsInline = true;
-      vid.autoplay = true;
-      vid.loop = true;
       vid.setAttribute('muted', '');
       vid.setAttribute('playsinline', '');
       vid.setAttribute('webkit-playsinline', '');
       vid.setAttribute('autoplay', '');
       vid.setAttribute('loop', '');
       vid.setAttribute('preload', 'auto');
-      vid.src = mediaSrc; // Set src after attributes to avoid WebKit autoplay block
-
-      vid.addEventListener('canplay', () => {
-        vid.play().catch(() => {});
-      });
 
       mediaEl.appendChild(vid);
+      vid.play().catch(() => {});
+
       mediaEl.onclick = (e) => {
         e.stopPropagation();
         vid.muted = !vid.muted;
@@ -2200,7 +2198,7 @@ async function startLivingMosaic() {
     }
   }
 
-  // 300ms sequential reveal cadence (Smooth, readable, enjoyable)
+  // Sequential reveal cadence
   const slotOrder = Array.from({ length: TOTAL_SLOTS }, (_, i) => i).sort(() => Math.random() - 0.5);
   let step = 0;
 
@@ -2212,7 +2210,7 @@ async function startLivingMosaic() {
         const randomAnim = MOSAIC_ANIMATIONS[Math.floor(Math.random() * MOSAIC_ANIMATIONS.length)];
         tileEl.className = `mosaic-tile revealed ${randomAnim}`;
 
-        // Ensure video is playing when revealed
+        // Triggers the video to play the moment its tile flips open
         const vid = tileEl.querySelector('video');
         if (vid) {
           vid.muted = true;
@@ -2220,7 +2218,7 @@ async function startLivingMosaic() {
         }
       }
       step++;
-      mosaicLoopTimer = setTimeout(revealNext, 300); // 300ms cadence
+      mosaicLoopTimer = setTimeout(revealNext, 250);
     } else {
       grid.classList.add('completed');
       // Hold completed 24-piece tapestry for 2.5s before 3D shatter
