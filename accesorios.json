@@ -644,5 +644,23 @@
       "accesorios/accesorios-534-1.jpeg",
       "accesorios/accesorios-534-2.jpeg"
     ]
+  },
+  {
+    "num": "535",
+    "name": "Set Gong Fu Cha de Porcelana",
+    "descripcion": "Set de 12 piezas de Porcelana China de alta calidad (Sello Hongshunfa), capacidad de 100ml.",
+    "precio": 1500,
+    "precioOferta": 1200,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-535-1.jpeg",
+      "accesorios/accesorios-535-2.jpeg",
+      "accesorios/accesorios-535-3.jpeg",
+      "accesorios/accesorios-535-4.jpeg",
+      "accesorios/accesorios-535-5.jpeg",
+      "accesorios/accesorios-535-6.jpeg",
+      "accesorios/accesorios-535-7.jpeg",
+      "accesorios/accesorios-535-8.jpeg"
+    ]
   }
 ]
