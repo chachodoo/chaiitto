@@ -689,5 +689,17 @@
       "accesorios/accesorios-537-3.jpeg",
       "accesorios/accesorios-537-4.jpeg"
     ]
+  },
+  {
+    "num": "538",
+    "name": "Matcha Set 6 Piezas",
+    "descripcion": "Set para Matcha multicolor, incluye Tapete, Tazon (Grande), Cuchara y Batidor con base.",
+    "precio": 1200,
+    "precioOferta": 1000,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-538-1.jpeg",
+      "accesorios/accesorios-538-2.jpeg"
+    ]
   }
 ]
