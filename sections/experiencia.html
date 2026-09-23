@@ -423,23 +423,25 @@
      5. MOVIE END CARD
      ========================================= */
   #movie-end-card {
-    position: absolute;
-    inset: 0;
-    background: #021B07;
-    backdrop-filter: blur(8px);
-    z-index: 50;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 24px;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-  }
-  #movie-end-card.active {
-    display: flex;
-  }
+  position: absolute;
+  inset: 0;
+  background: #021B07;
+  z-index: 50;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+#movie-end-card.active {
+  display: flex !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
 
   .end-card-btn {
     background: transparent;
@@ -563,7 +565,7 @@
       </div>
 
       <!-- MOVIE FINALE OVERLAY (CLEAN STACKED CARD) -->
-        <div id="movie-end-card" style="position: absolute; inset: 0; background: #021B07; z-index: 50; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px;">
+        <div id="movie-end-card">
           <div style="display: flex; flex-direction: column; align-items: center; gap: 14px; max-width: 360px; width: 100%;">
             <button class="end-card-btn btn-gold" onclick="scrollToCommunityMosaic()" style="width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 14px 22px; line-height: 1.25; margin: 0; box-shadow: 0 0 25px rgba(245, 208, 97, 0.4); border-radius: 30px; cursor: pointer;">
               <span style="font-size: 0.95rem; font-weight: 800; letter-spacing: 0.8px;">Mosaico Oculto: Nuestra Tribu</span>
