@@ -2077,8 +2077,15 @@ async function loadActiveMediaList() {
     const res = await fetch('galeria.json?v=' + Date.now());
     if (res.ok) {
       const data = await res.json();
-      const rawList = Array.isArray(data) ? data : (data.images || data.galeria || Object.values(data).flat());
-      activeCommunityPool = rawList
+      let galleryItems = [];
+      if (Array.isArray(data)) {
+        galleryItems = data;
+      } else if (typeof data === 'object' && data !== null) {
+        galleryItems = data.images || data.galeria || data.items || Object.values(data);
+      }
+      activeCommunityPool = galleryItems
+        .map(item => typeof item === 'string' ? item : (item.src || item.image || item.url || item.file || ''))
+        .filter(Boolean)
         .map(resolvePath)
         .filter(p => !p.includes('/no-') && (p.includes('/cc-') || p.includes('/vv-')));
     }
@@ -2219,14 +2226,6 @@ async function startLivingMosaic() {
       }
       step++;
       mosaicLoopTimer = setTimeout(revealNext, 250);
-    } else {
-      grid.classList.add('completed');
-      // Hold completed 24-piece tapestry for 2.5s before 3D shatter
-      mosaicLoopTimer = setTimeout(shatterAndRebuild, 2500);
-    }
-  }
-
-  setTimeout(revealNext, 250);
 }
 
 // 1.1s Shatter & 0.95s Crystal Rebuild sequence
