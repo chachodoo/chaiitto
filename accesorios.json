@@ -773,5 +773,17 @@
       "accesorios/accesorios-544-1.jpeg",
       "accesorios/accesorios-544-2.jpeg"
     ]
+  },
+  {
+    "num": "545",
+    "name": "Cuenco \"Corazon Poblano\"",
+    "descripcion": "Cuenco color Beige con relieve Verde Bandera para Te o Matcha (No incluye Batidor).",
+    "precio": 250,
+    "precioOferta": 200,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-545-1.jpeg",
+      "accesorios/accesorios-545-2.jpeg"
+    ]
   }
 ]
