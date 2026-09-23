@@ -581,61 +581,61 @@
     </div>
 
 
-    <!-- =========================================
-         LIVING PUZZLE TAPESTRY (PURE WHITE HAIRLINES & FULL FIT)
-         ========================================= -->
     <style>
+      /* =========================================
+         6. FINALE CONTAINER & SPACING
+         ========================================= */
       .experiencia-finale {
-        padding: 12px 10px 24px 10px !important;
-        background: #021B07;
+        padding: 40px 16px 70px 16px;
+        background: #ECE8DE;
         text-align: center;
         width: 100%;
         box-sizing: border-box;
-        border-top: 1px solid rgba(255, 255, 255, 0.15);
-        min-height: calc(100vh - 110px);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
       }
 
-      /* 1 MASTER PUZZLE BLOCK WITH CRISP WHITE SEAMS */
+      /* MASTER PUZZLE GRID: LOWERED WITH CLEARANCE BELOW NAVBAR */
       .mosaic-grid {
         display: grid !important;
         grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-        grid-auto-rows: clamp(62px, 10vh, 88px) !important;
-        gap: 1.5px !important;
+        grid-auto-rows: clamp(75px, 12vh, 100px) !important;
+        gap: 2px !important;
         width: 100% !important;
-        max-width: 1050px !important;
-        margin: 0 auto !important;
+        max-width: 1100px !important;
+        margin: 25px auto 0 auto !important; /* Pushes grid down from header */
         box-sizing: border-box !important;
-        background: #FFFFFF !important; /* Pure white hairline puzzle seams */
+        background: #FFFFFF !important;
         border: 2px solid #FFFFFF !important;
-        border-radius: 12px !important;
+        border-radius: 14px !important;
         overflow: hidden !important;
-        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 255, 255, 0.2) !important;
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45) !important;
       }
+
+      /* DESKTOP 6x4: BALANCED FRAME WITH HEADROOM */
       @media (min-width: 992px) {
+        .experiencia-finale {
+          padding: 35px 24px 60px 24px !important;
+        }
         .mosaic-grid {
           grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
-          grid-auto-rows: clamp(110px, 14.5vh, 140px) !important;
-          gap: 2px !important;
+          grid-template-rows: repeat(4, minmax(0, 1fr)) !important;
+          grid-auto-rows: unset !important;
+          height: calc(100vh - 190px) !important; /* Fits entirely on screen with breathing room */
+          max-height: 680px !important;
+          margin: 15px auto 0 auto !important;
         }
       }
 
-      /* FLUSH PUZZLE TILES */
       .mosaic-tile {
         position: relative !important;
         width: 100% !important;
         height: 100% !important;
-        border-radius: 0 !important;
         overflow: hidden !important;
         box-sizing: border-box !important;
         perspective: 1000px !important;
-        background: #031D08 !important;
+        background: #021B07 !important; /* Deep emerald fill behind contained photos */
       }
 
-      /* CLOSED SEAL FACE (TEA PALETTES INJECTED BY JS) */
+      /* TILE LOGO FACE (CLOSED SEAL) */
       .tile-face-logo {
         position: absolute !important;
         inset: 0 !important;
@@ -644,37 +644,32 @@
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        box-sizing: border-box !important;
         z-index: 2 !important;
         backface-visibility: hidden !important;
         -webkit-backface-visibility: hidden !important;
-        transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease, background 0.6s ease !important;
+        transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease, background 0.4s ease !important;
       }
       .tile-face-logo img {
-        width: 36px !important;
-        height: 36px !important;
-        max-width: 36px !important;
-        max-height: 36px !important;
+        width: 44px !important;
+        height: 44px !important;
         object-fit: contain !important;
         opacity: 0.9 !important;
-        filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5)) !important;
+        filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6)) !important;
       }
       @media (min-width: 992px) {
         .tile-face-logo img {
-          width: 48px !important;
-          height: 48px !important;
-          max-width: 48px !important;
-          max-height: 48px !important;
+          width: 54px !important;
+          height: 54px !important;
         }
       }
 
-      /* REVEALED MEDIA FACE WITH FACE/EYE CROP ANCHOR */
+      /* TILE MEDIA FACE: 100% PHOTO/VIDEO (ZERO HEADS CUT OFF) */
       .tile-face-media {
         position: absolute !important;
         inset: 0 !important;
         width: 100% !important;
         height: 100% !important;
-        background: #000000 !important;
+        background: #021B07 !important;
         overflow: hidden !important;
         box-sizing: border-box !important;
         z-index: 1 !important;
@@ -688,8 +683,7 @@
       .tile-face-media video {
         width: 100% !important;
         height: 100% !important;
-        object-fit: cover !important;
-        object-position: center 20% !important; /* Locks onto faces and eyes */
+        object-fit: contain !important; /* Preserves entire person, face, and teacup */
         display: block !important;
       }
 
