@@ -34,6 +34,71 @@ function toggleMobileMenu() {
     const nav = document.getElementById('main-nav-menu');
     if (nav) nav.classList.toggle('active');
 }
+// UNIVERSAL STORE SECTION ROUTER
+function openStoreSection(section) {
+  if (typeof switchPage === 'function') {
+    switchPage(section);
+  }
+  closeAllMobileMenus();
+}
+
+// TOGGLE MOBILE TIENDA DROPDOWN (ROW 2 & HAMBURGER)
+function toggleMobileTienda(event) {
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+  
+  const dropdown = document.getElementById('mobile-tienda-dropdown') || document.getElementById('mobile-tienda-flyout') || document.querySelector('.mobile-tienda-dropdown');
+  const caret = document.querySelector('#mobile-tienda-trigger i') || document.querySelector('.nav-dropdown .nav-caret');
+  const navDropdownMenu = document.querySelector('.nav-dropdown-menu');
+
+  // Toggle Row 2 Dropdown
+  if (dropdown) {
+    const isOpen = dropdown.classList.contains('active') || dropdown.style.display === 'flex';
+    if (isOpen) {
+      dropdown.classList.remove('active');
+      dropdown.style.display = 'none';
+      if (caret) caret.style.transform = 'rotate(0deg)';
+    } else {
+      dropdown.classList.add('active');
+      dropdown.style.display = 'flex';
+      if (caret) caret.style.transform = 'rotate(180deg)';
+    }
+  }
+
+  // Toggle Hamburger Accordion if open
+  if (navDropdownMenu && window.innerWidth < 992) {
+    navDropdownMenu.classList.toggle('show-mobile-menu');
+    if (caret) caret.classList.toggle('flip-caret');
+  }
+}
+
+function closeAllMobileMenus() {
+  const dropdown = document.getElementById('mobile-tienda-dropdown') || document.getElementById('mobile-tienda-flyout') || document.querySelector('.mobile-tienda-dropdown');
+  const caret = document.querySelector('#mobile-tienda-trigger i');
+  if (dropdown) {
+    dropdown.classList.remove('active');
+    dropdown.style.display = 'none';
+  }
+  if (caret) caret.style.transform = 'rotate(0deg)';
+
+  const navDropdownMenu = document.querySelector('.nav-dropdown-menu');
+  if (navDropdownMenu) navDropdownMenu.classList.remove('show-mobile-menu');
+
+  const mainNav = document.getElementById('main-nav-menu');
+  if (mainNav) mainNav.classList.remove('active');
+}
+
+// Auto-close dropdown when tapping anywhere else on screen
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('#mobile-tienda-trigger') && 
+      !e.target.closest('.mobile-tienda-dropdown') && 
+      !e.target.closest('.nav-dropdown')) {
+    closeAllMobileMenus();
+  }
+});
+
         
 // GLOBAL CART SYSTEM
 let cart = JSON.parse(localStorage.getItem('chaiitto_cart')) || [];
