@@ -1832,4 +1832,21 @@ document.addEventListener('click', function(e) {
   if (!flyout.contains(e.target) && (!trigger || !trigger.contains(e.target))) {
     closeMobileTienda();
   }
+  function unlockExperiencia() {
+    const trap = document.getElementById('video-trap');
+    const story = document.getElementById('story-content');
+    
+    // 1. Hide the Trap
+    trap.style.opacity = '0';
+    trap.style.pointerEvents = 'none';
+    
+    // 2. Reveal the Story
+    story.style.opacity = '1';
+    story.style.pointerEvents = 'auto';
+    
+    // 3. Remove trap from DOM after fade to prevent ghost-scrolling issues
+    setTimeout(() => {
+      trap.style.display = 'none';
+    }, 800);
+  }
 });
