@@ -737,5 +737,17 @@
       "accesorios/accesorios-541-1.jpeg",
       "accesorios/accesorios-541-2.jpeg"
     ]
+  },
+  {
+    "num": "542",
+    "name": "Matcha Set 2 Piezas",
+    "descripcion": "Set para Matcha color Negro con Relieve, incluye Tazon (Mediano) y Batidor.",
+    "precio": 670,
+    "precioOferta": 500,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-542-1.jpeg",
+      "accesorios/accesorios-542-2.jpeg"
+    ]
   }
 ]
