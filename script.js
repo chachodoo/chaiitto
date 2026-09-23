@@ -1835,19 +1835,36 @@ document.addEventListener('click', function(e) {
 });
 
 /* =========================================
-   EXPERIENCIA VIDEO TRAP UNLOCK
+   EXPERIENCIA SLIDESHOW & TRAP CONTROLLER
    ========================================= */
+let currentStorySlide = 0;
+
 function unlockExperiencia() {
   const trap = document.getElementById('video-trap');
   const story = document.getElementById('story-content');
-  
   if (trap) {
     trap.style.opacity = '0';
-    trap.style.pointerEvents = 'none';
-    setTimeout(() => { trap.style.display = 'none'; }, 800);
+    setTimeout(() => { trap.style.display = 'none'; }, 600);
   }
   if (story) {
-    story.style.opacity = '1';
-    story.style.pointerEvents = 'auto';
+    story.style.display = 'block';
+    setTimeout(() => { story.style.opacity = '1'; }, 50);
   }
+}
+
+function setSlide(index) {
+  const slides = document.querySelectorAll('.story-slide');
+  if (!slides.length) return;
+  currentStorySlide = (index + slides.length) % slides.length;
+  slides.forEach((s, idx) => {
+    s.classList.toggle('active', idx === currentStorySlide);
+  });
+}
+
+function nextSlide() {
+  setSlide(currentStorySlide + 1);
+}
+
+function prevSlide() {
+  setSlide(currentStorySlide - 1);
 }
