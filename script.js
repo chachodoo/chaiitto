@@ -1842,6 +1842,7 @@ const MOVIE_TOTAL_MS = 24000; // 24 seconds total (6s per Chapter)
 const MOVIE_TICK = 40;
 let movieTimer = null;
 let isDraggingScrubber = false;
+let isMoviePaused = false;
 
 function unlockExperiencia() {
   const trap = document.getElementById('video-trap');
@@ -1862,6 +1863,9 @@ function unlockExperiencia() {
 
 function playMovie() {
   stopMovieTimer();
+  isMoviePaused = false;
+  updatePlayStateUI();
+
   const endCard = document.getElementById('movie-end-card');
   if (endCard) {
     endCard.style.opacity = '0';
@@ -1869,7 +1873,7 @@ function playMovie() {
   }
 
   movieTimer = setInterval(() => {
-    if (isDraggingScrubber) return;
+    if (isDraggingScrubber || isMoviePaused) return;
     movieCurrentMs += MOVIE_TICK;
     if (movieCurrentMs >= MOVIE_TOTAL_MS) {
       movieCurrentMs = MOVIE_TOTAL_MS;
@@ -1889,14 +1893,63 @@ function stopMovieTimer() {
   }
 }
 
+function handleViewportClick(e) {
+  if (e && e.target && e.target.closest('#timeline-wrapper, #movie-end-card')) return;
+  toggleMoviePlay(e);
+}
+
+function toggleMoviePlay(e) {
+  if (e) e.stopPropagation();
+  const endCard = document.getElementById('movie-end-card');
+  if (endCard && endCard.classList.contains('active')) return;
+
+  if (isMoviePaused) {
+    playMovie();
+    flashCenterHud('play');
+  } else {
+    isMoviePaused = true;
+    stopMovieTimer();
+    updatePlayStateUI();
+    flashCenterHud('pause');
+  }
+}
+
+function updatePlayStateUI() {
+  const playIcon = document.getElementById('movie-play-icon');
+  if (playIcon) {
+    playIcon.className = isMoviePaused ? 'fa-solid fa-play' : 'fa-solid fa-pause';
+  }
+}
+
+function flashCenterHud(type) {
+  const hud = document.getElementById('movie-center-hud');
+  const hudIcon = document.getElementById('movie-hud-icon');
+  if (!hud || !hudIcon) return;
+  hudIcon.className = type === 'pause' ? 'fa-solid fa-pause' : 'fa-solid fa-play';
+  hud.classList.add('show');
+  clearTimeout(window._hudTimer);
+  window._hudTimer = setTimeout(() => {
+    hud.classList.remove('show');
+  }, 650);
+}
+
 function updateMovieUI() {
   const pct = Math.min(100, Math.max(0, (movieCurrentMs / MOVIE_TOTAL_MS) * 100));
   const fill = document.getElementById('timeline-fill');
   const thumb = document.getElementById('timeline-thumb');
+  const timeReadout = document.getElementById('movie-time-readout');
+
   if (fill) fill.style.width = pct + '%';
   if (thumb) thumb.style.left = pct + '%';
 
-  // Calculate active chapter index (0, 1, 2, or 3)
+  // Digital timecode update
+  if (timeReadout) {
+    const curSec = Math.floor(movieCurrentMs / 1000);
+    const secStr = curSec < 10 ? '0' + curSec : curSec;
+    timeReadout.textContent = `0:${secStr} / 0:24`;
+  }
+
+  // Active Chapter calculation
   let activeIndex = Math.floor((pct / 100) * 4);
   if (activeIndex >= 4) activeIndex = 3;
 
@@ -1916,6 +1969,7 @@ function showMovieEndCard() {
 
 function replayMovie() {
   movieCurrentMs = 0;
+  isMoviePaused = false;
   updateMovieUI();
   playMovie();
 }
@@ -1933,15 +1987,15 @@ function initMovieScrubber() {
     updateMovieUI();
   }
 
-  // Pointer / Mouse events
-  wrapper.addEventListener('pointerdown', (e) => {
+  track.addEventListener('pointerdown', (e) => {
+    e.stopPropagation();
     isDraggingScrubber = true;
     wrapper.classList.add('dragging');
     scrubToPosition(e.clientX);
-    wrapper.setPointerCapture(e.pointerId);
+    track.setPointerCapture(e.pointerId);
   });
 
-  wrapper.addEventListener('pointermove', (e) => {
+  track.addEventListener('pointermove', (e) => {
     if (!isDraggingScrubber) return;
     scrubToPosition(e.clientX);
   });
@@ -1952,12 +2006,12 @@ function initMovieScrubber() {
     wrapper.classList.remove('dragging');
     if (movieCurrentMs >= MOVIE_TOTAL_MS) {
       showMovieEndCard();
-    } else {
+    } else if (!isMoviePaused) {
       playMovie();
     }
   };
 
-  wrapper.addEventListener('pointerup', endDrag);
-  wrapper.addEventListener('pointercancel', endDrag);
+  track.addEventListener('pointerup', endDrag);
+  track.addEventListener('pointercancel', endDrag);
 }
 
