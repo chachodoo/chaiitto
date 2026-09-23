@@ -675,5 +675,19 @@
       "accesorios/accesorios-536-2.jpeg",
       "accesorios/accesorios-536-3.jpeg"
     ]
+  },
+  {
+    "num": "537",
+    "name": "Juego para Cafe Arabe",
+    "descripcion": "Servicio para Cafe Arabe, Incluye Cafetera con filtro de acero inoxidable, Bandeja, Taza y Domo para Azucar o Dulce, capacidad de 200ml.",
+    "precio": 1410,
+    "precioOferta": 1200,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-537-1.jpeg",
+      "accesorios/accesorios-537-2.jpeg",
+      "accesorios/accesorios-537-3.jpeg",
+      "accesorios/accesorios-537-4.jpeg"
+    ]
   }
 ]
