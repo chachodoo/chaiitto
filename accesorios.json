@@ -725,5 +725,17 @@
       "accesorios/accesorios-540-1.jpeg",
       "accesorios/accesorios-540-2.jpeg"
     ]
+  },
+  {
+    "num": "541",
+    "name": "Matcha Set 2 Piezas",
+    "descripcion": "Set para Matcha color Marfil con detalles en Cafe, incluye Tazon (Mediano) y Batidor.",
+    "precio": 670,
+    "precioOferta": 550,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-541-1.jpeg",
+      "accesorios/accesorios-541-2.jpeg"
+    ]
   }
 ]
