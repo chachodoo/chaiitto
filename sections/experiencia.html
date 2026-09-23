@@ -583,57 +583,68 @@
 
     <style>
       /* ===================================================
-         6. FINALE CONTAINER & EXPANSIVE BREATHING ROOM
+         6. FINALE CONTAINER: HARDCODED RELATIVE VIEWPORTS
          =================================================== */
       .experiencia-finale {
-        padding: 60px 16px 90px 16px !important;
+        padding: 12px 10px 20px 10px !important;
         background: #ECE8DE !important;
         text-align: center;
         width: 100%;
         box-sizing: border-box;
       }
 
-      /* MASTER PUZZLE GRID: 1:1 SQUARE TILES (MATCHES GALERIA.HTML) */
+      /* MASTER PUZZLE GRID: MOBILE (4 COLS x 6 ROWS = 24 TILES) */
+      /* Hardcoded to 304px x 430px so ALL 6 ROWS fit inside mobile screens */
       .mosaic-grid {
+        position: relative !important;
         display: grid !important;
-        grid-template-columns: repeat(4, 1fr) !important; /* Mobile: 4x6 square grid */
-        gap: 4px !important;
-        width: 100% !important;
-        max-width: 440px !important;
-        margin: 25px auto 0 auto !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        grid-template-rows: repeat(6, 1fr) !important;
+        width: 304px !important;
+        height: 430px !important;
+        max-width: 90vw !important;
+        margin: 8px auto 0 auto !important;
+        gap: 1px !important; /* 1px Razor Hairline */
         box-sizing: border-box !important;
         background: #FFFFFF !important;
-        border: 3px solid #FFFFFF !important;
-        border-radius: 14px !important;
+        border: 1.5px solid #FFFFFF !important;
+        border-radius: 10px !important;
         overflow: hidden !important;
-        box-shadow: 0 16px 45px rgba(0, 0, 0, 0.45) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35) !important;
+        perspective: 1200px !important;
       }
 
-      /* DESKTOP: 6 COLUMNS OF SQUARE TILES */
+      /* DESKTOP (6 COLS x 4 ROWS = 24 TILES) */
+      /* Hardcoded to 760px x 440px so ALL 4 ROWS fit on desktop screens */
       @media (min-width: 992px) {
         .experiencia-finale {
-          padding: 50px 24px 80px 24px !important;
+          padding: 16px 20px 24px 20px !important;
         }
         .mosaic-grid {
-          grid-template-columns: repeat(6, 1fr) !important; /* Desktop: 6x4 square grid */
-          max-width: 980px !important;
-          gap: 5px !important;
-          margin: 20px auto 0 auto !important;
+          grid-template-columns: repeat(6, 1fr) !important;
+          grid-template-rows: repeat(4, 1fr) !important;
+          width: 760px !important;
+          height: 440px !important;
+          max-width: 92vw !important;
+          margin: 10px auto 0 auto !important;
+          gap: 1px !important;
+          border-radius: 12px !important;
+          box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4) !important;
         }
       }
 
-      /* 1:1 SQUARE TILES */
       .mosaic-tile {
         position: relative !important;
         width: 100% !important;
-        aspect-ratio: 1 / 1 !important; /* Strictly square like .gallery-item-card */
+        height: 100% !important;
         overflow: hidden !important;
         box-sizing: border-box !important;
-        perspective: 1200px !important;
-        background: #021B07 !important;
+        perspective: 1000px !important;
+        background: #021B07 !important; /* Deep dark base: Never renders white */
+        transition: transform 0.55s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease;
       }
 
-      /* CLOSED TEA EMBLEM: UNIFIED COLOR PER ROUND */
+      /* CLOSED TEA EMBLEM: UNIFIED ROUND COLOR */
       .tile-face-logo {
         position: absolute !important;
         inset: 0 !important;
@@ -645,29 +656,29 @@
         z-index: 2 !important;
         backface-visibility: hidden !important;
         -webkit-backface-visibility: hidden !important;
-        transition: transform 0.75s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease, background 0.6s ease !important;
+        transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.35s ease, background 0.5s ease !important;
       }
       .tile-face-logo img {
-        width: 44px !important;
-        height: 44px !important;
+        width: 36px !important;
+        height: 36px !important;
         object-fit: contain !important;
         opacity: 0.9 !important;
-        filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6)) !important;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6)) !important;
       }
       @media (min-width: 992px) {
         .tile-face-logo img {
-          width: 52px !important;
-          height: 52px !important;
+          width: 44px !important;
+          height: 44px !important;
         }
       }
 
-      /* MEDIA FACE: 100% FILL (ZERO BLACK BARS) */
+      /* MEDIA FACE: 100% FRAME FILL */
       .tile-face-media {
         position: absolute !important;
         inset: 0 !important;
         width: 100% !important;
         height: 100% !important;
-        background: #F4F7F5 !important;
+        background: #021B07 !important; /* Deep base: Never white while buffering */
         overflow: hidden !important;
         box-sizing: border-box !important;
         z-index: 1 !important;
@@ -675,15 +686,16 @@
         cursor: pointer !important;
         backface-visibility: hidden !important;
         -webkit-backface-visibility: hidden !important;
-        transition: transform 0.75s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease !important;
+        transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.35s ease !important;
       }
       .tile-face-media img,
       .tile-face-media video {
         width: 100% !important;
         height: 100% !important;
-        object-fit: cover !important; /* Edge-to-edge coverage matching carousel */
+        object-fit: cover !important;
         object-position: center center !important;
         display: block !important;
+        background: #021B07 !important;
       }
 
       /* REVEALED STATE */
@@ -697,28 +709,46 @@
         pointer-events: auto !important;
       }
 
-      /* SMOOTH HARDWARE-ACCELERATED REVEAL ANIMATIONS */
+      /* 4 HARDWARE-ACCELERATED REVEAL ANIMATIONS */
       .mosaic-tile.revealed.anim-flip-y .tile-face-logo { transform: rotateY(180deg); }
-      .mosaic-tile.revealed.anim-flip-y .tile-face-media { animation: smoothFlipY 0.75s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+      .mosaic-tile.revealed.anim-flip-y .tile-face-media { animation: smoothFlipY 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
       @keyframes smoothFlipY { from { transform: rotateY(-180deg); } to { transform: rotateY(0deg); } }
 
       .mosaic-tile.revealed.anim-flip-x .tile-face-logo { transform: rotateX(180deg); }
-      .mosaic-tile.revealed.anim-flip-x .tile-face-media { animation: smoothFlipX 0.75s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+      .mosaic-tile.revealed.anim-flip-x .tile-face-media { animation: smoothFlipX 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
       @keyframes smoothFlipX { from { transform: rotateX(-180deg); } to { transform: rotateX(0deg); } }
 
       .mosaic-tile.revealed.anim-flip-diag .tile-face-logo { transform: rotate3d(1, 1, 0, 180deg); }
-      .mosaic-tile.revealed.anim-flip-diag .tile-face-media { animation: smoothFlipDiag 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+      .mosaic-tile.revealed.anim-flip-diag .tile-face-media { animation: smoothFlipDiag 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
       @keyframes smoothFlipDiag { from { transform: rotate3d(1, 1, 0, -180deg); } to { transform: rotate3d(1, 1, 0, 0deg); } }
 
-      .mosaic-tile.revealed.anim-white-pop .tile-face-logo { transform: scale(0.6); opacity: 0; }
-      .mosaic-tile.revealed.anim-white-pop .tile-face-media { animation: smoothPop 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-      @keyframes smoothPop { 0% { transform: scale(0.85); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+      .mosaic-tile.revealed.anim-white-pop .tile-face-logo { transform: scale(0.5); opacity: 0; }
+      .mosaic-tile.revealed.anim-white-pop .tile-face-media { animation: smoothPop 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+      @keyframes smoothPop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
-      /* GOLD COMPLETION GLOW */
+      /* GOLD COMPLETION FRAME */
       .mosaic-grid.completed {
-        box-shadow: 0 16px 50px rgba(0, 0, 0, 0.75), 0 0 35px rgba(245, 208, 97, 0.6) !important;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), 0 0 28px rgba(245, 208, 97, 0.7) !important;
         border-color: #F5D061 !important;
-        transition: all 0.8s ease;
+        transition: all 0.5s ease;
+      }
+
+      /* 3D SHATTER & DISPERSE ANIMATION */
+      .mosaic-tile.shatter-0 { transform: translate3d(-70px, -90px, 120px) rotate(-35deg) scale(0.25) !important; opacity: 0 !important; filter: blur(4px) !important; }
+      .mosaic-tile.shatter-1 { transform: translate3d(80px, -100px, 80px) rotate(40deg) scale(0.25) !important; opacity: 0 !important; filter: blur(4px) !important; }
+      .mosaic-tile.shatter-2 { transform: translate3d(-90px, 70px, -60px) rotate(50deg) scale(0.2) !important; opacity: 0 !important; filter: blur(4px) !important; }
+      .mosaic-tile.shatter-3 { transform: translate3d(100px, 80px, 90px) rotate(-45deg) scale(0.25) !important; opacity: 0 !important; filter: blur(4px) !important; }
+      .mosaic-tile.shatter-4 { transform: translate3d(0px, 110px, 70px) rotate(25deg) scale(0.2) !important; opacity: 0 !important; filter: blur(4px) !important; }
+      .mosaic-tile.shatter-5 { transform: translate3d(-110px, 0px, 100px) rotate(-55deg) scale(0.2) !important; opacity: 0 !important; filter: blur(4px) !important; }
+
+      /* CRYSTAL REBUILD SNAP */
+      .mosaic-tile.rebuilding {
+        animation: snapRebuild 0.48s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+      }
+      @keyframes snapRebuild {
+        0% { transform: scale(0) rotate(15deg); opacity: 0; }
+        75% { transform: scale(1.06) rotate(-2deg); opacity: 1; }
+        100% { transform: scale(1) rotate(0deg); opacity: 1; }
       }
     </style>
 
