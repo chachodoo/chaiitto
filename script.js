@@ -2023,24 +2023,34 @@ function initMovieScrubber() {
 }
 
 /* ===================================================
-   COMMUNITY FINALE: FILTERED PRE-DECK ENGINE
-   - Filters out all "no-" files in 0ms (Active cc- & vv- only)
-   - Guarantees 24 distinct items (Zero duplicates)
-   - Pre-loads before reveal (Zero black boxes)
-   - Supports vv-1.mp4 (Auto-looping muted video tile)
-   - Smooth Iris Bloom animation cycle
+   COMMUNITY FINALE: UNIFIED LIVING TAPESTRY ENGINE
+   - 1:1 Square Aspect Ratio (Zero black bars)
+   - Unified Theme Color: All tiles share 1 tea palette per round
+   - Parallel DOM mounting: Starts instantly with 0ms stall
+   - Measured 340ms reveal cadence
+   - 3.5-Second Showcase Hold: Tiles 23 & 24 never cut off
+   - Accurate sticky header scroll offset
    =================================================== */
 let activeCommunityPool = [];
 let isMosaicRunning = false;
 let mosaicLoopTimer = null;
+let currentPaletteIndex = 0;
 
+const MOSAIC_ANIMATIONS = [
+  'anim-flip-y',
+  'anim-flip-x',
+  'anim-flip-diag',
+  'anim-white-pop'
+];
+
+// 6 Distinct Tea Themes
 const TEA_PALETTES = [
   'radial-gradient(circle at center, #0B3814 0%, #021B07 100%)', // Forest Matcha
-  'radial-gradient(circle at center, #3D1C08 0%, #180902 100%)', // Cinnamon Chai
-  'radial-gradient(circle at center, #1B1E1C 0%, #060706 100%)', // Black Tea
-  'radial-gradient(circle at center, #422D0A 0%, #1A1202 100%)', // Golden Amber
-  'radial-gradient(circle at center, #320B1C 0%, #13020A 100%)', // Hibiscus Plum
-  'radial-gradient(circle at center, #0B2B23 0%, #031410 100%)'  // Imperial Jade
+  'radial-gradient(circle at center, #4A1E05 0%, #1A0902 100%)', // Spiced Chai Cinnamon
+  'radial-gradient(circle at center, #1B1E1C 0%, #060706 100%)', // Midnight Black Tea
+  'radial-gradient(circle at center, #523808 0%, #1C1302 100%)', // Golden Amber Oolong
+  'radial-gradient(circle at center, #3E0C22 0%, #15020B 100%)', // Hibiscus Plum
+  'radial-gradient(circle at center, #0B332A 0%, #031410 100%)'  // Imperial Jade
 ];
 
 const FALLBACK_ACTIVE_FILES = [
@@ -2061,19 +2071,6 @@ function resolvePath(p) {
   return p.startsWith('galeria/') ? p : 'galeria/' + p;
 }
 
-// Memory preload checker (skips videos automatically)
-function preloadMedia(src) {
-  return new Promise(resolve => {
-    const isVideo = src.toLowerCase().endsWith('.mp4') || src.toLowerCase().endsWith('.webm');
-    if (isVideo) return resolve(src);
-
-    const img = new Image();
-    img.onload = () => resolve(src);
-    img.onerror = () => resolve(src); // Graceful fallback
-    img.src = src;
-  });
-}
-
 async function loadActiveMediaList() {
   if (activeCommunityPool.length >= 24) return;
 
@@ -2082,8 +2079,6 @@ async function loadActiveMediaList() {
     if (res.ok) {
       const data = await res.json();
       const rawList = Array.isArray(data) ? data : (data.images || data.galeria || Object.values(data).flat());
-      
-      // Filter out all "no-" files; keep only active "cc-" and "vv-" items
       activeCommunityPool = rawList
         .map(resolvePath)
         .filter(p => !p.includes('/no-') && (p.includes('/cc-') || p.includes('/vv-')));
@@ -2098,18 +2093,22 @@ async function loadActiveMediaList() {
 }
 
 function scrollToCommunityMosaic() {
-  const el = document.querySelector('.experiencia-finale');
-  if (el) {
-    const headerEl = document.getElementById('main-master-header') || document.querySelector('header');
-    const headerH = headerEl ? headerEl.offsetHeight : 70;
-    // Extra 25px offset so the grid doesn't collide with the bottom of the navbar
-    const targetY = el.getBoundingClientRect().top + window.pageYOffset - headerH + 25;
-    
+  const grid = document.getElementById('mosaic-grid');
+  const targetEl = grid || document.querySelector('.experiencia-finale');
+  if (targetEl) {
+    // Calculates total sticky height (marquee + header + 40px buffer)
+    const marqueeEl = document.querySelector('.hero-marquee-wrapper');
+    const marqueeH = (marqueeEl && window.getComputedStyle(marqueeEl).display !== 'none') ? marqueeEl.offsetHeight : 0;
+    const headerEl = document.querySelector('header');
+    const headerH = headerEl ? headerEl.offsetHeight : 96;
+    const totalOffset = marqueeH + headerH + 40;
+
+    const targetY = targetEl.getBoundingClientRect().top + window.pageYOffset - totalOffset;
     window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
 
     setTimeout(() => {
       startLivingMosaic();
-    }, 400);
+    }, 450);
   }
 }
 
@@ -2124,7 +2123,7 @@ async function startLivingMosaic() {
 
   const TOTAL_SLOTS = 24;
 
-  // Build grid structure once
+  // Build grid once
   if (grid.children.length !== TOTAL_SLOTS) {
     grid.innerHTML = '';
     for (let i = 0; i < TOTAL_SLOTS; i++) {
@@ -2141,30 +2140,32 @@ async function startLivingMosaic() {
     }
   }
 
-  // Shuffle active pool and pick 24 distinct items without replacement (Zero Duplicates)
+  // 1 UNIFIED COLOR PER ROUND FOR ALL 24 TILES
+  const roundPalette = TEA_PALETTES[currentPaletteIndex % TEA_PALETTES.length];
+  currentPaletteIndex++;
+
+  // Shuffle and deal 24 unique items
   const shuffled = [...activeCommunityPool].sort(() => Math.random() - 0.5);
   const deck = shuffled.slice(0, TOTAL_SLOTS);
 
-  // Preload and mount media behind closed seals
+  // Mount media & apply the UNIFIED palette to all 24 tiles immediately
   for (let i = 0; i < TOTAL_SLOTS; i++) {
     const tileEl = document.getElementById(`mosaic-tile-${i}`);
     const logoFace = tileEl.querySelector('.tile-face-logo');
     if (logoFace) {
-      logoFace.style.background = TEA_PALETTES[Math.floor(Math.random() * TEA_PALETTES.length)];
+      logoFace.style.background = roundPalette; // All 24 tiles share this color
     }
 
     const mediaEl = document.getElementById(`tile-media-${i}`);
     const mediaSrc = deck[i];
     const isVideo = mediaSrc.toLowerCase().endsWith('.mp4') || mediaSrc.toLowerCase().endsWith('.webm');
 
-    await preloadMedia(mediaSrc);
-
     if (isVideo) {
       mediaEl.innerHTML = `<video src="${mediaSrc}" autoplay loop muted playsinline></video>`;
       mediaEl.onclick = (e) => {
         e.stopPropagation();
         const vid = mediaEl.querySelector('video');
-        if (vid) vid.muted = !vid.muted; // Tap toggles audio
+        if (vid) vid.muted = !vid.muted;
       };
     } else {
       mediaEl.innerHTML = `<img src="${mediaSrc}" alt="Comunidad Chai-itto">`;
@@ -2176,7 +2177,7 @@ async function startLivingMosaic() {
     }
   }
 
-  // Randomized bloom reveal sequence
+  // Sequential reveal cadence (340ms per tile)
   const slotOrder = Array.from({ length: TOTAL_SLOTS }, (_, i) => i).sort(() => Math.random() - 0.5);
   let step = 0;
 
@@ -2185,33 +2186,39 @@ async function startLivingMosaic() {
       const slotIdx = slotOrder[step];
       const tileEl = document.getElementById(`mosaic-tile-${slotIdx}`);
       if (tileEl) {
-        tileEl.classList.add('revealed');
+        const randomAnim = MOSAIC_ANIMATIONS[Math.floor(Math.random() * MOSAIC_ANIMATIONS.length)];
+        tileEl.className = `mosaic-tile revealed ${randomAnim}`;
       }
       step++;
-      mosaicLoopTimer = setTimeout(revealNext, 240);
+      mosaicLoopTimer = setTimeout(revealNext, 340);
     } else {
-      // 0.3s snap turnaround into next round
-      mosaicLoopTimer = setTimeout(resealMosaic, 300);
+      grid.classList.add('completed');
+      // Hold completed 24-piece board for 3.5 seconds before recycling
+      mosaicLoopTimer = setTimeout(resealMosaic, 3500);
     }
   }
 
-  setTimeout(revealNext, 350);
+  // Starts immediately
+  setTimeout(revealNext, 200);
 }
 
 function resealMosaic() {
+  const grid = document.getElementById('mosaic-grid');
+  if (grid) grid.classList.remove('completed');
+
   const tiles = document.querySelectorAll('.mosaic-tile');
   tiles.forEach(tile => {
-    tile.classList.remove('revealed');
+    tile.className = 'mosaic-tile';
   });
 
-  // Once seals close, launch the next round
+  // Brief smooth transition before starting next round with a new unified palette
   setTimeout(() => {
     isMosaicRunning = false;
     startLivingMosaic();
-  }, 500);
+  }, 650);
 }
 
-// Watcher: Builds immediately if scrolled to manually
+// Watcher: Builds if visitor scrolls manually
 let hasMosaicAutoStarted = false;
 window.addEventListener('scroll', () => {
   if (hasMosaicAutoStarted) return;
