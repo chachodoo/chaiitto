@@ -713,5 +713,17 @@
       "accesorios/accesorios-539-1.jpeg",
       "accesorios/accesorios-539-2.jpeg"
     ]
+  },
+  {
+    "num": "540",
+    "name": "Matcha Set \"Aqua\" 5 Piezas",
+    "descripcion": "Set para Matcha color Verde Aqua, incluye Tazon (Grande), Cuchara y Batidor con base.",
+    "precio": 950,
+    "precioOferta": 750,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-540-1.jpeg",
+      "accesorios/accesorios-540-2.jpeg"
+    ]
   }
 ]
