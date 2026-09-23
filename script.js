@@ -2174,27 +2174,48 @@ async function startLivingMosaic() {
 
     if (isVideo) {
       mediaEl.innerHTML = '';
-      const vid = document.createElement('video');
-      vid.src = mediaSrc;
-      vid.autoplay = true;
-      vid.loop = true;
-      vid.muted = true;
-      vid.defaultMuted = true;
-      vid.playsInline = true;
-      vid.setAttribute('muted', '');
-      vid.setAttribute('playsinline', '');
-      vid.setAttribute('webkit-playsinline', '');
-      vid.setAttribute('autoplay', '');
-      vid.setAttribute('loop', '');
-      vid.setAttribute('preload', 'auto');
+      mediaEl.style.background = '#021B07'; // Prevents white canvas from showing through
 
-      mediaEl.appendChild(vid);
-      vid.play().catch(() => {});
+      const video = document.createElement('video');
+      
+      // 1. MUST set attributes BEFORE setting src for Chrome/Safari autoplay
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+      video.setAttribute('autoplay', '');
+      video.setAttribute('loop', '');
+      video.muted = true;
+      video.defaultMuted = true;
+      video.autoplay = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.preload = 'auto';
+
+      // 2. Set src after attributes are locked
+      video.src = mediaSrc;
+
+      // 3. Force absolute cover dimensions
+      video.style.position = 'absolute';
+      video.style.top = '0';
+      video.style.left = '0';
+      video.style.width = '100%';
+      video.style.height = '100%';
+      video.style.objectFit = 'cover';
+      video.style.objectPosition = 'center 15%';
+      video.style.display = 'block';
+
+      mediaEl.appendChild(video);
+
+      // 4. Direct play trigger
+      video.play().catch(err => {
+        console.warn("Autoplay wait:", err);
+      });
 
       mediaEl.onclick = (e) => {
         e.stopPropagation();
-        vid.muted = !vid.muted;
+        video.muted = !video.muted;
       };
+      mediaEl.style.cursor = 'pointer';
     } else {
       mediaEl.innerHTML = `<img src="${mediaSrc}" alt="Comunidad Chai-itto">`;
       mediaEl.onclick = () => {
@@ -2214,19 +2235,26 @@ async function startLivingMosaic() {
       const slotIdx = slotOrder[step];
       const tileEl = document.getElementById(`mosaic-tile-${slotIdx}`);
       if (tileEl) {
-        const randomAnim = MOSAIC_ANIMATIONS[Math.floor(Math.random() * MOSAIC_ANIMATIONS.length)];
+        const vid = tileEl.querySelector('video');
+        // Prevent Chrome/Safari 3D flips from dropping hardware video textures; photos keep their 3D flips
+        const randomAnim = vid 
+          ? 'anim-white-pop' 
+          : MOSAIC_ANIMATIONS[Math.floor(Math.random() * MOSAIC_ANIMATIONS.length)];
+
         tileEl.className = `mosaic-tile revealed ${randomAnim}`;
 
-        // Triggers the video to play the moment its tile flips open
-        const vid = tileEl.querySelector('video');
         if (vid) {
           vid.muted = true;
+          vid.defaultMuted = true;
+          vid.playsInline = true;
+          const mediaBox = tileEl.querySelector('.tile-face-media');
+          if (mediaBox) mediaBox.style.background = '#021B07';
           vid.play().catch(() => {});
         }
       }
       step++;
-      mosaicLoopTimer = setTimeout(revealNext, 250);
-      } else {
+      mosaicLoopTimer = setTimeout(revealNext, 200);
+    } else {
       grid.classList.add('completed');
       mosaicLoopTimer = setTimeout(shatterAndRebuild, 2000);
     }
