@@ -2200,18 +2200,10 @@ window.scrollToCommunityMosaic = function() {
 
   window.scrollTo({ top: Math.max(0, Math.round(targetY)), behavior: 'smooth' });
 
-  // If track is empty (re-entered page) or mosaic is not running, force-initialize
-  // 1. Unfreeze by resetting flag and clearing any stale timer
   isMosaicRunning = false;
-  clearTimeout(mosaicLoopTimer);
-
-  // 2. Snap all tiles back to closed (logo), then cascade them open
-  track.querySelectorAll('.community-tile').forEach((tile, i) => {
-    tile.classList.add('is-flipped');
-    setTimeout(() => tile.classList.remove('is-flipped'), 300 + (i * 35));
-  });
-
-  // 3. Mount media and start the continuous repeat loop
+  if (typeof mosaicLoopTimer !== 'undefined' && mosaicLoopTimer) {
+    clearTimeout(mosaicLoopTimer);
+  }
   initLivingMosaic();
 };
 
