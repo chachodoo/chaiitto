@@ -42,35 +42,29 @@ function openStoreSection(section) {
   closeAllMobileMenus();
 }
 
-// TOGGLE MOBILE TIENDA DROPDOWN (ROW 2 & HAMBURGER)
+// TOGGLE MOBILE TIENDA DROPDOWN (ROW 2)
 function toggleMobileTienda(event) {
   if (event) {
     event.preventDefault();
     event.stopPropagation();
   }
-  
-  const dropdown = document.getElementById('mobile-tienda-dropdown') || document.getElementById('mobile-tienda-flyout') || document.querySelector('.mobile-tienda-dropdown');
-  const caret = document.querySelector('#mobile-tienda-trigger i') || document.querySelector('.nav-dropdown .nav-caret');
-  const navDropdownMenu = document.querySelector('.nav-dropdown-menu');
 
-  // Toggle Row 2 Dropdown
+  const dropdown = document.getElementById('mobile-tienda-flyout') || document.getElementById('mobile-tienda-dropdown') || document.querySelector('.mobile-tienda-dropdown');
+  const caret = document.querySelector('#mobile-tienda-trigger i');
+
   if (dropdown) {
-    const isOpen = dropdown.classList.contains('active') || dropdown.style.display === 'flex';
-    if (isOpen) {
+    // Only consider open if active class is present AND display is not hidden
+    const isCurrentlyOpen = dropdown.classList.contains('active') && dropdown.style.display !== 'none';
+
+    if (isCurrentlyOpen) {
       dropdown.classList.remove('active');
       dropdown.style.display = 'none';
       if (caret) caret.style.transform = 'rotate(0deg)';
     } else {
       dropdown.classList.add('active');
-      dropdown.style.display = 'flex';
+      dropdown.style.display = 'block';
       if (caret) caret.style.transform = 'rotate(180deg)';
     }
-  }
-
-  // Toggle Hamburger Accordion if open
-  if (navDropdownMenu && window.innerWidth < 992) {
-    navDropdownMenu.classList.toggle('show-mobile-menu');
-    if (caret) caret.classList.toggle('flip-caret');
   }
 }
 
