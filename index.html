@@ -1570,7 +1570,7 @@ nav.main-nav {
     align-items: center !important;
     width: 100% !important;
     max-width: 100vw !important;
-    overflow: visible !important;
+    overflow: hidden !important;
     background: transparent !important;
     border: none !important;
     padding: 6px 4px 8px 4px !important;
@@ -1812,10 +1812,7 @@ nav.main-nav {
             <i class="fa-solid fa-leaf"></i> Tés de Hoja Suelta
           </a>
           <a href="#accesorios" onclick="openStoreSection('accesorios')">
-            <i class="fa-solid fa-mug-hot"></i> Accesorios de Té
-          </a>
-          <a href="#regalos" onclick="openStoreSection('regalos')">
-            <i class="fa-solid fa-gift"></i> Regalos
+            <i class="fa-solid fa-mug-hot"></i> Accesorios
           </a>
           <a href="#bazar" onclick="openStoreSection('bazar')">
             <i class="fa-solid fa-crown"></i> Bazar VIP
@@ -1844,7 +1841,10 @@ nav.main-nav {
                                     <i class="fa-solid fa-leaf" style="color: #25D366;"></i>
                                     <strong>Tés de Hoja Suelta</strong>
                                 </span>
-                                <i class="fa-solid fa-chevron-right submenu-arrow"></i>
+                                <span style="display: inline-flex; align-items: center; gap: 6px;">
+                                    <span class="dropdown-meta">120+ Mezclas</span>
+                                    <i class="fa-solid fa-chevron-right submenu-arrow"></i>
+                                </span>
                             </div>
                         </a>
 
@@ -1860,37 +1860,27 @@ nav.main-nav {
                         </div>
                     </div>
 
-                    <div class="dropdown-divider"></div>
-
-                    <!-- 2. ACCESORIOS DE TÉ -->
+                    <!-- 2. ACCESORIOS -->
                     <a href="javascript:void(0)" onclick="openStoreSection('accesorios')">
                         <div class="dropdown-row">
                             <span class="dropdown-label">
                                 <i class="fa-solid fa-mug-hot" style="color: #D4AF37;"></i>
                                 <strong>Accesorios de Té</strong>
                             </span>
-                        </div>
-                    </a>
-
-                    <!-- 3. REGALOS -->
-                    <a href="javascript:void(0)" onclick="openStoreSection('regalos')">
-                        <div class="dropdown-row">
-                            <span class="dropdown-label">
-                                <i class="fa-solid fa-gift" style="color: #F5D061;"></i>
-                                <strong>Regalos</strong>
-                            </span>
+                            <span class="dropdown-meta">Teteras y Sets</span>
                         </div>
                     </a>
 
                     <div class="dropdown-divider"></div>
 
-                    <!-- 4. BAZAR VIP -->
+                    <!-- 3. BAZAR VIP -->
                     <a href="javascript:void(0)" onclick="openStoreSection('bazar')">
                         <div class="dropdown-row">
                             <span class="dropdown-label">
-                                <i class="fa-solid fa-crown" style="color: #F5D061;"></i>
+                                <i class="fa-solid fa-lock" style="color: #F5D061;"></i>
                                 <strong>Bazar VIP</strong>
                             </span>
+                            <span class="vip-premium-pill">Miembros Premium</span>
                         </div>
                     </a>
                 </div>
