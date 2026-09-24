@@ -508,17 +508,11 @@ if (mobileTiendaCaret) mobileTiendaCaret.style.transform = 'rotate(0deg)';
         } else if (pageName === 'bazar') {
             loadBazarGrid();
         } else if (pageName === 'experiencia') {
+            // Let the trap video play. The movie will unlock only when the user taps "DESCUBRIR".
             const trapVideo = document.querySelector('#video-trap video');
             if (trapVideo) {
-    trapVideo.muted = true;
-    trapVideo.playsInline = true;
-    trapVideo.setAttribute('muted', '');
-    trapVideo.setAttribute('playsinline', '');
-    trapVideo.load();
-    trapVideo.play().catch(err => {
-      console.warn("Trap video autoplay error:", err);
-    });
-  }
+              trapVideo.play().catch(() => {});
+            }
         } else if (pageName === 'menu') {
             menuNavigationState.currentPage = targetPage;
             updateMenuDisplay();
