@@ -694,11 +694,10 @@
           </style>
 
           <div style="display: flex; flex-direction: column; align-items: center; gap: 14px; max-width: 340px; width: 100%;">
-            <span style="font-family: var(--font-heading, 'Cinzel', serif); font-size: 0.72rem; letter-spacing: 3px; color: #F5D061; text-transform: uppercase;">Chai-itto Cholula</span>
             <h2 style="font-family: var(--font-heading, 'Cinzel', serif); color: #FFFFFF; font-size: clamp(1.3rem, 3.8vw, 1.8rem); margin: 0 0 6px 0; font-weight: 700; line-height: 1.25;">¿Listo para ser parte de la historia?</h2>
 
             <!-- 1. REPRODUCIR (TOP) -->
-            <button type="button" onclick="replayMovie()" style="width: 100%; padding: 13px 20px; background: rgba(255, 255, 255, 0.08); border: 1.5px solid rgba(255, 255, 255, 0.35); color: #FFFFFF; border-radius: 50px; font-family: var(--font-heading, 'Cinzel', serif); font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.25s ease;">
+            <button type="button" onclick="replayMovie(); const f = document.getElementById('experiencia-finale'); if(f) f.style.display='none'; window.scrollTo({top: 0, behavior: 'instant'});" style="width: 100%; padding: 13px 20px; background: rgba(255, 255, 255, 0.08); border: 1.5px solid rgba(255, 255, 255, 0.35); color: #FFFFFF; border-radius: 50px; font-family: var(--font-heading, 'Cinzel', serif); font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.25s ease;">
               <i class="fa-solid fa-rotate-left"></i> Reproducir de Nuevo
             </button>
 
@@ -707,13 +706,17 @@
               <span>Explorar Mosaico Oculto</span>
               <i class="fa-solid fa-arrow-down" style="font-size: 0.95rem; display: inline-block; animation: arrowBounce 1s infinite ease-in-out;"></i>
             </button>
-          </div>
-        </div>
-<!-- FINALE SECTION: HIDDEN UNTIL MOVIE COMPLETION -->
-<section class="experiencia-finale" id="experiencia-finale" style="display: none;">
-    <div id="community-mosaic-track" class="community-grid"></div>
-</section>
-      </div>
+         </div>
+      </div> <!-- Closes #movie-end-card -->
+    </div> <!-- CLOSES .slideshow-viewport (Kicks the mosaic OUT of the movie box) -->
+
+    <!-- FINALE SECTION: OUTSIDE THE MOVIE -->
+    <section class="experiencia-finale" id="experiencia-finale" style="display: none; padding: 40px 12px 90px 12px; background: #ECE8DE; text-align: center; width: 100%; min-height: 100vh; box-sizing: border-box;">
+      <div id="community-mosaic-track" class="community-grid"></div>
+    </section>
+
+  </div> <!-- Closes #story-content -->
+</div> <!-- Closes .experiencia-master -->
 
     </div>
 
