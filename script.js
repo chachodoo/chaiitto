@@ -34,65 +34,6 @@ function toggleMobileMenu() {
     const nav = document.getElementById('main-nav-menu');
     if (nav) nav.classList.toggle('active');
 }
-// UNIVERSAL STORE SECTION ROUTER
-function openStoreSection(section) {
-  if (typeof switchPage === 'function') {
-    switchPage(section);
-  }
-  closeAllMobileMenus();
-}
-
-// TOGGLE MOBILE TIENDA DROPDOWN (ROW 2)
-function toggleMobileTienda(event) {
-  if (event) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
-
-  const dropdown = document.getElementById('mobile-tienda-flyout') || document.getElementById('mobile-tienda-dropdown') || document.querySelector('.mobile-tienda-dropdown');
-  const caret = document.querySelector('#mobile-tienda-trigger i');
-
-  if (dropdown) {
-    // Only consider open if active class is present AND display is not hidden
-    const isCurrentlyOpen = dropdown.classList.contains('active') && dropdown.style.display !== 'none';
-
-    if (isCurrentlyOpen) {
-      dropdown.classList.remove('active');
-      dropdown.style.display = 'none';
-      if (caret) caret.style.transform = 'rotate(0deg)';
-    } else {
-      dropdown.classList.add('active');
-      dropdown.style.display = 'block';
-      if (caret) caret.style.transform = 'rotate(180deg)';
-    }
-  }
-}
-
-function closeAllMobileMenus() {
-  const dropdown = document.getElementById('mobile-tienda-dropdown') || document.getElementById('mobile-tienda-flyout') || document.querySelector('.mobile-tienda-dropdown');
-  const caret = document.querySelector('#mobile-tienda-trigger i');
-  if (dropdown) {
-    dropdown.classList.remove('active');
-    dropdown.style.display = 'none';
-  }
-  if (caret) caret.style.transform = 'rotate(0deg)';
-
-  const navDropdownMenu = document.querySelector('.nav-dropdown-menu');
-  if (navDropdownMenu) navDropdownMenu.classList.remove('show-mobile-menu');
-
-  const mainNav = document.getElementById('main-nav-menu');
-  if (mainNav) mainNav.classList.remove('active');
-}
-
-// Auto-close dropdown when tapping anywhere else on screen
-document.addEventListener('click', (e) => {
-  if (!e.target.closest('#mobile-tienda-trigger') && 
-      !e.target.closest('.mobile-tienda-dropdown') && 
-      !e.target.closest('.nav-dropdown')) {
-    closeAllMobileMenus();
-  }
-});
-
         
 // GLOBAL CART SYSTEM
 let cart = JSON.parse(localStorage.getItem('chaiitto_cart')) || [];
@@ -564,8 +505,6 @@ if (mobileTiendaCaret) mobileTiendaCaret.style.transform = 'rotate(0deg)';
             selectCollection(targetCol);
         } else if (pageName === 'accesorios') {
             loadAccesoriosGrid();
-        } else if (pageName === 'regalos') {
-            loadRegalosGrid();  
         } else if (pageName === 'bazar') {
             loadBazarGrid();
         } else if (pageName === 'experiencia') {
@@ -846,60 +785,6 @@ async function loadAccesoriosGrid() {
     } catch (error) {
         console.error("Error loading accesorios.json:", error);
     }
-}
-
-/* --- REGALOS RENDERER (1:1 ACCESORIOS TWIN) --- */
-async function loadRegalosGrid() {
-  const track = document.getElementById('regalos-dynamic-track');
-  if (!track) return;
-  try {
-    const response = await fetch('regalos.json?v=' + Date.now());
-    if (!response.ok) throw new Error('Could not load regalos.json');
-    const regalosList = await response.json();
-    track.innerHTML = '';
-    regalosList.forEach(item => {
-      const isSale = item.precioOferta !== null && item.precioOferta !== undefined && item.precioOferta > 0;
-      const price = isSale ? item.precioOferta : (item.precio || 0);
-      const originalPrice = item.precio || 0;
-      const descText = item.descripcion || '';
-      const titleText = item.name ? `#${item.num}. ${item.name}` : `#${item.num}`;
-      const imageList = (item.images && item.images.length > 0) ? item.images : [item.image || 'logo.png'];
-      const coverImage = imageList[0];
-      const safeName = item.name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-      const card = document.createElement('div');
-      card.className = 'product-card';
-      card.style.position = 'relative';
-      card.innerHTML = `
-        <div>
-          <div class="product-img-box gallery-trigger" style="position: relative; cursor: zoom-in;" title="Ver galería de fotos">
-            ${isSale ? '<span class="badge-oferta">OFERTA</span>' : ''}
-            ${imageList.length > 1 ? `
-              <span style="position: absolute; top: 6px; left: 6px; background: rgba(16, 38, 25, 0.78); backdrop-filter: blur(4px); color: #FFFFFF; font-size: 0.65rem; font-weight: 700; padding: 2px 6px; border-radius: 6px; z-index: 2; display: inline-flex; align-items: center; gap: 4px; border: 1px solid rgba(212, 175, 55, 0.4);">
-                <i class="fa-solid fa-camera" style="color: #F5D061; font-size: 0.6rem;"></i> ${imageList.length}
-              </span>` : ''}
-            <img src="${coverImage}" alt="${item.name || 'Regalo'}">
-          </div>
-          <h3 class="product-name">${titleText}</h3>
-          <p class="product-ingredients">${descText}</p>
-        </div>
-        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; margin-top: auto; padding: 4px 2px 2px 2px;">
-          <div style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15; min-width: 0;">
-            ${isSale ? `<span style="font-size: 0.72rem; text-decoration: line-through; color: #888888; font-weight: 600;">$${originalPrice}</span>` : ''}
-            <span style="font-family: var(--font-heading, 'Cinzel', serif); font-size: 1.05rem; font-weight: 800; color: var(--matcha-deep, #07511A);">$${price}</span>
-          </div>
-          <button onclick="event.stopPropagation(); addToCart('${safeName}', ${price})" title="Añadir al carrito" style="width: 32px; height: 32px; min-width: 32px; border-radius: 50%; border: 1.5px solid var(--matcha-deep, #07511A); background: #FFFFFF; color: var(--matcha-deep, #07511A); display: flex; align-items: center; justify-content: center; font-size: 0.88rem; cursor: pointer; padding: 0; box-shadow: 0 2px 6px rgba(0,0,0,0.06); transition: all 0.15s ease; flex-shrink: 0;" onmouseover="this.style.background='#07511A'; this.style.color='#FFFFFF'; this.style.transform='scale(1.08)';" onmouseout="this.style.background='#FFFFFF'; this.style.color='#07511A'; this.style.transform='scale(1)';">
-            <i class="fa-solid fa-cart-plus"></i>
-          </button>
-        </div>
-      `;
-      card.querySelector('.gallery-trigger').onclick = () => {
-        openOfertaModal(titleText, descText, imageList, item.name, price);
-      };
-      track.appendChild(card);
-    });
-  } catch (error) {
-    console.error("Error loading regalos.json:", error);
-  }
 }
 
 /* --- BAZAR VIP AUTHENTICATION & DATABASE CHECK --- */
@@ -2445,4 +2330,3 @@ window.addEventListener('scroll', () => {
     }
   }
 }, { passive: true });
-
