@@ -78,43 +78,45 @@
   font-weight: 700;
 }
 .trap-btn {
-  margin-top: 24px;
-  background: linear-gradient(135deg, #F5D061 0%, #D4AF37 50%, #B8860B 100%);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  color: #021B07;
-  padding: 14px 34px;
-  border-radius: 50px;
-  font-family: var(--font-heading, 'Cinzel', serif);
-  font-size: 0.85rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 25px rgba(245, 208, 97, 0.65);
-  animation: goldBreathingGlow 2.2s infinite ease-in-out;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.trap-btn:hover {
-  transform: translateY(-2px) scale(1.04);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 40px rgba(245, 208, 97, 0.95);
-}
-.trap-btn:active {
-  transform: translateY(1px) scale(0.98);
-}
-@keyframes goldBreathingGlow {
-  0%, 100% {
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), 0 0 16px rgba(212, 175, 55, 0.45);
-    transform: scale(1);
-  }
-  50% {
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5), 0 0 35px rgba(245, 208, 97, 0.9), 0 0 10px #FFFFFF;
-    transform: scale(1.03);
-  }
-}
+      margin-top: 24px;
+      background: linear-gradient(135deg, #094017 0%, #021B07 100%);
+      border: 1.5px solid #F5D061;
+      color: #FFFFFF;
+      padding: 14px 34px;
+      border-radius: 50px;
+      font-family: var(--font-heading, 'Cinzel', serif);
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 10px rgba(245, 208, 97, 0.35);
+      animation: emeraldGoldPulse 2.2s infinite ease-in-out;
+      transition: all 0.25s ease;
+    }
+    .trap-btn:hover {
+      background: linear-gradient(135deg, #0E5820 0%, #04290B 100%);
+      border-color: #FFFFFF;
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7), 0 0 22px rgba(245, 208, 97, 0.75);
+    }
+    .trap-btn:active {
+      transform: translateY(1px) scale(0.98);
+    }
+    @keyframes emeraldGoldPulse {
+      0%, 100% {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 8px rgba(245, 208, 97, 0.3);
+        transform: scale(1);
+      }
+      50% {
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65), 0 0 20px rgba(245, 208, 97, 0.85);
+        transform: scale(1.03);
+      }
+    }
   
 
   /* =========================================
