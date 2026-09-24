@@ -229,30 +229,35 @@
   }
 
   /* CINEMATIC WORD-BY-WORD REVEAL ENGINE */
-.story-word {
-  display: inline-block;
-  opacity: 0;
-  filter: blur(4px);
-  transform: translateY(6px);
-  transition: opacity 0.35s ease, filter 0.35s ease, transform 0.35s ease;
-  white-space: pre;
-}
+/* CINEMATIC WORD-BY-WORD REVEAL ENGINE */
+  @keyframes storyWordIn {
+    0% {
+      opacity: 0;
+      filter: blur(4px);
+      transform: translateY(6px);
+    }
+    100% {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+  }
 
-/* Reset words instantly when slide leaves */
-.story-slide:not(.active) .story-word {
-  opacity: 0 !important;
-  filter: blur(4px) !important;
-  transform: translateY(6px) !important;
-  transition: none !important;
-}
+  .story-word {
+    display: inline-block;
+    opacity: 0;
+    white-space: pre;
+  }
 
-/* Animate words only when slide is active */
-.story-slide.active .story-word {
-  opacity: 1;
-  filter: blur(0);
-  transform: translateY(0);
-  transition-delay: calc(var(--start-delay, 1s) + (var(--w-idx, 0) * 0.15s));
-}
+  .story-slide:not(.active) .story-word {
+    opacity: 0 !important;
+    animation: none !important;
+  }
+
+  .story-slide.active .story-word {
+    animation: storyWordIn 0.35s ease forwards;
+    animation-delay: calc(var(--start-delay, 0.6s) + (var(--w-idx, 0) * 0.12s));
+  }
   
   /* DESKTOP LAYOUT (50/50 SPLIT) */
   @media (min-width: 992px) {
