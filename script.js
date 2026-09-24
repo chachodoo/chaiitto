@@ -795,47 +795,57 @@ async function loadAccesoriosGrid() {
     }
 }
 
+/* --- REGALOS RENDERER (EXACT 1:1 REPLICA OF ACCESORIOS) --- */
 async function loadRegalosGrid() {
-  const container = document.getElementById('regalos-dynamic-track');
-  if (!container) return;
-  container.innerHTML = '<p style="text-align:center; width:100%; grid-column: 1/-1;">Cargando regalos...</p>';
-
+  const track = document.getElementById('regalos-dynamic-track');
+  if (!track) return;
   try {
-    const res = await fetch('regalos.json?v=' + Date.now());
-    if (!res.ok) throw new Error('No se pudo cargar regalos.json');
-    const items = await res.json();
-
-    container.innerHTML = '';
-    items.forEach((item) => {
+    const response = await fetch('regalos.json?v=' + Date.now());
+    if (!response.ok) throw new Error('Could not load regalos.json');
+    const regalosList = await response.json();
+    track.innerHTML = '';
+    regalosList.forEach(item => {
+      const isSale = item.precioOferta !== null && item.precioOferta !== undefined && item.precioOferta > 0;
+      const price = isSale ? item.precioOferta : (item.precio || 0);
+      const originalPrice = item.precio || 0;
+      const descText = item.descripcion || '';
+      const titleText = item.name ? `#${item.num}. ${item.name}` : `#${item.num}`;
+      const imageList = (item.images && item.images.length > 0) ? item.images : [item.image || 'logo.png'];
+      const coverImage = imageList[0];
+      const safeName = item.name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
       const card = document.createElement('div');
       card.className = 'product-card';
-
-      // Price / Badge Logic
-      const hasDiscount = item.precio_original && Number(item.precio_original) > Number(item.precio);
-      const discountBadge = hasDiscount ? '<span class="badge-oferta">OFERTA</span>' : '';
-      const priceHtml = hasDiscount
-        ? `<div class="precio-box"><span class="precio-original">$${item.precio_original}</span><span class="precio-actual">$${item.precio} MXN</span></div>`
-        : `<div class="precio-box"><span class="precio-actual">$${item.precio} MXN</span></div>`;
-
+      card.style.position = 'relative';
       card.innerHTML = `
-        <div style="position: relative;">
-          ${discountBadge}
-          <div class="product-img-box" style="cursor: pointer;" onclick="openOfertaModal('${item.nombre}', '${item.descripcion || ''}', ${JSON.stringify(item.imagenes || [item.imagen]).replace(/"/g, '&quot;')})">
-            <img src="${item.imagen}" alt="${item.nombre}" loading="lazy">
+        <div>
+          <div class="product-img-box gallery-trigger" style="position: relative; cursor: zoom-in;" title="Ver galería de fotos">
+            ${isSale ? '<span class="badge-oferta">OFERTA</span>' : ''}
+            ${imageList.length > 1 ? `
+              <span style="position: absolute; top: 6px; left: 6px; background: rgba(16, 38, 25, 0.78); backdrop-filter: blur(4px); color: #FFFFFF; font-size: 0.65rem; font-weight: 700; padding: 2px 6px; border-radius: 6px; z-index: 2; display: inline-flex; align-items: center; gap: 4px; border: 1px solid rgba(212, 175, 55, 0.4);">
+                <i class="fa-solid fa-camera" style="color: #F5D061; font-size: 0.6rem;"></i> ${imageList.length}
+              </span>` : ''}
+            <img src="${coverImage}" alt="${item.name || 'Regalo'}">
           </div>
-          <h3 class="product-name">${item.nombre}</h3>
-          <p class="product-ingredients">${item.descripcion || ''}</p>
-          ${priceHtml}
+          <h3 class="product-name">${titleText}</h3>
+          <p class="product-ingredients">${descText}</p>
         </div>
-        <button class="buy-button" style="width: 100%; margin-top: 8px;" onclick="addToCartDirect('${item.id || item.nombre}', '${item.nombre}', ${item.precio}, '${item.imagen}')">
-          <i class="fa-solid fa-cart-plus"></i> Agregar
-        </button>
+        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; margin-top: auto; padding: 4px 2px 2px 2px;">
+          <div style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15; min-width: 0;">
+            ${isSale ? `<span style="font-size: 0.72rem; text-decoration: line-through; color: #888888; font-weight: 600;">$${originalPrice}</span>` : ''}
+            <span style="font-family: var(--font-heading, 'Cinzel', serif); font-size: 1.05rem; font-weight: 800; color: var(--matcha-deep, #07511A);">$${price}</span>
+          </div>
+          <button onclick="event.stopPropagation(); addToCart('${safeName}', ${price})" title="Añadir al carrito" style="width: 32px; height: 32px; min-width: 32px; border-radius: 50%; border: 1.5px solid var(--matcha-deep, #07511A); background: #FFFFFF; color: var(--matcha-deep, #07511A); display: flex; align-items: center; justify-content: center; font-size: 0.88rem; cursor: pointer; padding: 0; box-shadow: 0 2px 6px rgba(0,0,0,0.06); transition: all 0.15s ease; flex-shrink: 0;" onmouseover="this.style.background='#07511A'; this.style.color='#FFFFFF'; this.style.transform='scale(1.08)';" onmouseout="this.style.background='#FFFFFF'; this.style.color='#07511A'; this.style.transform='scale(1)';">
+            <i class="fa-solid fa-cart-plus"></i>
+          </button>
+        </div>
       `;
-      container.appendChild(card);
+      card.querySelector('.gallery-trigger').onclick = () => {
+        openOfertaModal(titleText, descText, imageList, item.name, price);
+      };
+      track.appendChild(card);
     });
-  } catch (err) {
-    console.error('Error loading regalos grid:', err);
-    container.innerHTML = '<p style="text-align:center; width:100%; grid-column: 1/-1;">Error al cargar los regalos.</p>';
+  } catch (error) {
+    console.error("Error loading regalos.json:", error);
   }
 }
 
