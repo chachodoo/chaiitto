@@ -471,14 +471,35 @@
   /* =========================================
      6. FINALE CONTAINER
      ========================================= */
-  .experiencia-finale {
-    display: none;
-    padding: 60px 20px 80px 20px;
-    background: #ECE8DE;
-    text-align: center;
-    width: 100%;
-    box-sizing: border-box;
+ .experiencia-finale {
+  display: none;
+  padding: 60px 20px 80px 20px;
+  background: #ECE8DE;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.experiencia-finale.active {
+  display: block !important;
+}
+
+/* Grid layout for the community tiles */
+.community-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+@media (max-width: 991px) {
+  .community-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
   }
+}
 
   /* 3D TILE FLIP CONTAINER */
 .community-tile {
