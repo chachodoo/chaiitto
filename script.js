@@ -534,7 +534,6 @@ async function fetchProducts() {
         // 3. FORCE IMMEDIATE JUMP TO TOP (Removed 'smooth' so it doesn't get stuck)
         window.scrollTo(0, 0);
         // Smooth glide back to Collections if flagged
-    // Smooth glide back to Collections if flagged
 if (pageName === 'inicio' && window.shouldScrollToCollections) {
     window.shouldScrollToCollections = false;
     setTimeout(() => {
@@ -1747,6 +1746,7 @@ function goToBazarVip(e) {
   
 }
 
+//  must be cleaned up later  1751 -1759
 window.openTiendaCollection = function (collectionName) {
   // 1. Immediately vanish the dropdown so it never lingers over the jars
   const menu = document.querySelector('.nav-dropdown-menu');
@@ -1765,6 +1765,8 @@ window.openTiendaCollection = function (collectionName) {
     window.location.hash = 'productos';
   }
 };
+
+// must be cleaned up later 1769 - 1777
 window.openStoreSection = function (sectionId) {
   const menu = document.querySelector('.nav-dropdown-menu');
   if (menu) {
@@ -1780,6 +1782,7 @@ window.openStoreSection = function (sectionId) {
   }
 };
 
+// must be cleaned up later 1785 - 1802
 // MASTER STORE NAVIGATION ROUTER
 window.openStoreSection = function (sectionId) {
   // 1. Instantly hide dropdown so it never lingers over content
@@ -1797,57 +1800,48 @@ window.openStoreSection = function (sectionId) {
     switchPage(sectionId);
   }
 };
-/* ===================================================
-   MOBILE ROW 2 TIENDA DROPDOWN CONTROLLER
-   =================================================== */
-function closeMobileTienda() {
-  const flyout = document.getElementById('mobile-tienda-flyout');
-  if (flyout) flyout.classList.remove('active');
+
+// =========================================
+// MOBILE TIENDA DROPDOWN CONTROLLER
+// =========================================
+document.addEventListener('DOMContentLoaded', () => {
   const trigger = document.getElementById('mobile-tienda-trigger');
-  if (trigger) {
-    const icon = trigger.querySelector('i');
-    if (icon) icon.style.transform = 'rotate(0deg)';
-  }
-}
-
-function toggleMobileTienda(e) {
-  if (e) {
-    e.stopPropagation();
-    e.preventDefault();
-  }
   const flyout = document.getElementById('mobile-tienda-flyout');
-  const trigger = document.getElementById('mobile-tienda-trigger');
-  if (!flyout) return;
 
-  const isOpen = flyout.classList.toggle('active');
-  if (trigger) {
-    const icon = trigger.querySelector('i');
-    if (icon) {
-      icon.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
-    }
-  }
-}
+  if (trigger && flyout) {
+    const caret = trigger.querySelector('i');
 
-function openStoreSection(sectionId, e) {
-  if (e) {
-    e.stopPropagation();
-    e.preventDefault();
-  }
-  closeMobileTienda();
-  if (typeof switchPage === 'function') {
-    switchPage(sectionId);
-  }
-}
+    const closeMenu = () => {
+      flyout.style.display = 'none';
+      if (caret) caret.style.transform = 'rotate(0deg)';
+    };
 
-// Auto-close ONLY when tapping outside (Fixed touch bug)
-document.addEventListener('click', function(e) {
-  const flyout = document.getElementById('mobile-tienda-flyout');
-  const trigger = document.getElementById('mobile-tienda-trigger');
-  if (!flyout || !flyout.classList.contains('active')) return;
+    const openMenu = () => {
+      flyout.style.display = 'block';
+      if (caret) caret.style.transform = 'rotate(180deg)';
+    };
 
-  // If clicked outside both the menu and the trigger button, close it
-  if (!flyout.contains(e.target) && (!trigger || !trigger.contains(e.target))) {
-    closeMobileTienda();
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isVisible = flyout.style.display === 'block';
+      if (isVisible) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (flyout.style.display === 'block') {
+        if (!flyout.contains(e.target) && !trigger.contains(e.target)) {
+          closeMenu();
+        }
+      }
+    });
+
+    flyout.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
   }
 });
 
