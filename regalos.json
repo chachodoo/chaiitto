@@ -24,5 +24,44 @@
       "regalos/regalos-02-2.jpeg",
       "regalos/regalos-02-3.jpeg"
     ]
+  },
+  {
+    "num": "03",
+    "name": "Perfume Arabe 10ml",
+    "descripcion": "Perfume de Aceite de alta duracion Roll On.",
+    "precio": 200,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "regalos/regalos-03-1.jpeg",
+      "regalos/regalos-03-2.jpeg",
+      "regalos/regalos-03-3.jpeg"
+    ]
+  },
+  {
+    "num": "04",
+    "name": "Perfume Arabe 10ml",
+    "descripcion": "Perfume de Aceite de alta duracion Roll On.",
+    "precio": 200,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "regalos/regalos-04-1.jpeg",
+      "regalos/regalos-04-2.jpeg",
+      "regalos/regalos-04-3.jpeg"
+    ]
+  },
+  {
+    "num": "05",
+    "name": "Perfume Arabe 10ml",
+    "descripcion": "Perfume de Aceite de alta duracion Roll On.",
+    "precio": 200,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "regalos/regalos-05-1.jpeg",
+      "regalos/regalos-05-2.jpeg",
+      "regalos/regalos-05-3.jpeg"
+    ]
   }
 ]
