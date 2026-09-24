@@ -2246,7 +2246,7 @@ async function initLivingMosaic() {
 
   // Mount media into cards and launch the flip loop
   mountShuffledMedia();
-  startLivingMosaicCycle();
+  openTilesStaggered();
 }
 
 // 4. Populate 24 random items into the cards
@@ -2298,7 +2298,7 @@ function openTilesStaggered() {
 
   // Hold open for 6 seconds, then flip closed to logos
   clearTimeout(mosaicLoopTimer);
-  mosaicLoopTimer = setTimeout(closeTilesStaggered, 6000);
+  mosaicLoopTimer = setTimeout(closeTilesStaggered, 2000);
 }
 
 // 6. Flip closed to show logos in random order
@@ -2318,5 +2318,5 @@ function closeTilesStaggered() {
   mosaicLoopTimer = setTimeout(() => {
     mountShuffledMedia();
     openTilesStaggered();
-  }, 1800);
+  }, 300);
 }
