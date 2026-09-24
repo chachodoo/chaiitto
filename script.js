@@ -2304,7 +2304,7 @@ function openTilesStaggered() {
 
   // Shuffle the tile order so they pop open randomly across the grid
   const shuffledIndices = tiles.map((_, i) => i).sort(() => Math.random() - 0.5);
-  const stepDelay = 80; // 80ms between each individual tile
+  const stepDelay = 180; // 180ms between each individual tile
 
   shuffledIndices.forEach((tileIdx, step) => {
     const tile = tiles[tileIdx];
