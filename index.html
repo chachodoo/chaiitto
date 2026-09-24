@@ -1799,35 +1799,30 @@ nav.main-nav {
         </div>
             
         <!-- ROW 2: PERMANENT MOBILE NAVIGATION BAR -->
-   <nav id="mobile-header-wrapper" style="overflow: visible !important;">
-      <button type="button" class="row2-tab-btn" onclick="switchPage('inicio'); var m=document.getElementById('mobile-tienda-flyout'); if(m) m.style.display='none';">Inicio</button>
+    <nav id="mobile-header-wrapper" style="overflow: visible !important;">
+      <button type="button" class="row2-tab-btn" onclick="switchPage('inicio')">Inicio</button>
       
       <div class="row2-dropdown-wrapper">
-        <button type="button" class="row2-tab-btn" id="mobile-tienda-trigger" onclick="event.stopPropagation(); var m=document.getElementById('mobile-tienda-flyout'); var open=(m.style.display==='block'); m.style.display=open?'none':'block'; this.querySelector('i').style.transform=open?'rotate(0deg)':'rotate(180deg)';">
+        <button type="button" class="row2-tab-btn" id="mobile-tienda-trigger">
           Tienda <i class="fa-solid fa-chevron-down" style="transition: transform 0.2s ease;"></i>
         </button>
 
         <div id="mobile-tienda-flyout" class="mobile-tienda-dropdown" style="display: none;">
-          <a href="#productos" onclick="switchPage('productos'); document.getElementById('mobile-tienda-flyout').style.display='none'; document.querySelector('#mobile-tienda-trigger i').style.transform='rotate(0deg)';">
+          <a href="#productos" onclick="switchPage('productos')">
             <i class="fa-solid fa-leaf"></i> Tés de Hoja Suelta
           </a>
-          <a href="#accesorios" onclick="switchPage('accesorios'); document.getElementById('mobile-tienda-flyout').style.display='none'; document.querySelector('#mobile-tienda-trigger i').style.transform='rotate(0deg)';">
+          <a href="#accesorios" onclick="switchPage('accesorios')">
             <i class="fa-solid fa-mug-hot"></i> Accesorios de Té
           </a>
-            <!--
-          <a href="#regalos" onclick="switchPage('regalos'); document.getElementById('mobile-tienda-flyout').style.display='none'; document.querySelector('#mobile-tienda-trigger i').style.transform='rotate(0deg)';">
-            <i class="fa-solid fa-gift"></i> Regalos
-          </a>
-            -->
-          <a href="#bazar" onclick="switchPage('bazar'); document.getElementById('mobile-tienda-flyout').style.display='none'; document.querySelector('#mobile-tienda-trigger i').style.transform='rotate(0deg)';">
+          <a href="#bazar" onclick="switchPage('bazar')">
             <i class="fa-solid fa-crown"></i> Bazar VIP
           </a>
         </div>
       </div>
 
-      <button type="button" class="row2-tab-btn" onclick="switchPage('vip'); var m=document.getElementById('mobile-tienda-flyout'); if(m) m.style.display='none';">Club VIP</button>
-      <button type="button" class="row2-tab-btn" onclick="switchPage('experiencia'); var m=document.getElementById('mobile-tienda-flyout'); if(m) m.style.display='none';">Experiencia</button>
-    </nav>  
+      <button type="button" class="row2-tab-btn" onclick="switchPage('vip')">Club VIP</button>
+      <button type="button" class="row2-tab-btn" onclick="switchPage('experiencia')">Experiencia</button>
+    </nav>
        <!-- UNIFIED CLEAN NAVIGATION -->
         <nav id="main-nav-menu" class="main-nav nav-menu">
             <button class="nav-btn" onclick="switchPage('inicio')">INICIO</button>
