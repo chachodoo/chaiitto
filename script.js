@@ -2086,304 +2086,175 @@ function initMovieScrubber() {
 }
 
 /* ===================================================
-   COMMUNITY FINALE: 3D SHATTER & REBUILD ENGINE
-   - Mobile: 304px x 384px (All 6 rows 100% visible)
-   - Desktop: 750px x 440px (Clearance below marquee + header)
-   - 1px hairline seams with zero phantom borders
-   - Video properly initialized & playing (No black box)
-   - 300ms cadence & 2.5s completion showcase hold
-   - 1.1s graceful 3D shatter & 0.95s crystal rebuild wave
+   COMMUNITY FINALE: 3D CARD FLIP & RANDOM RESHUFFLE
+   - Filters galeria.json: Only cc- and vv- (ignores no-)
+   - Supports .mp4 autoplay & JPG/jpg/jpeg images
+   - Staggered 3D flips between Chai-itto Logo & Media
+   - Infinitely loops with fresh random order each cycle
    =================================================== */
 let activeCommunityPool = [];
 let isMosaicRunning = false;
 let mosaicLoopTimer = null;
-let currentPaletteIndex = 0;
+const TOTAL_MOSAIC_SLOTS = 24;
 
-const MOSAIC_ANIMATIONS = [
-  'anim-flip-y',
-  'anim-flip-x',
-  'anim-flip-diag',
-  'anim-white-pop'
-];
-
-const TEA_PALETTES = [
-  'radial-gradient(circle at center, #0B3814 0%, #021B07 100%)', // Forest Matcha
-  'radial-gradient(circle at center, #4A1E05 0%, #1A0902 100%)', // Spiced Chai Cinnamon
-  'radial-gradient(circle at center, #1B1E1C 0%, #060706 100%)', // Midnight Black Tea
-  'radial-gradient(circle at center, #523808 0%, #1C1302 100%)', // Golden Amber Oolong
-  'radial-gradient(circle at center, #3E0C22 0%, #15020B 100%)', // Hibiscus Plum
-  'radial-gradient(circle at center, #0B332A 0%, #031410 100%)'  // Imperial Jade
-];
-
-const FALLBACK_ACTIVE_FILES = [
-  'galeria/vv-1.mp4', 'galeria/cc-1.jpg', 'galeria/cc-2.jpg', 'galeria/cc-3.jpg',
-  'galeria/cc-4.JPG', 'galeria/cc-5.JPG', 'galeria/cc-6.JPG', 'galeria/cc-7.JPG',
-  'galeria/cc-8.JPG', 'galeria/cc-9.JPG', 'galeria/cc-10.JPG', 'galeria/cc-11.JPG',
-  'galeria/cc-12.JPG', 'galeria/cc-13.JPG', 'galeria/cc-14.JPG', 'galeria/cc-15.JPG',
-  'galeria/cc-16.JPG', 'galeria/cc-17.JPG', 'galeria/cc-18.JPG', 'galeria/cc-19.JPG',
-  'galeria/cc-20.JPG', 'galeria/cc-21.JPG', 'galeria/cc-22.JPG', 'galeria/cc-23.JPG',
-  'galeria/cc-24.JPG', 'galeria/cc-25.JPG'
-];
-
-function resolvePath(p) {
+// Helper to ensure correct relative path
+function formatMediaPath(item) {
+  let p = typeof item === 'string' ? item : (item.src || item.image || item.file || item.url || '');
+  p = p.trim();
   if (!p) return '';
-  p = String(p).trim();
-  if (p.startsWith('http://') || p.startsWith('https://') || p.startsWith('data:')) return p;
-  if (p.startsWith('/')) p = p.substring(1);
+  if (p.startsWith('http://') || p.startsWith('https://') || p.startsWith('/')) return p;
   return p.startsWith('galeria/') ? p : 'galeria/' + p;
 }
 
-async function loadActiveMediaList() {
-  if (activeCommunityPool.length >= 24) return;
+// 1. Fetch JSON and filter only vv- and cc-, strictly ignoring no-
+async function loadFilteredMedia() {
+  if (activeCommunityPool.length >= TOTAL_MOSAIC_SLOTS) return;
 
   try {
     const res = await fetch('galeria.json?v=' + Date.now());
     if (res.ok) {
       const data = await res.json();
-      let galleryItems = [];
-      if (Array.isArray(data)) {
-        galleryItems = data;
-      } else if (typeof data === 'object' && data !== null) {
-        galleryItems = data.images || data.galeria || data.items || Object.values(data);
-      }
-      activeCommunityPool = galleryItems
-        .map(item => typeof item === 'string' ? item : (item.src || item.image || item.url || item.file || ''))
-        .filter(Boolean)
-        .map(resolvePath)
-        .filter(p => !p.includes('/no-') && (p.includes('/cc-') || p.includes('/vv-')));
+      const rawList = Array.isArray(data) ? data : (data.images || data.galeria || data.items || Object.values(data));
+      
+      activeCommunityPool = rawList
+        .map(formatMediaPath)
+        .filter(path => {
+          const fileName = path.split('/').pop().toLowerCase();
+          const isAllowedPrefix = fileName.startsWith('cc-') || fileName.startsWith('vv-');
+          const isIgnored = fileName.startsWith('no-');
+          return isAllowedPrefix && !isIgnored;
+        });
     }
-  } catch (e) {
-    console.warn("Using default active community media:", e);
+  } catch (err) {
+    console.warn("Error cargando galeria.json, usando lista activa:", err);
   }
 
-  if (activeCommunityPool.length < 24) {
-    activeCommunityPool = FALLBACK_ACTIVE_FILES;
+  // Safety fallback if JSON fails
+  if (activeCommunityPool.length === 0) {
+    activeCommunityPool = [
+      'galeria/vv-1.mp4', 'galeria/cc-1.jpg', 'galeria/cc-2.jpg', 'galeria/cc-3.jpg',
+      'galeria/cc-4.JPG', 'galeria/cc-5.JPG', 'galeria/cc-6.JPG', 'galeria/cc-7.JPG',
+      'galeria/cc-8.JPG', 'galeria/cc-9.JPG', 'galeria/cc-10.JPG', 'galeria/cc-11.JPG',
+      'galeria/cc-12.JPG', 'galeria/cc-13.JPG', 'galeria/cc-14.JPG', 'galeria/cc-15.JPG',
+      'galeria/cc-16.JPG', 'galeria/cc-17.JPG', 'galeria/cc-18.JPG', 'galeria/cc-19.JPG',
+      'galeria/cc-20.JPG', 'galeria/cc-21.JPG', 'galeria/cc-22.JPG', 'galeria/cc-23.JPG'
+    ];
   }
 }
 
-function scrollToCommunityMosaic() {
-  const grid = document.getElementById('mosaic-grid');
-  const header = document.querySelector('header') || document.getElementById('main-master-header');
-  if (!grid || !header) return;
-
-  const headerBottom = header.getBoundingClientRect().bottom;
-
-  // On desktop: Dynamically size height to fit between header bottom and viewport bottom
-  if (window.innerWidth >= 992) {
-    const dynamicHeight = Math.floor(window.innerHeight - headerBottom - 2);
-    grid.style.setProperty('height', `${dynamicHeight}px`, 'important');
+// 2. Triggered by movie end card button
+window.scrollToCommunityMosaic = function() {
+  const finale = document.getElementById('experiencia-finale') || document.querySelector('.experiencia-finale');
+  if (finale) {
+    finale.style.display = 'block';
+    finale.scrollIntoView({ behavior: 'smooth' });
   }
+  
+  if (!isMosaicRunning) {
+    initLivingMosaic();
+  }
+};
 
-  // Exact 1px top clearance below header
-  const currentGap = grid.getBoundingClientRect().top - headerBottom;
-  const targetY = window.pageYOffset + currentGap - 1;
-
-  window.scrollTo({ top: Math.max(0, Math.round(targetY)), behavior: 'smooth' });
-
-  setTimeout(() => {
-    startLivingMosaic();
-  }, 400);
-}
-
-async function startLivingMosaic() {
-  const grid = document.getElementById('mosaic-grid');
-  if (!grid || isMosaicRunning) return;
+// 3. Build the DOM cards with Front (Media) and Back (Logo)
+async function initLivingMosaic() {
+  const track = document.getElementById('community-mosaic-track') || document.getElementById('mosaic-grid');
+  if (!track) return;
   isMosaicRunning = true;
 
-  if (mosaicLoopTimer) clearTimeout(mosaicLoopTimer);
+  await loadFilteredMedia();
 
-  await loadActiveMediaList();
-
-  const TOTAL_SLOTS = 24;
-
-  // Build grid structure once
-  if (grid.children.length !== TOTAL_SLOTS) {
-    grid.innerHTML = '';
-    for (let i = 0; i < TOTAL_SLOTS; i++) {
+  // Create slot elements once if not already rendered
+  if (track.children.length !== TOTAL_MOSAIC_SLOTS) {
+    track.innerHTML = '';
+    for (let i = 0; i < TOTAL_MOSAIC_SLOTS; i++) {
       const tile = document.createElement('div');
-      tile.className = 'mosaic-tile';
-      tile.id = `mosaic-tile-${i}`;
+      tile.className = 'community-tile is-flipped';
+      tile.id = `community-tile-${i}`;
       tile.innerHTML = `
-        <div class="tile-face-logo">
-          <img src="logo.png" alt="Chai-itto">
+        <div class="tile-inner">
+          <div class="tile-face tile-front" id="tile-front-${i}"></div>
+          <div class="tile-face tile-back">
+            <img src="logo.png" alt="Chai-itto">
+          </div>
         </div>
-        <div class="tile-face-media" id="tile-media-${i}"></div>
       `;
-      grid.appendChild(tile);
+      track.appendChild(tile);
     }
   }
 
-  // 1 UNIFIED COLOR PER ROUND FOR ALL 24 TILES
-  const roundPalette = TEA_PALETTES[currentPaletteIndex % TEA_PALETTES.length];
-  currentPaletteIndex++;
-  grid.dataset.roundPalette = roundPalette;
+  // Populate media and start the first open sequence
+  mountShuffledMedia();
+  setTimeout(openTilesStaggered, 350);
+}
 
-  // Shuffle and deal 24 unique items (Zero Duplicates)
-  const shuffled = [...activeCommunityPool].sort(() => Math.random() - 0.5);
-  const deck = shuffled.slice(0, TOTAL_SLOTS);
+// 4. Populate 24 random items into the cards
+function mountShuffledMedia() {
+  const deck = [...activeCommunityPool].sort(() => Math.random() - 0.5).slice(0, TOTAL_MOSAIC_SLOTS);
 
-  // Mount media with unified palette applied to tile, logo, and flip face
-  for (let i = 0; i < TOTAL_SLOTS; i++) {
-    const tileEl = document.getElementById(`mosaic-tile-${i}`);
-    tileEl.className = 'mosaic-tile';
-    tileEl.style.setProperty('background', roundPalette, 'important');
+  for (let i = 0; i < TOTAL_MOSAIC_SLOTS; i++) {
+    const frontFace = document.getElementById(`tile-front-${i}`);
+    if (!frontFace) continue;
 
-    const logoFace = tileEl.querySelector('.tile-face-logo');
-    if (logoFace) {
-      logoFace.style.setProperty('background', roundPalette, 'important');
-    }
+    const mediaSrc = deck[i] || activeCommunityPool[i % activeCommunityPool.length];
+    const isVideo = mediaSrc.toLowerCase().endsWith('.mp4');
 
-    const mediaEl = document.getElementById(`tile-media-${i}`);
-    if (mediaEl) {
-      mediaEl.style.setProperty('background', roundPalette, 'important');
-    }
-
-    const mediaSrc = deck[i];
-    const isVideo = mediaSrc.toLowerCase().endsWith('.mp4') || mediaSrc.toLowerCase().endsWith('.webm');
+    frontFace.innerHTML = '';
 
     if (isVideo) {
-      mediaEl.innerHTML = '';
-
       const video = document.createElement('video');
-      
-      // 1. Critical DOM attributes set BEFORE src for Safari/Chrome autoplay
-      video.setAttribute('muted', '');
-      video.setAttribute('playsinline', '');
-      video.setAttribute('webkit-playsinline', '');
-      video.setAttribute('autoplay', '');
-      video.setAttribute('loop', '');
       video.muted = true;
       video.defaultMuted = true;
       video.autoplay = true;
       video.loop = true;
       video.playsInline = true;
-      video.preload = 'auto';
-
-      // 2. Set src after attributes are locked
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
       video.src = mediaSrc;
-
-      // 3. Force absolute cover dimensions
-      video.style.position = 'absolute';
-      video.style.top = '0';
-      video.style.left = '0';
-      video.style.width = '100%';
-      video.style.height = '100%';
-      video.style.objectFit = 'cover';
-      video.style.objectPosition = 'center 15%';
-      video.style.display = 'block';
-
-      mediaEl.appendChild(video);
-
-      // 4. Play trigger
-      video.play().catch(err => {
-        console.warn("Autoplay wait:", err);
-      });
-
-      mediaEl.onclick = (e) => {
-        e.stopPropagation();
-        video.muted = !video.muted;
-      };
-      mediaEl.style.cursor = 'pointer';
+      frontFace.appendChild(video);
+      video.play().catch(() => {});
     } else {
-      mediaEl.innerHTML = `<img src="${mediaSrc}" alt="Comunidad Chai-itto">`;
-      mediaEl.onclick = () => {
-        if (typeof openOfertaModal === 'function') {
-          openOfertaModal('Comunidad Chai-itto', 'Ritual y Tradición', [mediaSrc], 'Comunidad', 0);
-        }
-      };
+      const img = document.createElement('img');
+      img.src = mediaSrc;
+      img.alt = 'Comunidad Chai-itto';
+      img.loading = 'lazy';
+      frontFace.appendChild(img);
     }
   }
-
-  // Sequential reveal cadence
-  const slotOrder = Array.from({ length: TOTAL_SLOTS }, (_, i) => i).sort(() => Math.random() - 0.5);
-  let step = 0;
-
-  function revealNext() {
-    if (step < TOTAL_SLOTS) {
-      const slotIdx = slotOrder[step];
-      const tileEl = document.getElementById(`mosaic-tile-${slotIdx}`);
-      if (tileEl) {
-        const vid = tileEl.querySelector('video');
-        // Video uses 2D pop so WebKit/Chrome GPU compositor doesn't drop texture; photos keep 3D flips
-        const randomAnim = vid 
-          ? 'anim-white-pop' 
-          : MOSAIC_ANIMATIONS[Math.floor(Math.random() * MOSAIC_ANIMATIONS.length)];
-
-        tileEl.className = `mosaic-tile revealed ${randomAnim}`;
-
-        if (vid) {
-          vid.muted = true;
-          vid.defaultMuted = true;
-          vid.playsInline = true;
-          vid.play().catch(() => {});
-        }
-      }
-      step++;
-      mosaicLoopTimer = setTimeout(revealNext, 200);
-    } else {
-      grid.classList.add('completed');
-      mosaicLoopTimer = setTimeout(shatterAndRebuild, 2000);
-    }
-  }
-
-  setTimeout(revealNext, 200);
 }
 
-// 0.85s 3D dark shatter & 0.75s crystal rebuild sequence
-function shatterAndRebuild() {
-  const grid = document.getElementById('mosaic-grid');
-  const activeColor = grid ? (grid.dataset.roundPalette || TEA_PALETTES[0]) : '#021B07';
+// 5. Flip open to reveal media in random order
+function openTilesStaggered() {
+  const tiles = Array.from(document.querySelectorAll('.community-tile'));
+  if (tiles.length === 0) return;
 
-  if (grid) {
-    grid.classList.remove('completed');
-    grid.classList.add('shattering');
-    // Prevents white flash: grid takes the round's ambient tea color while tiles fly away
-    grid.style.setProperty('background', activeColor, 'important');
-  }
-
-  const tiles = document.querySelectorAll('.mosaic-tile');
-
-  // Phase 1: 3D Shatter into dark botanical background (0.85s)
-  tiles.forEach((tile, idx) => {
-    const shatterVariant = idx % 6;
-    tile.className = `mosaic-tile shatter-${shatterVariant}`;
+  tiles.forEach(tile => {
+    const randomDelay = (Math.random() * 0.85).toFixed(2);
+    const inner = tile.querySelector('.tile-inner');
+    if (inner) inner.style.transitionDelay = `${randomDelay}s`;
+    tile.classList.remove('is-flipped');
   });
 
-  // Phase 2: Staggered Crystal Rebuild wave (0.75s)
-  setTimeout(() => {
-    if (grid) grid.classList.remove('shattering');
-
-    tiles.forEach((tile, idx) => {
-      tile.className = 'mosaic-tile rebuilding';
-      tile.style.animationDelay = `${(idx % 6) * 50}ms`;
-    });
-
-    // Phase 3: Launch next round once seals have snapped into place
-    setTimeout(() => {
-      tiles.forEach(tile => {
-        tile.className = 'mosaic-tile';
-        tile.style.animationDelay = '';
-      });
-      // Restore crisp 1px hairline grid seams
-      if (grid) {
-        grid.style.setProperty('background', '#FFFFFF', 'important');
-      }
-      isMosaicRunning = false;
-      startLivingMosaic();
-    }, 750);
-  }, 850);
+  // Hold open for 6 seconds, then flip closed to logos
+  clearTimeout(mosaicLoopTimer);
+  mosaicLoopTimer = setTimeout(closeTilesStaggered, 6000);
 }
 
-// Global scroll observer
-let hasMosaicAutoStarted = false;
-window.addEventListener('scroll', () => {
-  if (hasMosaicAutoStarted) return;
-  const finale = document.querySelector('.experiencia-finale');
-  if (finale) {
-    const rect = finale.getBoundingClientRect();
-    if (rect.top < window.innerHeight && rect.bottom >= 0) {
-      hasMosaicAutoStarted = true;
-      startLivingMosaic();
-    }
-  }
-}, { passive: true });
+// 6. Flip closed to show logos in random order
+function closeTilesStaggered() {
+  const tiles = Array.from(document.querySelectorAll('.community-tile'));
+  if (tiles.length === 0) return;
+
+  tiles.forEach(tile => {
+    const randomDelay = (Math.random() * 0.55).toFixed(2);
+    const inner = tile.querySelector('.tile-inner');
+    if (inner) inner.style.transitionDelay = `${randomDelay}s`;
+    tile.classList.add('is-flipped');
+  });
+
+  // Wait 1.8s while all cards face the logo side: reshuffle media and open again
+  clearTimeout(mosaicLoopTimer);
+  mosaicLoopTimer = setTimeout(() => {
+    mountShuffledMedia();
+    openTilesStaggered();
+  }, 1800);
+}
