@@ -2069,45 +2069,7 @@ nav.main-nav {
         });
     }    
 
-    const originalSwitchPage = window.switchPage;
-    window.switchPage = async function(pageName) {
-        // ALWAYS close menu and restore bars immediately when navigating
-        window.closeMobileMenu();
-
-        if (originalSwitchPage) await originalSwitchPage(pageName);
-
-        // Force scroll to top & clear text selection
-        window.scrollTo(0, 0);
-        if (window.getSelection) {
-            window.getSelection().removeAllRanges();
-        }
-
-        const topHero = document.getElementById('master-hero-banner');
-        const smallLogo = document.querySelector('.logo-wrapper');
-
-        if (pageName === 'inicio') {
-        if (topHero) topHero.style.display = 'flex';
-        document.body.classList.add('page-inicio');
-        } else {
-        if (topHero) topHero.style.display = 'none';
-        document.body.classList.remove('page-inicio');
-        }
-    };
-
-    // HAMBURGER BUTTON FUNCTION
-    window.toggleMobileMenu = function() {
-        const mobileMenu = document.getElementById('main-nav-menu');
-        const hambIcon = document.querySelector('#floating-hamburger-btn i');
-        if (!mobileMenu) return;
-
-        const isOpen = mobileMenu.classList.toggle('active');
-        document.body.style.overflow = isOpen ? 'hidden' : '';
-
-        if (hambIcon) {
-            hambIcon.classList.toggle('fa-bars', !isOpen);
-            hambIcon.classList.toggle('fa-xmark', isOpen);
-        }
-    };
+    
 
 
         // Listen for URL changes and switch pages automatically
