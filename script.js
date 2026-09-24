@@ -2318,5 +2318,5 @@ function closeTilesStaggered() {
   mosaicLoopTimer = setTimeout(() => {
     mountShuffledMedia();
     openTilesStaggered();
-  }, 300);
+  }, 1200);
 }
