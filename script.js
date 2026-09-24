@@ -2146,6 +2146,7 @@ async function loadFilteredMedia() {
 window.scrollToCommunityMosaic = function() {
   const finale = document.getElementById('experiencia-finale') || document.querySelector('.experiencia-finale');
   if (finale) {
+    finale.classList.add('active');
     finale.style.display = 'block';
     finale.scrollIntoView({ behavior: 'smooth' });
   }
