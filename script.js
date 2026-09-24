@@ -2214,23 +2214,21 @@ async function initLivingMosaic() {
 
   isMosaicRunning = true;
 
-  // Clear any existing loop timer so cycles never stack or run in parallel
   if (typeof mosaicLoopTimer !== 'undefined' && mosaicLoopTimer) {
     clearTimeout(mosaicLoopTimer);
     mosaicLoopTimer = null;
   }
 
-  // Load the gallery media if not already loaded
   if (activeCommunityPool.length === 0) {
     await loadFilteredMedia();
   }
 
-  // If the track was cleared or empty, construct all 24 3D flip card slots
+  // 1. Build all 24 slots CLOSED with 'is-flipped' (shows Chai-itto logo)
   if (track.children.length === 0) {
     track.innerHTML = '';
     for (let i = 0; i < TOTAL_MOSAIC_SLOTS; i++) {
       const tile = document.createElement('div');
-      tile.className = 'community-tile';
+      tile.className = 'community-tile is-flipped';
       tile.id = `community-tile-${i}`;
       tile.innerHTML = `
         <div class="tile-inner">
@@ -2242,11 +2240,25 @@ async function initLivingMosaic() {
       `;
       track.appendChild(tile);
     }
+  } else {
+    // If tiles already exist (Round 2), immediately snap all 24 back to CLOSED
+    track.querySelectorAll('.community-tile').forEach(tile => tile.classList.add('is-flipped'));
   }
 
-  // Mount media into cards and launch the flip loop
+  // Zero out any leftover transition delays
+  track.querySelectorAll('.tile-inner').forEach(inner => {
+    inner.style.transitionDelay = '0s';
+  });
+
+  // Load photos into the cards behind the closed logos
   mountShuffledMedia();
-  openTilesStaggered();
+
+  // Brief pause so the visitor sees all 24 logos, then start opening one by one
+  clearTimeout(mosaicLoopTimer);
+  mosaicLoopTimer = setTimeout(() => {
+    if (!isMosaicRunning) return;
+    openTilesStaggered();
+  }, 400);
 }
 
 // 4. Populate 24 random items into the cards
@@ -2284,39 +2296,66 @@ function mountShuffledMedia() {
   }
 }
 
-// 5. Flip open to reveal media in random order
+// 5. Flip open to reveal media one tile at a time (scattered order, not a curtain)
 function openTilesStaggered() {
+  if (!isMosaicRunning) return;
   const tiles = Array.from(document.querySelectorAll('.community-tile'));
   if (tiles.length === 0) return;
 
-  tiles.forEach(tile => {
-    const randomDelay = (Math.random() * 0.85).toFixed(2);
+  // Shuffle the tile order so they pop open randomly across the grid
+  const shuffledIndices = tiles.map((_, i) => i).sort(() => Math.random() - 0.5);
+  const stepDelay = 80; // 80ms between each individual tile
+
+  shuffledIndices.forEach((tileIdx, step) => {
+    const tile = tiles[tileIdx];
     const inner = tile.querySelector('.tile-inner');
-    if (inner) inner.style.transitionDelay = `${randomDelay}s`;
-    tile.classList.remove('is-flipped');
+    if (inner) inner.style.transitionDelay = '0s';
+
+    setTimeout(() => {
+      if (!isMosaicRunning) return;
+      tile.classList.remove('is-flipped');
+    }, step * stepDelay);
   });
 
-  // Hold open for 6 seconds, then flip closed to logos
-  clearTimeout(mosaicLoopTimer);
-  mosaicLoopTimer = setTimeout(closeTilesStaggered, 2000);
-}
+  // Last tile triggers at 1840ms + 800ms flip duration = 2640ms (all 24 fully open)
+  // + 2000ms hold time with all tiles displayed = 4640ms
+  const totalOpenDuration = ((tiles.length - 1) * stepDelay) + 800 + 2000;
 
-// 6. Flip closed to show logos in random order
-function closeTilesStaggered() {
-  const tiles = Array.from(document.querySelectorAll('.community-tile'));
-  if (tiles.length === 0) return;
-
-  tiles.forEach(tile => {
-    const randomDelay = (Math.random() * 0.55).toFixed(2);
-    const inner = tile.querySelector('.tile-inner');
-    if (inner) inner.style.transitionDelay = `${randomDelay}s`;
-    tile.classList.add('is-flipped');
-  });
-
-  // Wait 1.8s while all cards face the logo side: reshuffle media and open again
   clearTimeout(mosaicLoopTimer);
   mosaicLoopTimer = setTimeout(() => {
-    mountShuffledMedia();
-    openTilesStaggered();
-  }, 1200);
+    if (!isMosaicRunning) return;
+    closeTilesStaggered();
+  }, totalOpenDuration);
+}
+
+// 6. Flip closed to show logos, reshuffle media, and repeat infinitely
+function closeTilesStaggered() {
+  if (!isMosaicRunning) return;
+  const tiles = Array.from(document.querySelectorAll('.community-tile'));
+  if (tiles.length === 0) return;
+
+  const shuffledIndices = tiles.map((_, i) => i).sort(() => Math.random() - 0.5);
+  const closeStepDelay = 35; // Brisk wave closing back to logos
+
+  shuffledIndices.forEach((tileIdx, step) => {
+    const tile = tiles[tileIdx];
+    const inner = tile.querySelector('.tile-inner');
+    if (inner) inner.style.transitionDelay = '0s';
+
+    setTimeout(() => {
+      if (!isMosaicRunning) return;
+      tile.classList.add('is-flipped');
+    }, step * closeStepDelay);
+  });
+
+  // Time for all tiles to finish flipping closed: (23 * 35ms) + 800ms = 1605ms
+  // + 400ms pause so the field of logos is completely stationary before reopening
+  const totalCloseDuration = ((tiles.length - 1) * closeStepDelay) + 800 + 400;
+
+  clearTimeout(mosaicLoopTimer);
+  mosaicLoopTimer = setTimeout(() => {
+    if (!isMosaicRunning) return;
+    mountShuffledMedia(); // Swap media silently behind the closed logos
+    openTilesStaggered(); // Loop continues
+  }, totalCloseDuration);
 }
