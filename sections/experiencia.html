@@ -43,14 +43,14 @@
     #video-trap { height: calc(100vh - 155px); }
   }
 
-  .video-bg {
+ .video-bg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.78; /* Boosted from 0.45 for vivid clarity */
-  filter: contrast(1.12) brightness(1.05); /* Sharpens edges and cleans up shadows */
+  opacity: 0.85;
+  filter: brightness(1.22) contrast(1.15) saturate(1.35) sepia(0.2);
   z-index: 1;
 }
 
@@ -62,49 +62,59 @@
   background: radial-gradient(ellipse at center, rgba(2, 27, 7, 0.7) 0%, rgba(2, 27, 7, 0) 75%);
 }
     .trap-question {
-      font-family: var(--font-heading, 'Cinzel', serif);
-      font-size: clamp(1.15rem, 2.5vw, 1.75rem); /* Scaled down: refined, not shouting */
-      color: #FFFFFF;
-      font-weight: 700;
-      line-height: 1.38;
-      letter-spacing: 0.5px;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.9);
-      margin: 0 auto;
-    }
-    .trap-btn {
-      margin-top: 22px;
-      background: linear-gradient(135deg, #F5D061 0%, #D4AF37 50%, #F5D061 100%);
-      background-size: 200% auto;
-      border: none;
-      color: #021B07;
-      padding: 13px 32px;
-      border-radius: 50px;
-      font-family: var(--font-heading, 'Cinzel', serif);
-      font-size: 0.82rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      cursor: pointer;
-      box-shadow: 0 0 20px rgba(245, 208, 97, 0.5);
-      animation: goldFlashBeam 2s infinite ease-in-out;
-      transition: all 0.3s ease;
-    }
-    .trap-btn:hover {
-      transform: scale(1.06);
-      box-shadow: 0 0 35px rgba(245, 208, 97, 0.95);
-    }
-    @keyframes goldFlashBeam {
-      0%, 100% {
-        background-position: 0% center;
-        box-shadow: 0 0 14px rgba(212, 175, 55, 0.4);
-        transform: scale(1);
-      }
-      50% {
-        background-position: 100% center;
-        box-shadow: 0 0 32px rgba(245, 208, 97, 0.95), 0 0 10px #FFFFFF;
-        transform: scale(1.035);
-      }
-    }
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.2rem, 2.8vw, 1.85rem);
+  font-style: normal;
+  color: #FFFFFF;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.2px;
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.95);
+  margin: 0 auto;
+}
+.trap-question span {
+  font-family: var(--font-heading, 'Cinzel', serif);
+  letter-spacing: 1.5px;
+  font-weight: 700;
+}
+.trap-btn {
+  margin-top: 24px;
+  background: linear-gradient(135deg, #F5D061 0%, #D4AF37 50%, #B8860B 100%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #021B07;
+  padding: 14px 34px;
+  border-radius: 50px;
+  font-family: var(--font-heading, 'Cinzel', serif);
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 25px rgba(245, 208, 97, 0.65);
+  animation: goldBreathingGlow 2.2s infinite ease-in-out;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.trap-btn:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 40px rgba(245, 208, 97, 0.95);
+}
+.trap-btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+@keyframes goldBreathingGlow {
+  0%, 100% {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), 0 0 16px rgba(212, 175, 55, 0.45);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5), 0 0 35px rgba(245, 208, 97, 0.9), 0 0 10px #FFFFFF;
+    transform: scale(1.03);
+  }
+}
   
 
   /* =========================================
