@@ -182,12 +182,13 @@
             <h3>1. Datos del Producto</h3>
 
             <div class="form-group" style="margin-top: 10px;">
-                <label>Destino:</label>
-                <select id="target-catalog" style="color: var(--gold-accent); font-weight: bold; font-size: 1rem; padding: 10px;">
-                    <option value="accesorios">🏺 Accesorios</option>
-                    <option value="bazar">👑 Bazar VIP</option>
-                </select>
-            </div>
+    <label>Destino:</label>
+    <select id="target-catalog" style="color: var(--gold-accent); font-weight: bold; font-size: 1rem; padding: 10px;">
+        <option value="accesorios">🏺 Accesorios</option>
+        <option value="regalos">🎁 Regalos</option>
+        <option value="bazar">👑 Bazar VIP</option>
+    </select>
+</div>
 
             <div class="form-row">
                 <div class="form-group">
@@ -435,7 +436,7 @@ function renderQueue() {
             });
         }
 
-        async function publishAllToGitHub() {
+       async function publishAllToGitHub() {
     const token = localStorage.getItem('chai_gh_token');
     if (!token) {
         alert('No se encontró el token de GitHub.');
@@ -456,10 +457,11 @@ function renderQueue() {
     try {
         const groups = {
             accesorios: stagedOffers.filter(o => o.target === 'accesorios'),
+            regalos: stagedOffers.filter(o => o.target === 'regalos'),
             bazar: stagedOffers.filter(o => o.target === 'bazar')
         };
 
-        for (let catalogKey of ['accesorios', 'bazar']) {
+        for (let catalogKey of ['accesorios', 'regalos', 'bazar']) {
             const itemsInGroup = groups[catalogKey];
             if (!itemsInGroup || itemsInGroup.length === 0) continue;
 
