@@ -29,11 +29,7 @@ let selectedFrascoPrice = 0;
 let selectedSobrePrice = 0;
 let chosenPresentation = 'Frasco';
 
-// TOGGLE MOBILE HAMBURGER MENU
-function toggleMobileMenu() {
-    const nav = document.getElementById('main-nav-menu');
-    if (nav) nav.classList.toggle('active');
-}
+
         
 // GLOBAL CART SYSTEM
 let cart = JSON.parse(localStorage.getItem('chaiitto_cart')) || [];
@@ -467,11 +463,28 @@ async function fetchProducts() {
             document.body.style.overflow = 'auto';
             document.body.className = ''; // Strips any body-level blur classes
     
-           // Properly close specific modals and mobile header flyouts
-document.querySelectorAll('.oferta-modal, #checkout-modal, #main-nav-menu, #mobile-tienda-flyout').forEach(el => {if (el) el.classList.remove('active'); });
-const mobileTiendaCaret = document.querySelector('#mobile-tienda-trigger i');
-if (mobileTiendaCaret) mobileTiendaCaret.style.transform = 'rotate(0deg)';
+           // Properly close modals and the hamburger menu
+    document.querySelectorAll('.oferta-modal, #checkout-modal, #main-nav-menu').forEach(el => {
+        if (el) el.classList.remove('active'); 
+    });
 
+    // Properly hide the mobile Tienda dropdown
+    const mobileFlyout = document.getElementById('mobile-tienda-flyout');
+    if (mobileFlyout) mobileFlyout.style.display = 'none';
+    
+    const mobileTiendaCaret = document.querySelector('#mobile-tienda-trigger i');
+    if (mobileTiendaCaret) mobileTiendaCaret.style.transform = 'rotate(0deg)';
+// ----------------------------------------------------
+    // TOGGLE HERO BANNER & BODY CLASS (Moved from index.html)
+    const topHero = document.getElementById('master-hero-banner');
+    if (pageName === 'inicio') {
+        if (topHero) topHero.style.display = 'flex';
+        document.body.classList.add('page-inicio');
+    } else {
+        if (topHero) topHero.style.display = 'none';
+        document.body.classList.remove('page-inicio');
+    }
+    // ----------------------------------------------------
     // Hard-hide the cart drawer
     const cartDrawer = document.getElementById('cart-drawer-backdrop');
     if (cartDrawer) cartDrawer.style.display = 'none';
