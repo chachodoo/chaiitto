@@ -225,9 +225,35 @@
       font-size: clamp(0.76rem, 3.2vw, 0.86rem) !important;
       line-height: 1.45 !important;
       margin: 0 0 8px 0 !important;
-    }
+    }  
   }
 
+  /* CINEMATIC WORD-BY-WORD REVEAL ENGINE */
+.story-word {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateY(6px);
+  transition: opacity 0.35s ease, filter 0.35s ease, transform 0.35s ease;
+  white-space: pre;
+}
+
+/* Reset words instantly when slide leaves */
+.story-slide:not(.active) .story-word {
+  opacity: 0 !important;
+  filter: blur(4px) !important;
+  transform: translateY(6px) !important;
+  transition: none !important;
+}
+
+/* Animate words only when slide is active */
+.story-slide.active .story-word {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+  transition-delay: calc(var(--start-delay, 1s) + (var(--w-idx, 0) * 0.15s));
+}
+  
   /* DESKTOP LAYOUT (50/50 SPLIT) */
   @media (min-width: 992px) {
     .story-slide { flex-direction: row; }
