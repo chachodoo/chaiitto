@@ -1927,6 +1927,50 @@ let movieTimer = null;
 let isDraggingScrubber = false;
 let isMoviePaused = false;
 
+/* =========================================
+   CINEMATIC WORD-BY-WORD REVEAL ENGINE
+========================================= */
+function prepareStoryWords() {
+  document.querySelectorAll('.story-slide').forEach(slide => {
+    if (slide.dataset.wordsSplit) return;
+    slide.dataset.wordsSplit = 'true';
+
+    const p1 = slide.querySelector('.slide-copy p:first-of-type');
+    const p2 = slide.querySelector('.slide-copy p:nth-of-type(2)');
+
+    function wrapWords(element, startDelaySec) {
+      if (!element) return;
+      let wordCounter = 0;
+      function walk(node) {
+        if (node.nodeType === 3) {
+          const parts = node.nodeValue.split(/(\s+)/);
+          const fragment = document.createDocumentFragment();
+          parts.forEach(part => {
+            if (part.trim().length > 0) {
+              const span = document.createElement('span');
+              span.className = 'story-word';
+              span.style.setProperty('--w-idx', wordCounter++);
+              span.style.setProperty('--start-delay', `${startDelaySec}s`);
+              span.textContent = part;
+              fragment.appendChild(span);
+            } else if (part.length > 0) {
+              fragment.appendChild(document.createTextNode(part));
+            }
+          });
+          node.parentNode.replaceChild(fragment, node);
+        } else if (node.nodeType === 1) {
+          Array.from(node.childNodes).forEach(walk);
+        }
+      }
+      walk(element);
+    }
+
+    wrapWords(p1, 0.8); // Quote begins rolling at 0.8s
+    wrapWords(p2, 4.0); // Paragraph 2 begins rolling at 4.0s
+  });
+}
+
+
 function unlockExperiencia() {
   const trap = document.getElementById('video-trap');
   const story = document.getElementById('story-content');
@@ -1949,6 +1993,7 @@ function unlockExperiencia() {
     story.style.display = 'block';
     setTimeout(() => {
       story.style.opacity = '1';
+      prepareStoryWords();
       initMovieScrubber();
       if (typeof replayMovie === 'function') {
         replayMovie();
