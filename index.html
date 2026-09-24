@@ -1799,22 +1799,22 @@ nav.main-nav {
         </div>
             
          <!-- ROW 2: PERMANENT MOBILE NAVIGATION BAR -->
-    <nav id="mobile-header-wrapper" style="display: none;">
+    <nav id="mobile-header-wrapper">
       <button type="button" class="row2-tab-btn" onclick="switchPage('inicio')">Inicio</button>
 
       <div class="row2-dropdown-wrapper">
-        <button type="button" class="row2-tab-btn" id="mobile-tienda-trigger" onclick="toggleMobileTienda(event)">
+        <button type="button" class="row2-tab-btn" id="mobile-tienda-trigger" onclick="document.getElementById('mobile-tienda-flyout').classList.toggle('active')">
           Tienda <i class="fa-solid fa-chevron-down"></i>
         </button>
 
         <div id="mobile-tienda-flyout" class="mobile-tienda-dropdown">
-          <a href="#productos" onclick="openStoreSection('productos')">
+          <a href="#productos" onclick="switchPage('productos'); document.getElementById('mobile-tienda-flyout').classList.remove('active');">
             <i class="fa-solid fa-leaf"></i> Tés de Hoja Suelta
           </a>
-          <a href="#accesorios" onclick="openStoreSection('accesorios')">
+          <a href="#accesorios" onclick="switchPage('accesorios'); document.getElementById('mobile-tienda-flyout').classList.remove('active');">
             <i class="fa-solid fa-mug-hot"></i> Accesorios
           </a>
-          <a href="#bazar" onclick="openStoreSection('bazar')">
+          <a href="#bazar" onclick="switchPage('bazar'); document.getElementById('mobile-tienda-flyout').classList.remove('active');">
             <i class="fa-solid fa-crown"></i> Bazar VIP
           </a>
         </div>
