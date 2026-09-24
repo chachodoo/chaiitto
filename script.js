@@ -2154,6 +2154,12 @@ window.scrollToCommunityMosaic = function() {
 
   const headerBottom = header.getBoundingClientRect().bottom;
 
+  // Dynamically locks the grid height to fit between header bottom and screen bottom
+  if (window.innerWidth >= 992) {
+    const dynamicHeight = Math.floor(window.innerHeight - headerBottom - 4);
+    track.style.setProperty('height', `${dynamicHeight}px`, 'important');
+  }
+
   // Exact 1px top clearance below header directly to the grid
   const currentGap = track.getBoundingClientRect().top - headerBottom;
   const targetY = window.pageYOffset + currentGap - 1;
