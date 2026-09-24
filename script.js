@@ -1976,31 +1976,28 @@ function unlockExperiencia() {
   const story = document.getElementById('story-content');
   const endCard = document.getElementById('movie-end-card');
 
-  // 1. Hide the end card so it does not block the movie
   if (endCard) {
     endCard.classList.remove('active');
     endCard.style.display = 'none';
   }
 
-  // 2. Hide intro video trap
-  if (trap) {
-    trap.style.opacity = '0';
-    setTimeout(() => { trap.style.display = 'none'; }, 800);
-  }
+  // 1. INSTANT TRANSITION (Kills the 2-second green screen dead)
+  if (trap) trap.style.display = 'none';
 
-  // 3. Show story stage and rewind movie to Chapter 1 (0:00)
   if (story) {
     story.style.display = 'block';
-    setTimeout(() => {
-      story.style.opacity = '1';
-      prepareStoryWords();
-      initMovieScrubber();
-      if (typeof replayMovie === 'function') {
-        replayMovie();
-      } else {
-        playMovie();
-      }
-    }, 50);
+    story.style.opacity = '1';
+
+    // 2. Prepare words across all slides
+    prepareStoryWords();
+
+    // 3. Reset and force Slide 1 to start its word roll right now
+    const slides = document.querySelectorAll('.story-slide');
+    slides.forEach(s => s.classList.remove('active'));
+    void story.offsetWidth; // Force browser repaint
+
+    initMovieScrubber();
+    replayMovie();
   }
 }
 
