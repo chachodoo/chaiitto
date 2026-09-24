@@ -523,9 +523,25 @@ async function fetchProducts() {
         } else if (pageName === 'bazar') {
             loadBazarGrid();
         } else if (pageName === 'experiencia') {
-            // Let the trap video play. The movie will unlock only when the user taps "DESCUBRIR".
+            // 1. Reset mosaic flags and background loop
+            isMosaicRunning = false;
+            if (typeof mosaicLoopTimer !== 'undefined' && mosaicLoopTimer) {
+              clearTimeout(mosaicLoopTimer);
+              mosaicLoopTimer = null;
+            }
+
+            // 2. Reset the movie engine so re-entering always starts at Chapter 1
+            if (typeof replayMovie === 'function') {
+              replayMovie();
+              // Pause the movie immediately so it stays hidden behind the trap until "DESCUBRIR" is pressed
+              if (typeof isMoviePlaying !== 'undefined') isMoviePlaying = false;
+              if (typeof movieTimelineTimer !== 'undefined' && movieTimelineTimer) clearInterval(movieTimelineTimer);
+            }
+
+            // 3. Play the trap video
             const trapVideo = document.querySelector('#video-trap video');
             if (trapVideo) {
+              trapVideo.currentTime = 0;
               trapVideo.play().catch(() => {});
             }
         } else if (pageName === 'menu') {
@@ -1914,16 +1930,31 @@ let isMoviePaused = false;
 function unlockExperiencia() {
   const trap = document.getElementById('video-trap');
   const story = document.getElementById('story-content');
+  const endCard = document.getElementById('movie-end-card');
+
+  // 1. Hide the end card so it does not block the movie
+  if (endCard) {
+    endCard.classList.remove('active');
+    endCard.style.display = 'none';
+  }
+
+  // 2. Hide intro video trap
   if (trap) {
     trap.style.opacity = '0';
     setTimeout(() => { trap.style.display = 'none'; }, 800);
   }
+
+  // 3. Show story stage and rewind movie to Chapter 1 (0:00)
   if (story) {
     story.style.display = 'block';
     setTimeout(() => {
       story.style.opacity = '1';
       initMovieScrubber();
-      playMovie();
+      if (typeof replayMovie === 'function') {
+        replayMovie();
+      } else {
+        playMovie();
+      }
     }, 50);
   }
 }
@@ -2154,7 +2185,7 @@ window.scrollToCommunityMosaic = function() {
 
   const headerBottom = header.getBoundingClientRect().bottom;
 
-  // Dynamically locks the grid height to fit between header bottom and screen bottom
+  // Dynamically lock the grid height to fit between header bottom and viewport bottom
   if (window.innerWidth >= 992) {
     const dynamicHeight = Math.floor(window.innerHeight - headerBottom - 4);
     track.style.setProperty('height', `${dynamicHeight}px`, 'important');
@@ -2166,25 +2197,38 @@ window.scrollToCommunityMosaic = function() {
 
   window.scrollTo({ top: Math.max(0, Math.round(targetY)), behavior: 'smooth' });
 
-  if (!isMosaicRunning) {
+  // If track is empty (re-entered page) or mosaic is not running, force-initialize
+  if (!isMosaicRunning || track.children.length === 0) {
+    isMosaicRunning = false;
+    clearTimeout(mosaicLoopTimer);
     initLivingMosaic();
   }
 };
 
 // 3. Build the DOM cards with Front (Media) and Back (Logo)
 async function initLivingMosaic() {
-  const track = document.getElementById('community-mosaic-track') || document.getElementById('mosaic-grid');
+  const track = document.getElementById('community-mosaic-track');
   if (!track) return;
+
   isMosaicRunning = true;
 
-  await loadFilteredMedia();
+  // Clear any existing loop timer so cycles never stack or run in parallel
+  if (typeof mosaicLoopTimer !== 'undefined' && mosaicLoopTimer) {
+    clearTimeout(mosaicLoopTimer);
+    mosaicLoopTimer = null;
+  }
 
-  // Create slot elements once if not already rendered
-  if (track.children.length !== TOTAL_MOSAIC_SLOTS) {
+  // Load the gallery media if not already loaded
+  if (activeCommunityPool.length === 0) {
+    await loadFilteredMedia();
+  }
+
+  // If the track was cleared or empty, construct all 24 3D flip card slots
+  if (track.children.length === 0) {
     track.innerHTML = '';
     for (let i = 0; i < TOTAL_MOSAIC_SLOTS; i++) {
       const tile = document.createElement('div');
-      tile.className = 'community-tile is-flipped';
+      tile.className = 'community-tile';
       tile.id = `community-tile-${i}`;
       tile.innerHTML = `
         <div class="tile-inner">
@@ -2198,9 +2242,9 @@ async function initLivingMosaic() {
     }
   }
 
-  // Populate media and start the first open sequence
+  // Mount media into cards and launch the flip loop
   mountShuffledMedia();
-  setTimeout(openTilesStaggered, 350);
+  startLivingMosaicCycle();
 }
 
 // 4. Populate 24 random items into the cards
