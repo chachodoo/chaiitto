@@ -2144,13 +2144,29 @@ async function loadFilteredMedia() {
 
 // 2. Triggered by movie end card button
 window.scrollToCommunityMosaic = function() {
-  const finale = document.getElementById('experiencia-finale') || document.querySelector('.experiencia-finale');
-  if (finale) {
-    finale.classList.add('active');
-    finale.style.display = 'block';
-    finale.scrollIntoView({ behavior: 'smooth' });
+  const finale = document.getElementById('experiencia-finale');
+  const track = document.getElementById('community-mosaic-track');
+  const header = document.querySelector('header') || document.getElementById('main-master-header');
+  if (!finale || !track || !header) return;
+
+  // Unhide the section
+  finale.classList.add('active');
+  finale.style.display = 'block';
+
+  const headerBottom = header.getBoundingClientRect().bottom;
+
+  // Dynamically lock the grid height to fit between header bottom and viewport bottom
+  if (window.innerWidth >= 992) {
+    const dynamicHeight = Math.floor(window.innerHeight - headerBottom - 2);
+    track.style.setProperty('height', `${dynamicHeight}px`, 'important');
   }
-  
+
+  // Exact 1px top clearance below the header
+  const currentGap = finale.getBoundingClientRect().top - headerBottom;
+  const targetY = window.pageYOffset + currentGap - 1;
+
+  window.scrollTo({ top: Math.max(0, Math.round(targetY)), behavior: 'smooth' });
+
   if (!isMosaicRunning) {
     initLivingMosaic();
   }
