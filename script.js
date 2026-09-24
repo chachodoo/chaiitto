@@ -518,6 +518,8 @@ async function fetchProducts() {
             selectCollection(targetCol);
         } else if (pageName === 'accesorios') {
             loadAccesoriosGrid();
+        } else if (pageName === 'regalos') {
+            loadRegalosGrid();
         } else if (pageName === 'bazar') {
             loadBazarGrid();
         } else if (pageName === 'experiencia') {
@@ -791,6 +793,50 @@ async function loadAccesoriosGrid() {
     } catch (error) {
         console.error("Error loading accesorios.json:", error);
     }
+}
+
+async function loadRegalosGrid() {
+  const container = document.getElementById('regalos-dynamic-track');
+  if (!container) return;
+  container.innerHTML = '<p style="text-align:center; width:100%; grid-column: 1/-1;">Cargando regalos...</p>';
+
+  try {
+    const res = await fetch('regalos.json?v=' + Date.now());
+    if (!res.ok) throw new Error('No se pudo cargar regalos.json');
+    const items = await res.json();
+
+    container.innerHTML = '';
+    items.forEach((item) => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+
+      // Price / Badge Logic
+      const hasDiscount = item.precio_original && Number(item.precio_original) > Number(item.precio);
+      const discountBadge = hasDiscount ? '<span class="badge-oferta">OFERTA</span>' : '';
+      const priceHtml = hasDiscount
+        ? `<div class="precio-box"><span class="precio-original">$${item.precio_original}</span><span class="precio-actual">$${item.precio} MXN</span></div>`
+        : `<div class="precio-box"><span class="precio-actual">$${item.precio} MXN</span></div>`;
+
+      card.innerHTML = `
+        <div style="position: relative;">
+          ${discountBadge}
+          <div class="product-img-box" style="cursor: pointer;" onclick="openOfertaModal('${item.nombre}', '${item.descripcion || ''}', ${JSON.stringify(item.imagenes || [item.imagen]).replace(/"/g, '&quot;')})">
+            <img src="${item.imagen}" alt="${item.nombre}" loading="lazy">
+          </div>
+          <h3 class="product-name">${item.nombre}</h3>
+          <p class="product-ingredients">${item.descripcion || ''}</p>
+          ${priceHtml}
+        </div>
+        <button class="buy-button" style="width: 100%; margin-top: 8px;" onclick="addToCartDirect('${item.id || item.nombre}', '${item.nombre}', ${item.precio}, '${item.imagen}')">
+          <i class="fa-solid fa-cart-plus"></i> Agregar
+        </button>
+      `;
+      container.appendChild(card);
+    });
+  } catch (err) {
+    console.error('Error loading regalos grid:', err);
+    container.innerHTML = '<p style="text-align:center; width:100%; grid-column: 1/-1;">Error al cargar los regalos.</p>';
+  }
 }
 
 /* --- BAZAR VIP AUTHENTICATION & DATABASE CHECK --- */
