@@ -767,7 +767,7 @@ async function loadAccesoriosGrid() {
             const price = isSale ? item.precioOferta : (item.precio || 0);
             const originalPrice = item.precio || 0;            
             const descText = item.descripcion || '';
-            const titleText = item.name ? `#${item.num}. ${item.name}` : `#${item.num}`;
+            const titleText = item.name ? `${item.num}. ${item.name}` : `${item.num}`;
             const imageList = (item.images && item.images.length > 0) ? item.images : [item.image || 'logo.png'];
             const coverImage = imageList[0];
             const safeName = item.name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
@@ -825,7 +825,7 @@ async function loadRegalosGrid() {
       const price = isSale ? item.precioOferta : (item.precio || 0);
       const originalPrice = item.precio || 0;
       const descText = item.descripcion || '';
-      const titleText = item.name ? `#${item.num}. ${item.name}` : `#${item.num}`;
+      const titleText = item.name ? `${item.num}. ${item.name}` : `#${item.num}`;
       const imageList = (item.images && item.images.length > 0) ? item.images : [item.image || 'logo.png'];
       const coverImage = imageList[0];
       const safeName = item.name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
@@ -1160,7 +1160,7 @@ async function renderBazarCatalog() {
       const finalPrice = isSale ? offerPrice : originalPrice;
       const images = (item.images && item.images.length > 0) ? item.images : ['logo.png'];
       const coverImage = images[0];
-      const displayName = item.num ? `#${item.num}. ${item.name || ''}` : (item.name || 'Artículo VIP');
+      const displayName = item.num ? `${item.num}. ${item.name || ''}` : (item.name || 'Artículo VIP');
 
       const card = document.createElement('div');
       card.className = 'product-card oferta-card';
