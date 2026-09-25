@@ -79,7 +79,7 @@
   },
   {
     "num": "201",
-    "name": "Perfume Arabe 10ml",
+    "name": "Perfume Arabe 6ml",
     "descripcion": "Perfume de Aceite de alta duracion Roll On.",
     "precio": 200,
     "precioOferta": null,
@@ -92,7 +92,7 @@
   },
   {
     "num": "202",
-    "name": "Perfume Arabe 10ml",
+    "name": "Perfume Arabe 6ml",
     "descripcion": "Perfume de Aceite de alta duracion Roll On.",
     "precio": 200,
     "precioOferta": null,
@@ -105,7 +105,7 @@
   },
   {
     "num": "203",
-    "name": "Perfume Arabe 10ml",
+    "name": "Perfume Arabe 6ml",
     "descripcion": "Perfume de Aceite de alta duracion Roll On.",
     "precio": 200,
     "precioOferta": null,
@@ -118,7 +118,7 @@
   },
   {
     "num": "204",
-    "name": "Perfume Arabe 10ml",
+    "name": "Perfume Arabe 6ml",
     "descripcion": "Perfume de Aceite de alta duracion Roll On.",
     "precio": 200,
     "precioOferta": null,
@@ -127,6 +127,45 @@
       "regalos/regalos-204-1.jpeg",
       "regalos/regalos-204-2.jpeg",
       "regalos/regalos-204-3.jpeg"
+    ]
+  },
+  {
+    "num": "205",
+    "name": "Perfume Arabe 6ml",
+    "descripcion": "Perfume de Aceite de alta duracion Roll On.",
+    "precio": 200,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "regalos/regalos-205-1.jpeg",
+      "regalos/regalos-205-2.jpeg",
+      "regalos/regalos-205-3.jpeg"
+    ]
+  },
+  {
+    "num": "206",
+    "name": "Perfume Arabe 6ml",
+    "descripcion": "Perfume de Aceite de alta duracion Roll On.",
+    "precio": 200,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "regalos/regalos-206-1.jpeg",
+      "regalos/regalos-206-2.jpeg",
+      "regalos/regalos-206-3.jpeg"
+    ]
+  },
+  {
+    "num": "207",
+    "name": "Perfume Arabe 6ml",
+    "descripcion": "Perfume de Aceite de alta duracion Roll On.",
+    "precio": 200,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "regalos/regalos-207-1.jpeg",
+      "regalos/regalos-207-2.jpeg",
+      "regalos/regalos-207-3.jpeg"
     ]
   }
 ]
