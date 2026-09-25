@@ -131,41 +131,41 @@
   },
   {
     "num": "210",
-    "name": "Perfume Arabe Mini 3ml",
+    "name": "Perfume Arabe 10ml",
     "descripcion": "Perfume de Aceite de alta duracion Roll On.",
-    "precio": 200,
+    "precio": 250,
     "precioOferta": null,
     "blurPreview": "",
     "images": [
-      "regalos/regalos-01-1.jpeg",
-      "regalos/regalos-01-2.jpeg",
-      "regalos/regalos-01-3.jpeg"
+      "regalos/regalos-210-1.jpeg",
+      "regalos/regalos-210-2.jpeg",
+      "regalos/regalos-210-3.jpeg"
     ]
   },
   {
     "num": "211",
     "name": "Perfume Arabe 10ml",
     "descripcion": "Perfume de Aceite de alta duracion Roll On.",
-    "precio": 200,
+    "precio": 250,
     "precioOferta": null,
     "blurPreview": "",
     "images": [
-      "regalos/regalos-02-1.jpeg",
-      "regalos/regalos-02-2.jpeg",
-      "regalos/regalos-02-3.jpeg"
+      "regalos/regalos-211-1.jpeg",
+      "regalos/regalos-211-2.jpeg",
+      "regalos/regalos-211-3.jpeg"
     ]
   },
   {
     "num": "212",
     "name": "Perfume Arabe 10ml",
     "descripcion": "Perfume de Aceite de alta duracion Roll On.",
-    "precio": 200,
+    "precio": 250,
     "precioOferta": null,
     "blurPreview": "",
     "images": [
-      "regalos/regalos-03-1.jpeg",
-      "regalos/regalos-03-2.jpeg",
-      "regalos/regalos-03-3.jpeg"
+      "regalos/regalos-212-1.jpeg",
+      "regalos/regalos-212-2.jpeg",
+      "regalos/regalos-212-3.jpeg"
     ]
   },
   {
