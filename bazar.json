@@ -100,5 +100,19 @@
       "bazar/bazar-802-3.jpeg",
       "bazar/bazar-802-4.jpeg"
     ]
+  },
+  {
+    "num": "803",
+    "name": "Thanaghum Donna FAAN",
+    "descripcion": "Fragancia de la familia olfativa Oriental Floral para Mujeres. Las Notas de Salida son bergamota y limón (lima ácida); las Notas de Corazón son jazmín, rosa y madera de oud; las Notas de Fondo son vainilla, ámbar, almizcle y cedro.",
+    "precio": 800,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "bazar/bazar-803-1.jpeg",
+      "bazar/bazar-803-2.jpeg",
+      "bazar/bazar-803-3.jpeg",
+      "bazar/bazar-803-4.jpeg"
+    ]
   }
 ]
