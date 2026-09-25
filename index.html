@@ -299,13 +299,13 @@
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 8px !important;
+  gap: 6px !important;
   
-  /* MATCHED EXACTLY TO TOP MARQUEE STYLING */
+  /* MATCHED TO TOP MARQUEE + PROPORTIONAL MOBILE SCALING */
   font-family: var(--font-body, 'Montserrat', sans-serif) !important;
-  font-size: clamp(0.68rem, 2.2vw, 0.78rem) !important;
+  font-size: clamp(0.52rem, 2.4vw, 0.78rem) !important;  /* Floor lowered from 0.68rem to 0.52rem */
   font-weight: 700 !important;
-  letter-spacing: clamp(0.4px, 0.2vw, 0.8px) !important;
+  letter-spacing: clamp(0.2px, 0.1vw, 0.8px) !important; /* Spacing scales with screen */
   text-transform: uppercase !important;
   color: #FFFFFF !important;
   -webkit-font-smoothing: antialiased !important;
@@ -314,7 +314,7 @@
   
   line-height: 1 !important;
   text-align: center !important;
-  padding: 0 10px !important;
+  padding: 0 6px !important;
   margin: 0 !important;
   white-space: nowrap !important;
 }
