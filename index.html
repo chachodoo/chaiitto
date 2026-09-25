@@ -247,11 +247,15 @@
  }
 
        /* ===================================================
-   LUXURY VERTICAL MESSAGE FLIPPER (BULLETPROOF)
+   LUXURY VERTICAL MESSAGE FLIPPER (PERFECT CENTER + NO MOBILE CLIP)
    =================================================== */
 #master-hero-banner {
   width: 100% !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  max-height: 38px !important;
   background: linear-gradient(180deg, #093813 0%, #032009 100%) !important;
+  border-top: none !important;
   border-bottom: 1.5px solid rgba(212, 175, 55, 0.5) !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
   display: flex !important;
@@ -260,9 +264,6 @@
   align-items: center !important;
   padding: 0 !important;
   margin: 0 !important;
-  height: 38px !important;
-  min-height: 38px !important;
-  max-height: 38px !important;
   overflow: hidden !important;
   box-sizing: border-box !important;
   user-select: none !important;
@@ -270,7 +271,7 @@
 
 #master-hero-banner .vertical-ticker-window {
   height: 38px !important;
-  max-height: 38px !important;
+  line-height: 38px !important;
   overflow: hidden !important;
   width: 100% !important;
   max-width: 900px !important;
@@ -296,17 +297,16 @@
 #master-hero-banner .vertical-ticker-item {
   flex: 0 0 38px !important;
   height: 38px !important;
-  min-height: 38px !important;
-  max-height: 38px !important;
+  line-height: 38px !important;
   box-sizing: border-box !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   gap: 8px !important;
   font-family: var(--font-heading, 'Cinzel', serif) !important;
-  font-size: clamp(0.70rem, 2.3vw, 0.84rem) !important;
+  font-size: 0.82rem !important;
   font-weight: 700 !important;
-  letter-spacing: 1.5px !important;
+  letter-spacing: 1.2px !important;
   text-transform: uppercase !important;
   color: #FFFFFF !important;
   text-align: center !important;
@@ -331,6 +331,31 @@
   75%, 95%  { transform: translateY(-60%); }
   100%      { transform: translateY(-80%); }
 }
+
+/* MOBILE TUNING: PERFECT HORIZONTAL FIT (ZERO EDGE CLIPPING) */
+@media (max-width: 991px) {
+  #master-hero-banner {
+    height: 34px !important;
+    min-height: 34px !important;
+    max-height: 34px !important;
+  }
+  #master-hero-banner .vertical-ticker-window {
+    height: 34px !important;
+    line-height: 34px !important;
+  }
+  #master-hero-banner .vertical-ticker-item {
+    flex: 0 0 34px !important;
+    height: 34px !important;
+    line-height: 34px !important;
+    font-size: clamp(0.58rem, 2.8vw, 0.68rem) !important;
+    letter-spacing: 0.5px !important;
+    padding: 0 6px !important;
+    gap: 6px !important;
+  }
+  #master-hero-banner .vertical-ticker-item .gold {
+    font-size: 0.65rem !important;
+  }
+}
         
 /* DESKTOP & MOBILE HERO MENU BUTTON */
 .hero-master-menu-btn {
@@ -352,49 +377,7 @@
 }
 .hero-master-menu-btn i { color: #F5D061 !important; }
 
-#master-hero-banner {
-    width: 100%;
-    background: transparent;
-    padding: 24px 0 0 0 !important;
-    text-align: center;
-    color: #0E2610;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px !important;
-}
 
-#master-hero-banner .logo-main {
-    max-height: 44px;
-    width: auto;
-    margin: 0 !important;
-    cursor: pointer;
-}
-
-#master-hero-banner h1,
-#master-hero-banner .hero-title {
-    font-family: var(--font-title);
-    font-size: clamp(1.4rem, 3.2vw, 2.1rem) !important;
-    font-weight: 900;
-    font-style: italic;
-    letter-spacing: -0.5px;
-    line-height: 1.1 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    color: #0E2610;
-}
-
-#master-hero-banner p,
-#master-hero-banner .hero-subtitle {
-    font-family: var(--font-body);
-    font-size: clamp(0.8rem, 1.3vw, 0.92rem) !important;
-    font-weight: 500;
-    line-height: 1.25 !important;
-    color: #1A3E1E;
-    max-width: 650px;
-    margin: 0 !important;
-    padding: 0 !important;
-}
 
 /* Enterprise Edge-to-Edge Infinite Marquee Ribbon */
 .hero-marquee-wrapper {
