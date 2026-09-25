@@ -337,6 +337,27 @@
   75%, 95%  { transform: translateY(-60%); }
   100%      { transform: translateY(-80%); }
 }
+
+ /* ===================================================
+   HERO & SHOWROOM UNIFIED VERTICAL FLOW (DESKTOP + MOBILE)
+   Eliminates stacked margins across the hero components
+   =================================================== */
+/* 1. Remove redundant container padding so the hero connects cleanly to the flipper */
+body.page-inicio #dynamic-content-area {
+  padding-top: 0 !important;
+}
+
+/* 2. Normalize the button wrapper's vertical rhythm */
+div:has(> .hero-master-menu-btn) {
+  margin: 0.75rem 0 0.5rem 0 !important;
+}
+
+/* 3. Eliminate redundant ribbon margin; retain only the 8px hover-lift clearance */
+.menu-ribbon-container {
+  margin-top: 0 !important;
+  padding-top: 8px !important;
+  margin-bottom: 1.5rem !important;
+}       
         
 /* DESKTOP & MOBILE HERO MENU BUTTON */
 .hero-master-menu-btn {
