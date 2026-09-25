@@ -547,7 +547,33 @@ async function fetchProducts() {
         } else if (pageName === 'menu') {
             menuNavigationState.currentPage = targetPage;
             updateMenuDisplay();
-        }
+        } else if (pageName === 'vip') {
+      if (typeof confetti === 'function') {
+        // 1. LEFT CANNON BLAST
+                confetti({
+                    particleCount: 80,
+                    angle: 60,
+                    spread: 70,
+                    origin: { x: 0, y: 0.75 },
+                    colors: ['#F5D061', '#D4AF37', '#FFFFFF', '#25D366', '#07511A'],
+                    scalar: 1.15,
+                    ticks: 250,
+                    disableForReducedMotion: true
+                });
+
+                // 2. RIGHT CANNON BLAST (Cascading Crossfire)
+                confetti({
+                    particleCount: 80,
+                    angle: 120,
+                    spread: 70,
+                    origin: { x: 1, y: 0.75 },
+                    colors: ['#F5D061', '#D4AF37', '#FFFFFF', '#25D366', '#07511A'],
+                    scalar: 1.15,
+                    ticks: 250,
+                    disableForReducedMotion: true
+                });
+      }
+    }
 
         // 3. FORCE IMMEDIATE JUMP TO TOP (Removed 'smooth' so it doesn't get stuck)
         window.scrollTo(0, 0);
