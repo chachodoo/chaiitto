@@ -145,6 +145,73 @@
         .status-info { background: rgba(229, 193, 88, 0.2); border: 1px solid var(--gold-accent); color: var(--gold-accent); }
 
         .hidden { display: none !important; }
+        /* Image Reorder Preview Strip */
+.preview-strip {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.preview-card {
+  position: relative;
+  width: 120px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(229, 193, 88, 0.4);
+  border-radius: 8px;
+  padding: 6px;
+  text-align: center;
+}
+.preview-card img {
+  width: 100%;
+  height: 85px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+}
+.preview-badge {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  background: var(--gold-accent);
+  color: #000;
+  font-weight: 700;
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.6);
+}
+.preview-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  gap: 4px;
+}
+.preview-btn {
+  background: var(--emerald-light);
+  color: var(--gold-accent);
+  border: 1px solid rgba(229, 193, 88, 0.4);
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  flex: 1;
+}
+.preview-btn:hover:not(:disabled) {
+  background: var(--gold-accent);
+  color: #000;
+}
+.preview-btn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+.preview-btn-delete {
+  color: #ff6b6b;
+  border-color: rgba(255, 107, 107, 0.4);
+}
+.preview-btn-delete:hover {
+  background: #8b0000 !important;
+  color: #fff !important;
+}
     </style>
 </head>
 <body>
@@ -219,9 +286,11 @@
             </div>
 
             <div class="form-group">
-                <label>Imagen(es):</label>
-                <input type="file" id="oferta-files" multiple accept="image/*" style="color: #A3C4AF;">
-            </div>
+  <label>Imagen(es):</label>
+  <input type="file" id="oferta-files" multiple accept="image/*" style="color: #A3C4AF;">
+  <!-- ADD THIS LINE RIGHT HERE -->
+  <div id="image-preview-strip" class="preview-strip"></div>
+</div>
 
             <button class="btn btn-add" onclick="addOfferToQueue()"><i class="fa-solid fa-plus"></i> Agregar a la Lista</button>
         </div>
@@ -312,9 +381,14 @@
 
     const origInput = document.getElementById('oferta-orig').value.trim();
     const specInput = document.getElementById('oferta-spec').value.trim();
-    const files = document.getElementById('oferta-files').files;
+    const fileInput = document.getElementById('oferta-files');
 
-    if (!num || !name || files.length === 0) {
+    // Use the reordered preview array; fallback to raw input if preview isn't populated
+    const filesToUse = (window.currentSelectedFiles && window.currentSelectedFiles.length > 0)
+        ? window.currentSelectedFiles
+        : Array.from(fileInput.files || []);
+
+    if (!num || !name || filesToUse.length === 0) {
         alert('Por favor complete todos los campos requeridos y seleccione al menos una imagen.');
         return;
     }
@@ -344,18 +418,27 @@
         descripcion: desc,
         precio: finalPrecio,
         precioOferta: finalPrecioOferta,
-        fileList: Array.from(files),
+        fileList: [...filesToUse], // Locks in the exact 1-2-3-4 visual order
         images: []
     });
 
     renderQueue();
 
+    // Reset form fields
     document.getElementById('oferta-num').value = '';
     document.getElementById('oferta-name').value = '';
     document.getElementById('oferta-desc').value = '';
     document.getElementById('oferta-orig').value = '';
     document.getElementById('oferta-spec').value = '';
-    document.getElementById('oferta-files').value = '';
+    fileInput.value = '';
+
+    // Clear previews and reset array
+    if (window.currentSelectedFiles) {
+        window.currentSelectedFiles = [];
+    }
+    if (typeof renderImagePreviews === 'function') {
+        renderImagePreviews();
+    }
 }
 
 function renderQueue() {
@@ -435,6 +518,56 @@ function renderQueue() {
                 reader.onerror = error => reject(error);
             });
         }
+
+        let currentSelectedFiles = [];
+
+document.getElementById('oferta-files').addEventListener('change', function(e) {
+  currentSelectedFiles = Array.from(e.target.files);
+  renderImagePreviews();
+});
+
+function renderImagePreviews() {
+  const container = document.getElementById('image-preview-strip');
+  container.innerHTML = '';
+  if (currentSelectedFiles.length === 0) return;
+
+  currentSelectedFiles.forEach((file, index) => {
+    const card = document.createElement('div');
+    card.className = 'preview-card';
+
+    const objectUrl = URL.createObjectURL(file);
+    const isFirst = index === 0;
+    const isLast = index === currentSelectedFiles.length - 1;
+
+    card.innerHTML = `
+      <span class="preview-badge">${isFirst ? '★ #1 Portada' : '#' + (index + 1)}</span>
+      <img src="${objectUrl}" alt="Preview">
+      <div class="preview-controls">
+        <button type="button" class="preview-btn" onclick="moveImage(${index}, -1)" ${isFirst ? 'disabled' : ''}>◀</button>
+        <button type="button" class="preview-btn preview-btn-delete" onclick="removePreviewImage(${index})">✕</button>
+        <button type="button" class="preview-btn" onclick="moveImage(${index}, 1)" ${isLast ? 'disabled' : ''}>▶</button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function moveImage(index, direction) {
+  const targetIndex = index + direction;
+  if (targetIndex < 0 || targetIndex >= currentSelectedFiles.length) return;
+  
+  // Swap positions in the array
+  const temp = currentSelectedFiles[index];
+  currentSelectedFiles[index] = currentSelectedFiles[targetIndex];
+  currentSelectedFiles[targetIndex] = temp;
+  
+  renderImagePreviews();
+}
+
+function removePreviewImage(index) {
+  currentSelectedFiles.splice(index, 1);
+  renderImagePreviews();
+}
 
        async function publishAllToGitHub() {
     const token = localStorage.getItem('chai_gh_token');
