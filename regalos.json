@@ -217,5 +217,17 @@
       "regalos/regalos-216-1.jpeg",
       "regalos/regalos-216-2.jpeg"
     ]
+  },
+  {
+    "num": "218",
+    "name": "Set de Cafe Turco Otomano",
+    "descripcion": "Set para Cafe de tres piezas, Taza de Cristal con Soporte, Tapa y Plato de Metal. Capacidad de 100ml.",
+    "precio": 350,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "regalos/regalos-218-1.jpeg",
+      "regalos/regalos-218-2.jpeg"
+    ]
   }
 ]
