@@ -246,10 +246,10 @@
             
  }
 
-        /* ===================================================
-   LUXURY VERTICAL MESSAGE FLIPPER (FIXED)
+       /* ===================================================
+   LUXURY VERTICAL MESSAGE FLIPPER (BULLETPROOF)
    =================================================== */
-#master-hero-banner.hero-vertical-ticker-bar {
+#master-hero-banner {
   width: 100% !important;
   background: linear-gradient(180deg, #093813 0%, #032009 100%) !important;
   border-bottom: 1.5px solid rgba(212, 175, 55, 0.5) !important;
@@ -260,24 +260,31 @@
   align-items: center !important;
   padding: 0 !important;
   margin: 0 !important;
-  overflow: hidden !important;
-  user-select: none !important;
   height: 38px !important;
   min-height: 38px !important;
+  max-height: 38px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  user-select: none !important;
 }
 
 #master-hero-banner .vertical-ticker-window {
   height: 38px !important;
+  max-height: 38px !important;
   overflow: hidden !important;
   width: 100% !important;
   max-width: 900px !important;
   position: relative !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
 }
 
 #master-hero-banner .vertical-ticker-track {
   display: flex !important;
   flex-direction: column !important;
-  height: auto !important; /* Fixes track height so items don't squish */
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
   animation: verticalFlipperGlide 12s cubic-bezier(0.77, 0, 0.175, 1) infinite !important;
   will-change: transform;
 }
@@ -290,6 +297,8 @@
   flex: 0 0 38px !important;
   height: 38px !important;
   min-height: 38px !important;
+  max-height: 38px !important;
+  box-sizing: border-box !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -302,8 +311,12 @@
   color: #FFFFFF !important;
   text-align: center !important;
   padding: 0 12px !important;
-  box-sizing: border-box !important;
+  margin: 0 !important;
   white-space: nowrap !important;
+}
+
+#master-hero-banner .vertical-ticker-item span {
+  color: #FFFFFF !important;
 }
 
 #master-hero-banner .vertical-ticker-item .gold {
