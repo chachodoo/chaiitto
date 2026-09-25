@@ -58,5 +58,19 @@
       "bazar/bazar-105-1.jpeg",
       "bazar/bazar-105-2.jpeg"
     ]
+  },
+  {
+    "num": "800",
+    "name": "Sheikh Al Shuyukh Luxe Edition Lattafa Perfumes",
+    "descripcion": "Fragancia unisex de carácter cálido, dulce y especiado, ideal para noches y climas frescos. Combina rosa, canela y azafrán con un corazón de caramelo y pachulí, sobre un fondo de vainilla, ámbar y notas amaderadas.  De excelente duración y estela intensa, se presenta en un elegante frasco de 100 ml con detalles dorados.",
+    "precio": 850,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "bazar/bazar-800-1.jpeg",
+      "bazar/bazar-800-2.jpeg",
+      "bazar/bazar-800-3.jpeg",
+      "bazar/bazar-800-4.jpeg"
+    ]
   }
 ]
