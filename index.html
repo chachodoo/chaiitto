@@ -862,25 +862,7 @@
     .logo-main {
         height: 52px;
     }
-    /*  Naked Hamburger & Crisp White Close Icon */
-            .hamburger-btn {
-                display: flex !important;
-                position: static !important;
-                background: transparent !important;
-                border: none !important;
-                box-shadow: none !important;
-                border-radius: 0 !important;
-                color: #FFFFFF !important;
-                font-size: 1.65rem !important;
-                padding: 0 !important;
-                cursor: pointer;
-                width: 36px;
-                height: 36px;
-                align-items: center;
-                justify-content: flex-start;
-                z-index: 10001;
-                transition: color 0.2s ease;
-            }
+   
     .mobile-header-actions {
     display: flex;
     flex-direction: row;
@@ -1148,21 +1130,32 @@ nav.main-nav {
             }
         }
 
-        /* FLUID CARDS: ZERO HARDCODED HEIGHTS */
-        .product-card, .oferta-card {
-            background: #FFFFFF !important;
-            border: 1px solid rgba(7, 81, 26, 0.12) !important;
-            border-radius: 12px !important;
-            padding: 8px !important;
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: space-between !important;
-            height: auto !important;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
-            box-sizing: border-box !important;
-            transition: transform 0.2s ease, box-shadow 0.2s ease !important;
-        }
-
+        /* Luxury Apothecary Card Shell (Compact & Zero Dead Gaps) */
+.product-card, .oferta-card {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(7, 81, 26, 0.09) !important;
+  border-radius: 14px !important;
+  padding: 8px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  box-shadow: 0 3px 12px rgba(16, 38, 25, 0.04) !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+}
+.product-card:hover, .oferta-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 10px 24px rgba(7, 81, 26, 0.1) !important;
+  border-color: rgba(7, 81, 26, 0.22) !important;
+}
+        /* Locks the bottom action (cart or "Ver en Menú") to the bottom baseline */
+.product-card > div:last-child,
+.teaser-btn {
+  margin-top: auto !important;
+}
+        
+        
         /* Fluid Square Photo Frame (Scales organically with column width) */
 .product-img-box, .oferta-img-container {
   width: 100% !important;
@@ -1203,17 +1196,11 @@ nav.main-nav {
   padding: 0 2px !important;
 }
 
+/* Kill the artificial text gap */
 .product-ingredients, .oferta-subtitle {
-  font-size: clamp(0.66rem, 0.8vw, 0.74rem) !important;
-  line-height: 1.3 !important;
-  color: var(--text-muted, #556B60) !important;
-  display: -webkit-box !important;
-  -webkit-line-clamp: 2 !important;
-  -webkit-box-orient: vertical !important;
-  overflow: hidden !important;
-  text-align: left !important;
-  margin-bottom: 8px !important;
-  padding: 0 2px !important;
+  min-height: unset !important;
+  height: auto !important;
+  margin-bottom: 6px !important;
 }
         /* Miscellaneous utilities kept intact */
         .story-card { background: transparent !important; border: none !important; box-shadow: none !important; margin-top: 48px !important; margin-bottom: 25px !important; padding: 0 !important; width: 100%; }
