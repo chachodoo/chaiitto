@@ -238,11 +238,11 @@
 
 .menu-ribbon-track {
   display: flex;
-  gap: 18px;
+  gap: 1px; /* Razor tight hairline gap */
   width: max-content;
   will-change: transform;
   transform: translate3d(0, 0, 0);
-  animation: menuRibbonGlide 52s linear infinite;
+  animation: menuRibbonGlide 56s linear infinite;
   user-select: none;
 }
 
@@ -265,9 +265,9 @@
 .menu-ribbon-card {
   position: relative;
   flex: 0 0 auto;
-  height: clamp(195px, 28vh, 265px);
+  height: clamp(250px, 38vh, 340px); /* Taller & longer for crystal-clear readability */
   aspect-ratio: 1 / 1.414; /* True ISO portrait document proportion */
-  border-radius: 14px;
+  border-radius: 12px;
   overflow: hidden;
   background: #FCFBF7;
   border: 1.5px solid rgba(212, 175, 55, 0.38);
@@ -280,7 +280,8 @@
   transition: 
     transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), 
     box-shadow 0.32s cubic-bezier(0.16, 1, 0.3, 1), 
-    border-color 0.32s ease;
+    border-color 0.32s ease,
+    z-index 0.1s ease;
   transform: translate3d(0, 0, 0);
 }
 
@@ -298,13 +299,13 @@
 
 .menu-ribbon-card:hover {
   transform: translate3d(0, -6px, 0) scale(1.03);
+  z-index: 10; /* Cleanly hovers over the 1px neighbor seam */
   border-color: #D4AF37;
   box-shadow: 
     0 16px 36px -6px rgba(7, 81, 26, 0.22),
     0 0 20px rgba(212, 175, 55, 0.4),
     inset 0 0 0 1px rgba(245, 208, 97, 0.6);
 }
-
 .menu-ribbon-card:hover::after {
   opacity: 1;
 }
@@ -407,20 +408,20 @@
       <div class="menu-ribbon-badge">✨ Especial I</div>
       <img src="menu/page-6.webp" alt="Pág 6: Especial" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="openFullMenuCatalog(6)" title="Ver Especial II">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(6)" title="Ver Especial II">
       <div class="menu-ribbon-badge">✨ Especial II</div>
       <img src="menu/page-7.webp" alt="Pág 7: Especial" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="openFullMenuCatalog(6)" title="Ver Especial III">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(6)" title="Ver Especial III">
       <div class="menu-ribbon-badge">✨ Especial III</div>
       <img src="menu/page-8.webp" alt="Pág 8: Especial" loading="lazy">
     </div>
     <div class="menu-ribbon-card" onclick="jumpToMenuCollection(9)" title="Ver Wow I">
       <div class="menu-ribbon-badge">🔥 Wow I</div>
-      <img src="menu/page-9.webp" alt="Pág 9: Wow" loading="lazy">
+      <img src="menu/page-9.webp" alt="Pág 9: Wow 1" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="openFullMenuCatalog(9)" title="Ver Wow II">
-      <div class="menu-ribbon-badge">🔥 Wow</div>
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(9)" title="Ver Wow II">
+      <div class="menu-ribbon-badge">🔥 Wow II</div>
       <img src="menu/page-10.webp" alt="Pág 10: Wow 2" loading="lazy">
     </div>
     <div class="menu-ribbon-card" onclick="jumpToMenuCollection(11)" title="Ver Café">
