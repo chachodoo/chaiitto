@@ -247,66 +247,70 @@
  }
 
         /* ===================================================
-   LUXURY VERTICAL MESSAGE FLIPPER (BOTTOM-TO-TOP)
+   LUXURY VERTICAL MESSAGE FLIPPER (FIXED)
    =================================================== */
-.hero-vertical-ticker-bar {
-  width: 100%;
-  background: linear-gradient(180deg, #093813 0%, #032009 100%);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.45);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+#master-hero-banner.hero-vertical-ticker-bar {
+  width: 100% !important;
+  background: linear-gradient(180deg, #093813 0%, #032009 100%) !important;
+  border-bottom: 1.5px solid rgba(212, 175, 55, 0.5) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
   display: flex !important;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
   padding: 0 !important;
   margin: 0 !important;
-  overflow: hidden;
-  user-select: none;
+  overflow: hidden !important;
+  user-select: none !important;
+  height: 38px !important;
+  min-height: 38px !important;
 }
 
-.vertical-ticker-window {
-  height: 36px;
-  overflow: hidden;
-  width: 100%;
-  max-width: 900px;
-  position: relative;
+#master-hero-banner .vertical-ticker-window {
+  height: 38px !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  max-width: 900px !important;
+  position: relative !important;
 }
 
-.vertical-ticker-track {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  animation: verticalFlipperGlide 12s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+#master-hero-banner .vertical-ticker-track {
+  display: flex !important;
+  flex-direction: column !important;
+  height: auto !important; /* Fixes track height so items don't squish */
+  animation: verticalFlipperGlide 12s cubic-bezier(0.77, 0, 0.175, 1) infinite !important;
   will-change: transform;
 }
 
-.hero-vertical-ticker-bar:hover .vertical-ticker-track {
-  animation-play-state: paused;
+#master-hero-banner:hover .vertical-ticker-track {
+  animation-play-state: paused !important;
 }
 
-.vertical-ticker-item {
-  flex: 0 0 100%;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-family: var(--font-heading, 'Cinzel', serif);
-  font-size: clamp(0.70rem, 2.3vw, 0.84rem);
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: #F8F6F0;
-  text-align: center;
-  padding: 0 12px;
-  box-sizing: border-box;
-  white-space: nowrap;
+#master-hero-banner .vertical-ticker-item {
+  flex: 0 0 38px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  font-family: var(--font-heading, 'Cinzel', serif) !important;
+  font-size: clamp(0.70rem, 2.3vw, 0.84rem) !important;
+  font-weight: 700 !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+  color: #FFFFFF !important;
+  text-align: center !important;
+  padding: 0 12px !important;
+  box-sizing: border-box !important;
+  white-space: nowrap !important;
 }
 
-.vertical-ticker-item .gold {
-  color: #F5D061;
+#master-hero-banner .vertical-ticker-item .gold {
+  color: #F5D061 !important;
 }
 
-/* 4 Distinct Messages + 1 Clone: 2.5s Pause, 0.5s Bottom-to-Top Flip */
+/* 5 Items (0 to 4): Shifts precisely 20% (-38px) per step */
 @keyframes verticalFlipperGlide {
   0%, 20%   { transform: translateY(0%); }
   25%, 45%  { transform: translateY(-20%); }
