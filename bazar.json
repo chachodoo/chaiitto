@@ -86,5 +86,19 @@
       "bazar/bazar-801-3.jpeg",
       "bazar/bazar-801-4.jpeg"
     ]
+  },
+  {
+    "num": "802",
+    "name": "Opulent Dubai Lattafa Perfumes",
+    "descripcion": "Fragancia floral oriental para mujeres y hombres. Sus notas de salida son mango, pomelo, limón y jengibre; las notas de corazón son jazmín, cedro y violeta; las notas de fondo son notas amaderadas, ámbar gris, musgo de roble y benjuí. 100ml.",
+    "precio": 850,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "bazar/bazar-802-1.jpeg",
+      "bazar/bazar-802-2.jpeg",
+      "bazar/bazar-802-3.jpeg",
+      "bazar/bazar-802-4.jpeg"
+    ]
   }
 ]
