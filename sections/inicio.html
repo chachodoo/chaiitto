@@ -309,6 +309,35 @@
 .menu-ribbon-card:hover::after {
   opacity: 1;
 }
+  /* Instant 0ms Hover Pill */
+.menu-ribbon-card::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: rgba(7, 81, 26, 0.95);
+  border: 1px solid #F5D061;
+  color: #FFFFFF;
+  font-family: var(--font-heading, 'Cinzel', serif);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 20;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+
+.menu-ribbon-card:hover::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
 
 .menu-ribbon-card img {
   width: 100%;
@@ -481,117 +510,117 @@
 <div class="menu-ribbon-container">
   <div class="menu-ribbon-track">
     <!-- SET 1: THE 14 MENU SHEETS -->
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(1)" title="Ver Bienestar">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(1)" data-tooltip="Ver Bienestar">
       <div class="menu-ribbon-badge">🌿 Bienestar</div>
       <img src="menu/page-1.webp" alt="Pág 1: Bienestar" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(2)" title="Ver Chai Lover">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(2)" data-tooltip="Ver Chai Lover">
       <div class="menu-ribbon-badge">☕ Chai Lover</div>
       <img src="menu/page-2.webp" alt="Pág 2: Chai Lover" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(3)" title="Ver Blue Magic">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(3)" data-tooltip="Ver Blue Magic">
       <div class="menu-ribbon-badge">💙 Blue Magic</div>
       <img src="menu/page-3.webp" alt="Pág 3: Blue Magic" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(4)" title="Ver Viajes con Té">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(4)" data-tooltip="Ver Viajes con Té">
       <div class="menu-ribbon-badge">✈️ Viajes con Té</div>
       <img src="menu/page-4.webp" alt="Pág 4: Viajes con Té" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(5)" title="Ver Nocturna">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(5)" data-tooltip="Ver Nocturna">
       <div class="menu-ribbon-badge">🌙 Nocturna</div>
       <img src="menu/page-5.webp" alt="Pág 5: Nocturna" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(6)" title="Ver Especial I">
-      <div class="menu-ribbon-badge">✨ Especial I</div>
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(6)" data-tooltip="Ver Especial">
+      <div class="menu-ribbon-badge">✨ Especial</div>
       <img src="menu/page-6.webp" alt="Pág 6: Especial" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(6)" title="Ver Especial II">
-      <div class="menu-ribbon-badge">✨ Especial II</div>
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(6)" data-tooltip="Ver Especial">
+      <div class="menu-ribbon-badge">✨ Especial</div>
       <img src="menu/page-7.webp" alt="Pág 7: Especial" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(6)" title="Ver Especial III">
-      <div class="menu-ribbon-badge">✨ Especial III</div>
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(6)" data-tooltip="Ver Especial">
+      <div class="menu-ribbon-badge">✨ Especial</div>
       <img src="menu/page-8.webp" alt="Pág 8: Especial" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(9)" title="Ver Wow I">
-      <div class="menu-ribbon-badge">🔥 Wow I</div>
-      <img src="menu/page-9.webp" alt="Pág 9: Wow 1" loading="lazy">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(9)" data-tooltip="Ver Wow">
+      <div class="menu-ribbon-badge">🔥 Wow</div>
+      <img src="menu/page-9.webp" alt="Pág 9: Wow" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(9)" title="Ver Wow II">
-      <div class="menu-ribbon-badge">🔥 Wow II</div>
-      <img src="menu/page-10.webp" alt="Pág 10: Wow 2" loading="lazy">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(9)" data-tooltip="Ver Wow">
+      <div class="menu-ribbon-badge">🔥 Wow</div>
+      <img src="menu/page-10.webp" alt="Pág 10: Wow" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(11)" title="Ver Café">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(11)" data-tooltip="Ver Café">
       <div class="menu-ribbon-badge">☕ Café</div>
       <img src="menu/page-11.webp" alt="Pág 11: Café" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(12)" title="Ver Choco Latte">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(12)" data-tooltip="Ver Choco Latte">
       <div class="menu-ribbon-badge">🍫 Choco Latte</div>
       <img src="menu/page-12.webp" alt="Pág 12: Choco Latte" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(13)" title="Ver Tentaciones">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(13)" data-tooltip="Ver Tentaciones">
       <div class="menu-ribbon-badge">🍰 Tentaciones</div>
       <img src="menu/page-13.webp" alt="Pág 13: Tentaciones" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(14)" title="Ver Quiero Matcha">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(14)" data-tooltip="Ver Quiero Matcha">
       <div class="menu-ribbon-badge">🍵 Quiero Matcha</div>
       <img src="menu/page-14.webp" alt="Pág 14: Quiero Matcha" loading="lazy">
     </div>
 
     <!-- SET 2: SEAMLESS MIRROR (Infinite continuous glide) -->
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(1)" title="Ver Bienestar">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(1)" data-tooltip="Ver Bienestar">
       <div class="menu-ribbon-badge">🌿 Bienestar</div>
       <img src="menu/page-1.webp" alt="Pág 1: Bienestar" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(2)" title="Ver Chai Lover">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(2)" data-tooltip="Ver Chai Lover">
       <div class="menu-ribbon-badge">☕ Chai Lover</div>
       <img src="menu/page-2.webp" alt="Pág 2: Chai Lover" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(3)" title="Ver Blue Magic">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(3)" data-tooltip="Ver Blue Magic">
       <div class="menu-ribbon-badge">💙 Blue Magic</div>
       <img src="menu/page-3.webp" alt="Pág 3: Blue Magic" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(4)" title="Ver Viajes con Té">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(4)" data-tooltip="Ver Viajes con Té">
       <div class="menu-ribbon-badge">✈️ Viajes con Té</div>
       <img src="menu/page-4.webp" alt="Pág 4: Viajes con Té" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(5)" title="Ver Nocturna">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(5)" data-tooltip="Ver Nocturna">
       <div class="menu-ribbon-badge">🌙 Nocturna</div>
       <img src="menu/page-5.webp" alt="Pág 5: Nocturna" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(6)" title="Ver Especial I">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(6)" data-tooltip="Ver Especial">
       <div class="menu-ribbon-badge">✨ Especial</div>
-      <img src="menu/page-6.webp" alt="Pág 6: Especial 1" loading="lazy">
+      <img src="menu/page-6.webp" alt="Pág 6: Especial" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(6)" title="Ver Especial II">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(6)" data-tooltip="Ver Especial">
       <div class="menu-ribbon-badge">✨ Especial</div>
-      <img src="menu/page-7.webp" alt="Pág 7: Especial 2" loading="lazy">
+      <img src="menu/page-7.webp" alt="Pág 7: Especial" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(6)" title="Ver Especial III">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(6)" data-tooltip="Ver Especial">
       <div class="menu-ribbon-badge">✨ Especial</div>
-      <img src="menu/page-8.webp" alt="Pág 8: Especial 3" loading="lazy">
+      <img src="menu/page-8.webp" alt="Pág 8: Especial" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(9)" title="Ver Wow I">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(9)" data-tooltip="Ver Wow">
       <div class="menu-ribbon-badge">🔥 Wow</div>
-      <img src="menu/page-9.webp" alt="Pág 9: Wow 1" loading="lazy">
+      <img src="menu/page-9.webp" alt="Pág 9: Wow" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(9)" title="Ver Wow II">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(9)" data-tooltip="Ver Wow">
       <div class="menu-ribbon-badge">🔥 Wow</div>
-      <img src="menu/page-10.webp" alt="Pág 10: Wow 2" loading="lazy">
+      <img src="menu/page-10.webp" alt="Pág 10: Wow" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(11)" title="Ver Café">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(11)" data-tooltip="Ver Café">
       <div class="menu-ribbon-badge">☕ Café</div>
       <img src="menu/page-11.webp" alt="Pág 11: Café" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(12)" title="Ver Choco Latte">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(12)" data-tooltip="Ver Choco Latte">
       <div class="menu-ribbon-badge">🍫 Choco Latte</div>
       <img src="menu/page-12.webp" alt="Pág 12: Choco Latte" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(13)" title="Ver Tentaciones">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(13)" data-tooltip="Ver Tentaciones">
       <div class="menu-ribbon-badge">🍰 Tentaciones</div>
       <img src="menu/page-13.webp" alt="Pág 13: Tentaciones" loading="lazy">
     </div>
-    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(14)" title="Ver Quiero Matcha">
+    <div class="menu-ribbon-card" onclick="jumpToMenuCollection(14)" data-tooltip="Ver Quiero Matcha">
       <div class="menu-ribbon-badge">🍵 Quiero Matcha</div>
       <img src="menu/page-14.webp" alt="Pág 14: Quiero Matcha" loading="lazy">
     </div>
