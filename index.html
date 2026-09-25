@@ -1196,11 +1196,21 @@ nav.main-nav {
   padding: 0 2px !important;
 }
 
-/* Kill the artificial text gap */
+/* Crisp Editorial Description (Tight, Small & Max 2 Lines) */
 .product-ingredients, .oferta-subtitle {
+  font-family: var(--font-body, 'Montserrat', sans-serif) !important;
+  font-size: clamp(0.64rem, 0.78vw, 0.72rem) !important;
+  line-height: 1.25 !important;
+  color: var(--text-muted, #556B60) !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-align: left !important;
   min-height: unset !important;
   height: auto !important;
-  margin-bottom: 6px !important;
+  margin: 0 0 8px 0 !important;
+  padding: 0 2px !important;
 }
         /* Miscellaneous utilities kept intact */
         .story-card { background: transparent !important; border: none !important; box-shadow: none !important; margin-top: 48px !important; margin-bottom: 25px !important; padding: 0 !important; width: 100%; }
