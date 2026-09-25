@@ -709,5 +709,18 @@
       "accesorios/accesorios-551-1.jpeg",
       "accesorios/accesorios-551-2.jpeg"
     ]
+  },
+  {
+    "num": "552",
+    "name": "Set Taza Espresso",
+    "descripcion": "Set para cafe de Plato y Taza con detalles en color Cafe y Beige,",
+    "precio": 120,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-552-1.jpeg",
+      "accesorios/accesorios-552-2.jpeg",
+      "accesorios/accesorios-552-3.jpeg"
+    ]
   }
 ]
