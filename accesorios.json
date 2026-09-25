@@ -722,5 +722,41 @@
       "accesorios/accesorios-552-2.jpeg",
       "accesorios/accesorios-552-3.jpeg"
     ]
+  },
+  {
+    "num": "553",
+    "name": "Taza Cafetera",
+    "descripcion": "Taza cafetera de Porcelana Blanca, capacidad de 250ml.",
+    "precio": 100,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-553-1.jpeg",
+      "accesorios/accesorios-553-2.jpeg"
+    ]
+  },
+  {
+    "num": "554",
+    "name": "Taza Chocolatera",
+    "descripcion": "Taza grande de Ceramica con detalles en Azul Aqua, capacidad de 300ml.",
+    "precio": 120,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-554-1.jpeg",
+      "accesorios/accesorios-554-2.jpeg"
+    ]
+  },
+  {
+    "num": "555",
+    "name": "Taza Chocolatera",
+    "descripcion": "Taza grande de Ceramica con detalles en Azul Cielo, capacidad de 300ml.",
+    "precio": 120,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-555-1.jpeg",
+      "accesorios/accesorios-555-2.jpeg"
+    ]
   }
 ]
