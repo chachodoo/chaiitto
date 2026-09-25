@@ -205,5 +205,17 @@
       "regalos/regalos-215-1.jpeg",
       "regalos/regalos-215-2.jpeg"
     ]
+  },
+  {
+    "num": "216",
+    "name": "Cuenco Turco \"Hand Made\"",
+    "descripcion": "Cuenco Turco hecho a mano con decoraciones florales en tonos Azules, Verdes y Rojos.",
+    "precio": 190,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "regalos/regalos-216-1.jpeg",
+      "regalos/regalos-216-2.jpeg"
+    ]
   }
 ]
