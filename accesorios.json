@@ -758,5 +758,17 @@
       "accesorios/accesorios-555-1.jpeg",
       "accesorios/accesorios-555-2.jpeg"
     ]
+  },
+  {
+    "num": "556",
+    "name": "Taza Letras \"Tea\"",
+    "descripcion": "Taza de Porcelana Thailandesa de color Blanco con letras Verdes, capacidad de 250ml.",
+    "precio": 150,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-556-1.jpeg",
+      "accesorios/accesorios-556-2.jpeg"
+    ]
   }
 ]
