@@ -246,20 +246,19 @@
             
  }
 
-       /* ===================================================
-   LUXURY VERTICAL MESSAGE FLIPPER (PERFECT CENTER + NO MOBILE CLIP)
+      /* ===================================================
+   LUXURY VERTICAL MESSAGE FLIPPER (MATCHED TO TOP MARQUEE)
    =================================================== */
 #master-hero-banner {
   width: 100% !important;
-  height: 38px !important;
-  min-height: 38px !important;
-  max-height: 38px !important;
+  height: 36px !important;
+  min-height: 36px !important;
+  max-height: 36px !important;
   background: linear-gradient(180deg, #093813 0%, #032009 100%) !important;
   border-top: none !important;
-  border-bottom: 1.5px solid rgba(212, 175, 55, 0.5) !important;
+  border-bottom: 1.5px solid rgba(212, 175, 55, 0.45) !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
   display: flex !important;
-  flex-direction: row !important;
   justify-content: center !important;
   align-items: center !important;
   padding: 0 !important;
@@ -270,8 +269,7 @@
 }
 
 #master-hero-banner .vertical-ticker-window {
-  height: 38px !important;
-  line-height: 38px !important;
+  height: 36px !important;
   overflow: hidden !important;
   width: 100% !important;
   max-width: 900px !important;
@@ -295,66 +293,49 @@
 }
 
 #master-hero-banner .vertical-ticker-item {
-  flex: 0 0 38px !important;
-  height: 38px !important;
-  line-height: 38px !important;
+  flex: 0 0 36px !important;
+  height: 36px !important;
   box-sizing: border-box !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   gap: 8px !important;
-  font-family: var(--font-heading, 'Cinzel', serif) !important;
-  font-size: 0.82rem !important;
+  
+  /* MATCHED EXACTLY TO TOP MARQUEE STYLING */
+  font-family: var(--font-body, 'Montserrat', sans-serif) !important;
+  font-size: clamp(0.68rem, 2.2vw, 0.78rem) !important;
   font-weight: 700 !important;
-  letter-spacing: 1.2px !important;
+  letter-spacing: clamp(0.4px, 0.2vw, 0.8px) !important;
   text-transform: uppercase !important;
   color: #FFFFFF !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
+  
+  line-height: 1 !important;
   text-align: center !important;
-  padding: 0 12px !important;
+  padding: 0 10px !important;
   margin: 0 !important;
   white-space: nowrap !important;
 }
 
 #master-hero-banner .vertical-ticker-item span {
   color: #FFFFFF !important;
+  line-height: 1 !important;
 }
 
 #master-hero-banner .vertical-ticker-item .gold {
   color: #F5D061 !important;
+  font-size: 0.85em !important;
 }
 
-/* 5 Items (0 to 4): Shifts precisely 20% (-38px) per step */
+/* 5 Items: Shifts precisely 20% (-36px) per step */
 @keyframes verticalFlipperGlide {
   0%, 20%   { transform: translateY(0%); }
   25%, 45%  { transform: translateY(-20%); }
   50%, 70%  { transform: translateY(-40%); }
   75%, 95%  { transform: translateY(-60%); }
   100%      { transform: translateY(-80%); }
-}
-
-/* MOBILE TUNING: PERFECT HORIZONTAL FIT (ZERO EDGE CLIPPING) */
-@media (max-width: 991px) {
-  #master-hero-banner {
-    height: 34px !important;
-    min-height: 34px !important;
-    max-height: 34px !important;
-  }
-  #master-hero-banner .vertical-ticker-window {
-    height: 34px !important;
-    line-height: 34px !important;
-  }
-  #master-hero-banner .vertical-ticker-item {
-    flex: 0 0 34px !important;
-    height: 34px !important;
-    line-height: 34px !important;
-    font-size: clamp(0.58rem, 2.8vw, 0.68rem) !important;
-    letter-spacing: 0.5px !important;
-    padding: 0 6px !important;
-    gap: 6px !important;
-  }
-  #master-hero-banner .vertical-ticker-item .gold {
-    font-size: 0.65rem !important;
-  }
 }
         
 /* DESKTOP & MOBILE HERO MENU BUTTON */
