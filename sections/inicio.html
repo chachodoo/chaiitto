@@ -350,6 +350,118 @@
   border-color: #F5D061;
   transform: translateY(-1px);
 }
+/* ===================================================
+   MASTER MENU HERO CTA: LUXURY APOTHECARY SHIMMER & PULSE
+   =================================================== */
+.hero-master-menu-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 13px 32px;
+  background: linear-gradient(135deg, #0E481A 0%, #07511A 50%, #03280B 100%);
+  color: #FFFFFF !important;
+  font-family: var(--font-heading, 'Cinzel', serif);
+  font-size: clamp(0.88rem, 1.15vw, 1.02rem);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: 1.5px solid #F5D061;
+  border-radius: 50px;
+  cursor: pointer;
+  overflow: hidden;
+  user-select: none;
+  /* Triple-layer depth: ambient matcha shadow, gold aura, and inner bevel */
+  box-shadow: 
+    0 8px 24px rgba(7, 81, 26, 0.45),
+    0 0 14px rgba(212, 175, 55, 0.35),
+    inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  animation: masterMenuPulse 2.8s infinite ease-in-out;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.25s ease;
+  will-change: transform, box-shadow;
+}
+
+/* 1. Ambient Gold Breathing Pulse */
+@keyframes masterMenuPulse {
+  0%, 100% {
+    box-shadow: 
+      0 6px 20px rgba(7, 81, 26, 0.4),
+      0 0 12px rgba(212, 175, 55, 0.3),
+      inset 0 1px 1px rgba(255, 255, 255, 0.35);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 
+      0 10px 32px rgba(7, 81, 26, 0.6),
+      0 0 24px rgba(245, 208, 97, 0.75),
+      inset 0 1px 2px rgba(255, 255, 255, 0.65);
+    transform: scale(1.028);
+  }
+}
+
+/* 2. Liquid Gold Specular Light Beam (Sweeps across every 3.8s) */
+.hero-master-menu-btn::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -65%;
+  width: 45%;
+  height: 200%;
+  background: linear-gradient(
+    90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.05) 15%, 
+    rgba(245, 208, 97, 0.5) 50%, 
+    rgba(255, 255, 255, 0.25) 75%, 
+    transparent 100%
+  );
+  transform: rotate(25deg);
+  animation: heroBtnShimmer 3.8s infinite ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes heroBtnShimmer {
+  0% {
+    left: -65%;
+  }
+  32%, 100% {
+    left: 140%;
+  }
+}
+
+/* 3. Hover State: Gold Halo Expansion & Specular Lift */
+.hero-master-menu-btn:hover {
+  background: linear-gradient(135deg, #135A22 0%, #096822 50%, #043810 100%);
+  border-color: #FFFFFF;
+  transform: translateY(-2px) scale(1.045);
+  box-shadow: 
+    0 14px 38px rgba(7, 81, 26, 0.65),
+    0 0 30px rgba(245, 208, 97, 0.95),
+    inset 0 1px 2px rgba(255, 255, 255, 0.75);
+}
+
+.hero-master-menu-btn:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 
+    0 4px 14px rgba(7, 81, 26, 0.4),
+    0 0 10px rgba(212, 175, 55, 0.4);
+}
+
+/* 4. Gold Book Icon Interaction */
+.hero-master-menu-btn i {
+  color: #F5D061;
+  font-size: 1.15em;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.hero-master-menu-btn:hover i {
+  color: #FFFFFF;
+  transform: scale(1.15) rotate(-4deg);
+}
   
 </style>
 
@@ -358,7 +470,7 @@
         <!-- MASTER MENU HERO CTA (Centered on Top) -->
 <div style="width: 100%; text-align: center; margin: 12px 0 16px 0;">
     <button type="button" class="hero-master-menu-btn" onclick="openFullMenuCatalog(1)">
-  <i class="fa-solid fa-book-open"></i> Menú
+  <i class="fa-solid fa-book-open"></i> Ver Nuestro Menú
 </button>
 </div>
 
