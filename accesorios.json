@@ -770,5 +770,17 @@
       "accesorios/accesorios-556-1.jpeg",
       "accesorios/accesorios-556-2.jpeg"
     ]
+  },
+  {
+    "num": "557",
+    "name": "Taza Letras \"Tea\"",
+    "descripcion": "Taza de Porcelana Thailandesa de color Verde Matcha con letras Verdes, capacidad de 250ml.",
+    "precio": 150,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "accesorios/accesorios-557-1.jpeg",
+      "accesorios/accesorios-557-2.jpeg"
+    ]
   }
 ]
