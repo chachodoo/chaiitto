@@ -247,60 +247,72 @@
  }
 
         /* ===================================================
-   SUB-NAV EDITORIAL BRAND TICKER (MOBILE + DESKTOP)
+   LUXURY VERTICAL MESSAGE FLIPPER (BOTTOM-TO-TOP)
    =================================================== */
-.brand-editorial-ticker-wrap {
+.hero-vertical-ticker-bar {
   width: 100%;
-  background: #06280F; /* Deep apothecary velvet green */
-  border-bottom: 1px solid rgba(212, 175, 55, 0.4);
+  background: linear-gradient(180deg, #093813 0%, #032009 100%);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.45);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  padding: 0 !important;
+  margin: 0 !important;
   overflow: hidden;
-  position: relative;
-  padding: 8px 0;
-  white-space: nowrap;
   user-select: none;
-  /* Soft fade at the screen edges */
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 5%, black 95%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, black 5%, black 95%, transparent 100%);
 }
 
-.brand-editorial-ticker-track {
-  display: inline-flex;
-  gap: 32px;
+.vertical-ticker-window {
+  height: 36px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 900px;
+  position: relative;
+}
+
+.vertical-ticker-track {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  animation: verticalFlipperGlide 12s cubic-bezier(0.77, 0, 0.175, 1) infinite;
   will-change: transform;
-  transform: translate3d(0, 0, 0);
-  animation: editorialTickerGlide 38s linear infinite;
 }
 
-.brand-editorial-ticker-wrap:hover .brand-editorial-ticker-track,
-.brand-editorial-ticker-wrap:active .brand-editorial-ticker-track {
+.hero-vertical-ticker-bar:hover .vertical-ticker-track {
   animation-play-state: paused;
 }
 
-@keyframes editorialTickerGlide {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
-.brand-ticker-item {
-  display: inline-flex;
+.vertical-ticker-item {
+  flex: 0 0 100%;
+  height: 36px;
+  display: flex;
   align-items: center;
-  gap: 16px;
+  justify-content: center;
+  gap: 8px;
   font-family: var(--font-heading, 'Cinzel', serif);
-  font-size: clamp(0.72rem, 2.2vw, 0.82rem);
-  font-weight: 600;
-  letter-spacing: 1.2px;
+  font-size: clamp(0.70rem, 2.3vw, 0.84rem);
+  font-weight: 700;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: #ECE8DE;
+  color: #F8F6F0;
+  text-align: center;
+  padding: 0 12px;
+  box-sizing: border-box;
+  white-space: nowrap;
 }
 
-.brand-ticker-item .gold-star {
+.vertical-ticker-item .gold {
   color: #F5D061;
-  font-size: 0.75rem;
-  opacity: 0.85;
+}
+
+/* 4 Distinct Messages + 1 Clone: 2.5s Pause, 0.5s Bottom-to-Top Flip */
+@keyframes verticalFlipperGlide {
+  0%, 20%   { transform: translateY(0%); }
+  25%, 45%  { transform: translateY(-20%); }
+  50%, 70%  { transform: translateY(-40%); }
+  75%, 95%  { transform: translateY(-60%); }
+  100%      { transform: translateY(-80%); }
 }
         
 /* DESKTOP & MOBILE HERO MENU BUTTON */
@@ -1955,30 +1967,30 @@ nav.main-nav {
     </div>    
     </header>
 
-   <div class="brand-editorial-ticker-wrap" id="master-hero-banner">
-  <div class="brand-editorial-ticker-track">
-    <!-- SET 1 -->
-    <div class="brand-ticker-item">
-      <span>🌿 El Verdadero Té Llegó a Cholula</span>
-      <span class="gold-star">✦</span>
-      <span>Sin bolsitas comerciales ni polvos</span>
-      <span class="gold-star">✦</span>
-      <span>Auténtica cultura del Té de hoja suelta</span>
-      <span class="gold-star">✦</span>
-      <span>Más de 120 mezclas artesanales</span>
-      <span class="gold-star">✦</span>
-    </div>
-
-    <!-- SET 2: SEAMLESS MIRROR -->
-    <div class="brand-ticker-item">
-      <span>🌿 El Verdadero Té Llegó a Cholula</span>
-      <span class="gold-star">✦</span>
-      <span>Sin bolsitas comerciales ni polvos</span>
-      <span class="gold-star">✦</span>
-      <span>Auténtica cultura del Té de hoja suelta</span>
-      <span class="gold-star">✦</span>
-      <span>Más de 120 mezclas artesanales</span>
-      <span class="gold-star">✦</span>
+   <!-- 1. THE NEW MASTER HERO BANNER (Vertical Bottom-to-Top Flipper) -->
+<div id="master-hero-banner" class="hero-vertical-ticker-bar">
+  <div class="vertical-ticker-window">
+    <div class="vertical-ticker-track">
+      <div class="vertical-ticker-item">
+        <span>🌿 El Verdadero Té Llegó a Cholula</span>
+      </div>
+      <div class="vertical-ticker-item">
+        <span class="gold">✦</span>
+        <span>Sin bolsitas comerciales ni polvos</span>
+        <span class="gold">✦</span>
+      </div>
+      <div class="vertical-ticker-item">
+        <span>🍃 Auténtica cultura del Té de hoja suelta</span>
+      </div>
+      <div class="vertical-ticker-item">
+        <span class="gold">✦</span>
+        <span>Más de 120 mezclas artesanales</span>
+        <span class="gold">✦</span>
+      </div>
+      <!-- CLONE OF MESSAGE 1 FOR INVISIBLE INFINITE RESET -->
+      <div class="vertical-ticker-item">
+        <span>🌿 El Verdadero Té Llegó a Cholula</span>
+      </div>
     </div>
   </div>
 </div>
