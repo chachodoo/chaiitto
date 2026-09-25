@@ -548,36 +548,45 @@ async function fetchProducts() {
             menuNavigationState.currentPage = targetPage;
             updateMenuDisplay();
         } else if (pageName === 'vip') {
-            // Delay 200ms so mobile drawer closes and screen snaps to top before firing
             setTimeout(() => {
                 if (typeof confetti === 'function') {
-                    // 1. LEFT CANNON BLAST
+                    // 1. CENTER-STAGE GOLD EXPLOSION (Fills vertical mobile screens)
                     confetti({
-                        particleCount: 80,
-                        angle: 60,
-                        spread: 70,
-                        origin: { x: 0, y: 0.65 },
+                        particleCount: 70,
+                        spread: 100,
+                        origin: { x: 0.5, y: 0.35 },
                         colors: ['#F5D061', '#D4AF37', '#FFFFFF', '#25D366', '#07511A'],
-                        scalar: 1.2,
-                        ticks: 250,
+                        scalar: 1.25,
+                        ticks: 280,
                         zIndex: 99999,
                         disableForReducedMotion: false
                     });
 
-                    // 2. RIGHT CANNON BLAST (Cascading Crossfire)
+                    // 2. CORNER FOUNTAINS (Crossfire)
                     confetti({
-                        particleCount: 80,
+                        particleCount: 45,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0.1, y: 0.6 },
+                        colors: ['#F5D061', '#D4AF37', '#FFFFFF'],
+                        scalar: 1.1,
+                        ticks: 250,
+                        zIndex: 99999,
+                        disableForReducedMotion: false
+                    });
+                    confetti({
+                        particleCount: 45,
                         angle: 120,
-                        spread: 70,
-                        origin: { x: 1, y: 0.65 },
-                        colors: ['#F5D061', '#D4AF37', '#FFFFFF', '#25D366', '#07511A'],
-                        scalar: 1.2,
+                        spread: 55,
+                        origin: { x: 0.9, y: 0.6 },
+                        colors: ['#F5D061', '#D4AF37', '#FFFFFF'],
+                        scalar: 1.1,
                         ticks: 250,
                         zIndex: 99999,
                         disableForReducedMotion: false
                     });
                 }
-            }, 200);
+            }, 250);
         }
 
         // 3. FORCE IMMEDIATE JUMP TO TOP (Removed 'smooth' so it doesn't get stuck)
