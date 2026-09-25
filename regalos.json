@@ -183,15 +183,15 @@
   },
   {
     "num": "214",
-    "name": "Perfume Arabe 10ml",
-    "descripcion": "Perfume de Aceite de alta duracion Roll On.",
-    "precio": 200,
+    "name": "Humrah Dkhoun",
+    "descripcion": "Fragancia de la familia olfativa Oriental para Hombres. Las Notas de Salida son especias, pimienta de Jamaica y mandarina; las Notas de Corazón son incienso, ládano, flor de azahar del naranjo y pachulí; las Notas de Fondo son praliné, tabaco, ámbar, haba tonka y benjuí.",
+    "precio": 350,
     "precioOferta": null,
     "blurPreview": "",
     "images": [
-      "regalos/regalos-05-1.jpeg",
-      "regalos/regalos-05-2.jpeg",
-      "regalos/regalos-05-3.jpeg"
+      "regalos/regalos-214-1.jpeg",
+      "regalos/regalos-214-2.jpeg",
+      "regalos/regalos-214-3.jpeg"
     ]
   }
 ]
