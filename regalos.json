@@ -193,5 +193,17 @@
       "regalos/regalos-214-2.jpeg",
       "regalos/regalos-214-3.jpeg"
     ]
+  },
+  {
+    "num": "215",
+    "name": "Tazon Decorativo",
+    "descripcion": "Tazon de Metal decorado con motivos Turcos.",
+    "precio": 100,
+    "precioOferta": null,
+    "blurPreview": "",
+    "images": [
+      "regalos/regalos-215-1.jpeg",
+      "regalos/regalos-215-2.jpeg"
+    ]
   }
 ]
