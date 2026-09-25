@@ -1,26 +1,109 @@
 <!-- VIP CLUB SECTION -->
-<section id="vip-section" class="vip-container" style="max-width: 950px; margin: 0 auto; padding: 40px 15px; text-align: center;">
-  <div style="margin-bottom: 35px;">
-    <h2 style="font-family: var(--font-heading); color: var(--matcha-deep); font-size: 2.5rem; margin-bottom: 10px;">
-    Únete a Chaiito Club VIP
-    </h2>
-    <p style="font-family: var(--font-body, 'Montserrat', sans-serif); color: #3d5a45; font-size: 1.05rem; font-weight: 500; letter-spacing: 0.5px; margin: 0;">
-      Selecciona tu nivel de acceso.</p>
+<section id="vip-section" class="vip-container" style="max-width: 950px; margin: 0 auto; padding: 20px 15px 40px; text-align: center;">
+
+  <!-- ENTERPRISE VIP HEADER STAGE -->
+  <div class="vip-luxury-stage">
+    <div class="vip-eyebrow-pill">
+      ✦ ACCESO PRIVADO & BENEFICIOS EXCLUSIVOS ✦
+    </div>
+    <h2 class="vip-hero-title">ÚNETE A CHAI-ITTO CLUB VIP</h2>
+    <p class="vip-hero-subtitle">
+      Acceso ilimitado al Bazar secreto, cortesías mensuales de Té en barra y descuentos exclusivos para miembros.
+    </p>
   </div>
 
   <!-- ENTERPRISE PRICING STYLES -->
-<style>
-    .vip-pricing-wrapper { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; align-items: flex-start; padding: 20px 0 40px; margin-top: 20px; }
-    .vip-card { flex: 1 1 320px; max-width: 400px; border-radius: 20px; padding: 40px 30px; position: relative; transition: transform 0.3s ease, box-shadow 0.3s ease; text-align: left; }
+  <style>
+    /* 1. KILLS THE ZOMBIE FLIPPER BAR ON VIP */
+    #master-hero-banner {
+      display: none !important;
+    }
+
+    /* 2. LUXURY ATMOSPHERIC VIP STAGE */
+    .vip-luxury-stage {
+      position: relative;
+      width: 100%;
+      margin: 0 0 35px 0;
+      padding: 42px 20px 32px 20px;
+      background: radial-gradient(ellipse at 50% -20%, #13421C 0%, #07240E 50%, #031206 100%);
+      border-radius: 20px;
+      border: 1.5px solid rgba(212, 175, 55, 0.45);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+      text-align: center;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .vip-eyebrow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      border-radius: 30px;
+      backdrop-filter: blur(8px);
+      color: #F5D061;
+      font-family: var(--font-heading, 'Cinzel', serif);
+      font-size: clamp(0.68rem, 1.8vw, 0.76rem);
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .vip-hero-title {
+      font-family: var(--font-heading, 'Cinzel', serif);
+      font-size: clamp(1.6rem, 3.8vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      margin: 0 0 10px 0;
+      line-height: 1.15;
+      background: linear-gradient(135deg, #FFFFFF 0%, #FDF3CD 25%, #E5C158 55%, #B8932A 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .vip-hero-subtitle {
+      font-family: var(--font-body, 'Montserrat', sans-serif);
+      font-size: clamp(0.82rem, 1.8vw, 0.95rem);
+      color: #C3D9C8;
+      max-width: 580px;
+      margin: 0 auto;
+      line-height: 1.5;
+      letter-spacing: 0.3px;
+    }
+
+    /* 3. PRICING GRID & CARDS (PRESERVED & REFINED) */
+    .vip-pricing-wrapper { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; align-items: flex-start; padding: 10px 0 40px; margin-top: 10px; }
+    .vip-card { flex: 1 1 320px; max-width: 400px; border-radius: 20px; padding: 40px 30px; position: relative; transition: transform 0.3s ease, box-shadow 0.3s ease; text-align: left; box-sizing: border-box; }
     
-    /* Basic Card - Understated, clean */
+    /* Basic Card */
     .vip-card.basic { background: #ffffff; border: 1px solid #E2ECE5; box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
     
-    /* Premium Card - The "Black Card" luxury feel */
-    .vip-card.premium { background: var(--emerald-card, #102619); color: #ffffff; border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 20px 40px rgba(16, 38, 25, 0.25); transform: none; z-index: 2; }
+    /* Premium Black Card */
+    .vip-card.premium { background: var(--emerald-card, #102619); color: #ffffff; border: 1.5px solid rgba(212, 175, 55, 0.5); box-shadow: 0 20px 40px rgba(16, 38, 25, 0.25); transform: none; z-index: 2; }
     @media (max-width: 768px) { .vip-card.premium { transform: scale(1); margin-top: 15px; } }
     
-    .vip-badge { position: absolute; top: -16px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%); color: #102619; padding: 6px 18px; border-radius: 30px; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4); white-space: nowrap; }
+    /* Gold Ingot Badge (Replaces Yellow Sticker) */
+    .vip-badge { 
+      position: absolute; 
+      top: -15px; 
+      left: 50%; 
+      transform: translateX(-50%); 
+      background: linear-gradient(135deg, #FFF0B3 0%, #E5C158 50%, #B8932A 100%) !important; 
+      color: #06180A !important; 
+      padding: 6px 18px; 
+      border-radius: 30px; 
+      font-size: 0.72rem; 
+      font-weight: 800; 
+      letter-spacing: 1.2px; 
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35), 0 0 10px rgba(229, 193, 88, 0.4); 
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      white-space: nowrap; 
+      text-transform: uppercase;
+    }
     
     .vip-price-block { margin: 25px 0; border-bottom: 1px solid rgba(0,0,0,0.08); padding-bottom: 25px; }
     .vip-card.premium .vip-price-block { border-bottom: 1px solid rgba(255,255,255,0.1); }
@@ -35,20 +118,20 @@
     .vip-card.basic .vip-features i { color: var(--matcha-deep, #2d4a22); }
     .vip-card.premium .vip-features i { color: #D4AF37; }
     
-    /* The Conversion Clincher: ROI Box */
+    /* ROI Box */
     .vip-roi-box { background: rgba(212, 175, 55, 0.1); border: 1px dashed rgba(212, 175, 55, 0.5); padding: 14px; border-radius: 10px; font-size: 0.85rem; text-align: center; margin-bottom: 25px; color: #F5D061; line-height: 1.4; }
     
-    /* Buttons */
+    /* Action Buttons */
     .vip-btn-basic { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px; border-radius: 10px; background: #f8fafc; color: #102619; font-weight: 700; text-decoration: none; border: 1px solid #cbd5e1; transition: all 0.2s; box-sizing: border-box; }
     .vip-btn-basic:hover { background: #25D366; color: #fff; border-color: #25D366; }
     
     .vip-btn-premium { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 16px; border-radius: 10px; background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%); color: #102619; font-weight: 800; font-size: 1.05rem; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); transition: transform 0.2s, box-shadow 0.2s; }
     .vip-btn-premium:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5); }
+    
     @media (max-width: 991px) {
       #vip-desktop-qr-block { display: none !important; }
     }
-
-</style>
+  </style>
 
 <!-- PRICING GRID -->
 <div class="vip-pricing-wrapper">
