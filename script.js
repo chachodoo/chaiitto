@@ -549,44 +549,92 @@ async function fetchProducts() {
             updateMenuDisplay();
         } else if (pageName === 'vip') {
             setTimeout(() => {
-                if (typeof confetti === 'function') {
-                    // 1. CENTER-STAGE GOLD EXPLOSION (Fills vertical mobile screens)
+                if (typeof confetti !== 'function') return;
+
+                const goldPalette = ['#F5D061', '#D4AF37', '#FFF3B0', '#FFFFFF', '#07511A'];
+
+                // WAVE 1: CORNER FOUNTAINS SHOOT UPWARDS
+                confetti({
+                    particleCount: 50,
+                    angle: 65,
+                    spread: 60,
+                    startVelocity: 50,
+                    origin: { x: 0.05, y: 0.75 },
+                    colors: goldPalette,
+                    shapes: ['star', 'circle'],
+                    scalar: 1.2,
+                    gravity: 0.65,
+                    ticks: 350,
+                    zIndex: 99999,
+                    disableForReducedMotion: false
+                });
+
+                confetti({
+                    particleCount: 50,
+                    angle: 115,
+                    spread: 60,
+                    startVelocity: 50,
+                    origin: { x: 0.95, y: 0.75 },
+                    colors: goldPalette,
+                    shapes: ['star', 'circle'],
+                    scalar: 1.2,
+                    gravity: 0.65,
+                    ticks: 350,
+                    zIndex: 99999,
+                    disableForReducedMotion: false
+                });
+
+                // WAVE 2: HIGH-ALTITUDE GOLD STARBURST (400ms later)
+                setTimeout(() => {
                     confetti({
-                        particleCount: 70,
-                        spread: 100,
-                        origin: { x: 0.5, y: 0.35 },
-                        colors: ['#F5D061', '#D4AF37', '#FFFFFF', '#25D366', '#07511A'],
-                        scalar: 1.25,
-                        ticks: 280,
+                        particleCount: 60,
+                        spread: 120,
+                        startVelocity: 35,
+                        origin: { x: 0.5, y: 0.25 },
+                        colors: ['#F5D061', '#D4AF37', '#FFFFFF'],
+                        shapes: ['star'],
+                        scalar: 1.35,
+                        gravity: 0.55,
+                        ticks: 400,
+                        zIndex: 99999,
+                        disableForReducedMotion: false
+                    });
+                }, 400);
+
+                // WAVE 3: GRAND FINALE CROSSFIRE SHOWER (900ms later)
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 40,
+                        angle: 75,
+                        spread: 70,
+                        startVelocity: 42,
+                        origin: { x: 0.15, y: 0.65 },
+                        colors: goldPalette,
+                        shapes: ['circle', 'star'],
+                        scalar: 1.1,
+                        gravity: 0.6,
+                        ticks: 350,
                         zIndex: 99999,
                         disableForReducedMotion: false
                     });
 
-                    // 2. CORNER FOUNTAINS (Crossfire)
                     confetti({
-                        particleCount: 45,
-                        angle: 60,
-                        spread: 55,
-                        origin: { x: 0.1, y: 0.6 },
-                        colors: ['#F5D061', '#D4AF37', '#FFFFFF'],
+                        particleCount: 40,
+                        angle: 105,
+                        spread: 70,
+                        startVelocity: 42,
+                        origin: { x: 0.85, y: 0.65 },
+                        colors: goldPalette,
+                        shapes: ['circle', 'star'],
                         scalar: 1.1,
-                        ticks: 250,
+                        gravity: 0.6,
+                        ticks: 350,
                         zIndex: 99999,
                         disableForReducedMotion: false
                     });
-                    confetti({
-                        particleCount: 45,
-                        angle: 120,
-                        spread: 55,
-                        origin: { x: 0.9, y: 0.6 },
-                        colors: ['#F5D061', '#D4AF37', '#FFFFFF'],
-                        scalar: 1.1,
-                        ticks: 250,
-                        zIndex: 99999,
-                        disableForReducedMotion: false
-                    });
-                }
-            }, 250);
+                }, 900);
+
+            }, 200);
         }
 
         // 3. FORCE IMMEDIATE JUMP TO TOP (Removed 'smooth' so it doesn't get stuck)
