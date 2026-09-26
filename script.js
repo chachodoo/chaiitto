@@ -2453,7 +2453,12 @@ function renderProfileDrawerContent() {
             </div>
             <input type="password" id="drawer-pin-input" placeholder="PIN" style="width: 100%; box-sizing: border-box; padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.4); background: rgba(0, 0, 0, 0.45); color: #FFFFFF; font-size: 0.95rem; outline: none;">
           </div>
-...
+<div id="drawer-login-error" style="min-height: 20px; font-size: 0.78rem; font-weight: 600; margin-top: 8px; color: #e74c3c;"></div>
+
+          <button onclick="loginFromProfileDrawer()" style="width: 100%; margin-top: 6px; padding: 13px; border-radius: 10px; background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%); color: #102619; font-weight: 800; font-family: var(--font-heading, 'Cinzel', serif); font-size: 0.92rem; border: none; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);">
+            <i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión
+          </button>
+        </div>
         <!-- FOOTER (NO FORGOT PIN LINK) -->
         <div style="padding-top: 12px; border-top: 1px solid rgba(212, 175, 55, 0.2); text-align: center;">
           <button type="button" onclick="toggleProfileDrawer(); switchPage('vip');" style="width: 100%; background: transparent; border: 1px solid rgba(212, 175, 55, 0.45); color: #F5D061; padding: 10px; border-radius: 8px; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-transform: uppercase; font-family: var(--font-heading, 'Cinzel', serif);">
