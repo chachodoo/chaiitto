@@ -55,9 +55,37 @@
     .vip-roi-box { background: rgba(212, 175, 55, 0.1); border: 1px dashed rgba(212, 175, 55, 0.5); padding: 14px; border-radius: 10px; font-size: 0.85rem; text-align: center; margin-bottom: 25px; color: #F5D061; line-height: 1.4; }
     
     /* Action Buttons */
-    .vip-btn-basic { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px; border-radius: 10px; background: #f8fafc; color: #102619; font-weight: 700; text-decoration: none; border: 1px solid #cbd5e1; transition: all 0.2s; box-sizing: border-box; }
-    .vip-btn-basic:hover { background: #25D366; color: #fff; border-color: #25D366; }
-    
+    .vip-btn-basic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: #FFFFFF !important;
+  font-family: var(--font-heading, 'Cinzel', serif);
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.vip-btn-basic:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(37, 211, 102, 0.5);
+  color: #FFFFFF !important;
+}
+
+.vip-btn-basic:active {
+  transform: scale(0.98);
+}
     .vip-btn-premium { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 16px; border-radius: 10px; background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%); color: #102619; font-weight: 800; font-size: 1.05rem; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); transition: transform 0.2s, box-shadow 0.2s; }
     .vip-btn-premium:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5); }
     
