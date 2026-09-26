@@ -2433,38 +2433,42 @@ function renderProfileDrawerContent() {
   const isAuth = sessionStorage.getItem('chai_vip_auth') === 'true';
 
   if (!isAuth) {
-    // 1. GUEST / LOGIN VIEW (COMPACT SINGLE VIEWPORT - NO BLABBER)
+    // 1. GUEST / LOGIN VIEW (DIRECTION 2: BAZAR PORCELAIN STYLE)
     container.innerHTML = `
-      <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 8px 0 4px 0;">
-        <div style="text-align: center;">
-          <!-- LOCK ICON -->
-          <div style="width: 52px; height: 52px; border-radius: 50%; background: rgba(245, 208, 97, 0.12); border: 1.5px solid rgba(212, 175, 55, 0.4); display: flex; align-items: center; justify-content: center; margin: 10px auto 20px; color: #F5D061; font-size: 1.4rem;">
-            <i class="fa-solid fa-lock"></i>
-          </div>
+      <div style="background: #FFFFFF; border-radius: 16px; padding: 22px 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.35); text-align: center; margin: auto 0;">
+        
+        <!-- SOFT CREAM LOCK BADGE (LIKE BAZAR KEY EMBLEM) -->
+        <div style="width: 52px; height: 52px; border-radius: 50%; background: #FEF3C7; border: 1.5px solid #F5D061; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: #B45309; font-size: 1.3rem;">
+          <i class="fa-solid fa-lock"></i>
+        </div>
 
-          <!-- INPUTS WITH COUNTRY SELECTOR -->
-          <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
-            <div style="display: flex; gap: 8px; width: 100%;">
-              <select id="drawer-country-select" style="flex: 0 0 95px; padding: 12px 6px; border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.4); background: rgba(0, 0, 0, 0.65); color: #F5D061; font-weight: 700; font-size: 0.88rem; outline: none; cursor: pointer;">
-                <option value="52" selected>🇲🇽 +52</option>
-                <option value="1">🇺🇸 +1</option>
-              </select>
-              <input type="tel" id="drawer-phone-input" placeholder="Teléfono (10 dígitos)" style="flex: 1; min-width: 0; box-sizing: border-box; padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.4); background: rgba(0, 0, 0, 0.45); color: #FFFFFF; font-size: 0.95rem; outline: none;">
-            </div>
-            <input type="password" id="drawer-pin-input" placeholder="PIN" style="width: 100%; box-sizing: border-box; padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.4); background: rgba(0, 0, 0, 0.45); color: #FFFFFF; font-size: 0.95rem; outline: none;">
+        <!-- INPUTS (CRISP WHITE WITH HIGH CONTRAST) -->
+        <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
+          <div style="display: flex; gap: 8px; width: 100%;">
+            <select id="drawer-country-select" style="flex: 0 0 95px; padding: 11px 6px; border-radius: 8px; border: 1.5px solid #cbd5e1; background: #FFFFFF; color: #1e293b; font-weight: 700; font-size: 0.88rem; outline: none; cursor: pointer;">
+              <option value="52" selected>🇲🇽 +52</option>
+              <option value="1">🇺🇸 +1</option>
+            </select>
+            <input type="tel" id="drawer-phone-input" placeholder="Teléfono" style="flex: 1; min-width: 0; box-sizing: border-box; padding: 11px 12px; border-radius: 8px; border: 1.5px solid #cbd5e1; background: #FFFFFF; color: #1e293b; font-size: 0.95rem; outline: none;">
           </div>
-<div id="drawer-login-error" style="min-height: 20px; font-size: 0.78rem; font-weight: 600; margin-top: 8px; color: #e74c3c;"></div>
+          <input type="password" id="drawer-pin-input" placeholder="PIN VIP" style="width: 100%; box-sizing: border-box; padding: 11px 12px; border-radius: 8px; border: 1.5px solid #cbd5e1; background: #FFFFFF; color: #1e293b; font-size: 0.95rem; outline: none;">
+        </div>
 
-          <button onclick="loginFromProfileDrawer()" style="width: 100%; margin-top: 6px; padding: 13px; border-radius: 10px; background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%); color: #102619; font-weight: 800; font-family: var(--font-heading, 'Cinzel', serif); font-size: 0.92rem; border: none; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);">
-            <i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión
+        <div id="drawer-login-error" style="min-height: 18px; font-size: 0.8rem; font-weight: 600; color: #dc2626; margin-top: 6px;"></div>
+
+        <!-- ENTRAR BUTTON (MATCHA GREEN WITH WHITE TEXT) -->
+        <button onclick="loginFromProfileDrawer()" style="width: 100%; margin-top: 8px; padding: 12px; border-radius: 8px; background: #07511A; color: #FFFFFF; font-weight: 800; font-family: var(--font-heading, 'Cinzel', serif); font-size: 0.95rem; border: none; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; box-shadow: 0 4px 14px rgba(7, 81, 26, 0.35);">
+          <i class="fa-solid fa-right-to-bracket"></i> Entrar
+        </button>
+
+        <!-- FOOTER -->
+        <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid #e2e8f0; text-align: center;">
+          <div style="color: #64748b; font-size: 0.82rem; margin-bottom: 4px;">¿Aún no eres socio Premium?</div>
+          <button type="button" onclick="toggleProfileDrawer(); switchPage('vip');" style="background: transparent; border: none; color: #07511A; font-weight: 800; font-size: 0.9rem; text-decoration: underline; cursor: pointer;">
+            Únete aquí →
           </button>
         </div>
-        <!-- FOOTER (NO FORGOT PIN LINK) -->
-        <div style="padding-top: 12px; border-top: 1px solid rgba(212, 175, 55, 0.2); text-align: center;">
-          <button type="button" onclick="toggleProfileDrawer(); switchPage('vip');" style="width: 100%; background: transparent; border: 1px solid rgba(212, 175, 55, 0.45); color: #F5D061; padding: 10px; border-radius: 8px; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-transform: uppercase; font-family: var(--font-heading, 'Cinzel', serif);">
-            ¿Aún no eres socio Premium? Únete aquí →
-          </button>
-        </div>
+
       </div>
     `;
   } else {
@@ -2539,20 +2543,28 @@ function renderProfileDrawerContent() {
 async function loginFromProfileDrawer() {
   const phoneInput = document.getElementById('drawer-phone-input');
   const pinInput = document.getElementById('drawer-pin-input');
+  const countrySelect = document.getElementById('drawer-country-select');
   const errorEl = document.getElementById('drawer-login-error');
 
   const enteredPhone = phoneInput ? phoneInput.value.trim() : '';
   const enteredPin = pinInput ? pinInput.value.trim() : '';
+  const countryPrefix = countrySelect ? countrySelect.value.trim() : '52';
 
   if (!enteredPhone || !enteredPin) {
     if (errorEl) {
-      errorEl.style.color = '#e74c3c';
-      errorEl.textContent = 'Ingresa tu número y PIN.';
+      errorEl.style.color = '#dc2626';
+      errorEl.textContent = 'Ingresa tu teléfono y PIN.';
     }
     return;
   }
 
-  const cleanPhone = '52' + enteredPhone.replace(/\D/g, "").slice(-10);
+  let digits = enteredPhone.replace(/\D/g, "");
+  if (countryPrefix === '1' && digits.length === 11 && digits.startsWith('1')) {
+    digits = digits.slice(1);
+  } else if (countryPrefix === '52' && digits.length === 12 && digits.startsWith('52')) {
+    digits = digits.slice(2);
+  }
+  const cleanPhone = countryPrefix + digits;
   if (errorEl) {
     errorEl.style.color = '#F5D061';
     errorEl.textContent = 'Verificando...';
