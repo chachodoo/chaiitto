@@ -318,31 +318,20 @@
     font-weight: 700;
   }
   
-/* CINEMATIC LIQUID GOLD SHEEN */
   .climax-highlight {
-    display: inline-block;
-    font-weight: 800;
-    background: linear-gradient(
-      110deg,
-      #F5D061 0%,
-      #FFFFFF 25%,
-      #D4AF37 50%,
-      #FFFFFF 75%,
-      #F5D061 100%
-    );
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: goldSheenSweep 3.2s linear infinite;
-    filter: drop-shadow(0 0 10px rgba(245, 208, 97, 0.4));
-    letter-spacing: 0.5px;
-  }
+  display: inline;
+  font-weight: 800 !important;
+  color: #F5D061 !important;
+  text-shadow: 0 0 12px rgba(245, 208, 97, 0.7);
+  letter-spacing: 0.5px;
+}
 
-  @keyframes goldSheenSweep {
-    0% { background-position: 200% center; }
-    100% { background-position: -200% center; }
-  }
-  
+.climax-highlight .story-word {
+  color: #F5D061 !important;
+  font-weight: 800 !important;
+  -webkit-text-fill-color: #F5D061 !important;
+  text-shadow: 0 0 12px rgba(245, 208, 97, 0.7);
+}
 
   /* =========================================
      3. CENTER PLAY / PAUSE HUD ICON
@@ -689,7 +678,7 @@
           <div class="slide-stage-badge">CAPÍTULO FINAL</div>
           <h2>Bienvenido a Casa</h2>
           <p>Así nació Chai-itto. Un santuario en el corazón de San Pedro Cholula.</p>
-         <p>Hoy, con más de 120 mezclas, somos una comunidad que entiende que el Té no es solo una bebida... es una experiencia.</p>
+         <p>Hoy, con más de 120 mezclas, somos una comunidad que entiende que el Té no es solo una bebida... <span class="climax-highlight">es una experiencia.</span></p>
         </div>
       </div>
 
