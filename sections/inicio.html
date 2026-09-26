@@ -382,35 +382,63 @@
 /* ===================================================
    MASTER MENU HERO CTA: LUXURY APOTHECARY SHIMMER & PULSE
    =================================================== */
+/* ===================================================
+   HIGH-VISIBILITY GOLD MENU CTA (IMPOSSIBLE TO MISS)
+=================================================== */
 .hero-master-menu-btn {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 13px 32px;
-  background: linear-gradient(135deg, #0E481A 0%, #07511A 50%, #03280B 100%);
-  color: #FFFFFF !important;
+  gap: 10px;
+  padding: 14px 34px;
+  /* Radiant Gold Ingot Fill: Breaks away from the green background completely */
+  background: linear-gradient(135deg, #FFF3B0 0%, #F5D061 35%, #D4AF37 70%, #AA820A 100%) !important;
+  color: #07260F !important; /* Deep contrast obsidian text */
   font-family: var(--font-heading, 'Cinzel', serif);
-  font-size: clamp(0.88rem, 1.15vw, 1.02rem);
-  font-weight: 700;
-  letter-spacing: 2px;
+  font-size: clamp(0.9rem, 2.2vw, 1.05rem);
+  font-weight: 800;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  border: 1.5px solid #F5D061;
+  border: 1.5px solid #FFFFFF !important;
   border-radius: 50px;
   cursor: pointer;
   overflow: hidden;
-  user-select: none;
-  /* Triple-layer depth: ambient matcha shadow, gold aura, and inner bevel */
-  box-shadow: 
-    0 8px 24px rgba(7, 81, 26, 0.45),
-    0 0 14px rgba(212, 175, 55, 0.35),
-    inset 0 1px 1px rgba(255, 255, 255, 0.4);
-  animation: masterMenuPulse 2.8s infinite ease-in-out;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
-              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
-              border-color 0.25s ease;
-  will-change: transform, box-shadow;
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.45), 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+  animation: goldPulseCta 2.5s infinite ease-in-out;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Subtle Breathing Glow */
+@keyframes goldPulseCta {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.7), 0 0 15px rgba(245, 208, 97, 0.6);
+  }
+}
+
+/* Active Directional Arrow Movement */
+.hero-master-menu-btn .cta-arrow {
+  font-size: 0.9em;
+  transition: transform 0.2s ease;
+  color: #07260F !important;
+}
+
+.hero-master-menu-btn:hover .cta-arrow {
+  transform: translateX(4px);
+}
+
+.hero-master-menu-btn:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 12px 32px rgba(212, 175, 55, 0.65) !important;
+}
+
+.hero-master-menu-btn:active {
+  transform: scale(0.98);
 }
 
 /* 1. Ambient Gold Breathing Pulse */
@@ -496,11 +524,13 @@
 
 <div class="dashboard-layout" style="display: block !important;">
 
-        <!-- MASTER MENU HERO CTA (Centered on Top) -->
-<div style="width: 100%; text-align: center; margin: 12px 0 16px 0;">
-    <button type="button" class="hero-master-menu-btn" onclick="openFullMenuCatalog(1)">
-  <i class="fa-solid fa-book-open"></i> Ver Nuestro Menú
-</button>
+        <!-- MASTER MENU HERO CTA (High-Visibility Gold Magnet) -->
+<div style="width: 100%; text-align: center; margin: 14px 0 18px 0;">
+  <button type="button" class="hero-master-menu-btn" onclick="openFullMenuCatalog(1)">
+    <i class="fa-solid fa-book-open"></i>
+    <span>ABRIR MENÚ COMPLETO (14 PÁG)</span>
+    <i class="fa-solid fa-arrow-right cta-arrow"></i>
+  </button>
 </div>
 
 
