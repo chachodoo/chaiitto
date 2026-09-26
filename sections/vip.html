@@ -150,17 +150,21 @@
             </ul>
         </div>
 
-        <div>
-            <div style="text-align: center; margin-bottom: 18px;">
-                <div style="display: inline-block; padding: 4px; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); margin-bottom: 6px;">
-                    <img src="whats-qr.webp" alt="QR WhatsApp VIP" onerror="this.src='whats-qr.png'" style="width: 80px; height: 80px; display: block; object-fit: contain;">
-                </div>
-                <div style="font-size: 0.75rem; color: #888;"><i class="fa-solid fa-camera"></i> Escanea o pulsa abajo</div>
-            </div>
+        <!-- 1. WHATSAPP BUTTON FIRST -->
+        <div style="margin-top: auto; padding-top: 15px;">
+          <a href="https://chat.whatsapp.com/IeBNBW1Tiap5SBGyrBLt8r?s=cl&p=a&ilr=0" target="_blank" rel="noopener noreferrer" class="vip-btn-basic">
+            <i class="fa-brands fa-whatsapp fa-xl" style="color: #FFFFFF;"></i> Unirme al Grupo
+          </a>
 
-            <a href="https://chat.whatsapp.com/IeBNBW1Tiap5SBGyrBLt8r?s=cl&p=a&ilr=0" target="_blank" rel="noopener noreferrer" class="vip-btn-basic">
-                <i class="fa-brands fa-whatsapp fa-lg" style="color: #25D366;"></i> Unirme
-            </a>
+          <!-- 2. LARGER 140px CRISP QR CODE AT BOTTOM -->
+          <div style="margin-top: 18px; padding-top: 14px; border-top: 1px dashed rgba(7, 81, 26, 0.2); display: flex; flex-direction: column; align-items: center;">
+            <div style="background: #FFFFFF; padding: 10px; border-radius: 14px; border: 1.5px solid rgba(7, 81, 26, 0.18); box-shadow: 0 4px 14px rgba(0,0,0,0.06); display: inline-block;">
+              <img src="whats-qr.webp" alt="QR WhatsApp VIP" onerror="this.src='whats-qr.png'" style="width: 140px; height: 140px; display: block; border-radius: 6px;">
+            </div>
+            <span style="font-family: var(--font-body, 'Montserrat', sans-serif); font-size: 0.75rem; color: #556B60; font-weight: 600; margin-top: 8px; display: flex; align-items: center; gap: 6px;">
+              <i class="fa-solid fa-camera"></i> O escanea con otro celular
+            </span>
+          </div>
         </div>
     </div>
 </div>
