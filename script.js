@@ -2483,7 +2483,27 @@ function renderProfileDrawerContent() {
       if (i <= cups) {
         cupsHtml += `<span title="Taza ${i} canjeada" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.25);border-radius:50%;font-size:14px;margin:0 4px;"><i class="fa-solid fa-mug-hot"></i></span>`;
       } else {
-        cupsHtml += `<span title="Taza ${i} disponible" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;background:linear-gradient(135deg, #F5D061 0%, #D4AF37 100%);color:#102619;border-radius:50%;font-size:14px;margin:0 4px;box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);"><i class="fa-solid fa-mug-hot"></i></span>`;
+        cupsHtml += `
+          <style>
+            @keyframes steamRise {
+              0% { transform: translateY(0) scaleX(0.7); opacity: 0; }
+              50% { opacity: 0.9; }
+              100% { transform: translateY(-8px) scaleX(1.3); opacity: 0; }
+            }
+            @keyframes steamPulse {
+              0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(245, 208, 97, 0.4); }
+              50% { transform: scale(1.05); box-shadow: 0 0 18px rgba(245, 208, 97, 0.8); }
+            }
+          </style>
+          <span title="Taza ${i} disponible" style="position:relative;display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;background:linear-gradient(135deg, #F5D061 0%, #D4AF37 100%);color:#102619;border-radius:50%;font-size:14px;margin:0 4px;box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);">
+            <span style="position:absolute;top:-7px;left:50%;transform:translateX(-50%);display:flex;gap:2.5px;pointer-events:none;">
+              <span style="display:block;width:2px;height:7px;background:rgba(255,255,255,0.9);border-radius:2px;animation:steamRise 1.3s infinite ease-out;"></span>
+              <span style="display:block;width:2px;height:10px;background:#FFFFFF;border-radius:2px;animation:steamRise 1.3s infinite ease-out 0.4s;"></span>
+              <span style="display:block;width:2px;height:6px;background:rgba(255,255,255,0.9);border-radius:2px;animation:steamRise 1.3s infinite ease-out 0.8s;"></span>
+            </span>
+            <i class="fa-solid fa-mug-hot"></i>
+          </span>
+        `;
       }
     }
 
