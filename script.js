@@ -2442,26 +2442,22 @@ function renderProfileDrawerContent() {
             <i class="fa-solid fa-lock"></i>
           </div>
 
-          <!-- INPUTS WITH INLINE LABELS ONLY -->
-          <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
-            <input type="tel" id="drawer-phone-input" placeholder="Teléfono (10 dígitos)" style="width: 100%; box-sizing: border-box; padding: 13px 14px; border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.4); background: rgba(0, 0, 0, 0.45); color: #FFFFFF; font-size: 0.95rem; outline: none;">
-            <input type="password" id="drawer-pin-input" placeholder="PIN" style="width: 100%; box-sizing: border-box; padding: 13px 14px; border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.4); background: rgba(0, 0, 0, 0.45); color: #FFFFFF; font-size: 0.95rem; outline: none;">
+          <!-- INPUTS WITH COUNTRY SELECTOR -->
+          <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
+            <div style="display: flex; gap: 8px; width: 100%;">
+              <select id="drawer-country-select" style="flex: 0 0 95px; padding: 12px 6px; border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.4); background: rgba(0, 0, 0, 0.65); color: #F5D061; font-weight: 700; font-size: 0.88rem; outline: none; cursor: pointer;">
+                <option value="52" selected>🇲🇽 +52</option>
+                <option value="1">🇺🇸 +1</option>
+              </select>
+              <input type="tel" id="drawer-phone-input" placeholder="Teléfono (10 dígitos)" style="flex: 1; min-width: 0; box-sizing: border-box; padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.4); background: rgba(0, 0, 0, 0.45); color: #FFFFFF; font-size: 0.95rem; outline: none;">
+            </div>
+            <input type="password" id="drawer-pin-input" placeholder="PIN" style="width: 100%; box-sizing: border-box; padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.4); background: rgba(0, 0, 0, 0.45); color: #FFFFFF; font-size: 0.95rem; outline: none;">
           </div>
-
-          <div id="drawer-login-error" style="min-height: 20px; font-size: 0.78rem; font-weight: 600; margin-top: 8px; color: #e74c3c;"></div>
-
-          <button onclick="loginFromProfileDrawer()" style="width: 100%; margin-top: 6px; padding: 13px; border-radius: 10px; background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%); color: #102619; font-weight: 800; font-family: var(--font-heading, 'Cinzel', serif); font-size: 0.92rem; border: none; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35); transition: transform 0.2s;">
-            <i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión
-          </button>
-        </div>
-
-        <!-- FOOTER LINKS -->
-        <div style="padding-top: 14px; border-top: 1px solid rgba(212, 175, 55, 0.2); display: flex; flex-direction: column; gap: 10px; text-align: center;">
-          <a href="https://wa.me/522218415466?text=%C2%A1Hola%20Chai-itto!%20Olvid%C3%A9%20mi%20PIN%20VIP%20Premium.%20%C2%BFMe%20apoyan%20a%20recuperarlo?" target="_blank" rel="noopener noreferrer" style="color: #A3C4AF; font-size: 0.76rem; text-decoration: none;">
-            <i class="fa-brands fa-whatsapp"></i> ¿Olvidaste tu PIN?
-          </a>
-          <button onclick="toggleProfileDrawer(); switchPage('vip');" style="background: transparent; border: 1px solid rgba(212, 175, 55, 0.45); color: #F5D061; padding: 10px; border-radius: 8px; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-transform: uppercase; font-family: var(--font-heading, 'Cinzel', serif);">
-            ¿Aún no eres VIP? Ver Beneficios
+...
+        <!-- FOOTER (NO FORGOT PIN LINK) -->
+        <div style="padding-top: 12px; border-top: 1px solid rgba(212, 175, 55, 0.2); text-align: center;">
+          <button type="button" onclick="toggleProfileDrawer(); switchPage('vip');" style="width: 100%; background: transparent; border: 1px solid rgba(212, 175, 55, 0.45); color: #F5D061; padding: 10px; border-radius: 8px; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-transform: uppercase; font-family: var(--font-heading, 'Cinzel', serif);">
+            ¿Aún no eres socio Premium? Únete aquí →
           </button>
         </div>
       </div>
