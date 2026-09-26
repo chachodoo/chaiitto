@@ -946,7 +946,6 @@ function showUnlockedBazar() {
     const contentBox = document.getElementById('bazar-vip-content');
     if (lockBox) lockBox.style.display = 'none';
     if (contentBox) contentBox.style.display = 'block';
-    renderVipMemberCard();
     renderBazarCatalog();
 }
 
