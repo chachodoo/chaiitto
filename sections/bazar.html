@@ -88,38 +88,13 @@
     <i class="fa-solid fa-key"></i>
   </div>
   <h3>Acceso Exclusivo para Socios VIP Premium</h3>
+  <p style="color: #64748B; font-size: 0.9rem; margin-bottom: 20px;">
+  Para entrar al outlet, inicia sesión desde tu perfil.
+</p>
 
-  <form class="vip-form" onsubmit="return false;">
-    <!-- PHONE WITH COUNTRY SELECTOR -->
-    <div style="display: flex; gap: 8px; margin-bottom: 12px;">
-      <select id="bazar-country-select" style="width: 95px; box-sizing: border-box; padding: 10px 6px; border: 1px solid #E2ECE5; border-radius: 8px; font-size: 0.88rem; background: #ffffff; color: var(--matcha-deep, #102619); font-weight: 700; cursor: pointer;">
-        <option value="52" selected>🇲🇽 +52</option>
-        <option value="1">🇺🇸 +1</option>
-      </select>
-      <div class="input-wrapper" style="flex: 1; min-width: 0; margin-bottom: 0;">
-        <i class="fa-solid fa-phone"></i>
-        <input type="tel" id="vip-phone-input" placeholder="10 dígitos WhatsApp" pattern="[0-9]{10}" maxlength="10" onkeydown="if (event.key === 'Enter') verifyVipPin();">
-      </div>
-    </div>
-
-    <!-- PIN INPUT -->
-    <div class="input-wrapper" style="margin-bottom: 8px;">
-      <i class="fa-solid fa-key"></i>
-      <input type="password" id="vip-pin-input" placeholder="PIN VIP" onkeydown="if (event.key === 'Enter') verifyVipPin();">
-    </div>
-
-    <div id="vip-pin-error" style="color: #D9534F; font-size: 0.82rem; font-weight: 700; min-height: 18px; margin-bottom: 10px;"></div>
-
-    <button type="button" class="btn-unlock" onclick="verifyVipPin()">
-      <i class="fa-solid fa-arrow-right-to-bracket"></i> ENTRAR
-    </button>
-    <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid #E2ECE5; font-size: 0.86rem; color: #64748b;">
-      ¿Aún no eres socio Premium? 
-      <a href="#vip" onclick="switchPage('vip')" style="color: var(--matcha-deep, #07511A); font-weight: 800; text-decoration: underline; margin-left: 4px; display: inline-block;">
-        Únete aquí &rarr;
-      </a>
-    </div>
-  </form>
+<button type="button" onclick="toggleProfileDrawer()" class="vip-btn" style="width: 100%; padding: 13px; font-weight: 800; cursor: pointer;">
+  <i class="fa-solid fa-id-card"></i> Iniciar Sesión en Mi Perfil
+</button>
 </div>
 
 <!-- UNLOCKED STATE: VIP SHOWCASE -->
@@ -147,7 +122,7 @@
     
     <div id="bazar-modal-counter" style="color: #A3C4AF; font-size: 0.85em; margin-bottom: 12px;"></div>
     <a id="bazar-modal-buy-btn" href="#" target="_blank" rel="noopener noreferrer" class="oferta-buy-btn" style="width: 100%; max-width: 300px; padding: 12px;">
-      <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar en Bazar
+      <i class="fa-brands fa-whatsapp fa-lg"></i> Comprar en Outlet
     </a>
   </div>
 </div>
