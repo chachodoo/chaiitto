@@ -1976,20 +1976,20 @@ nav.main-nav {
             <button class="nav-btn" onclick="switchPage('vip')">CLUB VIP</button>
             <button class="nav-btn" onclick="switchPage('experiencia')">EXPERIENCIA</button>        </nav>
     <!-- DESKTOP HEADER CART & RELATIVE TOAST -->
-    <!-- DESKTOP VIP PROFILE BUTTON -->
-  <button id="desktop-profile-btn" onclick="toggleProfileDrawer()" title="Mi Cuenta VIP" style="background: transparent; border: none; color: #FFFFFF; font-size: 1.25rem; cursor: pointer; padding: 8px 12px; display: inline-flex; align-items: center; justify-content: center; position: relative; transition: color 0.2s ease, transform 0.2s ease;">
+    <!-- DESKTOP HEADER ACTIONS: PROFILE + CART SIDE-BY-SIDE -->
+<div class="header-cart-wrapper" style="display: inline-flex; align-items: center; gap: 10px;">
+  <button id="desktop-profile-btn" onclick="toggleProfileDrawer()" title="Mi Cuenta VIP" style="background: transparent; border: none; color: #FFFFFF; font-size: 1.25rem; cursor: pointer; padding: 8px 10px; display: inline-flex; align-items: center; justify-content: center; transition: color 0.2s ease, transform 0.2s ease;">
     <i class="fa-regular fa-user" id="desktop-profile-icon"></i>
-  </button>    
-    <div class="header-cart-wrapper">
-        <button id="desktop-cart-btn" class="desktop-cart-icon" onclick="toggleCartDrawer()" aria-label="Ver Carrito">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span id="desktop-cart-badge" class="header-cart-badge">0</span>
-        </button>
-        <div id="cart-toast" class="header-cart-toast">
-            <i class="fa-solid fa-circle-check"></i>
-            <span>¡Agregado al carrito!</span>
-        </div>
-    </div>    
+  </button>
+  <button id="desktop-cart-btn" onclick="toggleCartDrawer()" style="background: transparent; border: none; color: #FFFFFF; font-size: 1.25rem; cursor: pointer; padding: 8px 12px; display: inline-flex; align-items: center; justify-content: center; position: relative; transition: color 0.2s ease, transform 0.2s ease;">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span id="desktop-cart-badge">0</span>
+  </button>
+  <div id="cart-toast" class="header-cart-toast">
+    <i class="fa-solid fa-circle-check" style="color: #F5D061;"></i>
+    <span>¡Agregado al carrito!</span>
+  </div>
+</div>   
     </header>
 
    <!-- 1. THE NEW MASTER HERO BANNER (Vertical Bottom-to-Top Flipper) -->
