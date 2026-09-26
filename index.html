@@ -819,6 +819,14 @@ div:has(> .hero-master-menu-btn) {
     color: #F5D061 !important;
     transform: scale(1.1) !important;
   }
+    #desktop-profile-btn:hover {
+  color: #F5D061 !important;
+  transform: scale(1.1) !important;
+    }
+    #mobile-profile-btn:active {
+  transform: scale(0.92);
+    }
+    
 
   #desktop-cart-badge {
   position: absolute !important;
@@ -1852,6 +1860,11 @@ nav.main-nav {
           <i class="fa-brands fa-whatsapp"></i>
         </a>
 
+          <div class="mobile-header-actions">
+  <a href="..." class="mobile-header-wa-btn">...</a>
+  <button ... class="mobile-cart-btn">...</button>
+        </div>
+
         <button id="mobile-header-cart-btn" class="mobile-cart-btn" onclick="toggleCartDrawer()" aria-label="Ver Carrito">
           <i class="fa-solid fa-cart-shopping"></i>
           <span id="mobile-cart-badge">0</span>
@@ -1963,6 +1976,10 @@ nav.main-nav {
             <button class="nav-btn" onclick="switchPage('vip')">CLUB VIP</button>
             <button class="nav-btn" onclick="switchPage('experiencia')">EXPERIENCIA</button>        </nav>
     <!-- DESKTOP HEADER CART & RELATIVE TOAST -->
+    <!-- DESKTOP VIP PROFILE BUTTON -->
+  <button id="desktop-profile-btn" onclick="toggleProfileDrawer()" title="Mi Cuenta VIP" style="background: transparent; border: none; color: #FFFFFF; font-size: 1.25rem; cursor: pointer; padding: 8px 12px; display: inline-flex; align-items: center; justify-content: center; position: relative; transition: color 0.2s ease, transform 0.2s ease;">
+    <i class="fa-regular fa-user" id="desktop-profile-icon"></i>
+  </button>    
     <div class="header-cart-wrapper">
         <button id="desktop-cart-btn" class="desktop-cart-icon" onclick="toggleCartDrawer()" aria-label="Ver Carrito">
             <i class="fa-solid fa-cart-shopping"></i>
