@@ -698,7 +698,7 @@
         <button type="button" class="movie-btn-play-toggle" id="movie-toggle-btn" onclick="toggleMoviePlay(event)">
           <i class="fa-solid fa-pause" id="movie-play-icon"></i>
         </button>
-        <span class="movie-time-readout" id="movie-time-readout">0:00 / 0:24</span>
+        <span class="movie-time-readout" id="movie-time-readout">0:00 / 0:40</span>
         <div class="movie-timeline-track" id="timeline-track">
           <div class="movie-timeline-fill" id="timeline-fill"></div>
           <div class="movie-timeline-thumb" id="timeline-thumb"></div>
@@ -725,11 +725,11 @@
           </style>
 
           <div style="display: flex; flex-direction: column; align-items: center; gap: 14px; max-width: 340px; width: 100%;">
-            <h2 style="font-family: var(--font-heading, 'Cinzel', serif); color: #FFFFFF; font-size: clamp(1.3rem, 3.8vw, 1.8rem); margin: 0 0 6px 0; font-weight: 700; line-height: 1.25;">¿Listo para ser parte de la historia?</h2>
+           
 
             <!-- 1. REPRODUCIR (TOP) -->
             <button type="button" onclick="replayMovie(); const f = document.getElementById('experiencia-finale'); if(f) f.style.display='none'; window.scrollTo({top: 0, behavior: 'instant'});" style="width: 100%; padding: 13px 20px; background: rgba(255, 255, 255, 0.08); border: 1.5px solid rgba(255, 255, 255, 0.35); color: #FFFFFF; border-radius: 50px; font-family: var(--font-heading, 'Cinzel', serif); font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.25s ease;">
-              <i class="fa-solid fa-rotate-left"></i> Reproducir de Nuevo
+              <i class="fa-solid fa-rotate-left"></i> Volver a Reproducir
             </button>
 
             <!-- 2. EXPLORAR (ANIMATED BOUNCE & GOLD PULSE) -->
