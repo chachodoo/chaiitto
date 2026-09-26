@@ -2404,7 +2404,7 @@ function closeTilesStaggered() {
   }, totalCloseDuration);
 }
 /* ===================================================
-   VIP PROFILE DRAWER SYSTEM (100% ADDITIVE)
+   VIP PROFILE DRAWER SYSTEM (COMPACT & RIGHT-DOCKED)
    =================================================== */
 function toggleProfileDrawer() {
   const drawer = document.getElementById('profile-drawer-backdrop');
@@ -2412,9 +2412,11 @@ function toggleProfileDrawer() {
   const isHidden = (drawer.style.display === 'none' || drawer.style.display === '');
   if (isHidden) {
     renderProfileDrawerContent();
-    drawer.style.display = 'block';
+    drawer.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
   } else {
     drawer.style.display = 'none';
+    document.body.style.overflow = '';
   }
 }
 
@@ -2431,45 +2433,42 @@ function renderProfileDrawerContent() {
   const isAuth = sessionStorage.getItem('chai_vip_auth') === 'true';
 
   if (!isAuth) {
-    // 1. GUEST / LOGIN VIEW
+    // 1. GUEST / LOGIN VIEW (COMPACT SINGLE VIEWPORT - NO BLABBER)
     container.innerHTML = `
-      <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; text-align: center; padding: 10px 0;">
-        <div style="width: 58px; height: 58px; border-radius: 50%; background: rgba(245, 208, 97, 0.12); border: 1.5px solid rgba(212, 175, 55, 0.4); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: #F5D061; font-size: 1.5rem;">
-          <i class="fa-solid fa-key"></i>
-        </div>
-        <h4 style="margin: 0 0 6px 0; color: #FFFFFF; font-family: var(--font-heading, 'Cinzel', serif); font-size: 1.15rem; letter-spacing: 0.5px;">Acceso de Miembro</h4>
-        <p style="margin: 0 0 20px 0; color: #A3C4AF; font-size: 0.82rem; font-family: var(--font-body, 'Montserrat', sans-serif); line-height: 1.4;">Ingresa con tu teléfono y PIN para consultar tus tazas y beneficios VIP.</p>
-
-        <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; text-align: left;">
-          <div>
-            <label style="display: block; font-size: 0.72rem; font-weight: 700; color: #F5D061; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Teléfono (10 dígitos)</label>
-            <input type="tel" id="drawer-phone-input" placeholder="Ej. 2218415466" style="width: 100%; box-sizing: border-box; padding: 11px 14px; border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.4); background: rgba(0, 0, 0, 0.45); color: #FFFFFF; font-size: 0.95rem;">
+      <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 8px 0 4px 0;">
+        <div style="text-align: center;">
+          <!-- LOCK ICON -->
+          <div style="width: 52px; height: 52px; border-radius: 50%; background: rgba(245, 208, 97, 0.12); border: 1.5px solid rgba(212, 175, 55, 0.4); display: flex; align-items: center; justify-content: center; margin: 10px auto 20px; color: #F5D061; font-size: 1.4rem;">
+            <i class="fa-solid fa-lock"></i>
           </div>
-          <div>
-            <label style="display: block; font-size: 0.72rem; font-weight: 700; color: #F5D061; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">PIN (4 dígitos)</label>
-            <input type="password" id="drawer-pin-input" maxlength="4" placeholder="••••" style="width: 100%; box-sizing: border-box; padding: 11px 14px; border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.4); background: rgba(0, 0, 0, 0.45); color: #FFFFFF; font-size: 1.1rem; letter-spacing: 3px; font-family: monospace;">
+
+          <!-- INPUTS WITH INLINE LABELS ONLY -->
+          <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
+            <input type="tel" id="drawer-phone-input" placeholder="Teléfono (10 dígitos)" style="width: 100%; box-sizing: border-box; padding: 13px 14px; border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.4); background: rgba(0, 0, 0, 0.45); color: #FFFFFF; font-size: 0.95rem; outline: none;">
+            <input type="password" id="drawer-pin-input" placeholder="PIN" style="width: 100%; box-sizing: border-box; padding: 13px 14px; border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.4); background: rgba(0, 0, 0, 0.45); color: #FFFFFF; font-size: 0.95rem; outline: none;">
           </div>
+
+          <div id="drawer-login-error" style="min-height: 20px; font-size: 0.78rem; font-weight: 600; margin-top: 8px; color: #e74c3c;"></div>
+
+          <button onclick="loginFromProfileDrawer()" style="width: 100%; margin-top: 6px; padding: 13px; border-radius: 10px; background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%); color: #102619; font-weight: 800; font-family: var(--font-heading, 'Cinzel', serif); font-size: 0.92rem; border: none; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35); transition: transform 0.2s;">
+            <i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión
+          </button>
         </div>
 
-        <div id="drawer-login-error" style="min-height: 20px; font-size: 0.78rem; font-weight: 600; margin-bottom: 10px; color: #e74c3c;"></div>
-
-        <button onclick="loginFromProfileDrawer()" style="width: 100%; padding: 13px; border-radius: 10px; background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%); color: #102619; font-weight: 800; font-family: var(--font-heading, 'Cinzel', serif); font-size: 0.92rem; border: none; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35); transition: transform 0.2s;">
-          <i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión
-        </button>
-
-        <div style="margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(212, 175, 55, 0.2); display: flex; flex-direction: column; gap: 10px;">
-          <a href="https://wa.me/522218415466?text=%C2%A1Hola%20Chai-itto!%20Olvid%C3%A9%20mi%20PIN%20VIP.%20%C2%BFMe%20apoyan%20a%20recuperarlo?" target="_blank" rel="noopener noreferrer" style="color: #A3C4AF; font-size: 0.76rem; text-decoration: none;">
+        <!-- FOOTER LINKS -->
+        <div style="padding-top: 14px; border-top: 1px solid rgba(212, 175, 55, 0.2); display: flex; flex-direction: column; gap: 10px; text-align: center;">
+          <a href="https://wa.me/522218415466?text=%C2%A1Hola%20Chai-itto!%20Olvid%C3%A9%20mi%20PIN%20VIP%20Premium.%20%C2%BFMe%20apoyan%20a%20recuperarlo?" target="_blank" rel="noopener noreferrer" style="color: #A3C4AF; font-size: 0.76rem; text-decoration: none;">
             <i class="fa-brands fa-whatsapp"></i> ¿Olvidaste tu PIN?
           </a>
-          <button onclick="toggleProfileDrawer(); switchPage('vip');" style="background: transparent; border: 1.5px solid rgba(212, 175, 55, 0.5); color: #F5D061; padding: 10px; border-radius: 10px; font-size: 0.8rem; font-weight: 700; cursor: pointer; text-transform: uppercase; font-family: var(--font-heading, 'Cinzel', serif);">
-            Ver Beneficios del Club VIP
+          <button onclick="toggleProfileDrawer(); switchPage('vip');" style="background: transparent; border: 1px solid rgba(212, 175, 55, 0.45); color: #F5D061; padding: 10px; border-radius: 8px; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-transform: uppercase; font-family: var(--font-heading, 'Cinzel', serif);">
+            ¿Aún no eres VIP? Ver Beneficios
           </button>
         </div>
       </div>
     `;
   } else {
-    // 2. ACTIVE VIP MEMBER DASHBOARD
-    const name = sessionStorage.getItem('chai_vip_name') || 'Miembro VIP';
+    // 2. ACTIVE VIP MEMBER DASHBOARD (COMPACT FIT)
+    const name = sessionStorage.getItem('chai_vip_name') || 'Miembro VIP Premium';
     const expiry = sessionStorage.getItem('chai_vip_expiry') || 'Vigencia Activa';
     const cups = parseInt(sessionStorage.getItem('chai_vip_cups') || '0', 10);
     const pin = sessionStorage.getItem('chai_vip_pin') || '';
@@ -2478,55 +2477,55 @@ function renderProfileDrawerContent() {
     let cupsHtml = '';
     for (let i = 1; i <= 4; i++) {
       if (i <= cups) {
-        cupsHtml += `<span title="Taza ${i} canjeada" style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.25);border-radius:50%;font-size:15px;margin:0 5px;"><i class="fa-solid fa-mug-hot"></i></span>`;
+        cupsHtml += `<span title="Taza ${i} canjeada" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.25);border-radius:50%;font-size:14px;margin:0 4px;"><i class="fa-solid fa-mug-hot"></i></span>`;
       } else {
-        cupsHtml += `<span title="Taza ${i} disponible" style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;background:linear-gradient(135deg, #F5D061 0%, #D4AF37 100%);color:#102619;border-radius:50%;font-size:15px;margin:0 5px;box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);"><i class="fa-solid fa-mug-hot"></i></span>`;
+        cupsHtml += `<span title="Taza ${i} disponible" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;background:linear-gradient(135deg, #F5D061 0%, #D4AF37 100%);color:#102619;border-radius:50%;font-size:14px;margin:0 4px;box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);"><i class="fa-solid fa-mug-hot"></i></span>`;
       }
     }
 
     container.innerHTML = `
-      <div style="flex: 1; display: flex; flex-direction: column; gap: 16px;">
+      <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 12px;">
         
-        <!-- MEMBER INFO BADGE -->
-        <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center;">
+        <!-- MEMBER INFO -->
+        <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 10px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center;">
           <div>
-            <span style="font-size: 0.65rem; font-weight: 800; color: #F5D061; text-transform: uppercase; letter-spacing: 1px;">Membresía Activa</span>
-            <div style="color: #FFFFFF; font-family: var(--font-heading, 'Cinzel', serif); font-size: 1.15rem; font-weight: 700; margin-top: 2px;">${name}</div>
-            <div style="color: #A3C4AF; font-size: 0.72rem; margin-top: 2px;"><i class="fa-regular fa-calendar-check" style="color: #D4AF37;"></i> ${expiry}</div>
+            <span style="font-size: 0.65rem; font-weight: 800; color: #F5D061; text-transform: uppercase; letter-spacing: 0.8px;">VIP Premium Activo</span>
+            <div style="color: #FFFFFF; font-family: var(--font-heading, 'Cinzel', serif); font-size: 1.05rem; font-weight: 700; margin-top: 1px;">${name}</div>
+            <div style="color: #A3C4AF; font-size: 0.7rem;"><i class="fa-regular fa-calendar-check" style="color: #D4AF37;"></i> ${expiry}</div>
           </div>
-          <button onclick="logoutFromProfileDrawer()" title="Cerrar sesión" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: #FFFFFF; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; cursor: pointer;">
+          <button onclick="logoutFromProfileDrawer()" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: #FFFFFF; padding: 5px 10px; border-radius: 6px; font-size: 0.72rem; cursor: pointer;">
             Salir
           </button>
         </div>
 
-        <!-- COURTESY CUPS TRACKER -->
-        <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; padding: 16px; text-align: center;">
-          <div style="font-size: 0.82rem; font-weight: 700; color: #E2ECE5; margin-bottom: 10px;">Tazas de cortesía del mes (4 al mes)</div>
-          <div style="display: flex; justify-content: center; align-items: center; margin: 10px 0;">${cupsHtml}</div>
-          <div style="font-size: 0.82rem; color: #F5D061; font-weight: 700; margin-top: 8px;">
-            ${remaining > 0 ? `Te quedan ${remaining} tazas disponibles` : '¡Completaste tus 4 tazas de este mes!'}
+        <!-- CUPS TRACKER -->
+        <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 10px; padding: 14px 12px; text-align: center;">
+          <div style="font-size: 0.78rem; font-weight: 700; color: #E2ECE5; margin-bottom: 8px;">Tazas de cortesía del mes (4 al mes)</div>
+          <div style="display: flex; justify-content: center; align-items: center; margin: 8px 0;">${cupsHtml}</div>
+          <div style="font-size: 0.78rem; color: #F5D061; font-weight: 700; margin-top: 6px;">
+            ${remaining > 0 ? `Te quedan ${remaining} tazas disponibles` : '¡Completaste tus 4 tazas del mes!'}
           </div>
 
           ${remaining > 0 ? `
-            <button onclick="toggleProfileDrawer(); redeemVipCup();" style="margin-top: 14px; width: 100%; padding: 11px; border-radius: 8px; background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%); color: #102619; font-weight: 800; font-size: 0.9rem; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);">
+            <button onclick="toggleProfileDrawer(); redeemVipCup();" style="margin-top: 10px; width: 100%; padding: 10px; border-radius: 8px; background: linear-gradient(135deg, #F5D061 0%, #D4AF37 100%); color: #102619; font-weight: 800; font-size: 0.88rem; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);">
               <i class="fa-solid fa-mug-hot"></i> Canjear 1 Taza
             </button>
           ` : ''}
         </div>
 
-        <!-- MEMBER PIN & WHATSAPP BUTTONS -->
-        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: auto;">
+        <!-- WHATSAPP & ACTIONS -->
+        <div style="display: flex; flex-direction: column; gap: 8px; margin-top: auto;">
           ${pin ? `
-            <a href="https://wa.me/?text=${encodeURIComponent('Mi PIN VIP de Chai-itto es: ' + pin)}" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; border-radius: 10px; background: #25D366; color: #FFFFFF; font-weight: 800; font-size: 0.88rem; text-decoration: none; box-shadow: 0 4px 12px rgba(37,211,102,0.3);">
+            <a href="https://wa.me/?text=${encodeURIComponent('Mi PIN VIP Premium de Chai-itto es: ' + pin)}" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 11px; border-radius: 8px; background: #25D366; color: #FFFFFF; font-weight: 800; font-size: 0.84rem; text-decoration: none; box-shadow: 0 3px 10px rgba(37,211,102,0.3);">
               <i class="fa-brands fa-whatsapp fa-lg"></i> Guardar mi PIN en mi WhatsApp
             </a>
           ` : ''}
 
-          <a href="https://chat.whatsapp.com/IeBNBW1Tiap5SBGyrBLt8r?s=cl&p=a&ilr=0" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 11px; border-radius: 10px; background: transparent; border: 1.5px solid #25D366; color: #FFFFFF; font-weight: 700; font-size: 0.85rem; text-decoration: none;">
+          <a href="https://chat.whatsapp.com/IeBNBW1Tiap5SBGyrBLt8r?s=cl&p=a&ilr=0" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; border-radius: 8px; background: transparent; border: 1.5px solid #25D366; color: #FFFFFF; font-weight: 700; font-size: 0.82rem; text-decoration: none;">
             <i class="fa-solid fa-users" style="color: #25D366;"></i> Unirme al Grupo VIP
           </a>
 
-          <button onclick="toggleProfileDrawer(); switchPage('bazar');" style="width: 100%; padding: 11px; border-radius: 10px; background: transparent; border: 1.5px solid rgba(212, 175, 55, 0.5); color: #F5D061; font-weight: 700; font-size: 0.85rem; cursor: pointer; text-transform: uppercase;">
+          <button onclick="toggleProfileDrawer(); switchPage('bazar');" style="width: 100%; padding: 10px; border-radius: 8px; background: transparent; border: 1.5px solid rgba(212, 175, 55, 0.5); color: #F5D061; font-weight: 700; font-size: 0.82rem; cursor: pointer; text-transform: uppercase;">
             <i class="fa-solid fa-store"></i> Ir al Outlet VIP
           </button>
         </div>
@@ -2545,7 +2544,10 @@ async function loginFromProfileDrawer() {
   const enteredPin = pinInput ? pinInput.value.trim() : '';
 
   if (!enteredPhone || !enteredPin) {
-    if (errorEl) errorEl.textContent = 'Ingresa tu número y PIN.';
+    if (errorEl) {
+      errorEl.style.color = '#e74c3c';
+      errorEl.textContent = 'Ingresa tu número y PIN.';
+    }
     return;
   }
 
@@ -2586,7 +2588,6 @@ async function loginFromProfileDrawer() {
 
     renderProfileDrawerContent();
 
-    // Sync Bazar section if user happens to be there
     if (typeof showUnlockedBazar === 'function' && document.getElementById('bazar-vip-content')) {
       showUnlockedBazar();
     }
