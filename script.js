@@ -2520,18 +2520,14 @@ function renderProfileDrawerContent() {
 
         <!-- WHATSAPP & ACTIONS -->
         <div style="display: flex; flex-direction: column; gap: 8px; margin-top: auto;">
-          ${pin ? `
-            <a href="https://wa.me/?text=${encodeURIComponent('Mi PIN VIP Premium de Chai-itto es: ' + pin)}" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 11px; border-radius: 8px; background: #25D366; color: #FFFFFF; font-weight: 800; font-size: 0.84rem; text-decoration: none; box-shadow: 0 3px 10px rgba(37,211,102,0.3);">
-              <i class="fa-brands fa-whatsapp fa-lg"></i> Guardar mi PIN en mi WhatsApp
-            </a>
-          ` : ''}
+          
 
           <a href="https://chat.whatsapp.com/IeBNBW1Tiap5SBGyrBLt8r?s=cl&p=a&ilr=0" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; border-radius: 8px; background: transparent; border: 1.5px solid #25D366; color: #FFFFFF; font-weight: 700; font-size: 0.82rem; text-decoration: none;">
             <i class="fa-solid fa-users" style="color: #25D366;"></i> Unirme al Grupo VIP
           </a>
 
           <button onclick="toggleProfileDrawer(); switchPage('bazar');" style="width: 100%; padding: 10px; border-radius: 8px; background: transparent; border: 1.5px solid rgba(212, 175, 55, 0.5); color: #F5D061; font-weight: 700; font-size: 0.82rem; cursor: pointer; text-transform: uppercase;">
-            <i class="fa-solid fa-store"></i> Ir al Outlet VIP
+            <i class="fa-solid fa-store"></i> Ir al Outlet
           </button>
         </div>
 
