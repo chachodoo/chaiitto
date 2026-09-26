@@ -1850,26 +1850,18 @@ nav.main-nav {
         <img src="logo.png" alt="Logo Chai-itto" class="logo-main" onclick="switchPage('inicio')">
       </div>
       
-      <!-- 3. Mobile Header Actions (WhatsApp + Cart) -->
       <div class="mobile-header-actions">
-        <a href="https://wa.me/522218415466?text=Hola%20Chai-itto!%20Me%20gustar%C3%ADa%20hacer%20una%20consulta." 
-           target="_blank" 
-           rel="noopener noreferrer" 
-           class="mobile-header-wa-btn" 
-           aria-label="Contactar por WhatsApp">
-          <i class="fa-brands fa-whatsapp"></i>
-        </a>
-
-          <div class="mobile-header-actions">
-  <a href="..." class="mobile-header-wa-btn">...</a>
-  <button ... class="mobile-cart-btn">...</button>
-        </div>
-
-        <button id="mobile-header-cart-btn" class="mobile-cart-btn" onclick="toggleCartDrawer()" aria-label="Ver Carrito">
-          <i class="fa-solid fa-cart-shopping"></i>
-          <span id="mobile-cart-badge">0</span>
-        </button>
-      </div>
+  <a href="https://wa.me/522218415466" target="_blank" rel="noopener noreferrer" class="mobile-header-wa-btn" title="WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+  <button type="button" id="mobile-profile-btn" onclick="toggleProfileDrawer()" class="mobile-header-wa-btn" title="Mi Cuenta VIP" style="border: none; background: transparent; cursor: pointer;">
+    <i class="fa-regular fa-user" id="mobile-profile-icon"></i>
+  </button>
+  <button type="button" class="mobile-cart-btn" id="mobile-header-cart-btn" onclick="toggleCartDrawer()" title="Ver carrito">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span id="mobile-cart-badge">0</span>
+  </button>
+</div>
         </div>
             
         <!-- ROW 2: PERMANENT MOBILE NAVIGATION BAR -->
